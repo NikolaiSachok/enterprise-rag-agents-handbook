@@ -1,15 +1,8 @@
 ---
-id: cross-cutting
-title: Cross-cutting
-sidebar_position: 4
+id: evaluation
+title: "Evaluation"
+sidebar_position: 1
 ---
-
-# Cross-cutting concerns
-
-Three things run through every stage of the pipeline and don't reduce to a single step: how you know the
-system works (**Evaluation**), how you keep it safe (**Guardrails**), and how you see what it's doing in
-production (**Observability**). We start with evaluation — without it there's nothing to tune the rest
-against.
 
 ## Evaluation
 
@@ -100,14 +93,5 @@ The main practical power of eval: it shows you which stage the failure is in.
 - **Offline** (regressions in CI) + **online** (feedback, A/B).
 - Metrics tell you which stage to fix.
 
-**New terms** → [Glossary](../glossary.md): evaluation, golden dataset / ground truth, answer relevance,
+**New terms** → [Glossary](../../glossary.md): evaluation, golden dataset / ground truth, answer relevance,
 correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval, A/B testing.
-
----
-
-:::note[More on this page]
-
-🚧 **Guardrails** (prompt injection, PII, safety on the way in and out) and **Observability** (tracing,
-chunk logging, cost and latency).
-
-:::

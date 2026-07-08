@@ -93,7 +93,7 @@ LLM-вызовов *перед* retrieval заметно поднимают по
 ```
 
 Каждая стадия снижает retrieval failure. Насколько именно — это **измеряют**: recall@K, precision@K,
-MRR, nDCG. Метрики формализуем в слое [Evaluation](./cross-cutting.md).
+MRR, nDCG. Метрики формализуем в слое [Evaluation](./cross-cutting/evaluation.md).
 
 ## Что забрать из урока
 

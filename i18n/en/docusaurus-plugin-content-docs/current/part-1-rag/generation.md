@@ -72,7 +72,7 @@ if it were fact, and a single error travels further — into a report, into some
 Even with instructions, a model will sometimes override the context with its own knowledge, or stumble when
 the context contradicts what it "believes." How far the answer actually rests on the sources is something you
 **measure** — with the faithfulness / groundedness metric. We formalize it in the
-[Evaluation](./cross-cutting.md) layer; for now, hold on to the idea that "the model behaves well" isn't a
+[Evaluation](./cross-cutting/evaluation.md) layer; for now, hold on to the idea that "the model behaves well" isn't a
 feeling, it's a number.
 
 ## Fixing generation failure, class by class

@@ -1,0 +1,8 @@
+{
+  "label": "Cross-cutting",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Three things run through every stage of the pipeline and don't reduce to a single step: how you know the system works (Evaluation), how you keep it safe (Guardrails), and how you see what it's doing in production (Observability). We start with evaluation — without it there's nothing to tune the rest against."
+  }
+}

@@ -155,3 +155,27 @@ in production (user feedback, A/B).
 **Regression eval** — running the golden set in CI so an improvement in one place doesn't break another.
 
 **A/B testing** — comparing two versions of the system on live traffic by their metrics.
+
+## Guardrails
+
+**Guardrails** — a safety layer on the input and output of an LLM system: against attacks, leaks, and harmful output.
+
+**Prompt injection** — planting instructions in text the model reads to override the system prompt. Direct (from the user) and indirect (hidden in retrieved content — dangerous for RAG).
+
+**Spotlighting** — marking untrusted content (delimiters, random sentinels) so the model sees it as data, not instructions.
+
+**Instruction hierarchy** — source priority: system > developer > user > tool/retrieved; retrieved content is least trusted.
+
+**PII redaction** — detecting and hiding personal data on input and output; critical with external APIs.
+
+**Input / output validation** — checking the input (attacks, off-topic) and the output (leaks, PII, policy violations).
+
+**Content safety / moderation** — filtering harmful or off-policy content on both surfaces.
+
+**Jailbreak** — bypassing a model's built-in safeguards (unlike injection, which exploits the instruction/data ambiguity).
+
+**Tool egress control** — limiting the tools and actions available to an agent (least privilege), so a successful injection can do little.
+
+**Attack success rate (ASR)** — the share of successful attacks over a set; a guardrails quality metric.
+
+**Defense-in-depth** — layered defense: no single layer is complete; they work together.

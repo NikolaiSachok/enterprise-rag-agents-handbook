@@ -95,7 +95,7 @@ query → [transform] → [hybrid: dense + BM25, metadata filter + ACL]
 ```
 
 Every stage drives retrieval failure down. By exactly how much is something you **measure**: recall@K,
-precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cutting.md) layer.
+precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cutting/evaluation.md) layer.
 
 ## What to take away
 
