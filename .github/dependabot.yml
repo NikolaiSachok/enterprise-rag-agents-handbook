@@ -1,0 +1,26 @@
+# Keep the Docusaurus toolchain patched and drain inherited npm advisories over time.
+version: 2
+updates:
+  # npm dependencies (Docusaurus core, plugins, dev tooling).
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "infra"
+      - "chore"
+
+  # GitHub Actions used by the CI and deploy workflows.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "infra"
+      - "chore"
