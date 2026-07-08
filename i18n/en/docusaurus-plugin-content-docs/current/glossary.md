@@ -131,3 +131,27 @@ rather than the model's memory.
 suppresses it in favor of the context.
 
 **Hallucination** — a confidently stated fact that isn't in the sources, or is wrong.
+
+## Evaluation
+
+**Evaluation** — measuring pipeline quality with metrics instead of by feel. It makes the pipeline tunable.
+
+**Golden dataset / ground truth** — examples of "question + relevant chunks / correct answer" that metrics
+are computed against. Quality beats size.
+
+**Answer relevance** — a generation metric: does the answer address the question asked.
+
+**Correctness** — whether the answer matches a reference answer in substance.
+
+**LLM-as-a-judge** — scoring free-text output with another LLM against a rubric or reference; it scales
+human-like judgment to thousands of examples.
+
+**Judge bias** — systematic skews of an LLM judge: position bias (favors the first option), verbosity bias
+(longer = better), self-preference (its own style).
+
+**Offline vs online eval** — evaluating on a golden set before deploy (regression in CI) versus measuring
+in production (user feedback, A/B).
+
+**Regression eval** — running the golden set in CI so an improvement in one place doesn't break another.
+
+**A/B testing** — comparing two versions of the system on live traffic by their metrics.
