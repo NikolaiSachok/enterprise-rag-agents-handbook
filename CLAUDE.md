@@ -36,6 +36,17 @@ Treat this like a build that must pass: a page with raw calques is not ready to 
   material; all examples are generic and invented. Only true, evidenced claims — no marketing.
 - License: **MIT**.
 
+## Authoring conventions (content pages)
+- **Internal links → link the `.md` file, not a bare path.** Use `[x](./retrieval.md)` /
+  `[x](../glossary.md)`, NOT `[x](./retrieval)` / `[x](../glossary)`. Docusaurus resolves `.md` links by
+  file path and validates them at build (`onBrokenLinks: 'throw'`), so a wrong target hard-fails CI. Bare
+  relative paths are treated as URL-relative to the page's trailing-slash URL (e.g. `../glossary` from
+  `/part-1-rag/ingestion/` → the wrong `/part-1-rag/glossary`) and are NOT validated — they ship broken.
+- **Admonitions:** `:::type[Title]` with a blank line after the opening line and before the closing `:::`;
+  the space-title form (`:::tip Title`) renders as literal text.
+- **Videos:** embed with the global `<YouTube id="…" title="…" />` component, not a bare YouTube link, so
+  the player is in-page (nocookie, lazy, responsive).
+
 ## Engineering workflow (SDLC)
 The handbook is itself a demonstration of engineering maturity, so it follows a real workflow — kept
 proportionate to a docs site, no ceremony for its own sake.

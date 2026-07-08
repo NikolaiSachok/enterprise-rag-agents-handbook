@@ -85,7 +85,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
 Он зависит от типа документа (плотный юридический текст ≠ болтливая переписка) и типа запросов
 (точечный факт ≠ «объясни политику»). Поэтому размер чанка не угадывают, а **измеряют** — прогоняют
 варианты через оценку поиска и смотрят на метрики. Отсюда мостик к слою
-[Evaluation](./cross-cutting): чанкинг — не «настроил и забыл», а параметр, который тюнят по метрикам.
+[Evaluation](./cross-cutting.md): чанкинг — не «настроил и забыл», а параметр, который тюнят по метрикам.
 
 :::
 
@@ -107,7 +107,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
 ### Забегая вперёд: у чанка две роли — их можно развести
 
 Вернёмся к тому, что чанк одновременно ищется и скармливается LLM. Продвинутая идея (подробно — в слое
-[retrieval](./retrieval)): **это не обязательно один и тот же кусок текста.** Можно *искать* по мелким
+[retrieval](./retrieval.md)): **это не обязательно один и тот же кусок текста.** Можно *искать* по мелким
 точным чанкам (хороший эмбеддинг), а *в LLM подавать* более крупный родительский фрагмент вокруг
 найденного (полный контекст). Это семейство приёмов — *parent-document / small-to-big retrieval*. Пока
 достаточно запомнить, что развести две роли чанка возможно.
@@ -121,7 +121,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
   access control.
 - Размер чанка **измеряют метриками**, а не угадывают.
 
-**Новые термины** → [Глоссарий](../glossary): chunk, chunk overlap, recursive/structural chunking,
+**Новые термины** → [Глоссарий](../glossary.md): chunk, chunk overlap, recursive/structural chunking,
 semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 ---
@@ -164,7 +164,7 @@ semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 Конфликт «точность против скорости» разрешают комбинацией: bi-encoder быстро достаёт топ-K из миллионов
 (полнота), cross-encoder переоценивает эти K (точность). Шаг переоценки — это и есть **реранкинг**.
-Подробнее в слое [retrieval](./retrieval).
+Подробнее в слое [retrieval](./retrieval.md).
 
 ### Как выбирают эмбеддинг-модель
 
@@ -201,7 +201,7 @@ semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
   (приватность)**.
 - Одна модель для запроса и документа; следи за метрикой и префиксами.
 
-**Новые термины** → [Глоссарий](../glossary): embedding, embedding space, bi-encoder, cross-encoder,
+**Новые термины** → [Глоссарий](../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
 dimensionality, cosine similarity, retrieval-optimized (asymmetric) embeddings, multilingual embeddings,
 self-hosted vs API embeddings.
 
