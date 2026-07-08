@@ -56,6 +56,9 @@ proportionate to a docs site, no ceremony for its own sake.
   Part II**; labels `lesson` / `editorial` / `infra` / `chore`.
 - **Dependabot** keeps the Docusaurus toolchain patched (weekly), draining the inherited npm advisories
   over time.
+- **Actions are SHA-pinned.** Every `uses:` in a workflow is pinned to a full-length commit SHA (with a
+  `# vX` comment), not a moving tag — supply-chain hardening. The repo's Actions policy **enforces** this
+  (GitHub-owned actions only, SHA-pinned), so an unpinned `@v4` will hard-fail the run at startup.
 - **Deploy:** merge to `main` → GitHub Actions builds all locales → GitHub Pages.
 
 ## Local dev
