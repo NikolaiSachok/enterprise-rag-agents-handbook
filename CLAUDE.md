@@ -17,6 +17,24 @@ diagrams, offline local search).
   (`i18n/en/docusaurus-plugin-content-docs/current/...`).
 - Structure: **Part I — RAG** → **Part II — Agents**, a single-definition **Glossary**, and (later)
   per-topic case-study pages kept separate from the industry-general theory pages.
+- **Editorial gate** = the `editorial-team` skill (`~/.claude/skills/editorial-team`); the "Editorial
+  standard" section below is its handbook-facing summary. Run it on every page before publish.
+
+### Layer-close ritual
+When a layer's *base* is finished, do all of this before moving on:
+1. **Deepen issue** — open `Deepen: <Layer>` in the `Part I/II — deepening` milestone with its topics.
+2. **On-page pointer** — a brief `:::note[Дальше — углубление слоя]` / `[Next — going deeper]` at the page
+   bottom (deepening topics only; no issue/milestone refs on the public page).
+3. **Glossary** — add the layer's new terms to the Glossary (RU + EN).
+4. Publish (PR → CI → merge → deploy) and run the editorial pass.
+A `🚧` note must mean *next-pass deepening*, never *unfinished base* — if something base is unwritten, the
+layer isn't closed.
+
+### Editorial config (input to the editorial-team skill)
+- Primary language **RU**; translation target **EN**. Voice: second-person «ты».
+- Keep terms-of-art in English (*chunking*, *reranking*, *bi-encoder*, *grounding*, *access control*, …).
+- General theory only — no private domain / anti-keywords.
+- Tier: routine handbook pages = 2 passes/language; a flagship / LinkedIn extract gets the full team.
 
 ## Editorial standard (required gate before a page or article is "done")
 Conversational drafts are fine as **input**. Before publishing, run an **independent editorial pass per
@@ -75,6 +93,10 @@ and fidelity conflict, **fidelity wins** — flag it, don't smooth it into somet
   the space-title form (`:::tip Title`) renders as literal text.
 - **Videos:** embed with the global `<YouTube id="…" title="…" />` component, not a bare YouTube link, so
   the player is in-page (nocookie, lazy, responsive).
+- **Glossary external refs:** a glossary term that maps to a named algorithm/metric/technique gets ONE
+  canonical link at the end of its definition — `↗ [Wikipedia](…)` for classics (BM25, cosine similarity,
+  precision/recall, nDCG, MRR), `↗ [arXiv](…)` for techniques from papers (HyDE, ColBERT). Verify every URL
+  (like video links) — never from memory. External links live only in the Glossary; lessons link to it.
 
 ## Engineering workflow (SDLC)
 The handbook is itself a demonstration of engineering maturity, so it follows a real workflow — kept

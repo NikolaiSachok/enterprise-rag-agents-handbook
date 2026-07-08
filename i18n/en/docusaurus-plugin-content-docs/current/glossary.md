@@ -7,7 +7,8 @@ sidebar_position: 4
 # Glossary
 
 Single definitions for the terms the handbook pages link to. Each one is defined here exactly once. The
-list grows as we work through the layers.
+list grows as we work through the layers. Where a term has a canonical source for its formulas and history,
+a link follows the definition (↗ Wikipedia for classics, ↗ arXiv for techniques from papers).
 
 ## Ingestion — chunking
 
@@ -47,6 +48,7 @@ but costs more in memory, search speed, and money.
 
 **Cosine similarity** — closeness measured by the angle between vectors; it reads direction and ignores
 length. The default metric; for normalized vectors it coincides with the dot product.
+↗ [Wikipedia](https://en.wikipedia.org/wiki/Cosine_similarity)
 
 **Retrieval-optimized (asymmetric) embeddings** — models trained on "query ↔ passage" pairs rather than on
 general sentence similarity. They often expect a `query:` / `passage:` prefix.
@@ -70,9 +72,10 @@ reranking).
 
 **HyDE (Hypothetical Document Embeddings)** — generate a hypothetical answer, embed it, and search with it:
 it often sits closer to the chunk you need than a short question does.
+↗ [arXiv](https://arxiv.org/abs/2212.10496)
 
 **BM25 / sparse retrieval** — classic lexical search by word overlap (term frequencies). Catches exact
-tokens, blind to synonyms.
+tokens, blind to synonyms. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25)
 
 **Hybrid search** — running dense and lexical search together and merging their scores. Covers each one's
 blind spot.
@@ -93,3 +96,38 @@ they aren't entitled to. A security requirement, not an option.
 
 **Recall@K / Precision@K** — search metrics: the share of the needed documents that landed in the top-K
 (recall), and the share of relevant ones among those returned (precision).
+↗ [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
+
+**nDCG (normalized discounted cumulative gain)** — a ranking metric that accounts not just for whether
+relevant documents are found but for their positions (higher is worth more).
+↗ [Wikipedia](https://en.wikipedia.org/wiki/Discounted_cumulative_gain)
+
+**MRR (mean reciprocal rank)** — the reciprocal position of the first relevant result, averaged over
+queries. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Mean_reciprocal_rank)
+
+## Generation
+
+**Grounding** — tying the answer to the supplied context rather than the model's parametric memory.
+
+**Grounding instructions** — telling the model explicitly to answer only from the context and to admit when
+the answer isn't there. The main lever against hallucination.
+
+**Context packing** — how retrieved chunks are assembled into the prompt: delimiting sources, ordering,
+picking a few best.
+
+**Lost-in-the-middle** — a model uses information buried in the middle of a long context worse than what
+sits at the start and end.
+
+**Citations / attribution** — pointing to the source of each claim in the answer; gives verifiability and
+curbs invention.
+
+**Refusal / abstention** — a proper "I don't know" when context is insufficient; better than a confident
+error.
+
+**Faithfulness / groundedness** — a metric of how much the answer actually rests on the supplied sources
+rather than the model's memory.
+
+**Parametric knowledge** — what the model learned in training and holds in its weights; RAG deliberately
+suppresses it in favor of the context.
+
+**Hallucination** — a confidently stated fact that isn't in the sources, or is wrong.
