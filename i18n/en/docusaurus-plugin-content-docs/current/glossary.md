@@ -179,3 +179,25 @@ in production (user feedback, A/B).
 **Attack success rate (ASR)** — the share of successful attacks over a set; a guardrails quality metric.
 
 **Defense-in-depth** — layered defense: no single layer is complete; they work together.
+
+## Observability
+
+**Observability** — the ability to see what a live system actually does: debug a bad answer, measure cost
+and latency.
+
+**Trace / span** — the full record of one request through the pipeline (trace) as steps (spans): query →
+retrieval + scores → prompt → output → agent steps.
+
+**RAG tracing** — tracing the RAG-specifics: which chunks were retrieved and with what scores, the final
+prompt, the raw output.
+
+**Cost per request / token accounting** — tracking cost and tokens per request; in LLM every call costs
+money.
+
+**Latency (p50 / p95)** — delay by percentiles; the generation and reranking steps matter most.
+
+**Three pillars (metrics / logs / traces)** — the three pillars of observability; for LLM, traces are the
+key one.
+
+**Feedback loop (observability → eval)** — production failures and user feedback become new golden-set
+cases.
