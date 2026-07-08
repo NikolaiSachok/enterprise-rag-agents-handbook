@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Pre-commit hook — mirrors the generic leak scan locally so secrets/credentials/
+# local paths never make it into a commit. Zero extra tooling: it just calls the
+# same script CI runs.
+#
+# Enable once per clone:
+#   git config core.hooksPath .githooks
+#
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+exec bash "$REPO_ROOT/scripts/leak-scan.sh"

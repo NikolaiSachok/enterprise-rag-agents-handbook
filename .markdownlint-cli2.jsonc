@@ -1,0 +1,49 @@
+{
+  // Markdownlint config tuned for Docusaurus / MDX prose.
+  // Goal: catch real structure/format hygiene issues without fighting Docusaurus
+  // conventions (frontmatter + H1, admonitions, wrapped prose, tables).
+  "config": {
+    "default": true,
+
+    // Prose is hard-wrapped/semantic-wrapped; line length is not a defect here.
+    "MD013": false,
+
+    // Inline HTML is used for admonitions / occasional JSX in MDX.
+    "MD033": false,
+
+    // Docusaurus pages carry a frontmatter `title:` AND an in-body `# H1`.
+    // MD025 (single H1) and MD041 (first line must be a heading) both misfire on that.
+    "MD025": false,
+    "MD041": false,
+
+    // Recurring section headings ("What to take away", "Key tradeoff") repeat across
+    // pages and sometimes within siblings; allow duplicates unless they are direct siblings.
+    "MD024": { "siblings_only": true },
+
+    // Bold lead-ins are used as intentional micro-emphasis, not as headings.
+    "MD036": false,
+
+    // Ordered lists restart / are single-item in prose; don't enforce numbering style.
+    "MD029": false,
+
+    // Table pipe spacing is cosmetic; Docusaurus renders compact/loose tables identically.
+    "MD060": false,
+
+    // MDX comments `{/* truncate */}` read as "space inside emphasis" to the linter.
+    "MD037": false
+  },
+  // Lint the handbook prose (docs, blog, and their EN translations). Meta/config files
+  // (CLAUDE.md, README, .github templates) are not lesson content and are out of scope.
+  "globs": [
+    "docs/**/*.md",
+    "blog/**/*.md",
+    "i18n/**/*.md"
+  ],
+  "ignores": [
+    "node_modules",
+    "build",
+    ".docusaurus",
+    ".cache-loader",
+    "**/node_modules/**"
+  ]
+}

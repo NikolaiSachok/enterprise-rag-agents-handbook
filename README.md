@@ -36,3 +36,30 @@ Output is generated into `build/` and can be served with any static host.
 - `docs/` — the handbook (Russian, the primary locale). Part I — RAG, Part II — Agents, Glossary.
 - `i18n/en/` — the English locale tree (translations of the docs, blog, and theme strings).
 - `blog/` — article excerpts and notes (placeholder for now).
+
+## Contributing / workflow
+
+The handbook follows a small, real SDLC (kept proportionate to a docs site):
+
+- **Trunk-based, PR-only.** `main` is always deployable and auto-deploys to GitHub Pages.
+  All changes land via a short-lived branch + Pull Request — no direct pushes to `main`.
+- **Conventional Commits** for messages (`docs:`, `feat:`, `fix:`, `chore:`, `ci:`) and PR
+  titles. PRs are **squash-merged**.
+- **CI gates every PR** (branch protection should require them green before merge):
+  1. `npm run build` for **both locales** — the real correctness gate (`onBrokenLinks: 'throw'`
+     catches dead internal links; a broken i18n tree fails the build).
+  2. **Markdown lint** — `npm run lint:md` (structure/format hygiene).
+  3. **Generic leak scan** — `npm run leak-scan` (secrets, credentials, local paths, emails).
+- **Content PRs** additionally require a **literary-edit pass per language, independently**
+  (see the editorial standard in `CLAUDE.md`) — enforced via the PR-template checklist.
+- **Issues & milestones** are the planning surface: issues track lessons/topics; milestones
+  = Part I / Part II; labels `lesson` / `editorial` / `infra` / `chore`.
+
+### Enable the pre-commit hook (once per clone)
+
+A local pre-commit hook mirrors the generic leak scan so leaks are caught before they're
+committed. No extra toolchain — enable it with:
+
+```bash
+git config core.hooksPath .githooks
+```

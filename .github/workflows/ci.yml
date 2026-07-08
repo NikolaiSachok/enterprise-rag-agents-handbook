@@ -1,0 +1,63 @@
+# CI gates for every Pull Request (and every branch push except `main`).
+#
+# `main` is covered by the separate deploy workflow (.github/workflows/deploy.yml),
+# so we skip pushes to `main` here to avoid running the same build twice.
+#
+# Gates (all must pass — branch protection should require them):
+#   1. build   — `npm run build` for BOTH locales; the real correctness gate
+#                (onBrokenLinks: 'throw' catches dead internal links; a broken i18n
+#                tree fails the build).
+#   2. lint    — markdown structure/format hygiene (markdownlint-cli2).
+#   3. leak    — generic secret / credential / local-path / email scan.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+
+# Cancel superseded runs on the same ref to save CI minutes.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build (both locales)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build website (all locales)
+        run: npm run build
+
+  lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Markdown lint
+        run: npm run lint:md
+
+  leak-scan:
+    name: Generic leak scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generic leak scan
+        run: bash scripts/leak-scan.sh
