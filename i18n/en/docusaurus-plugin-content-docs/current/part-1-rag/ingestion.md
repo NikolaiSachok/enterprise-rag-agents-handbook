@@ -150,9 +150,10 @@ picking a model isn't a detail, it's the foundation.
 
 :::tip[▶ Video]
 
-[What are Word Embeddings? — IBM Technology](https://www.youtube.com/watch?v=wgfSDrqYMJ4). The video is
-about **word** embeddings (the historical root of the idea); in RAG we embed whole chunks — the same
-principle, scaled up from a word to a piece of text.
+<YouTube id="wgfSDrqYMJ4" title="What are Word Embeddings? — IBM Technology" />
+
+The video is about **word** embeddings (the historical root of the idea); in RAG we embed whole chunks —
+the same principle, scaled up from a word to a piece of text.
 
 :::
 
@@ -216,8 +217,10 @@ self-hosted vs API embeddings.
 
 :::tip[▶ Video]
 
-[What is a Vector Database? — IBM Technology](https://www.youtube.com/watch?v=t9IDoenf-lo) — a bridge to
-the next layer: where the chunk vectors get stored and how you search them for nearest neighbors quickly.
+<YouTube id="t9IDoenf-lo" title="What is a Vector Database? — IBM Technology" />
+
+A bridge to the next layer: where the chunk vectors get stored and how you search them for nearest
+neighbors quickly.
 
 :::
 

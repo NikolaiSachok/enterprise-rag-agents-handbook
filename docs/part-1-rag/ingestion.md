@@ -143,9 +143,10 @@ semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 :::tip[▶ Видео]
 
-[What are Word Embeddings? — IBM Technology](https://www.youtube.com/watch?v=wgfSDrqYMJ4). Ролик про
-**словные** эмбеддинги (исторический корень идеи); в RAG мы эмбеддим целые чанки — принцип тот же,
-масштабированный со слова на кусок текста.
+<YouTube id="wgfSDrqYMJ4" title="What are Word Embeddings? — IBM Technology" />
+
+Ролик про **словные** эмбеддинги (исторический корень идеи); в RAG мы эмбеддим целые чанки — принцип тот
+же, масштабированный со слова на кусок текста.
 
 :::
 
@@ -206,8 +207,9 @@ self-hosted vs API embeddings.
 
 :::tip[▶ Видео]
 
-[What is a Vector Database? — IBM Technology](https://www.youtube.com/watch?v=t9IDoenf-lo) — мостик к
-следующему слою: куда складываются векторы чанков и как по ним быстро искать ближайшие.
+<YouTube id="t9IDoenf-lo" title="What is a Vector Database? — IBM Technology" />
+
+Мостик к следующему слою: куда складываются векторы чанков и как по ним быстро искать ближайшие.
 
 :::
 
