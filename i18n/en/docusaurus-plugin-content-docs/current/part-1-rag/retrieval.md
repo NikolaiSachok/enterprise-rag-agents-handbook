@@ -109,3 +109,12 @@ precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cut
 **New terms** → [Glossary](../glossary.md): dense retrieval, top-K, query transformation, multi-query,
 HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank Fusion, reranking, two-stage retrieval,
 metadata filtering, access control (ACL), recall@K, precision@K.
+
+---
+
+:::note[Next — going deeper]
+
+🚧 Second pass: HyDE mechanics, hybrid-fusion internals (RRF), reranker choice (cross-encoder vs LLM),
+parent-document retrieval, late interaction (ColBERT), query routing.
+
+:::

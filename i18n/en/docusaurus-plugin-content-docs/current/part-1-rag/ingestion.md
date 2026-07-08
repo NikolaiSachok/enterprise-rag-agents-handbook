@@ -226,8 +226,9 @@ neighbors quickly.
 
 ---
 
-:::note[Still to come on this page]
+:::note[Next — going deeper]
 
-🚧 Document parsing (PDF, tables, HTML) — how to turn messy sources into clean text ready for chunking.
+🚧 Second pass: document parsing (PDF, tables, HTML, OCR), advanced chunking (late chunking, contextual
+chunk embeddings), embedding fine-tuning.
 
 :::

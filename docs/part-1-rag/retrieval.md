@@ -106,3 +106,12 @@ MRR, nDCG. Метрики формализуем в слое [Evaluation](./cros
 **Новые термины** → [Глоссарий](../glossary.md): dense retrieval, top-K, query transformation, multi-query,
 HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank Fusion, reranking, two-stage retrieval,
 metadata filtering, access control (ACL), recall@K, precision@K.
+
+---
+
+:::note[Дальше — углубление слоя]
+
+🚧 Второй проход: механика HyDE, внутренности гибридного слияния (RRF), выбор реранкера
+(cross-encoder vs LLM), parent-document retrieval, поздняя интеракция (ColBERT), маршрутизация запросов.
+
+:::
