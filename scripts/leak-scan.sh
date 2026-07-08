@@ -19,6 +19,7 @@ cd "$ROOT"
 # package names like "gfm-task-list-item" trip naive secret/token patterns.
 EXCLUDES=(
   --exclude-dir=.git
+  --exclude=.git       # worktrees/submodules: .git is a pointer FILE, not a dir
   --exclude-dir=node_modules
   --exclude-dir=build
   --exclude-dir=.docusaurus
