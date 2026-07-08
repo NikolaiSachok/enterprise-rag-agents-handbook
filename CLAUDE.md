@@ -11,6 +11,22 @@ diagrams, offline local search).
 3. **A quality bar** — the handbook itself should model engineering maturity it describes: evaluation,
    guardrails, observability, clean issue/CI discipline.
 
+## Scope & prerequisites (assume an experienced audience)
+The reader is an experienced engineer. **Do NOT teach the basics of commodity, non-AI-specific tools**
+(Docker, Kubernetes, cloud, a web framework, a database) — assume they know them or can pick them up from a
+good existing course. For each such tool:
+- **Link the canonical basics once** (official site / docs / a solid course) as a one-line *Prerequisite*,
+  then move on. This is separate from the Glossary's `↗` concept refs — it's "go learn the tool elsewhere."
+- **Teach only the AI-specific delta:** what changes when this tool meets an LLM / RAG / agent workload —
+  the patterns, the glue, the gotchas unique to LLM work. Every tool lesson answers one question:
+  *"what's different about using this FOR AI?"*
+- Deltas, for calibration: FastAPI → streaming token output (SSE), async for long generations, timeouts;
+  Docker → model/GPU images, weight caching, cold starts; cloud → data residency & token cost,
+  managed-vs-self-hosted; Kubernetes → GPU scheduling, autoscaling on token throughput; vector DB → HNSW for
+  embeddings, hybrid + metadata filters for RAG.
+
+Keeps the handbook lean and respects the reader's time — no Tool-101 filler.
+
 ## Content workflow
 - Pages are drafted **conversationally, RU first**, then reworked into publish-quality prose.
 - **EN** is produced by a translation pass into the parallel i18n tree
