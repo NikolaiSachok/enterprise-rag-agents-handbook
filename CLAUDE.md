@@ -33,8 +33,9 @@ Keeps the handbook lean and respects the reader's time — no Tool-101 filler.
   (`i18n/en/docusaurus-plugin-content-docs/current/...`).
 - Structure: **Part I — RAG** → **Part II — Agents**, a single-definition **Glossary**, and (later)
   per-topic case-study pages kept separate from the industry-general theory pages.
-- **Editorial gate** = the `editorial-team` skill (`~/.claude/skills/editorial-team`); the "Editorial
-  standard" section below is its handbook-facing summary. Run it on every page before publish.
+- **Editorial gate** = the `editorial-team` skill (`~/.claude/skills/editorial-team`) — the single source of
+  truth for editorial rules; the "Editorial gate" section below is only a brief pointer + this project's
+  config. Run the skill on every page before publish.
 
 ### Layer-close ritual
 When a layer's *base* is finished, do all of this before moving on:
@@ -48,78 +49,35 @@ When a layer's *base* is finished, do all of this before moving on:
 A `🚧` note must mean *next-pass deepening*, never *unfinished base* — if something base is unwritten, the
 layer isn't closed.
 
-### Editorial config (input to the editorial-team skill)
+### Editorial config (project-specific input to the editorial-team skill)
+The editorial **rules** live in the `editorial-team` skill — that is the single source of truth. This section
+holds only what's specific to THIS project, which the skill consumes:
 - Primary language **RU**; translation target **EN**. Voice: second-person «ты».
-- RU term rendering, in priority order: **prefer the established RU term in the body** with the English in
-  parens at its first page-mention (e.g. *маршрутизатор (router)*, *контроль доступа (access control)*), then
-  the RU term alone; **keep English inline only where no crisp RU term exists** (*chunking*, *grounding*,
-  *bi-encoder*); never coin a fresh literal calque. Established Cyrillic loanwords count as the RU term
-  (*эмбеддинг*, *чанк*, *реранкинг*).
+- **Terms this project keeps in English** (no crisp RU equivalent): *chunking*, *grounding*, *bi-encoder*,
+  *cross-encoder*, *prompt injection*, *spotlighting*, *HyDE*, *BM25*, *ReAct*, *faithfulness*, *top-K*.
+  Canonical stage names (Ingestion / Retrieval / Generation / Agentic RAG) and code-facing acronyms (ACL)
+  stay as-is. Everything else with a natural RU term follows the skill's term-rendering policy (established RU
+  term in the body + English in parens at first page-mention, bridge refreshed periodically).
 - General theory only — no private domain / anti-keywords.
 - Tier: routine handbook pages = 2 passes/language; a flagship / LinkedIn extract gets the full team.
 
-## Editorial standard (required gate before a page or article is "done")
-Conversational drafts are fine as **input**. Before publishing, run an **independent editorial pass per
-language** (not just the translation — the original needs it too). Treat it like a build that must pass.
-The editor(s) verify THREE things:
+## Editorial gate (required before a page or article is "done")
+Conversational drafts are fine as **input**. Before publishing, run the **`editorial-team` skill** — it is
+the canonical, evolving spec for editorial quality, and it must pass like a build. Its gates, in brief:
+1. **No AI tells** — reads as written by a human (no uniform rhythm, over-signposting, listicle uniformity,
+   hedging seesaw, AI-vocabulary).
+2. **Idiomatic target language + naive-reader term check** — zero anglicisms/calques; an independent
+   *monolingual-reader* pass that kills opaque calques **and false friends** (a native-looking word with the
+   wrong meaning, e.g. RU «рубрика» ← *rubric*), applying the RU term-rendering policy in the config above.
+3. **Factual integrity** — no claim changed, no nuance dropped; when style and fidelity conflict, fidelity
+   wins.
+4. **Structural consistency** (managing editor) — see "Structure & presentation" below.
 
-**1. No AI tells — it must read as written by a human.** This is the hard bar for anything public (LinkedIn,
-articles). Reject and rewrite these machine-text patterns (sources: editor/HR guides on spotting AI text):
-- **Uniform rhythm** — sentences all a similar length. Vary it; mix short, blunt lines with longer ones.
-- **Over-signposting / meta-narration** — "In this section we'll explore…", "In conclusion…", "It's worth
-  noting that", "Important to note". Cut them and just say the thing. (RU: «Стоит отметить», «Важно
-  понимать», «В заключение».)
-- **Rule-of-three everywhere & forced parallelism**; the "not just X, but Y" cliché; fake hooks ("Here's
-  the kicker", "But here's the thing").
-- **Listicle uniformity** — every bullet as "**Bold header:** one explanatory sentence." Mix bullet shapes;
-  use prose where prose fits.
-- **Hedging seesaw** — a claim then immediately softened ("however", "to some extent", "generally"). Take a
-  stance.
-- **AI vocabulary** — delve, tapestry, leverage (as a verb), underscore, pivotal, realm, beacon,
-  multifaceted, meticulous, intricate, harness, facilitate, bolster, testament, symphony, "in today's
-  fast-paced world". (RU: «в современном мире», «играет ключевую роль», «неотъемлемая часть».)
-- **Tonal flatness & abstraction** — evenly polite, no opinion, abstract where a concrete example belongs.
-  Keep the author's voice, concrete specifics, the occasional take.
-- **Treadmill** — circling the same idea without adding information. Every paragraph earns its place.
-
-**2. Idiomatic target language, zero anglicisms (especially RU).** Phrasing a native writer would actually
-use; no calques (e.g. RU "Центральное напряжение" ← *central tension*, "покрывает" ← *covers*, "адресует
-проблему" ← *addresses*). Keep industry terms-of-art in English where that's the norm (*chunking*,
-*reranking*, *access control*) but frame the surrounding sentence naturally.
-
-*RU term rendering (naive-monolingual-reader pass enforces this), in PRIORITY order:*
-1. **If a natural, established RU term exists, use it in the body** — the text should read as smooth, fully
-   literary Russian, not peppered with English words that have a normal native equivalent (better for reading
-   and learning). At the term's **first main mention on each page, give the English once in parentheses** —
-   «маршрутизатор (router)», «контроль доступа (access control)» — as a bridge to English docs and code;
-   afterwards use the RU term alone. Established loanwords written in Cyrillic count as the RU term
-   («эмбеддинг», «чанк», «реранкинг»).
-2. **If there is NO crisp established RU term — or a translation would be ambiguous or clumsy — keep the
-   English** inline (Latin): *chunking*, *grounding*, *bi-encoder*, *cross-encoder*, *prompt injection*, *HyDE*,
-   *BM25*, *ReAct*. Precision beats a forced translation. Canonical stage names (Ingestion / Retrieval /
-   Generation / Agentic RAG) and code-facing acronyms (ACL) also stay as-is.
-3. **Never coin a fresh literal calque** the reader can't decode without the English word. Test each term as a
-   reader who does NOT know English — if it only decodes by back-translating, it fails. E.g. judge *bias* →
-   **предвзятость** (or keep *bias* inline), never «смещение» (reads as "displacement"); «смещение» is right
-   only in the statistical estimator / bias-variance sense.
-4. **Kill false friends** — a word that reads as native and IS understood, but in Russian means something
-   different from the English term. Worse than an opaque calque: the reader decodes it confidently and wrong.
-   E.g. *rubric* → «рубрика» ✗ (in RU = a thematic section, not grading criteria) → «критерии оценки»;
-   *validate against* → «валидировать против» ✗ → «сверять с». The naive-reader test is not just "can I decode
-   this without English" but "do I decode it to the RIGHT meaning."
-
-**3. Factual integrity preserved.** Editing must NOT change technical meaning, drop nuance, or invent
-claims. A dedicated fact-integrity check diffs the edited version's claims against the source. When style
-and fidelity conflict, **fidelity wins** — flag it, don't smooth it into something false.
-
-**Pipeline — scale editorial effort to the stakes:**
-- **Handbook page (default):** two independent passes per language — (a) literary / de-AI / anti-anglicism
-  editor, then (b) fact-integrity + proofread verifier.
-- **Flagship / LinkedIn / article extract:** a small **editorial team** — literary editor → technical
-  (fact) editor → proofreader, coordinated by a chief editor who adjudicates conflicts. Independence is the
-  point: each gets the text fresh; a rubber-stamp pass is worthless.
-- **Translation** is its own step (RU→EN); the EN output then goes through the same passes independently — a
-  translation isn't "done" until it also passes the AI-tell + idiom checks in English.
+Independent passes **per language** (the RU original needs it too, not just the translation); translation
+(RU→EN) is its own step and re-runs every gate in English. Scale to stakes: routine handbook page = 2 passes
+/language; a flagship / LinkedIn extract = the full team. **The full checklists, the naive-reader method,
+worked examples, and role breakdown live in the skill — don't restate them here** (one source of truth, no
+drift).
 
 ## Honesty & scope
 - **General, vendor-neutral theory only.** No confidential, employer-internal, or client-specific
