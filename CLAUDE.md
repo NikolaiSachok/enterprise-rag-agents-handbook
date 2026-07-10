@@ -162,6 +162,16 @@ proportionate to a docs site, no ceremony for its own sake.
   `# vX` comment), not a moving tag — supply-chain hardening. The repo's Actions policy **enforces** this
   (GitHub-owned actions only, SHA-pinned), so an unpinned `@v4` will hard-fail the run at startup.
 - **Deploy:** merge to `main` → GitHub Actions builds all locales → GitHub Pages.
+- **Concurrent agents: worktree isolation + cleanup.** More than one agent/session may write to this repo
+  at once, and the main checkout has ONE global branch — so every writing agent works in its **own git
+  worktree** (`git worktree add ../<name> -b <branch>`), never in the shared main checkout, and integrates
+  via PR only. Before committing on a branch that has lived a while, **rebase onto current `main`** — the
+  files you're editing may have changed there since you branched (don't let a stale copy resurrect old
+  content). After your PR merges: delete the remote **and local** branch (squash-merge makes git see the
+  local one as unmerged — force-delete your own), `git worktree remove` your worktree, and leave the shared
+  checkout on a pulled `main`. **Clean up only what you created**: never delete another agent's branches or
+  worktrees, never stage/commit/stash files you didn't touch (`git status` before every commit; stage your
+  paths explicitly, no `git add -A`).
 
 ## Local dev
 - RU (default): `npm run start`
