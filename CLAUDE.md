@@ -28,9 +28,13 @@ good existing course. For each such tool:
 Keeps the handbook lean and respects the reader's time — no Tool-101 filler.
 
 ## Content workflow
-- Pages are drafted **conversationally, RU first**, then reworked into publish-quality prose.
-- **EN** is produced by a translation pass into the parallel i18n tree
-  (`i18n/en/docusaurus-plugin-content-docs/current/...`).
+- New pages are authored via the **`authoring-team` skill** (`~/.claude/skills/authoring-team`) — layered:
+  a language-agnostic **fact skeleton** (claims + sources + term decisions against the style canon, drafted
+  in EN where models reason best), then **independent native prose drafts per language in parallel** —
+  never one language translated from another's finished prose. **RU is audience-primary** (never produced
+  by translation); the EN draft lives in the parallel i18n tree
+  (`i18n/en/docusaurus-plugin-content-docs/current/...`). Small mirror touch-ups to existing EN pages may
+  still be translation-based — full lessons are drafted natively per language.
 - Structure: **Part I — RAG** → **Part II — Agents**, a single-definition **Glossary**, and (later)
   per-topic case-study pages kept separate from the industry-general theory pages.
 - **Editorial gate** = the `editorial-team` skill (`~/.claude/skills/editorial-team`) — the single source of
