@@ -18,7 +18,8 @@
 
 *grounding, bi-encoder, cross-encoder, prompt injection, jailbreak, spotlighting, HyDE, BM25, ReAct,
 faithfulness, top-K, late interaction, guardrails, eval/evaluation, observability, golden set,
-LLM-as-a-judge, retrieval failure / generation failure, span → см. 1.2 (спан), trace → см. 1.2 (трейс).*
+LLM-as-a-judge, retrieval failure / generation failure, JSON Schema, span → см. 1.2 (спан),
+trace → см. 1.2 (трейс).*
 
 Канонические имена слоёв — как есть, с заглавной: **Ingestion, Retrieval, Generation, Agentic RAG**.
 Кодовые аббревиатуры — как есть: **ACL, PII, ASR, MCP, KB, RRF, MRR, nDCG**.
@@ -54,6 +55,13 @@ LLM-as-a-judge, retrieval failure / generation failure, span → см. 1.2 (сп
 | корпоративный, корпоративная среда | enterprise (в прозе) | «enterprise-» как приставка в русской фразе |
 | наименее доверенный | least trusted | низкодоверенный |
 | недопустимый (контент/запрос) | disallowed | непозволенный |
+| использование инструментов; вызов функций | tool use; function calling | голое «tool use»/«function calling» в теле без русской формы |
+| описание инструмента | tool definition | «tool definition» латиницей в теле |
+| вызов инструмента | tool call | «tool call» латиницей в теле (в схеме/коде — допустимо) |
+| результат инструмента | tool result | «tool result» латиницей в теле |
+| выбор инструмента | tool selection | «маршрутизация» как синоним (это другой уровень — выбор маршрута/индекса, не выбор инструмента моделью в цикле) |
+| структурированный вывод | structured output | голое «output» |
+| среда выполнения | runtime | «рантайм»; голое «runtime»/«harness» в теле после первого моста |
 
 «Enterprise» остаётся латиницей только в собственных именах (название книги, «enterprise RAG» как
 устойчивый ярлык темы).
