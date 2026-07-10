@@ -9,11 +9,11 @@ sidebar_position: 3
 In [agentic-rag](./agentic-rag.md) you got the loop: `reason → decide → act → observe`, spinning until the
 model decides it's ready. In [tool-use](./tool-use.md) you saw that every action in that loop is a tool call —
 the model emits the intent, your code does the calling. So the agent has freedom of movement and a set of
-actions. What we never asked: on a task that takes *many* steps, how does the agent decide the **sequence** of
+actions. What we never asked: on a task that takes *many* steps, how does the agent decide the sequence of
 steps — and what makes the loop **stop**? That control layer is this lesson.
 
-One line for the whole lesson: **agentic-rag gave the agent a loop; this lesson is about steering that loop
-toward the goal and bounding it so it actually stops.**
+One line for the whole lesson: agentic-rag gave the agent a loop; this lesson is about steering that loop
+toward the goal and bounding it so it actually stops.
 
 :::tip[▶ Video]
 
@@ -50,14 +50,14 @@ exactly the default loop from agentic-rag. Its strength is flexibility: it react
 not to what it guessed beforehand. Its weakness shows on long tasks. With no fixed plan, it can wander,
 cycle, or lose the goal — every step is a fresh local decision, and nothing is holding the global thread.
 
-**plan-and-execute** goes the other way: plan the whole step sequence up front, then execute it. It's more
+**Plan-and-execute** goes the other way: plan the whole step sequence up front, then execute it. It's more
 structured and cheaper — you reason about the plan *once* instead of re-reasoning from scratch on every step,
 which pays off on long, structured tasks. The cost is rigidity. A plan fixed up front can be wrong the moment
 reality diverges from it. So plan-and-execute is only usable *with* a re-planning mechanism: when a step
 fails or an observation breaks the plan, the agent has to be able to revise the plan rather than blindly push
 on. That mechanism has a name — **re-planning** — and without it, plan-and-execute is a trap.
 
-The tradeoff in one line: **ReAct buys adaptivity, plan-and-execute buys structure and economy.**
+The tradeoff in one line: ReAct buys adaptivity, plan-and-execute buys structure and economy.
 
 In practice you rarely pick one purely. You combine them: plan the high-level steps up front, execute each
 step with a local ReAct loop, and re-plan when a step fails. The plan gives you the global thread; the inner
@@ -95,7 +95,7 @@ agent costs you a bounded amount of money instead of an unbounded one.
 and break in when it does, instead of letting it spin. This catches shape two before the budget has to.
 
 **A termination criterion.** Define what "done" actually means, and make it explicit. The common
-implementation is a **"finish" tool** the model calls to declare it's finished — rather than leaving "am I
+implementation is a "finish" tool the model calls to declare it's finished — rather than leaving "am I
 done?" as a fuzzy judgement the model re-makes every step and can get wrong every step.
 
 **Progress tracking.** Keep the goal and the already-closed subtasks in context, so the agent can see where
@@ -110,7 +110,7 @@ defense against drift: an agent that can see the goal is less likely to wander o
 progress? Is this actually working? Should I change course? — and on the answer, it decides to stop, re-plan,
 or continue.
 
-It's a relative of the **self-correction** from agentic-rag, but aimed one level up. Self-correction there
+It's a relative of the self-correction from agentic-rag, but aimed one level up. Self-correction there
 judged *retrieval quality*: these chunks are off, search again. Reflection here judges the *plan and the loop
 as a whole* — not one retrieval, the whole trajectory.
 
@@ -152,10 +152,10 @@ Placement first. This is the control layer *over* the loop from agentic-rag and 
 tool-use: decomposition and termination sit on top of the `reason → act → observe` loop that calls tools.
 Nothing here replaces those lessons — it steers what they built.
 
-Two downstream consequences sharpen points you've already met. **Observability stops being merely useful and
-becomes essential.** To debug non-termination you have to trace the *whole* trajectory — the entire chain of
+Two downstream consequences sharpen points you've already met. **Observability** stops being merely useful and
+becomes essential. To debug non-termination you have to trace the *whole* trajectory — the entire chain of
 steps — because the failure can be anywhere in it: a bad decomposition, one wrong step, a missing
-re-plan. Without the full trace you're guessing. And **eval now measures trajectory quality**, not just "did
+re-plan. Without the full trace you're guessing. And eval now measures trajectory quality, not just "did
 it answer." Did it reach the goal, and in how many steps? Efficiency and termination are part of quality now —
 an agent that gets the right answer in forty steps when six would do is not a good agent.
 
