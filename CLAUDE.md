@@ -50,7 +50,11 @@ layer isn't closed.
 
 ### Editorial config (input to the editorial-team skill)
 - Primary language **RU**; translation target **EN**. Voice: second-person «ты».
-- Keep terms-of-art in English (*chunking*, *reranking*, *bi-encoder*, *grounding*, *access control*, …).
+- RU term rendering, in priority order: **prefer the established RU term in the body** with the English in
+  parens at its first page-mention (e.g. *маршрутизатор (router)*, *контроль доступа (access control)*), then
+  the RU term alone; **keep English inline only where no crisp RU term exists** (*chunking*, *grounding*,
+  *bi-encoder*); never coin a fresh literal calque. Established Cyrillic loanwords count as the RU term
+  (*эмбеддинг*, *чанк*, *реранкинг*).
 - General theory only — no private domain / anti-keywords.
 - Tier: routine handbook pages = 2 passes/language; a flagship / LinkedIn extract gets the full team.
 
@@ -83,11 +87,21 @@ use; no calques (e.g. RU "Центральное напряжение" ← *cent
 проблему" ← *addresses*). Keep industry terms-of-art in English where that's the norm (*chunking*,
 *reranking*, *access control*) but frame the surrounding sentence naturally.
 
-*RU term rendering (naive-monolingual-reader pass enforces this).* Never coin a fresh literal calque of a
-term-of-art: either keep the English term inline (Latin, the safe default) or use the established RU term if
-one exists and is unambiguous. Test each term as a reader who does NOT know English — if it only decodes by
-back-translating, it fails. E.g. judge *bias* → **предвзятость** (or keep *bias* inline), never «смещение»
-(reads as "displacement"); «смещение» is right only in the statistical estimator / bias-variance sense.
+*RU term rendering (naive-monolingual-reader pass enforces this), in PRIORITY order:*
+1. **If a natural, established RU term exists, use it in the body** — the text should read as smooth, fully
+   literary Russian, not peppered with English words that have a normal native equivalent (better for reading
+   and learning). At the term's **first main mention on each page, give the English once in parentheses** —
+   «маршрутизатор (router)», «контроль доступа (access control)» — as a bridge to English docs and code;
+   afterwards use the RU term alone. Established loanwords written in Cyrillic count as the RU term
+   («эмбеддинг», «чанк», «реранкинг»).
+2. **If there is NO crisp established RU term — or a translation would be ambiguous or clumsy — keep the
+   English** inline (Latin): *chunking*, *grounding*, *bi-encoder*, *cross-encoder*, *prompt injection*, *HyDE*,
+   *BM25*, *ReAct*. Precision beats a forced translation. Canonical stage names (Ingestion / Retrieval /
+   Generation / Agentic RAG) and code-facing acronyms (ACL) also stay as-is.
+3. **Never coin a fresh literal calque** the reader can't decode without the English word. Test each term as a
+   reader who does NOT know English — if it only decodes by back-translating, it fails. E.g. judge *bias* →
+   **предвзятость** (or keep *bias* inline), never «смещение» (reads as "displacement"); «смещение» is right
+   only in the statistical estimator / bias-variance sense.
 
 **3. Factual integrity preserved.** Editing must NOT change technical meaning, drop nuance, or invent
 claims. A dedicated fact-integrity check diffs the edited version's claims against the source. When style
