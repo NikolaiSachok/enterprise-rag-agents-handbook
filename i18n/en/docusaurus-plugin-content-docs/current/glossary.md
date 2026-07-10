@@ -233,3 +233,25 @@ from the previous result.
 reformulates the query or searches again.
 
 **Iterative retrieval** — searching in a loop with refinement, rather than one fixed call.
+
+## Agents — tools
+
+**Tool use / function calling** — the general mechanism by which the model calls an external function: the
+model emits a structured intent and your code executes it. Retrieval is a special case.
+
+**Tool definition** — a name, a description in words, and a parameter schema (JSON Schema) passed to the
+model: the "menu" of available tools. The description acts as a prompt — the model selects a tool by it.
+
+**Tool call** — the structured JSON (tool name and arguments) the model emits instead of, or alongside,
+ordinary text.
+
+**Tool result** — the result of running a tool, returned to the model as a separate message in context.
+
+**Tool selection** — the model's choice of which tool to call; a frequent source of errors with a large or
+overlapping tool set.
+
+**JSON Schema** — a language for describing the structure and types of data; it defines a tool's allowed
+parameters and narrows what the model may emit.
+
+**Structured output** — model output in a prescribed machine-readable form (JSON to a schema) rather than
+free text; the basis for reliable tool calling.

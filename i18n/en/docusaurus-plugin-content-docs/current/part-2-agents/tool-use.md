@@ -1,0 +1,128 @@
+---
+id: tool-use
+title: Tool use
+sidebar_position: 2
+---
+
+# Tool use — how the model acts on the outside world
+
+In the agentic RAG lesson you took on the key shift: retrieval stopped being a step and became an **action**
+the model chooses inside a loop. But retrieval is just one action. **Tool use** — also called **function
+calling** — is the general mechanism: the model can call any external function. Search over a knowledge
+base, a SQL query against a table, an HTTP API call, a calculator, code execution, sending an email.
+Retrieval turns out to be a special case — one tool among many.
+
+Tool use is exactly what turns the model from a "text generator" into something that can **act**: read live
+data, compute exactly, change the state of outside systems.
+
+:::tip[▶ Video]
+
+<YouTube id="h8gMhXYAv1k" title="What is Tool Calling? Connecting LLMs to Your Data — IBM Technology" />
+
+The same mechanism from IBM: how a tool call wires the model into your data and systems.
+
+:::
+
+## Why the model needs an intermediary — it only produces text
+
+The first fact to internalize: **the model executes nothing itself.** It only emits text. It won't reach
+into a database or hit an API — it physically doesn't run code. Tool use is the bridging protocol:
+
+1. The model emits a **structured intent**: "call function X with arguments Y."
+2. **Your code** runs the call and gets the result.
+3. The result goes back to the model as context.
+4. The model continues, now seeing the result.
+
+The split is hard: **the model decides what to call; your runtime does the calling.** The model never
+touches the real systems — it only produces the intent, and the harness executes it. That same split is
+also the security boundary (more below).
+
+## The mechanism: a tool call
+
+Break it into parts. It's the same loop as in agentic RAG, only the action is now anything.
+
+- **Tool definition** — a name, a description in words, and a parameter schema (usually JSON Schema). This
+  is the "menu": which tools exist, what they do, what arguments they take. You pass it to the model along
+  with the query.
+- **Tool call** — instead of ordinary text (or alongside it), the model emits structured JSON: the tool
+  name and the arguments.
+- **Tool result** — your runtime runs the tool and appends the result to the conversation as a separate
+  message.
+- The model **continues**: seeing the result, it either calls another tool or answers.
+
+```text
+[ tool definitions ] → model → [ tool call: sql_query(...) ]
+                                        │
+                        your code runs the query
+                                        │
+             [ tool result: 42 rows ] → model → answer or next call
+```
+
+## A tool definition is a prompt, not just a signature
+
+Here's the main AI delta versus ordinary API design. The model selects a tool and fills its arguments by
+**reading the description in words**, not your implementation. The name, the description text, and the
+parameter descriptions are what a probabilistic model uses to decide *when* and *how* to invoke the
+function. A vague description, and the model calls at the wrong time, picks the wrong tool, or fills in junk
+arguments. So tool descriptions are part of prompt engineering, and the "caller" here isn't deterministic
+code — it's a model reading natural language.
+
+## What makes a tool good
+
+- **A clear, unambiguous description** — the model tells tools apart by their description, not by the code
+  behind them.
+- **Strictly typed, constrained parameters** (JSON Schema, `enum`, formats) narrow what the model may emit
+  and cut the rate of malformed calls.
+- **Few tools, and non-overlapping.** A dozen functions close in meaning confuse the model — tool-selection
+  errors climb. Curate the set; don't grow it.
+- **Legible errors.** When a tool fails, return a message the model can recover from ("date must be
+  YYYY-MM-DD"). Then the loop repairs itself: bad call → clear error → reformulation → retry.
+- **The right granularity** — not too fine (ten calls for one task), not too coarse (one tool for
+  everything).
+
+## Where it breaks
+
+- **The wrong tool — or none.** The model took the wrong function, or answered from memory instead of
+  calling. Fixed by descriptions and a smaller set.
+- **Invalid arguments** — invented or wrong parameters. Fixed by a strict schema, validation, and legible
+  errors for self-correction.
+- **Invention on top of the result** — if the tool result reaches the model unclearly, it may embroider.
+  Return the result cleanly and set apart.
+- **Security — a new and serious risk.** A tool that **acts** (writes, sends, executes code) is now driven
+  by the model's output, and that output can be hijacked via prompt injection — including the indirect kind
+  hidden in retrieved content. Hence the defense: **least privilege** and limiting the tool set available to
+  the agent, separating read tools from write tools, confirmation for dangerous actions. A successful
+  injection should be able to do very little.
+
+## The link back to RAG
+
+The circle closes: **retrieval is a tool.** Agentic RAG from the previous lesson is a special case of tool
+use where the main tool is search. Once the agent has several tools, it covers that "different sources for
+different questions" case: retrieval into the knowledge base, SQL into tables, web search for what's fresh,
+a calculator for exact arithmetic. The router from the previous lesson is precisely what picks which tool to
+use.
+
+## What to take away
+
+- **Tool use (function calling)** — the general mechanism: the model calls any external function; retrieval
+  is a special case of it.
+- The model **only produces the intent**, your code executes it: it decides "what," the runtime does "how."
+  That is also the security boundary.
+- The mechanism is **tool definition → tool call → tool result → continue**; the same loop as agentic RAG,
+  with any action.
+- **A tool definition is a prompt**: the model chooses by the words, not the code. A good tool: clear
+  description, strict schema, few and non-overlapping, legible errors.
+- New failure modes: the wrong tool, invalid arguments, invention on top of the result, and **security** — a
+  write tool plus prompt injection lead straight to **least privilege**.
+
+**New terms** → [Glossary](../glossary.md): tool use / function calling, tool definition, tool call, tool
+result, tool selection, JSON Schema, structured output.
+
+---
+
+:::note[Next — going deeper]
+
+🚧 Second pass: parallel tool calls, schema formats and constrained decoding, error-and-retry strategies,
+the context cost of dozens of tools, MCP as the standard for connecting tools.
+
+:::
