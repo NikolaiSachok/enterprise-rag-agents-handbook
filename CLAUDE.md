@@ -53,11 +53,17 @@ layer isn't closed.
 The editorial **rules** live in the `editorial-team` skill — that is the single source of truth. This section
 holds only what's specific to THIS project, which the skill consumes:
 - Primary language **RU**; translation target **EN**. Voice: second-person «ты».
-- **Terms this project keeps in English** (no crisp RU equivalent): *chunking*, *grounding*, *bi-encoder*,
+- **Style canon: `editorial/style-canon.md`** — the corpus-wide term ledger (incl. rejected variants),
+  semantic reservations, casing rules, recurring-block strings, and voice rules. It is normative for every
+  page; canon updates ship **in the same PR** as the page that motivates them.
+- **Terms this project keeps in English** (no crisp RU equivalent): *grounding*, *bi-encoder*,
   *cross-encoder*, *prompt injection*, *spotlighting*, *HyDE*, *BM25*, *ReAct*, *faithfulness*, *top-K*.
+  (*Chunking* is NOT on this list: «чанкинг» is an established Cyrillic term — write «чанкинг», bridged as
+  «чанкинг (chunking)» at first page-mention.)
   Canonical stage names (Ingestion / Retrieval / Generation / Agentic RAG) and code-facing acronyms (ACL)
   stay as-is. Everything else with a natural RU term follows the skill's term-rendering policy (established RU
-  term in the body + English in parens at first page-mention, bridge refreshed periodically).
+  term in the body + English in parens at first page-mention, bridge refreshed periodically); the canon's
+  ledger records the per-term decisions.
 - General theory only — no private domain / anti-keywords.
 - Tier: routine handbook pages = 2 passes/language; a flagship / LinkedIn extract gets the full team.
 
