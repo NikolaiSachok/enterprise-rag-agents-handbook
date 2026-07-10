@@ -23,10 +23,12 @@ latency, cost, and debugging difficulty. The engineering job isn't to "make it m
 - **[Tool use](./tool-use.md)** — how the model calls external functions: search, SQL, APIs, a calculator.
 - **[Planning & loops](./planning-loops.md)** — ReAct and plan-and-execute, task decomposition, termination
   criteria, and breaking out of loops.
-- **Multi-agent systems** 🚧 — several specialized agents, roles, handoff.
-- **Orchestration frameworks** 🚧 — LangGraph, LangChain, Semantic Kernel, AutoGen, CrewAI: what they add
-  on top of a bare loop.
-- **MCP and agent protocols** 🚧 — a standardized way for an agent to reach tools and data.
+- **[Multi-agent systems](./multi-agent.md)** — several specialized agents, roles, handoff; the topologies
+  and when NOT to split one agent.
+- **[Orchestration frameworks](./orchestration-frameworks.md)** — LangGraph, LangChain, Semantic Kernel,
+  AutoGen, CrewAI: what they add on top of a bare loop, and when to skip them.
+- **[MCP and agent protocols](./mcp.md)** — a standardized way for an agent to reach tools and data; MCP
+  versus A2A.
 
 ## Prerequisites
 
@@ -35,7 +37,8 @@ concerns** — here eval and observability move from nice-to-have to mandatory.
 
 :::note[Status]
 
-🚧 The part is growing. The first lessons — Agentic RAG, tool use, and planning & loops — are published; the
-rest arrive as we work through them.
+Part II's base is complete — every lesson is published: Agentic RAG, tool use, planning & loops, multi-agent
+systems, orchestration frameworks, and MCP. 🚧 A second pass is still ahead — deepening each layer (topics
+listed in the "Next — going deeper" notes on the lesson pages).
 
 :::

@@ -287,3 +287,58 @@ trajectory (intermediate notes, a list of what's done), so the context doesn't b
 
 **Non-termination** — the signature failure of the agent loop: it never stops, gets stuck repeating an
 action, or drifts from the goal.
+
+## Agents — multi-agent systems
+
+**Multi-agent system** — several specialized agents collaborating instead of one agent; motivated by
+specialization, context isolation, modularity, and parallelism.
+
+**Orchestrator / supervisor** — a lead agent that decomposes a task, routes subtasks to workers, and
+synthesizes their results; its "tools" are the sub-agents.
+
+**Worker / sub-agent** — a specialized agent that handles a routed subtask and returns a result.
+
+**Handoff** — passing control plus the relevant context from one agent to another; the handoff message acts
+as a prompt for the receiving agent.
+
+**Agent chain** — a sequential topology where each agent transforms the previous agent's output (e.g.
+writer → editor → fact-checker).
+
+**Critic / debate** — a topology where a critic agent (or several independent agents) challenges or compares
+solutions, raising quality through independent perspectives.
+
+## Agents — orchestration frameworks
+
+**Orchestration framework** — a library that packages the agent loop, tool-calling glue, state, control
+flow, and multi-agent orchestration so you don't hand-roll them (LangChain, LangGraph, LlamaIndex, Semantic
+Kernel, AutoGen, CrewAI).
+
+**Agent as a graph / state machine** — modeling an agent as nodes (call model / call tool / decide) and
+edges (control flow, including loops) so the loop becomes inspectable, resumable, and controllable.
+
+**Node / edge** — graph elements: a node is a step (call model / call tool / decide); an edge is control
+flow.
+
+**Checkpointing** — persisting agent state so a run can be paused, resumed, and inspected.
+
+**Human-in-the-loop (HITL)** — a pause point where a human approves or intervenes before the loop continues;
+in a framework, a first-class interrupt node.
+
+## Agents — MCP and agent protocols
+
+**MCP (Model Context Protocol)** — an open client–server standard (Anthropic, late 2024) for connecting
+agents to tools and data; standardizes tools, resources, and prompts. Turns M×N bespoke integrations into
+N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
+
+**MCP server** — wraps a tool or data source and exposes its capabilities uniformly.
+
+**MCP client** — the agent or app that connects to MCP servers and consumes their capabilities.
+
+**MCP resources** — data and context an MCP server exposes (no OpenAPI/CLI equivalent).
+
+**MCP prompts** — reusable templates an MCP server offers.
+
+**M×N integration problem** — M apps × N tools = M×N bespoke connectors; a standard collapses it to N+M.
+
+**A2A (Agent-to-Agent)** — an emerging standard (Google) for agent-to-agent communication; MCP is
+agent-to-tools, A2A is agent-to-agent.
