@@ -13,7 +13,7 @@ agent.
 
 Hold one line through the whole part: we keep giving the model more freedom — from a single routing
 decision to a full loop with planning and several agents — and at every step we pay for that freedom in
-latency, cost, and debugging difficulty. The engineering job isn't "make it more agentic," it's taking the
+latency, cost, and debugging difficulty. The engineering job isn't to "make it more agentic," it's to take the
 **minimum degree of agency the task needs**.
 
 ## What's inside

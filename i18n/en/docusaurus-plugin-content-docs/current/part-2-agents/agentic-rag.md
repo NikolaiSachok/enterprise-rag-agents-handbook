@@ -27,7 +27,7 @@ Exactly the shift this lesson is about: how retrieval grows from simple search i
 
 ## Why — where static RAG breaks
 
-Agency isn't added for fashion. A fixed `retrieve→generate` honestly fails on whole classes of queries.
+Agency isn't added just to be fashionable. A fixed `retrieve→generate` genuinely fails on whole classes of queries.
 
 - **Multi-hop questions.** "Who leads the department that issued policy X?" One search won't get it: first
   find policy X, from it learn the department, and only then the head. The second query is built from the
@@ -95,19 +95,19 @@ Don't think "static OR agentic." Between them is a smooth spectrum, graded by **
 the model**.
 
 1. **Router.** The lightest move into agency. The model makes one choice — where to send the query (which
-   index, which tool, or "no retrieval needed") — and everything after is static. Cheap, predictable, covers
-   a large share of the value.
+   index, which tool, or "no retrieval needed") — and everything after is static. Cheap, predictable, and it
+   handles most of the cases.
 2. **Query planning.** The model decomposes a hard question into sub-queries up front.
 3. **Full loop (ReAct-style).** A real `reason → act → observe` in a loop, with self-correction and a
    variable number of steps.
 
-A practical takeaway to internalize right away: **take the simplest level that solves the task.** A full
+One practical rule to lock in now: **take the simplest level that solves the task.** A full
 agentic loop isn't a prize, it's a cost. Often a router on top of good static RAG beats a "full agent" on
 cost, latency, and stability.
 
 ## The price — and the bridge back to Part I
 
-Handing control to the model, you pay for exactly that.
+Hand control to the model, and you pay for exactly that.
 
 - **Latency and cost.** N steps means N LLM calls plus N retrievals. One question easily turns into 5–10
   calls to the model.
