@@ -30,6 +30,10 @@ scratch — instead we show the **AI delta**, what actually changes when you app
   concerns (eval, guardrails, observability) of the static pipeline.
 - **[Part II — Agents](./part-2-agents/overview.md):** agentic RAG, tool use, planning and loops,
   multi-agent systems, orchestration frameworks, MCP.
+- **Part III — Production & LLMOps** (🚧 planned): serving on FastAPI + Docker, cloud AI platforms
+  (Azure OpenAI, AWS Bedrock, GCP Vertex), the tooling ecosystem (eval, guardrails, observability), and
+  LLMOps — deploy, monitor, cost. The applied layer the job market names by tool.
 - **[Glossary](./glossary.md):** single definitions for the terms the pages link to.
 
-Each part opens with an overview page: where it starts, what's inside, and what you should know first.
+Each published part opens with an overview page: where it starts, what's inside, and what you should know
+first.
