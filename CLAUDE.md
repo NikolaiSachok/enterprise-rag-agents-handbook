@@ -102,6 +102,11 @@ use; no calques (e.g. RU "Центральное напряжение" ← *cent
    reader who does NOT know English — if it only decodes by back-translating, it fails. E.g. judge *bias* →
    **предвзятость** (or keep *bias* inline), never «смещение» (reads as "displacement"); «смещение» is right
    only in the statistical estimator / bias-variance sense.
+4. **Kill false friends** — a word that reads as native and IS understood, but in Russian means something
+   different from the English term. Worse than an opaque calque: the reader decodes it confidently and wrong.
+   E.g. *rubric* → «рубрика» ✗ (in RU = a thematic section, not grading criteria) → «критерии оценки»;
+   *validate against* → «валидировать против» ✗ → «сверять с». The naive-reader test is not just "can I decode
+   this without English" but "do I decode it to the RIGHT meaning."
 
 **3. Factual integrity preserved.** Editing must NOT change technical meaning, drop nuance, or invent
 claims. A dedicated fact-integrity check diffs the edited version's claims against the source. When style
