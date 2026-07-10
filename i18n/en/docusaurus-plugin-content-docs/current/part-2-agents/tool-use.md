@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Tool use — how the model acts on the outside world
 
-In the agentic RAG lesson you took on the key shift: retrieval stopped being a step and became an **action**
+In the Agentic RAG lesson you took on the key shift: retrieval stopped being a step and became an **action**
 the model chooses inside a loop. But retrieval is just one action. **Tool use** — also called **function
 calling** — is the general mechanism: the model can call any external function. Search over a knowledge
 base, a SQL query against a table, an HTTP API call, a calculator, code execution, sending an email.
@@ -34,38 +34,37 @@ physically doesn't run code. Tool use is the bridging protocol:
 4. The model continues, now seeing the result.
 
 The split is strict: **the model decides what to call; your runtime does the calling.** The model never
-touches the real systems — it only produces the intent, and the harness executes it. That same split is
-also the security boundary (more below).
+touches the real systems — and that very split will turn out to be the security boundary (more below).
 
 ## The mechanism: a tool call
 
-It has a few parts. It's the same loop as in agentic RAG, only the action is now anything.
+It has a few parts. It's the same loop as in Agentic RAG, only the action is now anything.
 
 - **Tool definition** — a name, a description in words, and a parameter schema (usually JSON Schema). This
   is the "menu": which tools exist, what they do, what arguments they take. You pass it to the model along
   with the query.
-- **Tool call** — instead of ordinary text (or alongside it), the model emits structured JSON: the tool
-  name and the arguments.
+- **Tool call** — instead of ordinary text (or alongside it), the model emits **structured output**: JSON
+  with the tool name and the arguments.
 - **Tool result** — your runtime runs the tool and appends the result to the conversation as a separate
   message.
 - The model **continues**: seeing the result, it either calls another tool or answers.
 
 ```mermaid
 flowchart LR
-    Defs["tool definitions"] --> M["model"]
+    Defs["Tool definitions"] --> M["Model"]
     M --> TC["tool call: sql_query(...)"]
-    TC --> X["your code runs the query"]
+    TC --> X["Your code runs the query"]
     X --> TR["tool result: 42 rows"]
     TR --> M
-    M --> Ans["answer"]
+    M --> Ans["Answer"]
 ```
 
 ## A tool definition is a prompt, not just a signature
 
 Here's the main AI delta versus ordinary API design. The model selects a tool and fills its arguments by
-**reading the description in words**, not your implementation. The name, the description text, and the
-parameter descriptions are what a probabilistic model uses to decide *when* and *how* to invoke the
-function. A vague description, and the model calls at the wrong time, picks the wrong tool, or fills in junk
+**reading the description in words** — it cannot look into your implementation. The name, the description
+text, and the parameter descriptions are what a probabilistic model uses to decide *when* and *how* to
+invoke the function. A vague description, and the model calls at the wrong time, picks the wrong tool, or fills in junk
 arguments. So tool descriptions are part of prompt engineering, and the "caller" here isn't deterministic
 code — it's a model reading natural language.
 
@@ -88,13 +87,14 @@ code — it's a model reading natural language.
   calling. Fixed by descriptions and a smaller set.
 - **Invalid arguments** — invented or wrong parameters. Fixed by a strict schema, validation, and clear
   errors for self-correction.
-- **Making things up on top of the result** — if the tool result comes back to the model in a muddled form,
-  it may make things up. Return the result cleanly, clearly set off from the rest of the context.
+- **Making things up on top of the result.** The model may confabulate on top of a result — especially a
+  muddled or empty one. Return the result as a separate message, explicitly marked as tool output; that
+  lowers the risk but doesn't remove it.
 - **Security — a new and serious risk.** A tool that **acts** (writes, sends, executes code) is now driven
   by the model's output, and that output can be hijacked via prompt injection — including the indirect kind
-  hidden in retrieved content. Hence the defense: **least privilege** and limiting the tool set available to
-  the agent, separating read tools from write tools, confirmation for dangerous actions. A successful
-  injection should be able to do very little.
+  hidden in retrieved content. Hence the defense: **least privilege** — limit the tool set available to the
+  agent, separate read tools from write tools, require confirmation for dangerous actions. Then even a
+  successful injection can do very little.
 
 ## The link back to RAG
 
@@ -108,14 +108,14 @@ use.
 
 - **Tool use (function calling)** — the general mechanism: the model calls any external function; retrieval
   is a special case of it.
-- The model **only produces the intent**, your code executes it: it decides "what," the runtime does "how."
-  That is also the security boundary.
-- The mechanism is **tool definition → tool call → tool result → continue**; the same loop as agentic RAG,
+- The model **only produces the intent** — your code executes it: the model decides "what," your runtime
+  does "how." That is also the security boundary.
+- The mechanism is **tool definition → tool call → tool result → continue**; the same loop as Agentic RAG,
   with any action.
 - **A tool definition is a prompt**: the model chooses by the words, not the code. A good tool: clear
   description, strict schema, few and non-overlapping, clear errors.
-- New failure modes: the wrong tool, invalid arguments, making things up on top of the result, and **security** — a
-  write tool plus prompt injection leads straight to **least privilege**.
+- New failure modes: the wrong tool, invalid arguments, making things up on top of the result, and
+  **security** — a write tool plus prompt injection, hence **least privilege**.
 
 **New terms** → [Glossary](../glossary.md): tool use / function calling, tool definition, tool call, tool
 result, tool selection, JSON Schema, structured output.
