@@ -83,6 +83,12 @@ use; no calques (e.g. RU "Центральное напряжение" ← *cent
 проблему" ← *addresses*). Keep industry terms-of-art in English where that's the norm (*chunking*,
 *reranking*, *access control*) but frame the surrounding sentence naturally.
 
+*RU term rendering (naive-monolingual-reader pass enforces this).* Never coin a fresh literal calque of a
+term-of-art: either keep the English term inline (Latin, the safe default) or use the established RU term if
+one exists and is unambiguous. Test each term as a reader who does NOT know English — if it only decodes by
+back-translating, it fails. E.g. judge *bias* → **предвзятость** (or keep *bias* inline), never «смещение»
+(reads as "displacement"); «смещение» is right only in the statistical estimator / bias-variance sense.
+
 **3. Factual integrity preserved.** Editing must NOT change technical meaning, drop nuance, or invent
 claims. A dedicated fact-integrity check diffs the edited version's claims against the source. When style
 and fidelity conflict, **fidelity wins** — flag it, don't smooth it into something false.
