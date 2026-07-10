@@ -19,7 +19,7 @@ An attacker slips instructions into text the model reads and overrides your syst
 - **Direct:** the user types "ignore your previous instructions and…".
 - **Indirect:** the malicious instructions hide in a document / web page / chunk that **will end up in the results**. This is especially dangerous for RAG: the retrieved content is shaped by outside authors. One poisoned document in the corpus is enough — the model reads the chunk and runs the command baked into it.
 
-Consequences: data leaks, unauthorized actions (with agents), harmful output.
+Consequences: data leaks, unauthorized actions (with agents), harmful output. A close cousin is **jailbreak** — bypassing the model's own built-in safeguards; injection, by contrast, exploits the fact that instructions are indistinguishable from data.
 
 :::tip[▶ Video]
 
@@ -35,7 +35,7 @@ How a prompt injection attack works.
 - **Instruction hierarchy.** system > developer > user > tool/retrieved. The model prioritizes the upper levels; retrieved content is the least trusted.
 - **Input scanning.** Catch injection attempts and known attack patterns before they reach the model.
 - **Output validation.** Check the answer before it ships: no leaked secrets, no PII, no policy violation.
-- **Least privilege for agents.** If the model reaches for tools, restrict which tools and actions it can use (tool egress control). Then even a successful injection can do little.
+- **Least privilege for agents.** If the model reaches for tools, restrict which tools and actions it can use (tool allow-listing). Then even a successful injection can do little.
 
 ## PII and data protection
 
@@ -43,7 +43,7 @@ Detect and mask personal data (names, emails, numbers) **on the input** (before 
 
 ## Content safety — on both surfaces
 
-Refuse harmful or disallowed requests, and filter toxic or off-policy output. Always **two surfaces**: scan the input (block what's harmful or off-topic) and the output (block an unsafe answer). RAG adds a third point — **ingestion**: a poisoned document is better caught at indexing time than only at query time. (The tools — Guardrails AI, NeMo Guardrails, Llama Guard, Granite Guardian — are a Part III layer; here we're on the principle.)
+Refuse harmful or disallowed requests, and filter toxic or off-policy output. Always **two surfaces**: scan the input (block what's harmful or off-topic) and the output (block an unsafe answer). RAG adds a third point — **ingestion**: a poisoned document is better caught at indexing time than only at query time. (The tools — Guardrails AI, NeMo Guardrails, Llama Guard, Granite Guardian — are a separate tooling layer, coming later; here we're on the principle.)
 
 ## Guardrails aren't a silver bullet
 
@@ -58,4 +58,13 @@ Complete protection doesn't exist: this is **defense-in-depth**, in layers. And 
 - Content safety on both surfaces + ingestion in RAG.
 - Defense-in-depth, not a cure-all; measure attack success rate; keep the balance against over-strictness.
 
-**New terms** → [Glossary](../../glossary.md): guardrails, prompt injection (direct / indirect), spotlighting, instruction hierarchy, PII redaction, input/output validation, content safety / moderation, jailbreak, tool egress control, attack success rate, defense-in-depth.
+**New terms** → [Glossary](../../glossary.md): guardrails, prompt injection (direct / indirect), spotlighting, instruction hierarchy, PII redaction, input/output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate, defense-in-depth.
+
+---
+
+:::note[Next — going deeper]
+
+🚧 Second pass: spotlighting internals, injection taxonomies, red-teaming, PII detection and masking
+pipelines.
+
+:::

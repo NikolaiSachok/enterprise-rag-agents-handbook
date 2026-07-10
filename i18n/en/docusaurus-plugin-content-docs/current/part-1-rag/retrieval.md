@@ -71,8 +71,8 @@ lesson](./ingestion.md) re-scores every candidate against the query and re-sorts
 best to the top. Only the top few reach generation.
 
 This is the canonical two-stage scheme: cheap and wide (a bi-encoder or hybrid — recall), then expensive
-and precise (a cross-encoder — precision). Here the bi- and cross-encoder from Lesson 2 click into a
-single picture.
+and precise (a cross-encoder — precision). Here the bi- and cross-encoder from the ingestion lesson click
+into a single picture.
 
 ## Filters and access control — relevance and permissions
 
@@ -82,7 +82,7 @@ is this person even allowed to see."
 - **Metadata filtering** on the fields attached during chunking: date, department, document type,
   language. "Only HR documents after 2024."
 - **Access control.** Permissions cut *before* results are returned, so a user physically can't get a
-  chunk they have no access to (the payroll-ledger example from the first lesson). This is a hard
+  chunk they have no access to (the payroll-ledger example from the ingestion lesson). This is a hard
   requirement: a system that hands back a restricted document on relevance alone has produced a security
   incident, not merely a dip in quality. The usual arrangement is a pre-filter — screen by permissions
   first, then search.
@@ -94,8 +94,8 @@ query → [transform] → [hybrid: dense + BM25, metadata filter + ACL]
       → candidates (top-K) → [rerank: cross-encoder] → top-few → into generation
 ```
 
-Every stage drives retrieval failure down. By exactly how much is something you **measure**: recall@K,
-precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cutting/evaluation.md) layer.
+Every stage drives retrieval failure down. By exactly how much is something you **measure**: Recall@K,
+Precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cutting/evaluation.md) layer.
 
 ## What to take away
 
@@ -106,9 +106,10 @@ precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cut
 - Reranking (a cross-encoder) fixes the ordering: a recall stage, then a precision stage.
 - Filters and access control give you relevance together with permissions; ACL is a security requirement.
 
-**New terms** → [Glossary](../glossary.md): dense retrieval, top-K, query transformation, multi-query,
-HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank Fusion, reranking, two-stage retrieval,
-metadata filtering, access control (ACL), recall@K, precision@K.
+**New terms** → [Glossary](../glossary.md): retrieval failure / generation failure, dense retrieval,
+top-K, query transformation, multi-query, HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank
+Fusion, reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K,
+nDCG, MRR.
 
 ---
 

@@ -6,7 +6,7 @@ sidebar_label: Part overview
 
 # Part II — Agents
 
-In Part I you assembled a **static pipeline**: a document runs a fixed path, `retrieve → generate`, and the
+In Part I you assembled a **static pipeline**: a query runs a fixed path, `retrieve → generate`, and the
 code owns that path. Part II hands control to the model. The pipeline becomes a **loop the LLM itself
 drives**: it decides whether to search, what to search for, which tool to use, and when to stop. That is an
 agent.

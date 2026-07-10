@@ -51,8 +51,8 @@ Ways to structure a prompt.
 ## Grounding instructions — the main lever against hallucinations
 
 The strongest tool is a simple one: give the model explicit boundaries. "Answer **only** from the provided
-context. If the answer isn't there, say so — don't make it up." That one instruction removes most
-hallucinations, because it strips the model of its "license" to top up the answer from memory.
+context. If the answer isn't there, say so — don't make it up." That one instruction noticeably cuts the
+share of hallucinations, because it strips the model of its "license" to top up the answer from memory.
 
 ## Citations
 

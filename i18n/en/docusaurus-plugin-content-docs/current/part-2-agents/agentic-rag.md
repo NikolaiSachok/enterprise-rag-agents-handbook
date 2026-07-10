@@ -27,7 +27,7 @@ Exactly the shift this lesson is about: how retrieval grows from simple search i
 
 ## Why — where static RAG breaks
 
-Agency isn't added just to be fashionable. A fixed `retrieve→generate` genuinely fails on whole classes of queries.
+Agency isn't added just to be fashionable. A fixed `retrieve → generate` genuinely fails on whole classes of queries.
 
 - **Multi-hop questions.** "Who leads the department that issued policy X?" One search won't get it: first
   find policy X, from it learn the department, and only then the head. The second query is built from the
@@ -40,7 +40,8 @@ Agency isn't added just to be fashionable. A fixed `retrieve→generate` genuine
   wherever the answer lives.
 - **A bad first result.** Retrieve irrelevant chunks, and a static pipeline still hands them to generation
   and produces a weak answer. An agent can look at what came back, see it's off, reformulate, and search
-  again. That's **self-correction**.
+  again. That's **self-correction**, and going back to search with a refined query is called **iterative
+  retrieval**.
 
 The common denominator: a real query needs a **variable number of steps and a choice of path**, and the
 pipeline offers a fixed one.
@@ -98,8 +99,8 @@ the model**.
    index, which tool, or "no retrieval needed") — and everything after is static. Cheap, predictable, and it
    handles most of the cases.
 2. **Query planning.** The model decomposes a hard question into sub-queries up front.
-3. **Full loop (ReAct-style).** A real `reason → act → observe` in a loop, with self-correction and a
-   variable number of steps.
+3. **Full loop (ReAct-style).** A real `reason → decide → act → observe` in a loop, with self-correction and
+   a variable number of steps.
 
 One practical rule to lock in now: **take the simplest level that solves the task.** A full
 agentic loop isn't a prize, it's a cost. Often a router on top of good static RAG beats a "full agent" on
@@ -124,7 +125,7 @@ agent makes its decisions.
 
 ## What to take away
 
-- **Static RAG** = a fixed `retrieve→generate` pipeline, the code in control. **Agentic RAG** = retrieval
+- **Static RAG** = a fixed `retrieve → generate` pipeline, the code in control. **Agentic RAG** = retrieval
   becomes an **action in a loop**, the model in control.
 - Agency is needed where the pipeline breaks: **multi-hop**, "no retrieval needed", **source routing**,
   **self-correction** after a bad result.
@@ -134,7 +135,7 @@ agent makes its decisions.
 - You pay in **latency, cost, unpredictability, and debugging difficulty** — which is why **observability
   and eval from Part I become mandatory**.
 
-**New terms** → [Glossary](../glossary.md): agentic RAG, agent loop, reasoning–action–observation (ReAct),
+**New terms** → [Glossary](../glossary.md): Agentic RAG, agent loop, ReAct (reasoning + acting),
 routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection, iterative
 retrieval.
 

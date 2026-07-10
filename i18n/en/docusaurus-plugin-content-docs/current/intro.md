@@ -13,9 +13,9 @@ grows layer by layer as the course goes on.
 
 ## Who this handbook is for
 
-It's written for three audiences at once:
+It plays three roles at once:
 
-- **Learners** — any engineer who wants to understand RAG and agents in earnest: with the "why" and the
+- **A course** — for any engineer who wants to understand RAG and agents in earnest: with the "why" and the
   failure modes, not just a feature list.
 - **The author's reference** — a durable record of design principles and the decisions made.
 - **Portfolio** — a demonstration of mature engineering practice: eval, guardrails, observability, design

@@ -11,8 +11,8 @@ what it memorized in training. Before generating, the system finds the relevant 
 puts them in the model's context. Part I works through this path as a **static pipeline**: a fixed sequence
 of steps, the same for every query.
 
-One diagnostic backbone runs through the whole part — **failure decomposition**. A bad answer has one of
-two natures: a *retrieval failure* (the piece you needed never made it into the results) or a *generation
+One diagnostic backbone runs through the whole part — **failure decomposition**. A bad answer comes in one
+of two kinds: a *retrieval failure* (the piece you needed never made it into the results) or a *generation
 failure* (the piece was retrieved, but the model ignored or garbled it). Almost every decision in the
 pipeline addresses one of these two breakages, and the first move is always to tell which one you're
 looking at.
@@ -36,7 +36,7 @@ deep math required — we explain from first principles.
 
 :::note[Status]
 
-The base pass through the layer is complete. Deeper passes (document parsing, hybrid-search internals,
+The base pass through the layer is complete. 🚧 Deeper passes (document parsing, hybrid-search internals,
 evaluation, and more) arrive as separate rounds — see the "Next — going deeper" notes at the end of each
 lesson.
 

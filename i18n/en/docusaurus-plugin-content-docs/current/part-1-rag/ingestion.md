@@ -10,8 +10,8 @@ Ingestion is the offline half of RAG: everything that happens to your documents 
 question is ever asked. This is where you prepare everything that search will later run over. The
 pipeline: parse documents → **chunking** → metadata → embed into a vector database.
 
-For now this page covers **chunking** and **embedding models** — the two pillars of ingestion. Document
-parsing is still to come.
+This page covers **chunking** and **embedding models** — the two pillars of ingestion. Document parsing is
+a second-pass topic — the layer's deepening; see the note at the end of the page.
 
 :::info[How to read this]
 
@@ -47,7 +47,7 @@ Everything in this section comes down to one table:
 | | Chunk too **large** | Chunk too **small** |
 |---|---|---|
 | Effect on the embedding | Vector is blurred → matches a specific query poorly | Vector is sharp |
-| Effect on the LLM's context | Lots of noise, the relevant part "drowns" (the *lost in the middle* effect), expensive in tokens | Meaning is lost — the chunk makes no sense on its own |
+| Effect on the LLM's context | Lots of noise, the relevant part "drowns" (the *lost-in-the-middle* effect), expensive in tokens | Meaning is lost — the chunk makes no sense on its own |
 | Typical failure | You retrieve something "roughly on topic," but the fact you need is diluted | You retrieve a fragment that is meaningless by itself |
 
 The classic example of a small chunk is losing the **reference**. A sentence from a report:
@@ -66,7 +66,8 @@ That's why the "just cut every N characters" approach fails — and why smarter 
 1. **Fixed-size.** Cut every N tokens/characters. Simple, fast, reproducible. Downside: it cuts blindly —
    mid-sentence, mid-table. The baseline that everything else builds on.
 2. **Overlap.** Adjacent chunks partly overlap — a "sliding window." If a fact lands on the cut line, it
-   survives intact in at least one of the two neighboring chunks. A cheap fix for facts sliced in half.
+   survives intact in at least one of the two neighboring chunks (provided the fact is shorter than the
+   overlap). A cheap fix for facts sliced in half.
    The price is duplicated text. It's applied almost always, on top of any strategy; overlap is usually
    ~10–20% of the chunk size.
 3. **Recursive / structural.** Instead of cutting blindly, cut along natural boundaries, hierarchically:
@@ -196,7 +197,7 @@ metric the model was trained for (stated on its model card) — a mismatch hurts
 
 ### Two common pitfalls
 
-- **One model for queries and documents.** You embedded the documents with one model and the queries
+- **Different models for queries and documents.** You embedded the documents with one model and the queries
   with another → the vectors live in different spaces → garbage. A corollary: switching the model means
   re-indexing the entire corpus.
 - **query/passage asymmetry.** Retrieval models often expect a prefix (`query:` / `passage:`); mix them

@@ -51,8 +51,8 @@ Catch a bad answer in production → add it to the golden set → guard against 
 **eval measures, guardrails protect, observability sees and feeds what it finds back into eval.** The whole
 cross-cutting layer is one loop.
 
-*(The tools — LangSmith, LangFuse, Arize Phoenix, OpenTelemetry — are a Part III layer; here we're on the
-principle.)*
+*(The tools — LangSmith, LangFuse, Arize Phoenix, OpenTelemetry — are a separate tooling layer, coming
+later; here we're on the principle.)*
 
 ## What to take away
 

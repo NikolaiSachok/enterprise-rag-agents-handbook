@@ -16,7 +16,8 @@ a link follows the definition (↗ Wikipedia for classics, ↗ arXiv for techniq
 of what the model gets to see.
 
 **Chunk overlap** — a shared stretch of text between neighboring chunks. It rescues a fact that fell on the
-cut line: the fact survives whole in at least one of the two neighbors. Usually 10–20% of the chunk size.
+cut line: the fact survives whole in at least one of the two neighbors (provided the fact is shorter than
+the overlap). Usually 10–20% of the chunk size.
 
 **Recursive / structural chunking** — splitting along natural boundaries, hierarchically (sections →
 paragraphs → sentences), so chunk boundaries line up with the boundaries of ideas. The default choice.
@@ -82,6 +83,7 @@ blind spot.
 
 **Reciprocal Rank Fusion (RRF)** — a way to combine the results of several searches by their positions in
 each ranking, without reconciling their different score scales.
+↗ [SIGIR'09](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf)
 
 **Reranking** — re-scoring the top-K candidates with a cross-encoder and re-sorting them so the best rises
 to the top. The second stage; it works on precision.
@@ -116,7 +118,7 @@ the answer isn't there. The main lever against hallucination.
 picking a few best.
 
 **Lost-in-the-middle** — a model uses information buried in the middle of a long context worse than what
-sits at the start and end.
+sits at the start and end. ↗ [arXiv](https://arxiv.org/abs/2307.03172)
 
 **Citations / attribution** — pointing to the source of each claim in the answer; gives verifiability and
 curbs invention.
@@ -136,7 +138,12 @@ suppresses it in favor of the context.
 
 **Evaluation** — measuring pipeline quality with metrics instead of by feel. It makes the pipeline tunable.
 
-**Golden dataset / ground truth** — examples of "question + relevant chunks / correct answer" that metrics
+**Retrieval failure / generation failure** — the diagnostic backbone of RAG: a bad answer comes in two
+kinds — a *retrieval failure* (the needed chunk never made it into the results) and a *generation failure*
+(the chunk was in the context, but the model ignored or garbled it). The first debugging move is to tell
+which one you're looking at.
+
+**Golden set / golden dataset / ground truth** — examples of "question + relevant chunks / correct answer" that metrics
 are computed against. Quality beats size.
 
 **Answer relevance** — a generation metric: does the answer address the question asked.
@@ -170,11 +177,11 @@ in production (user feedback, A/B).
 
 **Input / output validation** — checking the input (attacks, off-topic) and the output (leaks, PII, policy violations).
 
-**Content safety / moderation** — filtering harmful or off-policy content on both surfaces.
+**Content safety / moderation** — filtering harmful or off-policy content on the input and the output.
 
 **Jailbreak** — bypassing a model's built-in safeguards (unlike injection, which exploits the instruction/data ambiguity).
 
-**Tool egress control** — limiting the tools and actions available to an agent (least privilege), so a successful injection can do little.
+**Least privilege / tool allow-listing** — limiting the set of tools and actions available to an agent, so a successful injection can do little.
 
 **Attack success rate (ASR)** — the share of successful attacks over a set; a guardrails quality metric.
 
@@ -210,8 +217,9 @@ fixed pipeline step. The model owns the control flow, not the code.
 **Agent loop** — the repeating "reason → decide → act → observe" cycle that runs until the model judges it
 has enough to answer.
 
-**Reasoning–action–observation (ReAct)** — a pattern where the model interleaves reasoning steps with
-actions (tool calls), feeding each action's result back into the context.
+**ReAct (Reasoning + Acting)** — the "reason → act → observe" pattern: the model interleaves reasoning
+steps with actions (tool calls), feeding each action's result back into the context.
+↗ [arXiv](https://arxiv.org/abs/2210.03629)
 
 **Routing / query router** — the lightest level of agency: the model makes one choice — where to send the
 query (which index/tool, or "no retrieval needed") — and the flow is static after that.
