@@ -1,163 +1,166 @@
 ---
 id: orchestration-frameworks
-title: Фреймворки оркестрации
+title: Orchestration frameworks
 sidebar_position: 5
 ---
 
-# Фреймворки оркестрации — что библиотека добавляет поверх голого цикла
+# Orchestration frameworks — what a framework adds over the bare loop
 
-Прошлые уроки собирали агента из примитивов: [цикл](./agentic-rag.md), [инструменты](./tool-use.md),
-[планирование и остановку](./planning-loops.md), [команды агентов](./multi-agent.md). На практике всю эту
-машинерию ты пишешь не с нуля — ты берёшь **фреймворк оркестрации (orchestration framework)**. Этот урок
-не про то, как устроен цикл (это ты уже знаешь), а про то, что фреймворк добавляет *поверх* голого цикла:
-где он снимает с тебя рутину, какую абстракцию навязывает взамен и когда эта цена перевешивает пользу. Цель — уметь выбрать фреймворк и пользоваться им осознанно, а не переписывать его заново и не
-прятаться за ним.
+The lessons so far built agents up from primitives: the loop in [agentic-rag](./agentic-rag.md), the tools it
+calls in [tool-use](./tool-use.md), planning and termination over that loop in
+[planning-loops](./planning-loops.md), and teams of agents in [multi-agent](./multi-agent.md). In practice
+you don't hand-roll all of that. You reach for an **orchestration framework** — [LangChain](https://www.langchain.com), [LangGraph](https://www.langchain.com/langgraph),
+[LlamaIndex](https://www.llamaindex.ai), and their neighbors. This lesson is about what a framework actually adds on top of the bare loop,
+so you can choose one and use it well: not reimplement what it already gives you, and not hide behind it when
+something breaks.
 
-Сразу очертим рамку. Это урок про AI-дельту для инженера, у которого примитивы уже в руках, — не туториал
-«соберём фреймворк с нуля» и не обход API по методам. Дальше — философии и границы; код мы разбирать не будем.
+So set the scope plainly. This is an AI-delta lesson for engineers who already know the primitives — not a
+from-scratch framework tutorial, and not an API walkthrough. We're after the philosophies and the boundaries:
+what these libraries are *for*, where they earn their keep, and where they cost you more than they save. No
+code tutorials.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="ZVPlLaehjLk" title="Agentic AI Frameworks Explained: Workflows, Multi-Agent, & Production — IBM Technology" />
 
-IBM раскладывает тот же пейзаж по полкам: чем workflow-фреймворк отличается от мультиагентного и что из
-этого доживает до прода.
+IBM's map of the same territory — how frameworks split into workflow, multi-agent, and production concerns —
+is a good orientation before we get into what each layer buys you.
 
 :::
 
-## Что ты иначе писал бы руками
+## What you'd otherwise hand-roll
 
-Проще всего понять фреймворк через то, какую работу он забирает у тебя из рук. Собери агента на голом SDK
-провайдера — и очень быстро окажется, что помимо интересной логики ты пишешь один и тот же обвязочный код.
-Фреймворк — это в первую очередь готовая версия этой обвязки.
+Start with the honest question: if you skip the framework, what do you write yourself? Once you've built a
+couple of agents from scratch, the answer is a familiar pile of plumbing.
 
-Начинается всё с самого цикла `рассуждение → решение → действие → наблюдение`: его обвязка, тот самый внешний
-`while`, который крутит шаги, — уже написана за тебя. Дальше идёт склейка вызова инструментов: собрать схемы,
-разобрать структурированный вывод модели, отправить его в *нужную* функцию и вернуть результат обратно в
-диалог правильным сообщением. Это не логика твоей задачи — это протокольная бухгалтерия, и её фреймворк
-берёт на себя.
+The loop comes first — the reason → decide → act → observe cycle itself, spun until the agent decides it's done. Then the
+tool-calling glue around it: the schemas the model reads, the dispatch that maps a tool name to the right
+function, and the formatting that folds each result back into the conversation. Neither of those is deep, but
+both are fiddly, and you write them every single time.
 
-Поверх этого — то, что цикл держит между шагами:
+On top of that sit the things that grow as the agent does:
 
-- **Состояние и память** — то, что переносится из шага в шаг: история, промежуточные факты, рабочая память
-  агента.
-- **Поток управления** — ветвления, повторы, циклы и паузы под человека; не «модель что-то решила», а
-  структура, в которой её решения исполняются.
-- **Мультиагентная оркестрация** — передачи управления и маршрутизация между агентами, те самые
-  [топологии из урока про команды](./multi-agent.md), только не собранные вручную каждый раз.
-- Хуки трейсинга, стриминг ответа, устойчивое хранение и **чекпоинты (checkpointing)** — сохранение состояния,
-  чтобы прогон можно было приостановить и поднять заново.
+- **State and memory** carried across steps, so the agent remembers what it did three turns ago.
+- Control flow with teeth — branching, retries, loops, and the pauses where a human steps in.
+- Multi-agent orchestration: the handoffs and routing between agents, the topologies from the multi-agent lesson.
+- The production tail — tracing hooks, streaming, persistence, and checkpointing.
 
-Ничего из этого списка не является интеллектуальным ядром агента. Это ремни и шестерни, которые ты
-всё равно напишешь, — вопрос лишь в том, писать их самому или взять готовыми.
+None of this is the interesting part of your agent. It's the boilerplate underneath it. A framework's core
+pitch is that it writes this pile for you, once and consistently, so your code is about the behavior and not
+the wiring.
 
-## Главная абстракция — агент как граф / конечный автомат
+## The main abstraction — an agent as a graph / state machine
 
-Если смотреть, к чему сходится большинство фреймворков (чётче всего это видно в [LangGraph](https://www.langchain.com/langgraph)), — к одной
-центральной идее: описать **агента как граф / конечный автомат** (agent as a graph / state machine).
-**Узел** (node) — это шаг: вызвать модель, вызвать инструмент, принять решение. **Ребро** (edge) — это поток
-управления между шагами, включая рёбра, которые заворачивают обратно и образуют сам цикл. Агент перестаёт
-быть безымянным `while` и становится размеченной схемой, где каждый переход виден и назван.
+Strip away the branding and most frameworks converge on one idea, and LangGraph states it most clearly: model
+the agent as a **graph**, a state machine. The steps become **nodes** — call the model, call a tool, make a
+decision — and the control flow becomes **edges** between them, including edges that loop back so the cycle
+can keep going until a condition is met.
 
-Вот в чём здесь AI-дельта, в одну строку. Непрозрачный цикл превращается в управляемый, инспектируемый и
-возобновляемый конечный автомат: появляются чекпоинты, узлы человеческого одобрения, повторы и
-детерминированные ветвления — там, где голый цикл давал тебе чёрный ящик по принципу «всё или ничего».
-Раньше ты мог только запустить цикл и ждать, чем он кончится; теперь можно встать на любом узле,
-посмотреть состояние, поправить и пойти дальше.
+Here's why that reframing is the whole point. The bare loop is a `while` block: opaque while it runs, and
+all-or-nothing when it fails. Turn it into a state machine and it becomes something you can inspect, pause,
+and resume. You get checkpoints you can roll back to, nodes where a human approves before the flow continues,
+retries scoped to a single step, and branching that's deterministic instead of buried inside the model's
+free-running loop. That is the AI-delta in one line: the graph turns an opaque loop into a controllable,
+inspectable, resumable machine.
 
-## Игроки по слоям
+## The players, by layer
 
-Разложим ландшафт по слоям — как карту философий, без рейтингов. Каждый фреймворк тянет в свою сторону,
-и полезнее видеть, в какую именно.
+The framework landscape looks crowded until you sort it by what each tool is trying to be. Three rough layers.
 
-Слой интеграций и коннекторов — это **[LangChain](https://www.langchain.com)** и **[LlamaIndex](https://www.llamaindex.ai)**: широкие библиотеки готовых
-подключений к моделям, инструментам и данным. LlamaIndex при этом заточен под данные и RAG — его центр
-тяжести в том, как достать и подать контекст.
+The **integrations layer** is broad libraries of connectors — models, tools, data sources — so you're not
+writing adapters by hand. LangChain lives here, and so does LlamaIndex, which is tilted toward data and RAG in
+particular. If your problem is "wire the agent to fifteen different services," this is the layer you're
+shopping in.
 
-Слой потока управления и состояния — **LangGraph** и **[Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/)**. Первый строит агента
-именно как граф; второй — от Microsoft, целится в корпоративную среду.
+The **control-flow and state layer** is where the graph idea lives: LangGraph, and Microsoft Agent
+Framework, Microsoft's enterprise-oriented entry. This is the layer that owns the state machine of the
+previous section.
 
-Слой мультиагентности — **[CrewAI](https://www.crewai.com)** («экипажи» агентов с ролями) и оркестрации того же **Microsoft Agent
-Framework**, унаследованные от [AutoGen](https://github.com/microsoft/autogen) (агенты, которые *переговариваются* друг с другом). Здесь фреймворк
-даёт готовые конструкции под топологии из урока про команды.
+The **multi-agent layer** packages the multi-agent lesson's topologies. [CrewAI](https://www.crewai.com) organizes work into
+role-based "crews" of agents with assigned jobs; [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/) ships prebuilt multi-agent
+orchestrations, inherited from [AutoGen](https://github.com/microsoft/autogen) — agents that converse with one another. When the thing you want to
+model *is* a team, you start here.
 
-Оговоримся честно, иначе эта карта соврёт. Границы между слоями размыты: LangChain тоже умеет поток
-управления, а фреймворки постоянно копируют друг у друга удачные ходы. И экосистема несётся вперёд — то, что
-верно сегодня, устареет к следующему релизу: Microsoft Agent Framework 1.0 (GA апрель 2026) поглотил
-[Semantic Kernel](https://learn.microsoft.com/en-us/semantic-kernel/) и AutoGen — оба теперь в режиме поддержки. Так что запоминай *категории* — под какую
-задачу какой слой: они переживут и рейтинги, и номера версий, и конкретные имена.
+One caveat, and it matters more than the taxonomy. These borders blur — LangChain does control flow too,
+frameworks copy each other's good ideas within a release or two, and the whole ecosystem churns fast —
+Microsoft Agent Framework 1.0 (GA April 2026) absorbed [Semantic Kernel](https://learn.microsoft.com/en-us/semantic-kernel/) and AutoGen, both now in maintenance
+mode. Read the three layers as a snapshot of philosophies, not a durable leaderboard. Learn the categories; the version
+numbers will have moved by the time you ship.
 
-## Типовые паттерны, которыми реально пользуешься
+## Typical patterns you actually use
 
-Что из фреймворка ты берёшь в руки на практике — короткий перечень конструкций, за которые цепляется
-реальная работа:
+In day-to-day work a small set of shapes recurs, and knowing them by name is most of what you need from a
+framework's docs.
 
-- Граф с узлами-инструментами и условными рёбрами — базовая форма, из которой собирается почти всё
-  остальное.
-- Готовый ReAct-агент или простой агент с вызовом инструментов — «агент в комплекте» на случай, когда
-  свой граф не нужен: хватает рабочего цикла из коробки.
-- Управляемая фреймворком память агента или чекпойнтер, который сохраняет состояние: прогон можно возобновить с места остановки, а разные
-  диалоги развести по отдельным потокам (threads).
-- Узел-прерывание для режима **человек-в-цикле** (human-in-the-loop, HITL): цикл замирает, ждёт
-  человеческого одобрения и продолжает с той же точки. Это тот самый человек-в-цикле из урока про
-  планирование — теперь оформленный как полноправный узел графа, а не как ручная остановка сбоку.
-- Конструкция супервизора или экипажа под мультиагентность — оркестратор из урока про команды, собранный
-  за тебя.
-- Интеграция трейсинга (например, [LangSmith](https://www.langchain.com/langsmith)) — выход на наблюдаемость (observability), которую подробно
-  разбирает [Часть III](../part-3-production/overview.md).
+The base shape is a graph of **tool-nodes with conditional edges** — the agent calls a tool, and an edge
+decides where to go next based on the result. For the common case, most frameworks ship a **prebuilt ReAct
+agent**, a batteries-included tool-caller you can instantiate instead of assembling the graph yourself.
 
-## Когда НЕ надо и чем платишь
+Persistence shows up as a **checkpointer** — a memory component that saves state so a run can be paused and
+resumed later, and keeps separate threads apart so two conversations don't bleed into each other. On top of
+that sits the **human-in-the-loop (HITL)** interrupt: a node where the loop pauses for a person to approve,
+then resumes from exactly where it stopped. That's planning-loops' human-in-the-loop, now promoted to a
+first-class node in the graph instead of a manual stop button.
 
-Абстракция не бывает бесплатной, и здесь честная цена — важная часть урока. Фреймворк **прячет** от тебя
-промпт и поток управления, и это удобно ровно до первой поломки: когда что-то ломается, ты отлаживаешь
-это *сквозь слои*, которые писал не ты. Для простого агента голый цикл плюс родной вызов инструментов провайдера
-прозрачнее и отлаживается легче, чем граф поверх фреймворка, — ты видишь весь код от начала до конца.
+For teams, the framework hands you a **supervisor or crew construct** — the multi-agent lesson's orchestrator, prebuilt,
+so you configure the topology rather than code it. And running through all of it is **tracing integration**,
+[LangSmith](https://www.langchain.com/langsmith) being the obvious example: the observability layer that lets you see what the graph actually did.
+That's [Part III](../part-3-production/overview.md)'s subject, and it plugs in here.
 
-Дальше — уже знакомая по карте слоёв текучесть экосистемы: API и рекомендуемые паттерны сдвигаются от
-релиза к релизу, и идиоматичный код этого года на следующий год оказывается легаси. К этому добавляется
-переносимость против привязки: приняв абстракции фреймворка, ты сцепляешь с ним свой код, и уйти потом
-дорого.
+## When NOT to — the tradeoffs
 
-Отсюда правило. Сначала разберись в примитивах — цикл, инструменты, планирование, команды из прошлых
-уроков; фреймворк бери, чтобы снять с себя рутину, а не чтобы *не понимать*, что под капотом. Нужны
-управляемые сложные потоки — чекпоинты, человек-в-цикле, ветвления, мультиагентность — это работа для
-граф-фреймворка. Нужен простой агент — бери SDK провайдера напрямую, и не плоди слоёв.
+A framework is not free, and the costs are the mirror image of the benefits.
 
-## Где это соединяется
+The sharpest one is **abstraction cost**. A framework hides the prompt and the control flow — which is exactly
+what you wanted, right up until something breaks and you're debugging *through* layers of code you didn't
+write. For a simple agent, a plain loop plus the provider's native tool-calling is clearer, shorter, and far
+easier to debug than the same behavior threaded through a graph framework. The abstraction earns its cost only
+when there's real complexity for it to manage.
 
-Главное, что стоит унести: фреймворки не меняют *концепции* — они их *упаковывают*. Тот же цикл, те же
-инструменты, то же планирование и те же топологии из прошлых уроков, только без обвязочного кода вокруг
-них. И ровно поэтому они без швов стыкуются с наблюдаемостью и eval — тем, чем занимается
-[Часть III](../part-3-production/overview.md): раз агент стал размеченным графом, трейсить и мерять его
-становится естественным продолжением, а не отдельной стройкой.
+Two more sit alongside it. **Ecosystem churn** means the APIs and the blessed patterns shift release to
+release; the idiomatic code you write today is next year's legacy you're migrating off. And adopting a
+framework's abstractions is a **portability-versus-lock-in** trade — the more you lean on its constructs, the
+more coupled to it you are.
 
-## Что забрать из урока
+So the rule is a sequencing rule. Understand the primitives from the earlier lessons first; reach for a framework to
+delete boilerplate, never to avoid understanding what the boilerplate does. Pull in a graph framework when you
+genuinely need controllable complex flows — checkpoints, HITL, branching, multi-agent coordination. For a
+simple agent, use the provider SDK directly and skip the layer.
 
-- **Фреймворк оркестрации** — это готовая обвязка поверх голого цикла: сам цикл `рассуждение → решение →
-  действие → наблюдение`, склейка вызова инструментов, состояние и память, поток управления, мультиагентная
-  оркестрация, трейсинг, стриминг и чекпоинты. Всё то, что ты иначе писал бы руками.
-- Главная абстракция — **агент как граф / конечный автомат**: узлы (модель / инструмент / решение) и рёбра
-  (поток управления, включая петли). AI-дельта в том, что непрозрачный `while` становится управляемым,
-  инспектируемым и возобновляемым автоматом с чекпоинтами, узлами одобрения и детерминированными
-  ветвлениями.
-- Игроки раскладываются по слоям — интеграции (LangChain, LlamaIndex), поток управления и состояние
-  (LangGraph, Microsoft Agent Framework), мультиагентность (CrewAI и оркестрации Microsoft Agent
-  Framework). Границы размыты, экосистема течёт: запоминай категории, а не номера версий.
-- Цена абстракции реальна: фреймворк прячет промпт и поток управления, и отлаживаешь ты сквозь чужие слои.
-  Простому агенту хватит SDK провайдера; граф-фреймворк — под управляемые сложные потоки.
-- Правило одно: сперва примитивы, потом фреймворк — чтобы снять рутину, а не чтобы не понимать.
+## Where it connects
 
-**Новые термины** → [Глоссарий](../glossary.md): orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
+Nothing in this lesson is a new *concept*. Frameworks don't change the ideas from the earlier lessons — the loop,
+tools, planning, the multi-agent topologies. They package them, and hand them back to you minus the
+boilerplate. And because they package the same primitives, they plug straight into the observability and eval layer
+that [Part III](../part-3-production/overview.md) takes up: the graph you built here is the thing you'll
+trace and measure there.
+
+## What to take away
+
+- An **orchestration framework** removes the boilerplate you'd otherwise write around the bare loop — the
+  loop plumbing, tool-calling glue, state and memory, control flow, multi-agent handoffs, and the tracing /
+  streaming / checkpointing tail.
+- The main abstraction most frameworks converge on is the **agent as a graph / state machine**: nodes (call
+  model, call tool, decide) and edges (control flow, including loops). The AI-delta is that this turns an
+  opaque `while` loop into a controllable, inspectable, resumable machine.
+- Sort the players by layer — integrations (LangChain, LlamaIndex), control-flow/state (LangGraph,
+  Microsoft Agent Framework), multi-agent (CrewAI and Microsoft Agent Framework's orchestrations) — but
+  treat it as a snapshot: the borders blur and the ecosystem churns. Learn the categories, not the version
+  numbers.
+- The cost is **abstraction**: a framework hides the prompt and control flow, so you debug through layers you
+  didn't write. For a simple agent, a plain loop plus native tool-calling is clearer.
+- The rule: **primitives first**. Use a framework to remove boilerplate, not to avoid understanding — a graph
+  framework for controllable complex flows, the provider SDK directly for a simple agent.
+
+**New terms** → [Glossary](../glossary.md): orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: разбор конкретного графа в LangGraph, устойчивое исполнение (durable execution) и
-бэкенды чекпоинтов, сравнение встроенной памяти и мультиагентных конструкций фреймворков, декларативное
-против императивного описания агента, интеграция трейсинга и eval на уровне фреймворка (Часть III).
+🚧 Second pass: a concrete LangGraph graph walkthrough, durable execution and checkpoint backends, framework-native memory and multi-agent constructs compared, declarative vs imperative agent definitions, and framework-level tracing/eval integration (Part III).
 
-А как эти конструкции разложены по Claude, OpenAI и Gemini, сводит воедино таблица капстоуна части:
-[Реальные агенты](./real-agents.md).
+How these constructs map across Claude, OpenAI, and Gemini is pulled together in the part's capstone
+comparison table: [Real agents](./real-agents.md).
 
 :::

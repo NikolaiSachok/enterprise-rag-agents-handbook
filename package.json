@@ -15,7 +15,7 @@
     "typecheck": "tsc",
     "lint:md": "markdownlint-cli2",
     "leak-scan": "bash scripts/leak-scan.sh",
-    "test:e2e": "node e2e/locale-scroll-position.mjs"
+    "test:e2e": "node e2e/locale-detection.mjs && node e2e/locale-scroll-position.mjs && node e2e/tablet-layout.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",

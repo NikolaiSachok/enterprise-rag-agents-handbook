@@ -35,6 +35,7 @@ import type {LinkLikeNavbarItemProps} from '@theme/NavbarItem';
 import type {Props} from '@theme/NavbarItem/LocaleDropdownNavbarItem';
 
 import {capturePosition} from '@site/src/lib/localeScrollPosition';
+import {setPreferredLocale} from '@site/src/lib/localePreference';
 
 import styles from './styles.module.css';
 
@@ -119,6 +120,7 @@ export default function LocaleDropdownNavbarItem({
   const utils = useLocaleDropdownUtils();
 
   const {
+    siteConfig: {baseUrl},
     i18n: {currentLocale, locales},
   } = useDocusaurusContext();
   const localeItems = locales.map((locale): LinkLikeNavbarItemProps => {
@@ -132,11 +134,16 @@ export default function LocaleDropdownNavbarItem({
       to,
       target: '_self',
       autoAddBaseUrl: false,
-      // Capture the reader's position just before the full-page locale switch.
+      // On a cross-locale switch: remember the explicit choice (so the first-visit
+      // detector never redirects against it) and capture the reader's structural
+      // position just before the full-page navigation.
       ...(isCurrent
         ? {}
         : {
-            onClick: () => capturePosition(pathnameFromTo(to)),
+            onClick: () => {
+              setPreferredLocale(locale, baseUrl);
+              capturePosition(pathnameFromTo(to));
+            },
           }),
       className:
         // eslint-disable-next-line no-nested-ternary

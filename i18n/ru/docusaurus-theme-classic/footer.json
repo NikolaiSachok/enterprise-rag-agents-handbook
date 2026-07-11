@@ -1,0 +1,10 @@
+{
+  "link.item.label.Introduction": {
+    "message": "Введение",
+    "description": "The label of footer link with label=Introduction linking to /"
+  },
+  "link.item.label.Glossary": {
+    "message": "Глоссарий",
+    "description": "The label of footer link with label=Glossary linking to /glossary"
+  }
+}

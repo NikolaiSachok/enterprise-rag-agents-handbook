@@ -1,40 +1,40 @@
 ---
 id: intro
-title: Введение
+title: Introduction
 sidebar_position: 1
 slug: /
 ---
 
 # Enterprise RAG & Agents Handbook
 
-Практическое руководство по production-системам RAG (retrieval-augmented generation) и агентам,
-построенное на первых принципах: не «какие есть инструменты», а **почему** система устроена так и где она
-ломается. Материал живой — растёт слой за слоем, по мере прохождения курса.
+A practical, first-principles guide to production RAG (retrieval-augmented generation) and agents: not "what
+tools exist" but **why** a system is built the way it is and where it breaks. The material is living — it
+grows layer by layer as the course goes on.
 
-## Для кого это руководство
+## Who this handbook is for
 
-Оно совмещает сразу три роли:
+It plays three roles at once:
 
-- **Учебник** — для любого инженера, который хочет разобраться в RAG и агентах всерьёз: с разбором «почему»
-  и режимов провала вместо перечня возможностей.
-- **Справочник автора** — долговременная запись принципов проектирования и принятых решений.
-- **Портфолио** — демонстрация зрелой инженерной практики: eval (оценка качества), guardrails
-  (ограничители безопасности), observability (наблюдаемость), дисциплина проектирования.
+- **A course** — for any engineer who wants to understand RAG and agents in earnest: with the "why" and the
+  failure modes, not just a feature list.
+- **The author's reference** — a durable record of design principles and the decisions made.
+- **Portfolio** — a demonstration of mature engineering practice: eval, guardrails, observability, design
+  discipline.
 
-Мы предполагаем опытного инженера-читателя: типовые готовые инструменты (векторные БД, оркестраторы) не разбираем
-с нуля, а показываем **AI-дельту** — что именно меняется, когда применяешь их к LLM-системе.
+We assume an experienced reader: commodity tools (vector databases, orchestrators) aren't covered from
+scratch — instead we show the **AI delta**, what actually changes when you apply them to an LLM system.
 
-## Структура
+## Structure
 
-- **[Часть I — RAG](./part-1-rag/overview.md):** ingestion, retrieval, generation и сквозные аспекты (eval,
-  guardrails, observability) статического конвейера.
-- **[Часть II — Агенты](./part-2-agents/overview.md):** agentic RAG, использование инструментов, планирование
-  и циклы, мультиагентные системы, фреймворки оркестрации, [MCP](https://modelcontextprotocol.io).
-- **[Часть III — Production и LLMOps](./part-3-production/overview.md):** сервинг на [FastAPI](https://fastapi.tiangolo.com) + Docker,
-  облачные AI-платформы ([Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service), [Amazon Bedrock](https://aws.amazon.com/bedrock/), Google Cloud Gemini Enterprise Agent Platform —
-  экс-Vertex AI), экосистема инструментов (eval, guardrails, observability) и LLMOps — деплой, мониторинг,
-  стоимость. Прикладной слой, который рынок называет по инструментам.
-- **[Глоссарий](./glossary.md):** единые определения терминов, на которые ссылаются страницы.
+- **[Part I — RAG](./part-1-rag/overview.md):** ingestion, retrieval, generation, and the cross-cutting
+  concerns (eval, guardrails, observability) of the static pipeline.
+- **[Part II — Agents](./part-2-agents/overview.md):** agentic RAG, tool use, planning and loops,
+  multi-agent systems, orchestration frameworks, [MCP](https://modelcontextprotocol.io).
+- **[Part III — Production & LLMOps](./part-3-production/overview.md):** serving on [FastAPI](https://fastapi.tiangolo.com) + Docker,
+  cloud AI platforms ([Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service), [Amazon Bedrock](https://aws.amazon.com/bedrock/), Google Cloud Gemini Enterprise Agent Platform —
+  formerly [Vertex AI](https://cloud.google.com/vertex-ai)), the tooling ecosystem (eval, guardrails, observability), and LLMOps — deploy,
+  monitor, cost. The applied layer the job market names by tool.
+- **[Glossary](./glossary.md):** single definitions for the terms the pages link to.
 
-Каждая часть открывается страницей-обзором: с чего она начинается, что внутри и что нужно
-знать заранее.
+Each part opens with an overview page: where it starts, what's inside, and what you should know
+first.

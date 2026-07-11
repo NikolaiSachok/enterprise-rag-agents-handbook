@@ -1,107 +1,109 @@
 ---
 id: generation
-title: Generation — генерация ответа
+title: Generation
 sidebar_position: 3
 ---
 
-# Generation (генерация ответа)
+# Generation
 
-Retrieval отдал хороший, разрешённый контекст. Теперь буква «G» — модель формулирует ответ **из этого
-контекста**. Вернись к рамке из обзора части: **generation failure** — это когда нужный чанк *был* в
-контексте, но ответ всё равно кривой. Модель его проигнорировала, переврала или подмешала своё. Этот слой
-— про то, как такого не допустить.
+Retrieval handed over good, permitted context. Now the "G" — the model has to phrase an answer **from that
+context**. Go back to the frame from the part overview: a **generation failure** is when the chunk you needed
+*was* in the context, but the answer still came out wrong. The model ignored it, garbled it, or mixed in its
+own guess. This layer is about not letting that happen.
 
-## Главное: отвечать из контекста, а не из памяти
+## The core idea: answer from the context, not from memory
 
-У LLM есть **параметрические знания** — всё, что она выучила на обучении. Без ограничений она с радостью
-ответит из этой внутренней памяти: возможно, устаревшей, возможно, неверной, и уж точно не из твоих
-документов. Смысл RAG в обратном — удержать модель на **поданном контексте**: свежем, разрешённом,
-проверяемом. Поэтому генерация здесь не «дай волю модели», а «удержи её в рамках источников».
+An LLM carries **parametric knowledge** — everything it absorbed during training. Left unconstrained, it
+will happily answer from that internal memory: possibly stale, possibly wrong, and certainly not from your
+documents. RAG wants the opposite — to keep the model pinned to the **context you supply**: fresh, permitted,
+verifiable. So generation here isn't "let the model off the leash," it's "keep it inside the sources."
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="cfqtFvWOfg0" title="Why Large Language Models Hallucinate — IBM Technology" />
 
-Почему модель вообще выдумывает.
+Why a model makes things up in the first place.
 
 :::
 
-## Сборка промпта и упаковка контекста
+## Building the prompt and packing the context
 
-Как ты соберёшь промпт — половина дела. Базовая структура: системная инструкция + найденные чанки (чётко
-отделённые) + вопрос пользователя. Чаще всего ломаются три вещи:
+How you assemble the prompt is half the battle. The basic structure: a system instruction + the retrieved
+chunks (clearly set apart) + the user's question. Three things break most often:
 
-- **Явное разделение контекста.** Помечай, где начинаются и заканчиваются источники, чтобы модель отличала
-  «данные для ответа» от «инструкций». Это заодно первая линия обороны против prompt injection
-  (внедрение инструкций в текст — об этом в слое Guardrails).
-- **Порядок: эффект lost-in-the-middle.** Модель лучше «видит» начало и конец длинного контекста, а
-  закопанное в середине теряет. Отсюда правило: вместо вываленных 50 чанков — несколько лучших (спасибо
-  реранкингу), и самые релевантные стоят по краям.
-- **Метаданные для цитат.** Источник и раздел, прикреплённые ещё на чанкинге, едут в промпт — иначе ответу
-  не на что сослаться.
+- **Marking the context off explicitly.** Flag where the sources begin and end, so the model can tell "data
+  to answer from" apart from "instructions." This doubles as the first line of defense against prompt
+  injection (more on that in the Guardrails layer).
+- **Order: the lost-in-the-middle effect.** A model "sees" the beginning and end of a long context better
+  and loses whatever is buried in the middle. Hence the rule: don't dump 50 chunks — pass a handful of the
+  best (thanks to reranking) and put the most relevant ones at the edges.
+- **Metadata for citations.** The source and section, attached back at chunking, ride along into the prompt
+  — otherwise the answer has nothing to cite.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="1c9iyoVIwDs" title="4 Methods of Prompt Engineering — IBM Technology" />
 
-Способы структурировать промпт.
+Ways to structure a prompt.
 
 :::
 
-## Grounding-инструкции — главный рычаг против галлюцинаций
+## Grounding instructions — the main lever against hallucinations
 
-Самое сильное средство простое: явно задай модели границы. «Отвечай **только** по предоставленному
-контексту. Если ответа в нём нет — так и скажи, не выдумывай». Одна эта инструкция заметно снижает долю
-галлюцинаций, потому что лишает модель «права» дополнять ответ из памяти.
+The strongest tool is a simple one: give the model explicit boundaries. "Answer **only** from the provided
+context. If the answer isn't there, say so — don't make it up." That one instruction noticeably cuts the
+share of hallucinations, because it strips the model of its "license" to top up the answer from memory.
 
-## Цитирование
+## Citations
 
-Заставь модель указывать, из какого чанка или источника взято каждое утверждение. Выигрыш двойной.
-Пользователь может **проверить** ответ — это доверие. И сама модель выдумывает меньше: труднее сочинить
-факт, когда рядом надо поставить ссылку на источник. Работает это за счёт метаданных, заложенных на
-чанкинге.
+Make the model state which chunk or source each claim came from. The payoff is twofold. The user can
+**check** the answer — that's trust. And the model itself invents less: it's harder to fabricate a fact when
+you have to put a source next to it. This runs off the metadata laid down at chunking.
 
-## Отказ — это фича, а не баг
+## Refusal is a feature, not a bug
 
-Система должна иметь право сказать «не знаю» — и это право надо явно прописать в её инструкциях. Уверенный
-неправильный ответ хуже честного «в документах этого нет». Если retrieval ничего не нашёл, ответом должен
-стать **отказ** вместо догадки. В корпоративной среде это принципиально: на уверенный ответ полагаются как на
-факт, и одна ошибка расходится дальше — в отчёт, в чьё-то решение.
+The system must be allowed to say "I don't know" — and it has to be instructed to. A confident wrong answer
+is worse than an honest "that isn't in the documents." If retrieval came back empty, the answer should be a
+**refusal**, not a guess. In an enterprise setting this is fundamental: people lean on a confident answer as
+if it were fact, and a single error travels further — into a report, into someone's decision.
 
-## Faithfulness: где генерация упирается в измерение
+## Faithfulness: where generation runs into measurement
 
-Даже с инструкциями модель иногда перебивает контекст своими знаниями или спотыкается, когда контекст
-противоречит тому, во что она «верит». Насколько ответ действительно опирается на источники — это
-**измеряют** метрикой faithfulness / groundedness. Формализуем её в слое [Evaluation](./cross-cutting/evaluation.md);
-пока держи в голове, что за «модель ведёт себя хорошо» должно стоять число.
+Even with instructions, a model will sometimes override the context with its own knowledge, or stumble when
+the context contradicts what it "believes." How far the answer actually rests on the sources is something you
+**measure** — with the faithfulness / groundedness metric. We formalize it in the
+[Evaluation](./cross-cutting/evaluation.md) layer; for now, hold on to the idea that "the model behaves well" isn't a
+feeling, it's a number.
 
-## Как generation failure чинится по классам
+## Fixing generation failure, class by class
 
-| Провал | Чем лечим |
+| Failure | The fix |
 |---|---|
-| Проигнорировала нужный чанк | Меньше шума (реранкинг → мало чанков) + grounding-инструкция |
-| Выдумала факт | Grounding + цитирование + разрешённый отказ |
-| Потеряла закопанное в середине | Порядок чанков, меньше чанков |
-| Ответила из устаревшей памяти | Жёсткая привязка к контексту, «только по источникам» |
+| Ignored the chunk it needed | Less noise (reranking → few chunks) + a grounding instruction |
+| Made up a fact | Grounding + citations + a permitted refusal |
+| Lost what was buried in the middle | Chunk order, fewer chunks |
+| Answered from stale memory | A hard tie to the context, "sources only" |
 
-## Что забрать из урока
+## What to take away
 
-- Генерация в RAG = ответ **из контекста**, а не из параметрической памяти.
-- Сборка промпта: явно отделяй источники, помни про lost-in-the-middle, подавай несколько лучших чанков.
-- **Grounding-инструкции** («только по контексту, иначе — не знаю») — главный рычаг против галлюцинаций.
-- **Цитирование** даёт проверяемость и само по себе уменьшает число выдумок.
-- **Отказ** — штатное поведение системы.
-- Верность контексту (faithfulness) **измеряют** → мостик к Evaluation.
+- Generation in RAG = an answer **from the context**, not from parametric memory.
+- Prompt assembly: set the sources apart explicitly, mind lost-in-the-middle, pass a handful of the best
+  chunks.
+- **Grounding instructions** ("only from the context, otherwise — I don't know") are the main lever against
+  hallucinations.
+- **Citations** give verifiability and, on their own, cut down on invention.
+- **Refusal** is normal behavior, not a malfunction.
+- Faithfulness to the context is something you **measure** → the bridge to Evaluation.
 
-**Новые термины** → [Глоссарий](../glossary.md): grounding, grounding instructions, context packing,
+**New terms** → [Glossary](../glossary.md): grounding, grounding instructions, context packing,
 lost-in-the-middle, citations / attribution, refusal / abstention, faithfulness / groundedness, parametric
 knowledge, hallucination.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: продвинутые схемы генерации (chain-of-verification, self-consistency), структурированный
-вывод и принудительное цитирование, борьба с конфликтом «контекст против параметрических знаний».
+🚧 Second pass: advanced generation schemes (chain-of-verification, self-consistency), structured output and
+forced citation, tackling the conflict between context and parametric knowledge.
 
 :::

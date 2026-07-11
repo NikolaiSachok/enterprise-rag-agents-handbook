@@ -1,120 +1,121 @@
 ---
 id: retrieval
-title: Retrieval — поиск
+title: Retrieval
 sidebar_position: 2
 ---
 
-# Retrieval (поиск)
+# Retrieval
 
-После ingestion чанки уже лежат в векторной базе. Наивный retrieval выглядит так: заэмбеддить запрос и
-вернуть K ближайших векторов по косинусу. Это отправная точка, а не готовое решение. Слой Retrieval — про
-то, как из «ближайших векторов» собрать выдачу, которая действительно релевантна, верно упорядочена и не
-выходит за пределы того, что этому пользователю можно показывать.
+After ingestion, the chunks are already sitting in a vector database. The naive version of retrieval goes
+like this: embed the query, return the K nearest vectors by cosine. That's a starting point, not a
+finished solution. The retrieval layer is about turning "nearest vectors" into results that are genuinely
+relevant, ordered correctly, and kept within what a given user is allowed to see.
 
-Держи в голове рамку из обзора части: **retrieval failure** — это когда нужного чанка нет в том, что мы вернули.
-Весь слой сводится к тому, чтобы такой промах случался реже.
+Hold on to the frame from the part overview: a **retrieval failure** is when the chunk you needed isn't in
+what you returned. The whole layer comes down to making that miss happen less often.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="T-D1OfcDW1M" title="What is Retrieval-Augmented Generation (RAG)? — IBM Technology" />
 
-Большая картина: как поиск подаёт контекст в генерацию.
+The big picture: how search feeds context into generation.
 
 :::
 
-## Почему чистого векторного top-K мало
+## Why plain vector top-K isn't enough
 
-На живых запросах наивная схема «K ближайших векторов» проседает сразу по нескольким причинам.
+On live queries the naive "K nearest vectors" scheme sags for several reasons at once.
 
-Плотный поиск ловит смысл, но промахивается по точным токенам — кодам ошибок, артикулам, именам,
-аббревиатурам. Запрос «ошибка X-42» он может не вытащить, тогда как поиск по точному слову находит нужный
-чанк мгновенно. Добавь сюда разрыв в формулировках — пользователь спрашивает не теми словами, что стоят в
-документе, — и полное отсутствие понятия прав доступа. Поверх наивного поиска приходится достраивать
-несколько слоёв.
+Dense search catches meaning but misses exact tokens — error codes, part numbers, names, acronyms. It may
+never surface the query "error X-42," where an exact-word search finds the right chunk instantly. Add the
+vocabulary gap — the user asks in different words than the ones in the document — and the complete absence
+of any notion of access rights. The naive search needs a few layers built on top of it.
 
-Их четыре: починить запрос (query transformation), закрыть слепые зоны (гибридный поиск), починить
-порядок (реранкинг), ограничить область и права (фильтры + ACL).
+There are four of them: fix the query (query transformation), close the blind spots (hybrid search), fix
+the ordering (reranking), constrain scope and permissions (filters + ACL).
 
-## Query transformation — починить запрос до поиска
+## Query transformation — fix the query before searching
 
-Запрос, который набрал пользователь, редко бывает лучшим запросом для поиска. Несколько дешёвых
-LLM-вызовов *перед* retrieval заметно повышают долю попаданий.
+The query a user types is rarely the best query to search with. A few cheap LLM calls *before* retrieval
+lift the hit rate noticeably.
 
-- **Переписывание.** Раскрыть местоимения и сокращения. В чате это обязательно: «а сколько он стоит?» без
-  истории диалога бесполезно — его переписывают в самостоятельное «сколько стоит товар X?».
-- **Multi-query.** Сгенерировать несколько перефразировок запроса, искать по каждой, объединить выдачу.
-- **HyDE.** Попросить модель набросать гипотетический ответ, заэмбеддить его и искать по нему: черновой
-  ответ часто оказывается ближе к нужному чанку в пространстве эмбеддингов, чем короткий вопрос.
+- **Rewriting.** Resolve pronouns and shorthand. In chat this is non-negotiable: "and how much is it?"
+  means nothing without the dialogue history — you rewrite it into a self-contained "how much does
+  product X cost?".
+- **Multi-query.** Generate several paraphrases of the query, search on each, merge the results.
+- **HyDE.** Ask the model to sketch a hypothetical answer, embed that, and search with it. A rough draft
+  answer often sits closer to the chunk you need in embedding space than a short question does.
 
-## Гибридный поиск — dense плюс keyword
+## Hybrid search — dense plus keyword
 
-Самое серьёзное улучшение поверх наивного поиска. Здесь работают два механизма с противоположными
-сильными сторонами:
+The single biggest improvement over naive search. Two mechanisms with opposite strengths are at work:
 
-| | **Dense (плотный)** | **Sparse / keyword (BM25)** |
+| | **Dense (vector)** | **Sparse / keyword (BM25)** |
 |---|---|---|
-| Что ловит | Смысл, синонимы, перефразировки | Точные слова: коды, имена, артикулы, редкие термины |
-| Где слеп | Точные токены, которым модель не придаёт веса | Синонимы и смысл — только буквальное совпадение |
+| What it catches | Meaning, synonyms, paraphrases | Exact words: codes, names, part numbers, rare terms |
+| Where it's blind | Exact tokens the model gives little weight to | Synonyms and meaning — only a literal match counts |
 
-Гибрид запускает оба и объединяет их score (взвешенно или через Reciprocal Rank Fusion). Каждый закрывает
-слепую зону другого — вот и ответ на «почему одного вектора мало».
+A hybrid runs both and merges their scores — weighted, or through Reciprocal Rank Fusion. Each covers the
+other's blind spot, and there's your answer to "why one vector isn't enough."
 
-Возьми запрос «как сбросить пароль». Плотный поиск найдёт документ «восстановление доступа к аккаунту» по
-смыслу; BM25 — документ с точным заголовком «сброс пароля». Вместе они дают то, что порознь каждый упускал.
+Take the query "how to reset a password." Dense search finds the document "recovering account access" by
+meaning; BM25 finds the one titled, word for word, "password reset." Together they return what each one
+missed alone.
 
-## Реранкинг — починить порядок
+## Reranking — fix the ordering
 
-Первая стадия (плотный или гибридный поиск) заточена под **полноту**: затащить нужный чанк хоть куда-то в
-top-K, где K — это 50–100. Но порядок внутри этой сотни грубый, а в контекст модели влезает лишь несколько
-чанков. Поэтому вторая стадия работает на **точность**: cross-encoder из [прошлого урока](./ingestion.md)
-заново оценивает каждого кандидата в паре с запросом и пересортировывает список, поднимая лучшее наверх. В
-генерацию уходит только несколько верхних.
+The first stage — dense or hybrid search — is tuned for **recall**: drag the chunk you need somewhere into
+the top-K, where K is 50–100. But the ordering inside that hundred is crude, and only a few chunks fit
+into the model's context. So the second stage works on **precision**: a cross-encoder from the [previous
+lesson](./ingestion.md) re-scores every candidate against the query and re-sorts the list, floating the
+best to the top. Only the top few reach generation.
 
-Это каноническая двухстадийная схема: дёшево и широко (bi-encoder или гибрид — полнота), затем дорого и
-точно (cross-encoder — точность). Здесь bi- и cross-encoder из урока про ingestion складываются в единую
-картину.
+This is the canonical two-stage scheme: cheap and wide (a bi-encoder or hybrid — recall), then expensive
+and precise (a cross-encoder — precision). Here the bi- and cross-encoder from the ingestion lesson click
+into a single picture.
 
-## Фильтры и контроль доступа — релевантность и права
+## Filters and access control — relevance and permissions
 
-В корпоративной среде retrieval отвечает не только на вопрос «похоже ли по смыслу», но и на «что этому
-человеку вообще можно показывать».
+In an enterprise setting, retrieval answers more than "is this similar in meaning." It also answers "what
+is this person even allowed to see."
 
-- **Фильтрация по метаданным**, которые прикрепили на чанкинге: дата, отдел, тип документа, язык. «Только
-  документы HR после 2024 года».
-- **Контроль доступа (access control).** Права отсекают *до* выдачи, чтобы пользователь физически не мог получить чанк, к
-  которому у него нет доступа (пример с зарплатной ведомостью из урока про ingestion). Это жёсткое требование:
-  система, которая по одной лишь релевантности отдала закрытый документ, порождает инцидент безопасности, а
-  не просто просадку качества. Обычно ставят pre-filter — сначала отсекают по правам, потом ищут.
+- **Metadata filtering** on the fields attached during chunking: date, department, document type,
+  language. "Only HR documents after 2024."
+- **Access control.** Permissions cut *before* results are returned, so a user physically can't get a
+  chunk they have no access to (the payroll-ledger example from the ingestion lesson). This is a hard
+  requirement: a system that hands back a restricted document on relevance alone has produced a security
+  incident, not merely a dip in quality. The usual arrangement is a pre-filter — screen by permissions
+  first, then search.
 
-## Конвейер целиком
+## The full pipeline
 
 ```text
-запрос → [transform] → [гибрид: dense + BM25, фильтр метаданных + ACL]
-       → кандидаты (top-K) → [реранк: cross-encoder] → топ-несколько → в генерацию
+query → [transform] → [hybrid: dense + BM25, metadata filter + ACL]
+      → candidates (top-K) → [rerank: cross-encoder] → top-few → into generation
 ```
 
-Каждая стадия делает retrieval failure реже. Насколько именно — это **измеряют**: Recall@K, Precision@K,
-MRR, nDCG. Метрики формализуем в слое [Evaluation](./cross-cutting/evaluation.md).
+Every stage drives retrieval failure down. By exactly how much is something you **measure**: Recall@K,
+Precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cutting/evaluation.md) layer.
 
-## Что забрать из урока
+## What to take away
 
-- Наивный векторный top-K — только старт.
-- Query transformation чинит сам запрос: переписывание, multi-query, HyDE.
-- Гибридный поиск (dense + BM25) закрывает разрыв между смыслом и точным словом — это главный шаг вперёд.
-- Реранкинг (cross-encoder) чинит порядок: стадия полноты, затем стадия точности.
-- Фильтры и контроль доступа дают релевантность вместе с правами; ACL — это требование безопасности.
+- Naive vector top-K is a start, not a finish.
+- Query transformation fixes the query itself: rewriting, multi-query, HyDE.
+- Hybrid search (dense + BM25) closes the gap between meaning and the exact word — the single biggest step
+  up.
+- Reranking (a cross-encoder) fixes the ordering: a recall stage, then a precision stage.
+- Filters and access control give you relevance together with permissions; ACL is a security requirement.
 
-**Новые термины** → [Глоссарий](../glossary.md): retrieval failure / generation failure, dense retrieval,
+**New terms** → [Glossary](../glossary.md): retrieval failure / generation failure, dense retrieval,
 top-K, query transformation, multi-query, HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank
 Fusion (RRF), reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K,
 nDCG, MRR.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: механика HyDE, внутренности гибридного слияния (RRF), выбор реранкера
-(cross-encoder vs LLM), parent-document retrieval, late interaction (ColBERT), маршрутизация запросов
-по индексам (query routing).
+🚧 Second pass: HyDE mechanics, hybrid-fusion internals (RRF), reranker choice (cross-encoder vs LLM),
+parent-document retrieval, late interaction (ColBERT), query routing.
 
 :::

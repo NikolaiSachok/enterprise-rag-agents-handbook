@@ -67,13 +67,16 @@ SK's counterpart of RU's anglicism problem: a named, always-on check.
 
 ## Mechanics (Docusaurus)
 
-- Locale: `sk` in `docusaurus.config.ts` `i18n.locales`; content under
-  `i18n/sk/docusaurus-plugin-content-docs/current/**` mirroring `docs/`; `_category_.json` translations;
-  navbar/footer strings; blog if/when applicable.
+- Locale: add `sk` to the `LOCALES` array + a `localeConfigs` label in `docusaurus.config.ts` (the config is
+  locale-list-driven, so the browser-language detector and switcher pick `sk` up with no other code change);
+  content under `i18n/sk/docusaurus-plugin-content-docs/current/**` mirroring the **EN default in `docs/`**
+  (EN is canonical since the EN-canonical flip; RU is itself a secondary locale under `i18n/ru/`);
+  `_category_.json` translations; navbar/footer strings; blog if/when applicable.
 - **Gated visibility:** merge SK content to `main` continuously, but keep `sk` OUT of the deployed locale
   list until launch (env/config-driven locales array: CI builds all three for verification; the deployed
   build adds `sk` only when the final milestone pass signs off). A public locale dropdown pointing at a
-  half-translated locale (Docusaurus falls back to RU for missing pages) undermines the showcase purpose.
+  half-translated locale (Docusaurus falls back to the **default locale, EN**, for missing pages)
+  undermines the showcase purpose.
 - **Theme strings:** audit Docusaurus' shipped SK translation coverage (`npm run write-translations -- --locale sk`);
   fill gaps in `code.json` — theme chrome in English/Russian inside SK pages is a defect.
 - **Glossary anchors:** SK glossary headings produce SK slugs; every lesson's terms-footer links must
