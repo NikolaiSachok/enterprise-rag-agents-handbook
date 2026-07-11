@@ -114,6 +114,7 @@ nDCG, MRR.
 :::note[Дальше — углубление слоя]
 
 🚧 Второй проход: механика HyDE, внутренности гибридного слияния (RRF), выбор реранкера
-(cross-encoder vs LLM), parent-document retrieval, late interaction (ColBERT), маршрутизация запросов.
+(cross-encoder vs LLM), parent-document retrieval, late interaction (ColBERT), маршрутизация запросов
+по индексам (query routing).
 
 :::

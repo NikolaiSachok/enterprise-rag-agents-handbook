@@ -100,6 +100,6 @@ correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval
 
 :::note[Next — going deeper]
 
-🚧 Second pass: RAGAS-style metric internals, LLM-judge calibration, human-in-the-loop labeling.
+🚧 Second pass: Ragas-style metric internals, LLM-judge calibration, human-in-the-loop labeling.
 
 :::

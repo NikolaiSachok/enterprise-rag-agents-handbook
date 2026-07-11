@@ -105,7 +105,7 @@ first-class node in the graph instead of a manual stop button.
 For teams, the framework hands you a **supervisor or crew construct** — the multi-agent lesson's orchestrator, prebuilt,
 so you configure the topology rather than code it. And running through all of it is **tracing integration**,
 LangSmith being the obvious example: the observability layer that lets you see what the graph actually did.
-That's Part III's subject, and it plugs in here.
+That's [Part III](../part-3-production/overview.md)'s subject, and it plugs in here.
 
 ## When NOT to — the tradeoffs
 
@@ -131,8 +131,9 @@ simple agent, use the provider SDK directly and skip the layer.
 
 Nothing in this lesson is a new *concept*. Frameworks don't change the ideas from the earlier lessons — the loop,
 tools, planning, the multi-agent topologies. They package them, and hand them back to you minus the
-boilerplate. And because they package the same primitives, they plug straight into the observability and eval
-layer that Part III takes up: the graph you built here is the thing you'll trace and measure there.
+boilerplate. And because they package the same primitives, they plug straight into the observability and eval layer
+that [Part III](../part-3-production/overview.md) takes up: the graph you built here is the thing you'll
+trace and measure there.
 
 ## What to take away
 

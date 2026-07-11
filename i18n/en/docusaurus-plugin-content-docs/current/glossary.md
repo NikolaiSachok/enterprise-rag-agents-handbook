@@ -222,7 +222,8 @@ steps with actions (tool calls), feeding each action's result back into the cont
 ↗ [arXiv](https://arxiv.org/abs/2210.03629)
 
 **Routing / query router** — the lightest level of agency: the model makes one choice — where to send the
-query (which index/tool, or "no retrieval needed") — and the flow is static after that.
+query (which index/tool, or "no retrieval needed") — and the flow is static after that. Not to be confused
+with model routing — picking which model answers (Part III).
 
 **Multi-hop retrieval** — an answer that needs several dependent searches, where the next query is built
 from the previous result.

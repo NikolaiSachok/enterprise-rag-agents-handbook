@@ -98,6 +98,6 @@ relevance, correctness, LLM-as-a-judge, judge bias, offline vs online eval, regr
 
 :::note[Дальше — углубление слоя]
 
-🚧 Второй проход: устройство метрик в духе RAGAS, калибровка LLM-судьи, human-in-the-loop разметка.
+🚧 Второй проход: устройство метрик в духе Ragas, калибровка LLM-судьи, human-in-the-loop разметка.
 
 :::

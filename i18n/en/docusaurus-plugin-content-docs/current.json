@@ -2,29 +2,5 @@
   "version.label": {
     "message": "Next",
     "description": "The label for version current"
-  },
-  "sidebar.handbookSidebar.category.Часть I — RAG": {
-    "message": "Part I — RAG",
-    "description": "The label for category 'Часть I — RAG' in sidebar 'handbookSidebar'"
-  },
-  "sidebar.handbookSidebar.category.Часть I — RAG.link.generated-index.title": {
-    "message": "Part I — RAG",
-    "description": "The generated-index page title for category 'Часть I — RAG' in sidebar 'handbookSidebar'"
-  },
-  "sidebar.handbookSidebar.category.Часть I — RAG.link.generated-index.description": {
-    "message": "🚧 Work in progress. Ingestion, retrieval, generation, and cross-cutting concerns of production RAG.",
-    "description": "The generated-index page description for category 'Часть I — RAG' in sidebar 'handbookSidebar'"
-  },
-  "sidebar.handbookSidebar.category.Часть II — Агенты": {
-    "message": "Part II — Agents",
-    "description": "The label for category 'Часть II — Агенты' in sidebar 'handbookSidebar'"
-  },
-  "sidebar.handbookSidebar.category.Часть II — Агенты.link.generated-index.title": {
-    "message": "Part II — Agents",
-    "description": "The generated-index page title for category 'Часть II — Агенты' in sidebar 'handbookSidebar'"
-  },
-  "sidebar.handbookSidebar.category.Часть II — Агенты.link.generated-index.description": {
-    "message": "🚧 Work in progress. Agentic RAG, tool use, loops, planning, multi-agent.",
-    "description": "The generated-index page description for category 'Часть II — Агенты' in sidebar 'handbookSidebar'"
   }
 }

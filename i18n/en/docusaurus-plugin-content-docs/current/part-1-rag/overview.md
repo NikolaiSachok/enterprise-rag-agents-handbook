@@ -36,8 +36,8 @@ deep math required — we explain from first principles.
 
 :::note[Status]
 
-The base pass through the part is complete. 🚧 Deeper passes (document parsing, hybrid-search internals,
-evaluation, and more) arrive as separate rounds — see the "Next — going deeper" notes at the end of each
-lesson.
+Part I's base is complete — every lesson is published: Ingestion, Retrieval, Generation, and the
+cross-cutting concerns (eval, guardrails, observability). 🚧 A second pass is still ahead — deepening each
+layer (topics listed in the "Next — going deeper" notes on the lesson pages).
 
 :::
