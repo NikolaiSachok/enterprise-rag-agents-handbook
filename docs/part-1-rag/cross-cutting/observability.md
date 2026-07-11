@@ -1,87 +1,88 @@
 ---
 id: observability
-title: Observability — наблюдаемость
+title: Observability
 sidebar_position: 3
 ---
 
-# Observability (наблюдаемость)
+# Observability
 
-Eval говорит, хороша ли система (офлайн, на датасете). Guardrails держат её безопасной. **Observability** —
-это видеть, что система реально делает в проде, на живом трафике. Без неё прод-проблемы невидимы: ты не
-знаешь, *почему* конкретный ответ вышел плохим, что достали из базы, сколько это стоило и сколько заняло.
+Eval tells you whether the system is good (offline, on a dataset). Guardrails keep it safe. **Observability**
+is seeing what the system actually does in production, on live traffic. Without it, production problems are
+invisible: you don't know *why* a given answer came out bad, what was pulled from the store, what it cost, or
+how slow it was.
 
-## Что общего, а что — про AI
+## What's shared, and what's about AI
 
-Три столпа наблюдаемости — **traces, metrics, logs** — ты знаешь как инженер. Этот урок про дельту: что
-меняется, когда наблюдаешь **LLM/RAG-систему**, а не обычный сервис.
+The three pillars of observability — **traces, metrics, logs** — you already know as an engineer. This lesson
+is about the delta: what changes when you observe an **LLM/RAG system** rather than an ordinary service.
 
-## Почему LLM-систему наблюдать сложнее
+## Why an LLM system is harder to observe
 
-Недетерминизм плюс чёрный ящик. Плохой ответ в проде не воспроизвести, не имея полной записи: какой был
-запрос (уже после трансформации), какие чанки достались и с каким score, какой промпт ушёл в модель, что она
-вернула, какие инструменты дёрнул агент. Обычный софт детерминирован — есть стектрейс. LLM-приложению нужен
-лог **всей цепочки рассуждения**.
+Nondeterminism plus a black box. You can't reproduce a bad production answer without the full record: what the
+query was (already after transformation), which chunks came back and with what score, what prompt went to the
+model, what it returned, which tools the agent called. Ordinary software is deterministic — there's a stack
+trace. An LLM application needs a log of the **whole reasoning chain**.
 
-## Трейс пайплайна — главный примитив
+## The pipeline trace — the core primitive
 
-**Trace** — полная запись одного запроса сквозь пайплайн: запрос → трансформированный запрос → чанки
-(+score) → реранк → отправленный промпт → вывод модели → (для агента) каждый шаг и вызов инструмента. Каждый
-шаг — **спан** (span). Трейс отвечает на главный вопрос отладки: «почему на этот запрос вышел именно такой ответ?»
+A **trace** is the full record of one request through the pipeline: query → transformed query → chunks
+(+score) → rerank → the prompt that was sent → model output → (for an agent) every step and tool call. Each
+step is a **span**. The trace answers the main debugging question: "why did this query produce exactly this
+answer?"
 
-## Что логировать (RAG-специфика)
+## What to log (RAG specifics)
 
-- **Найденные чанки и их score** — нашёлся ли нужный (прямая связь с retrieval-eval).
-- **Финальный промпт** — что модель реально увидела.
-- **Сырой вывод модели** плюс постобработка.
-- Для агентов — **полный трейс шагов и вызовов инструментов**.
-- По каждому шагу: латентность, число токенов, стоимость, версия модели.
+- **The retrieved chunks and their scores** — did the right one show up (a direct tie to retrieval eval).
+- **The final prompt** — what the model actually saw.
+- **The raw model output** plus post-processing.
+- For agents — **the full trace of steps and tool calls**.
+- Per step: latency, token count, cost, model version.
 
-## Стоимость и латентность — на первом месте
+## Cost and latency — first-class concerns
 
-В отличие от обычного приложения, каждый запрос **стоит денег** (токены), а LLM-вызовы медленные.
-Observability обязана считать cost-per-request и латентность (latency) по шагам (особенно генерация и
-реранк) — чтобы ловить дорогие и медленные паттерны и оптимизировать: кэш, модель подешевле, меньше чанков
-в промпте.
+Unlike an ordinary application, every request **costs money** (tokens), and LLM calls are slow. Observability
+has to account for cost-per-request and per-step latency (generation and rerank especially) — to catch the
+expensive, slow patterns and optimize: caching, a cheaper model, fewer chunks in the prompt.
 
-## Обратная связь: observability кормит eval
+## Feedback: observability feeds eval
 
-Прод-трейсы и обратная связь от пользователей становятся новыми eval-кейсами — теми самыми трудными
-запросами, на которых прод проваливался. Поймал плохой ответ в проде → добавил в golden set → защитил от
-регрессии. Круг замыкается: eval мерит, guardrails защищают, observability видит и возвращает найденное в
-eval. Весь сквозной слой — это одна связка.
+Production traces and user feedback become new eval cases — exactly the hard, failing real-world queries.
+Catch a bad answer in production → add it to the golden set → guard against the regression. The loop closes:
+eval measures, guardrails protect, observability sees and feeds what it finds back into eval. The whole
+cross-cutting layer is one loop.
 
-*(Инструменты — [LangSmith](https://www.langchain.com/langsmith), [Langfuse](https://langfuse.com), [Arize Phoenix](https://arize.com/phoenix), [OpenTelemetry](https://opentelemetry.io) — отдельный слой: см. [урок про
-экосистему инструментов](../../part-3-production/tooling-ecosystem.md); здесь мы про принцип.)*
+*(The tools — [LangSmith](https://www.langchain.com/langsmith), [Langfuse](https://langfuse.com), [Arize Phoenix](https://arize.com/phoenix), [OpenTelemetry](https://opentelemetry.io) — are a separate layer: see [the tooling
+ecosystem lesson](../../part-3-production/tooling-ecosystem.md); here we're on the principle.)*
 
 ---
 
-На этом закрывается не только урок, но и вся Часть I. Её костяк ты теперь знаешь: плохой ответ
-раскладывается на retrieval-провал и generation-провал, конвейер собирается слой за слоем — ingestion,
-retrieval, generation, — а сквозные практики держат его измеримым, безопасным и видимым. В
-[Части II](../../part-2-agents/overview.md) этот статический конвейер оживёт: решения о ходе выполнения
-начнёт принимать модель — и вся дисциплина, собранная здесь, поедет с тобой.
+This closes more than the lesson — it closes Part I. You now hold its backbone: a bad answer decomposes
+into a retrieval failure or a generation failure, the pipeline is built layer by layer — ingestion,
+retrieval, generation — and the cross-cutting practices keep it measurable, safe, and visible. In
+[Part II](../../part-2-agents/overview.md) this static pipeline comes alive: the model starts making the
+control-flow decisions — and all the discipline you've built here travels with you.
 
-## Что забрать из урока
+## What to take away
 
-- Observability = видеть, что живая LLM-система реально делает; нужна, потому что система недетерминирована
-  и без полной записи плохой ответ не отладить.
-- Главный примитив — трейс (спаны) одного запроса от края до края: запрос → retrieval+score → промпт →
-  вывод → шаги агента.
-- Логируй RAG-специфику: чанки со score, финальный промпт, сырой вывод, латентность/токены/стоимость по
-  шагам.
-- Три столпа: traces (ключевой для LLM), metrics (латентность/стоимость/качество), logs.
-- Стоимость и латентность важнее всего (токены = деньги, вызовы медленные).
-- Observability кормит eval: прод-провалы → новые кейсы golden set → eval-driven development.
+- Observability = seeing what a live LLM system actually does; you need it because the system is
+  nondeterministic and, without a full record, a bad answer can't be debugged.
+- The core primitive is the trace (spans) of one request end to end: query → retrieval+score → prompt →
+  output → agent steps.
+- Log the RAG specifics: chunks with scores, the final prompt, the raw output, latency/tokens/cost per
+  step.
+- Three pillars: traces (the key one for LLM), metrics (latency/cost/quality), logs.
+- Cost and latency come first (tokens = money, calls are slow).
+- Observability feeds eval: production failures → new golden-set cases → eval-driven development.
 
-**Новые термины** → [Глоссарий](../../glossary.md): observability, trace / span, RAG tracing, cost per
-request / token accounting, latency (p50 / p95), three pillars (metrics / logs / traces), feedback loop
+**New terms** → [Glossary](../../glossary.md): observability, trace / span, RAG tracing, cost per request /
+token accounting, latency (p50 / p95), three pillars (metrics / logs / traces), feedback loop
 (observability → eval).
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: сэмплирование трейсов и приватность в логах, дашборды и алерты по качеству, автоматический
-разбор регрессий, бюджеты стоимости и латентности.
+🚧 Second pass: trace sampling and privacy in logs, dashboards and quality alerts, automatic regression
+triage, cost and latency budgets.
 
 :::

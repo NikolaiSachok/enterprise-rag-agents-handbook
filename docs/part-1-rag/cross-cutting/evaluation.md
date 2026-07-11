@@ -1,103 +1,105 @@
 ---
 id: evaluation
-title: "Evaluation — оценка"
+title: "Evaluation"
 sidebar_position: 1
 ---
 
-# Evaluation (оценка)
+# Evaluation
 
-Мы уже не раз упирались в «это измеряют метриками» — на чанкинге, retrieval, реранкинге и faithfulness.
-Evaluation — это **как** измеряют. Тема не побочная: без оценки пайплайн крутят вслепую (поменял размер
-чанка, промпт или реранкер — «вроде лучше»). Eval превращает «вроде лучше» в число. Это и отделяет прод от
-демо, и именно сюда чаще всего копают на собеседованиях.
+More than once we've hit the wall of "you measure that with metrics" — at chunking, retrieval,
+reranking, and faithfulness. Evaluation is **how** you measure. It's not a side topic: without it you tune
+the pipeline blind (change the chunk size, the prompt, or the reranker — "feels better"). Eval turns "feels
+better" into a number. That's what separates production from a demo, and it's what interviews dig into most.
 
-## Главный принцип: retrieval и generation оценивают отдельно
+## The core principle: evaluate retrieval and generation separately
 
-Декомпозиция провалов из обзора части здесь становится рабочим инструментом. Две стадии ломаются по-разному и
-чинятся разными рычагами — значит, и мерить их надо порознь.
+The failure decomposition from the part overview turns into a working tool here. The two stages break in
+different ways and get fixed with different levers — so you have to measure them apart.
 
-| | **Retrieval-метрики** — нашли ли нужные чанки? | **Generation-метрики** — хорош ли ответ по контексту? |
+| | **Retrieval metrics** — did we find the right chunks? | **Generation metrics** — is the answer good given the context? |
 |---|---|---|
-| Что меряют | Попал ли нужный чанк в выдачу и на какой позиции | Опирается ли ответ на контекст и отвечает ли на вопрос |
-| Ключевые | **Recall@K** (главная для RAG), Precision@K, MRR, nDCG | **Faithfulness**, **Answer relevance**, Correctness |
+| What they measure | Did the needed chunk make it into the results, and at what rank | Does the answer rest on the context and actually answer the question |
+| The key ones | **Recall@K** (the main one for RAG), Precision@K, MRR, nDCG | **Faithfulness**, **Answer relevance**, Correctness |
 
-Почему Recall@K — главная: если нужного чанка нет в выдаче, генерация физически не сможет ответить верно.
-На первой стадии полнота важнее точности — недобрал релевантное, и всё дальше уже бессмысленно.
+Why Recall@K is the main one: if the needed chunk isn't in the results, generation physically can't answer
+correctly. At the first stage recall matters more than precision — miss the relevant material and everything
+downstream is already pointless.
 
-## Без датасета оценки не бывает
+## No dataset, no evaluation
 
-Чтобы что-то мерить, нужны примеры с эталоном: вопросы плюс либо релевантные чанки, либо верный ответ. Это
-**golden set**. Собирают его вручную или синтетически — LLM генерирует пары «вопрос-ответ» по корпусу, а человек
-вычитывает. Маленький, но чистый набор лучше большого и шумного. Именно на этом команды чаще всего экономят, а
-без эталона весь eval рушится.
+To measure anything you need examples with a reference: questions plus either the relevant chunks or the
+correct answer. That's the **golden set**. You build it by hand or synthetically — an LLM generates
+question-answer pairs over the corpus and a human proofreads them. A small but clean set beats a big, noisy
+one. This is exactly where teams cut corners the most, and without a reference the whole eval falls apart.
 
-## LLM-as-a-judge — как оценивать свободный текст
+## LLM-as-a-judge — evaluating free-form text
 
-Ответы — свободный текст, точным совпадением их не померить. Для качества генерации (faithfulness, relevance)
-берут **другую LLM в роли судьи**: она оценивает ответ по заданным критериям или сравнивает с эталоном и выставляет
-балл. Приём распространяет человеческую оценку на тысячи примеров — ключевая техника generation-eval и
-частый вопрос на собеседованиях.
+Answers are free-form text — you can't score them with an exact match. For generation quality (faithfulness,
+relevance) you bring in **another LLM as a judge**: it grades the answer against a rubric or compares it to a
+reference and assigns a score. The trick scales human judgment to thousands of examples — a key
+generation-eval technique and a frequent interview question.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="trfUBIDeI1Y" title="LLM as a Judge: Scaling AI Evaluation Strategies — IBM Technology" />
 
-Как устроена оценка «LLM-судьёй».
+How evaluation by an LLM judge works.
 
 :::
 
-У судьи есть предвзятость (bias), и о ней надо знать: **position bias** (предпочитает первый из двух ответов),
-**verbosity bias** (длиннее — значит лучше), **self-preference** (свой стиль оценивает выше). Отсюда два
-правила: давать судье чёткие критерии оценки (rubric) и сверять его вердикты с человеческими, прежде чем им доверять.
+The judge has biases, and you need to know them: **position bias** (it prefers the first of two answers),
+**verbosity bias** (longer reads as better), **self-preference** (it rates its own style higher). Hence the
+rules: give it a clear rubric and **validate the judge against human ratings** before you trust it.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="dAE7OFm9oek" title="Can You Trust an AI to Judge Fairly? Exploring LLM Biases — IBM Technology" />
 
-Предвзятость судьи и можно ли ему доверять.
+The judge's biases, and whether you can trust one.
 
 :::
 
-## Offline и online — два контура
+## Offline and online — two loops
 
-- **Offline:** прогнать golden set через пайплайн до деплоя, в CI. Это юнит-тесты для RAG — ловят регрессии
-  («улучшил X, тихо сломал Y»).
-- **Online:** мерить в проде — обратная связь от пользователей (палец вверх/вниз), неявные сигналы,
-  A/B-тесты. Реальные запросы показывают то, что golden set упустил.
+- **Offline:** run the golden set through the pipeline before deploy, in CI. These are unit tests for RAG —
+  they catch regressions ("improved X, quietly broke Y").
+- **Online:** measure in production — user feedback (thumbs up/down), implicit signals, A/B tests. Real
+  queries surface what the golden set missed.
 
 ## Eval-driven development
 
-Отсюда цикл, который делает пайплайн настраиваемым: поменял что-то → прогнал eval → сравнил метрики → оставил
-или откатил. Это замыкает все прежние «здесь мы измеряем» в один процесс, а регрессионный eval в CI не даёт
-улучшению одного сломать другое.
+From here comes the loop that makes the pipeline tunable: change something → run eval → compare metrics →
+keep it or roll back. This closes every earlier "here we measure" into one process, and regression eval in
+CI keeps an improvement to one thing from breaking another.
 
-## Метрики подсказывают, что чинить
+## Metrics tell you what to fix
 
-Главная практическая сила eval — он показывает, в какой стадии провал.
+The main practical power of eval: it shows you which stage the failure is in.
 
-| Симптом | Диагноз | Куда копать |
+| Symptom | Diagnosis | Where to fix |
 |---|---|---|
-| Ответ неверный, нужного чанка **не было** в выдаче | retrieval failure → низкий Recall@K | чанкинг / гибрид / реранкинг |
-| Ответ неверный, но нужный чанк **был** в контексте | generation failure → низкий faithfulness | grounding / промпт |
+| Answer wrong, the needed chunk **wasn't** in the results | retrieval failure → low Recall@K | chunking / hybrid / reranking |
+| Answer wrong, but the needed chunk **was** in the context | generation failure → low faithfulness | grounding / prompt |
 
-## Что забрать из урока
+## What to take away
 
-- Eval превращает «вроде лучше» в число; он делает пайплайн настраиваемым и отделяет прод от демо.
-- Retrieval и generation мерь раздельно — они ломаются по-разному.
-- Retrieval: Recall@K (главная), Precision@K, MRR, nDCG. Generation: faithfulness, answer relevance,
-  correctness.
-- Нужен golden set (вопрос + релевантные чанки / верный ответ); чистота важнее объёма.
-- LLM-as-a-judge оценивает свободный текст по заданным критериям; помни про предвзятость, сверяй с людьми.
-- Offline (регрессии в CI) + online (обратная связь, A/B).
-- Метрики говорят, какую стадию чинить.
+- Eval turns "feels better" into a number; it makes the pipeline tunable and separates production from a
+  demo.
+- Measure retrieval and generation separately — they break in different ways.
+- Retrieval: Recall@K (the main one), Precision@K, MRR, nDCG. Generation: faithfulness, answer
+  relevance, correctness.
+- You need a golden set (question + relevant chunks / correct answer); a clean set beats a big one.
+- LLM-as-a-judge scores free-form text against a rubric; mind the biases, validate against humans.
+- Offline (regressions in CI) + online (feedback, A/B).
+- Metrics tell you which stage to fix.
 
-**Новые термины** → [Глоссарий](../../glossary.md): evaluation, golden set / golden dataset / ground truth, answer
-relevance, correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval, A/B testing.
+**New terms** → [Glossary](../../glossary.md): evaluation, golden set / golden dataset / ground truth, answer relevance,
+correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval, A/B testing.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: устройство метрик в духе [Ragas](https://ragas.io), калибровка LLM-судьи, human-in-the-loop разметка.
+🚧 Second pass: Ragas-style metric internals, LLM-judge calibration, human-in-the-loop labeling.
 
 :::

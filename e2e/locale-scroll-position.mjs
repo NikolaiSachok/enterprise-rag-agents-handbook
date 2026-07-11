@@ -78,8 +78,9 @@ async function run() {
   const lesson = 'part-3-production/llmops';
 
   // ---- RU -> EN, from a late section ----
+  // After the EN-canonical flip: RU serves under /ru/, EN at the root.
   const ruTarget = 13; // "Диета токенов" -> "The token diet"
-  await page.goto(`${SITE}/${lesson}/`, {waitUntil: 'load'});
+  await page.goto(`${SITE}/ru/${lesson}/`, {waitUntil: 'load'});
   await page.waitForTimeout(600);
   await page.evaluate(scrollIntoSection, ruTarget);
   await page.waitForTimeout(150);
@@ -95,7 +96,7 @@ async function run() {
 
   // ---- EN -> RU, from a different (earlier) section ----
   const enTarget = 6; // "Monitoring in production" -> "Мониторинг ..."
-  await page.goto(`${SITE}/en/${lesson}/`, {waitUntil: 'load'});
+  await page.goto(`${SITE}/${lesson}/`, {waitUntil: 'load'});
   await page.waitForTimeout(600);
   await page.evaluate(scrollIntoSection, enTarget);
   await page.waitForTimeout(150);
@@ -110,7 +111,7 @@ async function run() {
   );
 
   // ---- Regression: a plain load (no locale switch) must NOT teleport ----
-  await page.goto(`${SITE}/en/${lesson}/`, {waitUntil: 'load'});
+  await page.goto(`${SITE}/${lesson}/`, {waitUntil: 'load'});
   await page.waitForTimeout(700);
   const plainLoad = await page.evaluate(pageSectionProbe);
   check(
@@ -120,7 +121,9 @@ async function run() {
   );
 
   // ---- Regression: in-page TOC anchor navigation still works ----
-  await page.goto(`${SITE}/en/${lesson}/`, {waitUntil: 'load'});
+  // Run on the EN (root) page: its ASCII anchor ids let us string-compare the
+  // clicked href against location.hash (RU anchors are percent-encoded there).
+  await page.goto(`${SITE}/${lesson}/`, {waitUntil: 'load'});
   await page.waitForTimeout(700);
   const tocLink = page.locator('.table-of-contents__link').nth(4);
   const tocHref = await tocLink.getAttribute('href');

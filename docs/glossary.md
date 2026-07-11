@@ -1,506 +1,481 @@
 ---
 id: glossary
-title: Глоссарий
+title: Glossary
 sidebar_position: 5
 ---
 
-# Глоссарий
+# Glossary
 
-Единые определения терминов, на которые ссылаются страницы руководства. Каждый термин определён здесь один
-раз. Список растёт по мере прохождения слоёв. Где за формулами и историей стоит канонический источник, в
-конце определения стоит ссылка (↗ Wikipedia — для классики, ↗ arXiv — для приёмов из статей).
+Single definitions for the terms the handbook pages link to. Each one is defined here exactly once. The
+list grows as we work through the layers. Where a term has a canonical source for its formulas and history,
+a link follows the definition (↗ Wikipedia for classics, ↗ arXiv for techniques from papers).
 
-## Ingestion — чанкинг
+## Ingestion — chunking
 
-**Chunk (чанк)** — фрагмент документа, единица индексации. Одновременно единица поиска и единица того, что
-увидит модель.
+**Chunk** — a fragment of a document, the unit of indexing. It is at once the unit of search and the unit
+of what the model gets to see.
 
-**Chunk overlap (перекрытие)** — общий кусок текста у соседних чанков. Спасает факт, попавший на линию
-разреза: он целиком уцелеет хотя бы в одном из соседей (если сам факт короче перекрытия). Обычно 10–20%
-размера чанка.
+**Chunk overlap** — a shared stretch of text between neighboring chunks. It rescues a fact that fell on the
+cut line: the fact survives whole in at least one of the two neighbors (provided the fact is shorter than
+the overlap). Usually 10–20% of the chunk size.
 
-**Recursive / structural chunking** — нарезка по естественным границам иерархически (разделы → абзацы →
-предложения), чтобы границы чанков совпадали с границами мыслей. Выбор по умолчанию.
+**Recursive / structural chunking** — splitting along natural boundaries, hierarchically (sections →
+paragraphs → sentences), so chunk boundaries line up with the boundaries of ideas. The default choice.
 
-**Semantic chunking** — граница чанка ставится там, где резко падает смысловая близость соседних
-предложений (смена темы). Дороже, но чанки получаются «про одно».
+**Semantic chunking** — the chunk boundary goes where the semantic closeness of neighboring sentences
+drops sharply (a change of topic). Pricier, but each chunk ends up "about one thing."
 
-**Chunk metadata (метаданные чанка)** — данные, прикреплённые к чанку: источник, заголовок, путь по
-разделам, дата, права доступа. Питают фильтрацию, цитирование и контроль доступа.
+**Chunk metadata** — data attached to a chunk: source, title, section path, date, access rights. It feeds
+filtering, citation, and access control.
 
-**Parent-document (small-to-big) retrieval** — искать по мелким точным чанкам, а в модель подавать больший
-родительский фрагмент вокруг найденного. Разводит две роли чанка: поиск и контекст.
+**Parent-document (small-to-big) retrieval** — search over small, precise chunks, but pass the model the
+larger parent fragment around the match. It pulls apart a chunk's two roles: search and context.
 
-## Ingestion — эмбеддинги
+## Ingestion — embeddings
 
-**Embedding (эмбеддинг)** — вектор, представляющий текст в пространстве, где геометрическая близость
-означает близость по смыслу.
+**Embedding** — a vector representing text in a space where geometric closeness means closeness in meaning.
 
-**Embedding space (пространство эмбеддингов)** — векторное пространство, куда модель отображает тексты;
-поиск сводится к нахождению ближайших точек к вектору запроса.
+**Embedding space** — the vector space a model maps texts into; search reduces to finding the points
+nearest to the query's vector.
 
-**Bi-encoder** — кодирует запрос и чанк по отдельности в два вектора и сравнивает их по расстоянию. Быстрый,
-векторы чанков считаются один раз при индексации. Основа векторного поиска.
+**Bi-encoder** — encodes the query and the chunk separately into two vectors and compares them by distance.
+Fast — chunk vectors are computed once, at indexing time. The backbone of vector search.
 
-**Cross-encoder** — подаёт пару «запрос + чанк» в модель вместе и выдаёт одно число релевантности. Точнее
-bi-encoder'а, но медленнее (score нельзя предпосчитать). Используется в реранкинге.
+**Cross-encoder** — feeds the pair "query + chunk" into the model together and returns a single relevance
+number. More accurate than a bi-encoder but slower (the score can't be precomputed). Used in reranking.
 
-**Dimensionality (размерность)** — длина вектора эмбеддинга (например, 384 / 768 / 1536). Больше —
-выразительнее, но дороже по памяти, скорости поиска и стоимости.
+**Dimensionality** — the length of an embedding vector (e.g. 384 / 768 / 1536). Higher is more expressive
+but costs more in memory, search speed, and money.
 
-**Cosine similarity (косинусная близость)** — мера близости по углу между векторами; учитывает направление
-и игнорирует длину. Метрика по умолчанию; у нормированных векторов совпадает с dot product.
+**Cosine similarity** — closeness measured by the angle between vectors; it reads direction and ignores
+length. The default metric; for normalized vectors it coincides with the dot product.
 ↗ [Wikipedia](https://en.wikipedia.org/wiki/Cosine_similarity)
 
-**Retrieval-optimized (asymmetric) embeddings** — модели, обученные на парах «запрос ↔ фрагмент (passage)»,
-а не на общей похожести предложений. Часто ждут префикс `query:` / `passage:`.
+**Retrieval-optimized (asymmetric) embeddings** — models trained on "query ↔ passage" pairs rather than on
+general sentence similarity. They often expect a `query:` / `passage:` prefix.
 
-**Multilingual embeddings** — эмбеддинг-модели, работающие в нескольких языках; критичны для
-мультиязычного корпоративного контента.
+**Multilingual embeddings** — embedding models that work across several languages; essential for
+multilingual enterprise content.
 
-**Self-hosted vs API embeddings** — выбор между открытой моделью на своей инфраструктуре (данные остаются в
-периметре) и проприетарным API (проще, но данные уходят наружу и есть плата за вызовы).
+**Self-hosted vs. API embeddings** — the choice between an open model on your own infrastructure (data
+stays inside the perimeter) and a proprietary API (simpler, but data leaves and each call is billed).
 
 ## Retrieval
 
-**Dense retrieval (плотный поиск)** — поиск по векторам эмбеддингов; ловит смысл и синонимы, слеп к точным
-токенам.
+**Dense retrieval** — search over embedding vectors; catches meaning and synonyms, blind to exact tokens.
 
-**Top-K** — число ближайших кандидатов, которые возвращает первая стадия поиска (обычно 50–100 до
-реранкинга).
+**Top-K** — the number of nearest candidates the first search stage returns (usually 50–100 before
+reranking).
 
-**Query transformation** — преобразование запроса перед поиском: переписывание, multi-query, HyDE.
+**Query transformation** — reshaping the query before search: rewriting, multi-query, HyDE.
 
-**Multi-query** — генерация нескольких перефразировок запроса, поиск по каждой и объединение выдачи.
+**Multi-query** — generating several paraphrases of the query, searching on each, and merging the results.
 
-**HyDE (Hypothetical Document Embeddings)** — сгенерировать гипотетический ответ, заэмбеддить его и искать
-по нему: он часто ближе к нужному чанку, чем короткий вопрос.
+**HyDE (Hypothetical Document Embeddings)** — generate a hypothetical answer, embed it, and search with it:
+it often sits closer to the chunk you need than a short question does.
 ↗ [arXiv](https://arxiv.org/abs/2212.10496)
 
-**BM25 / sparse retrieval** — классический лексический поиск по совпадению слов (частоты терминов). Ловит
-точные токены, слеп к синонимам. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25)
+**BM25 / sparse retrieval** — classic lexical search by word overlap (term frequencies). Catches exact
+tokens, blind to synonyms. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25)
 
-**Hybrid search (гибридный поиск)** — совместный запуск плотного и лексического поиска с объединением их
-score. Закрывает слепые зоны каждого.
+**Hybrid search** — running dense and lexical search together and merging their scores. Covers each one's
+blind spot.
 
-**Reciprocal Rank Fusion (RRF)** — способ объединить результаты нескольких поисков по позициям в их
-ранжировках, без сведения разных шкал score.
+**Reciprocal Rank Fusion (RRF)** — a way to combine the results of several searches by their positions in
+each ranking, without reconciling their different score scales.
 ↗ [SIGIR'09](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf)
 
-**Reranking (реранкинг)** — переоценка top-K кандидатов cross-encoder'ом и их пересортировка, чтобы лучшее
-всплыло наверх. Вторая стадия, работает на точность.
+**Reranking** — re-scoring the top-K candidates with a cross-encoder and re-sorting them so the best rises
+to the top. The second stage; it works on precision.
 
-**Two-stage retrieval (двухстадийный поиск)** — дёшево и широко на полноту (bi-encoder / гибрид), затем
-дорого и точно на точность (cross-encoder). Каноническая схема retrieval.
+**Two-stage retrieval** — cheap and wide for recall (bi-encoder / hybrid), then expensive and precise for
+precision (cross-encoder). The canonical retrieval scheme.
 
-**Metadata filtering (фильтрация по метаданным)** — сужение поиска по данным чанка: дата, отдел, тип,
-язык.
+**Metadata filtering** — narrowing search by a chunk's fields: date, department, type, language.
 
-**Access control (ACL)** — отсечение чанков по правам доступа до выдачи, чтобы пользователь не получил то,
-что ему не положено. Требование безопасности, а не опция.
+**Access control (ACL)** — cutting chunks by access rights before results go out, so a user never gets what
+they aren't entitled to. A security requirement, not an option.
 
-**Recall@K / Precision@K** — метрики поиска: доля нужных документов, попавших в top-K (полнота), и доля
-релевантных среди возвращённых (точность). ↗ [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
+**Recall@K / Precision@K** — search metrics: the share of the needed documents that landed in the top-K
+(recall), and the share of relevant ones among those returned (precision).
+↗ [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
 
-**nDCG (normalized discounted cumulative gain)** — метрика ранжирования: учитывает не только попадание
-релевантных документов, но и их позиции (выше — ценнее).
+**nDCG (normalized discounted cumulative gain)** — a ranking metric that accounts not just for whether
+relevant documents are found but for their positions (higher is worth more).
 ↗ [Wikipedia](https://en.wikipedia.org/wiki/Discounted_cumulative_gain)
 
-**MRR (mean reciprocal rank)** — обратная позиция первого релевантного результата, усреднённая по запросам.
-↗ [Wikipedia](https://en.wikipedia.org/wiki/Mean_reciprocal_rank)
+**MRR (mean reciprocal rank)** — the reciprocal position of the first relevant result, averaged over
+queries. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Mean_reciprocal_rank)
 
 ## Generation
 
-**Grounding (опора на контекст)** — привязка ответа к поданному контексту, а не к параметрической памяти
-модели.
+**Grounding** — tying the answer to the supplied context rather than the model's parametric memory.
 
-**Grounding instructions (grounding-инструкции)** — явное указание модели отвечать только по контексту и признаваться, когда ответа в
-нём нет. Главный рычаг против галлюцинаций.
+**Grounding instructions** — telling the model explicitly to answer only from the context and to admit when
+the answer isn't there. The main lever against hallucination.
 
-**Context packing (упаковка контекста)** — как найденные чанки собираются в промпт: разделение источников,
-порядок, отбор нескольких лучших.
+**Context packing** — how retrieved chunks are assembled into the prompt: delimiting sources, ordering,
+picking a few best.
 
-**Lost-in-the-middle** — модель хуже использует информацию, закопанную в середине длинного контекста, чем
-ту, что стоит в начале и конце. ↗ [arXiv](https://arxiv.org/abs/2307.03172)
+**Lost-in-the-middle** — a model uses information buried in the middle of a long context worse than what
+sits at the start and end. ↗ [arXiv](https://arxiv.org/abs/2307.03172)
 
-**Citations / attribution (цитирование)** — указание источника для каждого утверждения ответа; даёт
-проверяемость и уменьшает число выдумок.
+**Citations / attribution** — pointing to the source of each claim in the answer; gives verifiability and
+curbs invention.
 
-**Refusal / abstention (отказ)** — штатное «не знаю», когда контекста недостаточно; лучше уверенной ошибки.
+**Refusal / abstention** — a proper "I don't know" when context is insufficient; better than a confident
+error.
 
-**Faithfulness / groundedness (верность контексту)** — метрика того, насколько ответ действительно опирается
-на поданные источники, а не на память модели.
+**Faithfulness / groundedness** — a metric of how much the answer actually rests on the supplied sources
+rather than the model's memory.
 
-**Parametric knowledge (параметрические знания)** — то, что модель выучила на обучении и хранит в весах; в
-RAG его намеренно подавляют в пользу контекста.
+**Parametric knowledge** — what the model learned in training and holds in its weights; RAG deliberately
+suppresses it in favor of the context.
 
-**Hallucination (галлюцинация)** — уверенно поданный факт, которого нет в источниках или который неверен.
+**Hallucination** — a confidently stated fact that isn't in the sources, or is wrong.
 
 ## Evaluation
 
-**Evaluation (оценка)** — измерение качества пайплайна метриками вместо «на глаз». Делает пайплайн
-настраиваемым.
+**Evaluation** — measuring pipeline quality with metrics instead of by feel. It makes the pipeline tunable.
 
-**Retrieval failure / generation failure (разделение провалов)** — диагностический костяк RAG: плохой ответ
-бывает двух видов — *retrieval-провал* (нужного чанка не оказалось в выдаче) и *generation-провал* (чанк в
-контексте был, но модель им не воспользовалась или переврала). Первый шаг отладки — понять, какой из двух
-перед тобой.
+**Retrieval failure / generation failure** — the diagnostic backbone of RAG: a bad answer comes in two
+kinds — a *retrieval failure* (the needed chunk never made it into the results) and a *generation failure*
+(the chunk was in the context, but the model ignored or garbled it). The first debugging move is to tell
+which one you're looking at.
 
-**Golden set / golden dataset / ground truth (эталонный набор)** — примеры «вопрос + релевантные чанки / верный ответ»,
-по которым считают метрики. Чистота важнее объёма.
+**Golden set / golden dataset / ground truth** — examples of "question + relevant chunks / correct answer" that metrics
+are computed against. Quality beats size.
 
-**Answer relevance (релевантность ответа)** — generation-метрика: отвечает ли ответ на заданный вопрос.
+**Answer relevance** — a generation metric: does the answer address the question asked.
 
-**Correctness (корректность)** — совпадение ответа с эталонным по существу.
+**Correctness** — whether the answer matches a reference answer in substance.
 
-**LLM-as-a-judge** — оценка свободного текста другой LLM по заданным критериям или сравнением с эталоном;
-масштабирует человеческую оценку на тысячи примеров.
+**LLM-as-a-judge** — scoring free-text output with another LLM against a rubric or reference; it scales
+human-like judgment to thousands of examples.
 
-**Judge bias (предвзятость судьи)** — систематические перекосы LLM-судьи: position bias (первый вариант),
-verbosity bias (длиннее — лучше), self-preference (свой стиль).
+**Judge bias** — systematic skews of an LLM judge: position bias (favors the first option), verbosity bias
+(longer = better), self-preference (its own style).
 
-**Offline vs online eval** — оценка на golden set до деплоя (регрессии в CI) против измерения в проде
-(обратная связь от пользователей, A/B).
+**Offline vs online eval** — evaluating on a golden set before deploy (regression in CI) versus measuring
+in production (user feedback, A/B).
 
-**Regression eval** — прогон эталонного набора в CI, чтобы улучшение одного не сломало другое.
+**Regression eval** — running the golden set in CI so an improvement in one place doesn't break another.
 
-**A/B testing** — сравнение двух вариантов системы на живом трафике по метрикам.
+**A/B testing** — comparing two versions of the system on live traffic by their metrics.
 
 ## Guardrails
 
-**Guardrails (ограничители)** — защитный слой на входе и выходе LLM-системы: против атак, утечек и вредного вывода.
+**Guardrails** — a safety layer on the input and output of an LLM system: against attacks, leaks, and harmful output.
 
-**Prompt injection** — внедрение инструкций в текст, который читает модель, чтобы перебить системный промпт. Прямая (от пользователя) и косвенная (спрятана в retrieved-контенте — опасна для RAG).
+**Prompt injection** — planting instructions in text the model reads to override the system prompt. Direct (from the user) and indirect (hidden in retrieved content — dangerous for RAG).
 
-**Spotlighting** — пометка недоверенного контента (разделители, случайные маркеры), чтобы модель видела его как данные, а не инструкции.
+**Spotlighting** — marking untrusted content (delimiters, random sentinels) so the model sees it as data, not instructions.
 
-**Instruction hierarchy (иерархия инструкций)** — приоритет источника: system > developer > user > tool/retrieved; retrieved-контент наименее доверенный.
+**Instruction hierarchy** — source priority: system > developer > user > tool/retrieved; retrieved content is least trusted.
 
-**PII redaction (маскирование PII)** — обнаружение и сокрытие персональных данных на входе и выходе; критично при использовании внешних API.
+**PII redaction** — detecting and hiding personal data on input and output; critical with external APIs.
 
-**Input / output validation** — проверка входа (атаки, не по теме) и выхода (утечки, PII, нарушение политики).
+**Input / output validation** — checking the input (attacks, off-topic) and the output (leaks, PII, policy violations).
 
-**Content safety / moderation** — фильтрация вредного или недопустимого контента на входе и на выходе.
+**Content safety / moderation** — filtering harmful or off-policy content on the input and the output.
 
-**Jailbreak** — обход встроенных ограничений модели (в отличие от injection, эксплуатирующего неотличимость инструкций от данных).
+**Jailbreak** — bypassing a model's built-in safeguards (unlike injection, which exploits the instruction/data ambiguity).
 
-**Least privilege / tool allow-listing (принцип наименьших привилегий)** — ограничение набора инструментов и действий, доступных агенту, чтобы успешная инъекция мало что могла.
+**Least privilege / tool allow-listing** — limiting the set of tools and actions available to an agent, so a successful injection can do little.
 
-**Attack success rate (ASR)** — доля успешных атак на наборе; метрика качества guardrails.
+**Attack success rate (ASR)** — the share of successful attacks over a set; a guardrails quality metric.
 
-**Defense-in-depth (эшелонированная защита)** — многослойная защита: ни один слой сам по себе не закрывает
-всё, работают они вместе.
+**Defense-in-depth** — layered defense: no single layer is complete; they work together.
 
 ## Observability
 
-**Observability (наблюдаемость)** — способность видеть, что живая система реально делает: отладить плохой
-ответ, померить стоимость и латентность.
+**Observability** — the ability to see what a live system actually does: debug a bad answer, measure cost
+and latency.
 
-**Trace / span** — полная запись одного запроса сквозь пайплайн (trace) из шагов (span): запрос →
-retrieval + score → промпт → вывод → шаги агента.
+**Trace / span** — the full record of one request through the pipeline (trace) as steps (spans): query →
+retrieval + scores → prompt → output → agent steps.
 
-**RAG tracing** — трейсинг RAG-специфики: какие чанки достались и с каким score, финальный промпт, сырой
-вывод.
+**RAG tracing** — tracing the RAG-specifics: which chunks were retrieved and with what scores, the final
+prompt, the raw output.
 
-**Cost per request / token accounting** — учёт стоимости и токенов на запрос; в LLM каждый вызов стоит
-денег.
+**Cost per request / token accounting** — tracking cost and tokens per request; in LLM every call costs
+money.
 
-**Latency (p50 / p95)** — латентность по перцентилям; важнее всего шаги генерации и реранка.
+**Latency (p50 / p95)** — delay by percentiles; the generation and reranking steps matter most.
 
-**Three pillars (metrics / logs / traces)** — три столпа наблюдаемости; для LLM ключевой — traces.
+**Three pillars (metrics / logs / traces)** — the three pillars of observability; for LLM, traces are the
+key one.
 
-**Feedback loop (observability → eval)** — прод-провалы и обратная связь от пользователей становятся новыми
-кейсами golden set.
+**Feedback loop (observability → eval)** — production failures and user feedback become new golden-set
+cases.
 
-## Agents — агентный RAG
+## Agents — agentic RAG
 
-**Agentic RAG** — RAG, в котором retrieval становится действием, выбираемым моделью в цикле, а не
-фиксированным шагом конвейера. Управление ходом выполнения переходит от кода к модели.
+**Agentic RAG** — RAG in which retrieval becomes an action the model chooses inside a loop, rather than a
+fixed pipeline step. The model owns the control flow, not the code.
 
-**Agent loop (цикл агента)** — повторяющийся цикл «рассуждение → решение → действие → наблюдение», который
-крутится, пока модель не решит, что готова отвечать.
+**Agent loop** — the repeating "reason → decide → act → observe" cycle that runs until the model judges it
+has enough to answer.
 
-**ReAct (Reasoning + Acting)** — паттерн «рассуждение → действие → наблюдение»: модель чередует шаги
-рассуждения и действия (вызовы инструментов), подмешивая результат каждого действия обратно в контекст.
+**ReAct (Reasoning + Acting)** — the "reason → act → observe" pattern: the model interleaves reasoning
+steps with actions (tool calls), feeding each action's result back into the context.
 ↗ [arXiv](https://arxiv.org/abs/2210.03629)
 
-**Routing / query router (маршрутизация запросов по индексам)** — самый лёгкий уровень агентности: модель
-делает один выбор, куда направить запрос (в какой индекс/инструмент или «retrieval не нужен»), а дальше
-поток статичен. Не путать с model routing — маршрутизацией запросов между моделями (Часть III).
+**Routing / query router** — the lightest level of agency: the model makes one choice — where to send the
+query (which index/tool, or "no retrieval needed") — and the flow is static after that. Not to be confused
+with model routing — picking which model answers (Part III).
 
-**Multi-hop retrieval (многошаговый поиск)** — ответ требует нескольких зависимых поисков, где следующий
-запрос строится на результате предыдущего.
+**Multi-hop retrieval** — an answer that needs several dependent searches, where the next query is built
+from the previous result.
 
-**Query planning (планирование запроса)** — заранее разложить сложный вопрос на подзапросы, прежде чем
-искать.
+**Query planning** — decomposing a complex question into sub-queries before searching.
 
-**Self-correction / self-reflection (самокоррекция)** — агент оценивает промежуточную выдачу, замечает
-«не то» и переформулирует запрос или ищет снова.
+**Self-correction / self-reflection** — the agent evaluates intermediate results, notices they're off, and
+reformulates the query or searches again.
 
-**Iterative retrieval (итеративный поиск)** — повторять поиск в цикле с уточнением, а не одним фиксированным
-обращением.
+**Iterative retrieval** — searching in a loop with refinement, rather than one fixed call.
 
-## Agents — инструменты
+## Agents — tools
 
-**Tool use / function calling (использование инструментов / вызов функций)** — общий механизм, которым модель
-вызывает внешнюю функцию: модель порождает структурированное намерение, а исполняет его твой код. Retrieval —
-частный случай.
+**Tool use / function calling** — the general mechanism by which the model calls an external function: the
+model emits a structured intent and your code executes it. Retrieval is a special case.
 
-**Tool definition (описание инструмента)** — имя, словесное описание и схема параметров (JSON Schema),
-которые передаются модели: «меню» доступных инструментов. Описание работает как промпт — по нему модель
-выбирает инструмент.
+**Tool definition** — a name, a description in words, and a parameter schema (JSON Schema) passed to the
+model: the "menu" of available tools. The description acts as a prompt — the model selects a tool by it.
 
-**Tool call (вызов инструмента)** — структурированный JSON (имя инструмента и аргументы), который модель
-выдаёт вместо обычного текста или вместе с ним.
+**Tool call** — the structured JSON (tool name and arguments) the model emits instead of, or alongside,
+ordinary text.
 
-**Tool result (результат инструмента)** — результат исполнения инструмента, возвращённый модели в контекст
-отдельным сообщением.
+**Tool result** — the result of running a tool, returned to the model as a separate message in context.
 
-**Tool selection (выбор инструмента)** — решение модели, какой инструмент вызвать; частый источник ошибок при
-большом или пересекающемся наборе инструментов.
+**Tool selection** — the model's choice of which tool to call; a frequent source of errors with a large or
+overlapping tool set.
 
-**JSON Schema** — язык описания структуры и типов данных; задаёт допустимые параметры инструмента и сужает
-то, что модель вправе выдать.
+**JSON Schema** — a language for describing the structure and types of data; it defines a tool's allowed
+parameters and narrows what the model may emit.
 
-**Structured output (структурированный вывод)** — вывод модели в заданной машиночитаемой форме (JSON по
-схеме), а не свободным текстом; основа надёжного вызова инструментов.
+**Structured output** — model output in a prescribed machine-readable form (JSON to a schema) rather than
+free text; the basis for reliable tool calling.
 
-## Agents — планирование и циклы
+## Agents — planning & loops
 
-**Planning (планирование)** — как агент выстраивает последовательность шагов к цели: план может
-фиксироваться наперёд или возникать по ходу цикла.
+**Planning** — how the agent arranges the sequence of steps toward a goal; the plan may be fixed up front or
+emerge as the loop runs.
 
-**Task decomposition (декомпозиция задачи)** — разбиение цели на подзадачи, которые агент берёт по одной;
-бывает явной (записанный план / todo-список) и неявной (возникает по ходу рассуждения в цикле).
+**Task decomposition** — breaking a goal into subtasks the agent tackles one at a time, either explicitly (a
+written plan / todo list) or implicitly (emerging as it reasons in the loop).
 
-**Plan-and-execute (планирование-и-исполнение)** — стратегия, при которой весь план шагов строится наперёд,
-а затем исполняется, с перепланированием при срыве шага; структурнее и дешевле ReAct, но жёстче.
+**Plan-and-execute** — a strategy that plans the whole sequence of steps up front and then executes it,
+re-planning when a step fails; more structured and cheaper than ReAct, but more rigid.
 
-**Re-planning (перепланирование)** — пересборка плана, когда шаг сорвался или наблюдение сломало исходный
-план; обязательный механизм для plan-and-execute.
+**Re-planning** — revising the plan when a step fails or an observation breaks it; the mechanism
+plan-and-execute cannot work without.
 
-**Reflection / self-critique (рефлексия)** — выделенный шаг, на котором агент судит собственную траекторию
-(«продвигаюсь ли я?») и решает остановиться, перепланировать или продолжить; главный рычаг против ухода от
-цели и тихого зацикливания.
+**Reflection / self-critique** — a dedicated step where the agent judges its own trajectory ("am I making
+progress?") and decides to stop, re-plan, or continue; the main lever against drift and silent looping.
 
-**Termination criterion (критерий остановки)** — заданное условие «готово», по которому цикл завершается;
-часто реализуется как инструмент-сигнал «finish», который вызывает модель.
+**Termination criterion** — a defined condition for "done" that ends the loop; often implemented as a
+"finish" tool the model calls.
 
-**Step budget / iteration limit (бюджет шагов / лимит итераций)** — жёсткий потолок на число шагов, вызовов,
-токенов, стоимость или время; последний рубеж, гарантирующий остановку цикла в проде.
+**Step budget / iteration limit** — a hard cap on steps, calls, tokens, cost, or time; the backstop that
+guarantees the loop stops in production.
 
-**Loop detection (обнаружение зацикливания)** — отслеживание повторения одного и того же действия (тот же
-вызов, те же аргументы, тот же результат) с вмешательством, когда агент крутится вхолостую.
+**Loop detection** — watching for the same action repeated (same call, arguments, result) and intervening
+when the agent spins in place.
 
-**Scratchpad / working memory (рабочая память)** — рабочее пространство, где агент держит только релевантное
-для текущей траектории (промежуточные заметки, список сделанного), чтобы не раздувать контекст.
+**Scratchpad / working memory** — a working space where the agent keeps only what's relevant to the current
+trajectory (intermediate notes, a list of what's done), so the context doesn't bloat.
 
-**Non-termination (незавершение цикла)** — фирменный сбой агентного цикла: он не останавливается,
-застревает на повторяющемся действии или уходит от цели.
+**Non-termination** — the signature failure of the agent loop: it never stops, gets stuck repeating an
+action, or drifts from the goal.
 
-## Agents — мультиагентные системы
+## Agents — multi-agent systems
 
-**Multi-agent system (мультиагентная система)** — несколько специализированных агентов, работающих сообща,
-вместо одного агента; мотивы — специализация, изоляция контекста, модульность, параллелизм.
+**Multi-agent system** — several specialized agents collaborating instead of one agent; motivated by
+specialization, context isolation, modularity, and parallelism.
 
-**Orchestrator / supervisor (оркестратор / супервизор)** — ведущий агент, который декомпозирует задачу,
-распределяет подзадачи по агентам-исполнителям и синтезирует их результаты; его «инструменты» — сами
-субагенты.
+**Orchestrator / supervisor** — a lead agent that decomposes a task, routes subtasks to workers, and
+synthesizes their results; its "tools" are the sub-agents.
 
-**Worker / sub-agent (агент-исполнитель / субагент)** — специализированный агент, который берёт
-распределённую ему подзадачу и возвращает результат.
+**Worker / sub-agent** — a specialized agent that handles a routed subtask and returns a result.
 
-**Handoff (передача управления)** — передача управления вместе с релевантным контекстом от одного агента
-другому; сообщение передачи работает как промпт для принимающего агента.
+**Handoff** — passing control plus the relevant context from one agent to another; the handoff message acts
+as a prompt for the receiving agent.
 
-**Agent chain (цепочка агентов)** — последовательная топология, в которой каждый агент преобразует вывод
-предыдущего (например, автор → редактор → фактчекер).
+**Agent chain** — a sequential topology where each agent transforms the previous agent's output (e.g.
+writer → editor → fact-checker).
 
-**Critic / debate (критик / дебаты)** — топология, где агент-критик (или несколько независимых агентов)
-оспаривает или сравнивает предложенные решения задачи, поднимая качество за счёт независимых точек зрения.
+**Critic / debate** — a topology where a critic agent (or several independent agents) challenges or compares
+solutions, raising quality through independent perspectives.
 
-## Agents — фреймворки оркестрации
+## Agents — orchestration frameworks
 
-**Orchestration framework (фреймворк оркестрации)** — библиотека, которая упаковывает цикл агента, обвязку
-вызова инструментов, состояние, управление потоком и мультиагентную оркестрацию, чтобы не собирать это
-вручную: LangChain, LangGraph, LlamaIndex, Microsoft Agent Framework (преемник Semantic Kernel и
-AutoGen), CrewAI.
+**Orchestration framework** — a library that packages the agent loop, tool-calling glue, state, control
+flow, and multi-agent orchestration so you don't hand-roll them: LangChain, LangGraph, LlamaIndex,
+Microsoft Agent Framework (the successor to Semantic Kernel and AutoGen), CrewAI.
 
-**Agent as a graph / state machine (агент как граф / конечный автомат)** — представление агента как узлов
-(вызов модели / вызов инструмента / решение) и рёбер (управление потоком, включая циклы), чтобы цикл стал
-наблюдаемым, возобновляемым и управляемым.
+**Agent as a graph / state machine** — modeling an agent as nodes (call model / call tool / decide) and
+edges (control flow, including loops) so the loop becomes inspectable, resumable, and controllable.
 
-**Node / edge (узел / ребро)** — элементы графа: узел — шаг (вызов модели / вызов инструмента / решение),
-ребро — управление потоком.
+**Node / edge** — graph elements: a node is a step (call model / call tool / decide); an edge is control
+flow.
 
-**Checkpointing (чекпоинты)** — сохранение состояния агента, чтобы прогон можно было приостановить,
-возобновить и осмотреть.
+**Checkpointing** — persisting agent state so a run can be paused, resumed, and inspected.
 
-**Human-in-the-loop (HITL) (человек-в-цикле)** — точка паузы, где человек одобряет или вмешивается, прежде
-чем цикл продолжится; во фреймворке — полноправный узел-прерывание.
+**Human-in-the-loop (HITL)** — a pause point where a human approves or intervenes before the loop continues;
+in a framework, a first-class interrupt node.
 
-## Agents — MCP и протоколы агентов
+## Agents — MCP and agent protocols
 
-**MCP (Model Context Protocol)** — открытый стандарт клиент-сервер (создан Anthropic в конце 2024,
-с декабря 2025 — проект Agentic AI Foundation под Linux Foundation), связывающий
-агентов с инструментами и данными; стандартизует инструменты, ресурсы и промпты. Превращает M×N штучных
-интеграций в N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
+**MCP (Model Context Protocol)** — an open client–server standard (created by Anthropic in late 2024, a
+project of the Agentic AI Foundation under the Linux Foundation since December 2025) for connecting
+agents to tools and data; standardizes tools, resources, and prompts. Turns M×N bespoke integrations into
+N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
-**MCP server (MCP-сервер)** — оборачивает инструмент или источник данных и единообразно выставляет его
-возможности.
+**MCP server** — wraps a tool or data source and exposes its capabilities uniformly.
 
-**MCP client (MCP-клиент)** — агент или приложение, которое подключается к MCP-серверам и потребляет их
-возможности.
+**MCP client** — the agent or app that connects to MCP servers and consumes their capabilities.
 
-**MCP resources (ресурсы MCP)** — данные и контекст, которые выставляет MCP-сервер (у OpenAPI/CLI аналога
-нет).
+**MCP resources** — data and context an MCP server exposes (no OpenAPI/CLI equivalent).
 
-**MCP prompts (промпты MCP)** — переиспользуемые шаблоны, которые предлагает MCP-сервер.
+**MCP prompts** — reusable templates an MCP server offers.
 
-**M×N integration problem (проблема M×N интеграций)** — M приложений × N инструментов = M×N штучных
-коннекторов; стандарт сворачивает это в N+M.
+**M×N integration problem** — M apps × N tools = M×N bespoke connectors; a standard collapses it to N+M.
 
-**A2A (Agent-to-Agent)** — развивающийся стандарт (создан Google, с июня 2025 — проект Linux Foundation)
-для связи агента с агентом; MCP — это агент ↔ инструменты, A2A — агент ↔ агент.
+**A2A (Agent-to-Agent)** — an emerging standard (created by Google, a Linux Foundation project since
+June 2025) for agent-to-agent communication; MCP is agent-to-tools, A2A is agent-to-agent.
 ↗ [a2a-protocol.org](https://a2a-protocol.org)
 
-## Agents — реальные агенты (капстоун)
+## Agents — real agents (capstone)
 
-**Extended thinking (расширенное мышление)** — видимые блоки рассуждения, которые модель выдаёт перед
-ответом; у Claude едут как `thinking`-блоки.
+**Extended thinking** — the visible reasoning blocks a model emits before answering; in Claude they surface
+as `thinking` blocks.
 
-**Interleaved thinking (чередующееся мышление)** — рассуждение *между* вызовами инструментов, а не только
-перед первым; у Claude включается на моделях с адаптивным мышлением.
+**Interleaved thinking** — reasoning *between* tool calls, not only before the first one; in Claude it is
+automatic on adaptive-thinking models.
 
-**Reasoning effort (уровень рассуждения)** — управление глубиной рассуждения дискретным параметром
-(`reasoning.effort` у OpenAI: `none`/`minimal`/`low`/`medium`/`high`/`xhigh`); сами токены рассуждения
-непрозрачны и оплачиваются как выход.
+**Reasoning effort** — controlling reasoning depth with a discrete dial (OpenAI's `reasoning.effort`:
+`none`/`minimal`/`low`/`medium`/`high`/`xhigh`); the reasoning tokens themselves stay opaque and are billed
+as output.
 
-**Thinking budget (бюджет размышления)** — числовой лимит на объём рассуждения на запрос (Gemini
-`thinkingBudget`); в Gemini 3 сменяется дискретными уровнями `thinking_level`.
+**Thinking budget** — a numeric cap on how much a model reasons per request (Gemini's `thinkingBudget`),
+shifting in Gemini 3 to discrete `thinking_level` tiers.
 
-**Claude Code hooks (хуки)** — события жизненного цикла среды выполнения, из которых можно вызвать внешний
-скрипт (`PreToolUse` умеет заблокировать вызов, `PostToolUse`, `Stop` и другие).
+**Claude Code hooks** — runtime lifecycle events you can shell out from (`PreToolUse` can block a call,
+plus `PostToolUse`, `Stop`, and more).
 
-**ADK callbacks (колбэки)** — фиксированная матрица точек перехвата в ADK (`before`/`after` для агента,
-модели и инструмента); возвращённый из колбэка объект закорачивает вызов.
+**ADK callbacks** — a fixed matrix of interception points in ADK (`before`/`after` for agent, model, and
+tool); returning an object from a callback short-circuits the call.
 
-**Permission modes (режимы разрешений)** — режимы, задающие, что агенту разрешено без подтверждения
-(`default`/`acceptEdits`/`plan`/`bypassPermissions`…); проходятся в фиксированном порядке, где правило
-`deny` блокирует даже под `bypassPermissions`.
+**Permission modes** — modes that decide what an agent may do without confirmation
+(`default`/`acceptEdits`/`plan`/`bypassPermissions`…), evaluated in a fixed order where a `deny` rule blocks
+even under `bypassPermissions`.
 
-## Production — сервинг
+## Production — serving
 
-**Serving (сервинг)** — запуск модели или пайплайна как сетевого сервиса. Два смысла, которые нельзя
-смешивать: сервинг приложения (RAG/агентный пайплайн, завёрнутый в API) и сервинг модели (собственный
-инференс).
+**Serving** — running a model or a pipeline as a network service. Two distinct senses: serving the
+application (your RAG/agent pipeline behind an API) and serving the model (running LLM inference itself).
 
-**Inference (инференс)** — вычисление моделью вывода по входу в проде, в противоположность обучению; то,
-что либо покупают через API провайдера, либо запускают на собственных GPU.
+**Inference** — the model computing outputs from inputs in production — the forward pass as a service, as
+opposed to training. What you buy from a provider API or run on your own GPUs.
 
-**Inference server (инференс-сервер)** — специализированный сервер LLM-инференса на GPU: непрерывный
-батчинг, управление KV-кэшем, OpenAI-совместимый API (vLLM, SGLang, Ollama).
+**Inference server** — a specialized server for LLM inference on GPUs: continuous batching, KV-cache
+management, an OpenAI-compatible API (vLLM, SGLang, Ollama).
 
-**SSE (Server-Sent Events)** — односторонний поток событий поверх обычного HTTP; стандартный транспорт
-стриминга токенов у LLM-провайдеров. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Server-sent_events)
+**SSE (Server-Sent Events)** — a one-way event stream over plain HTTP; the standard transport for token
+streaming from LLM APIs. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Server-sent_events)
 
-**Time-to-first-token (TTFT)** — задержка до первого токена в потоке; метрика воспринимаемой скорости,
-которую оптимизирует стриминг.
+**Time-to-first-token (TTFT)** — the latency until the first streamed token reaches the user; the
+perceived-latency metric that streaming optimizes.
 
-**Streaming (стриминг)** — отправка токенов пользователю по мере генерации, не дожидаясь полного ответа;
-главный рычаг воспринимаемой задержки (TTFT).
+**Streaming** — sending tokens to the user as they are generated instead of waiting for the complete
+answer; the main perceived-latency lever (TTFT).
 
-**Continuous batching (непрерывный батчинг)** — планирование инференс-сервера, при котором запросы входят
-в работающий батч и покидают его на гранулярности токена, а не по границам целого батча; главный рычаг
-пропускной способности.
+**Continuous batching** — inference-server scheduling where requests join and leave the running batch at
+token granularity instead of waiting for the whole batch to finish; the main throughput lever.
 
-**PagedAttention** — управление KV-кэшем в vLLM по образцу виртуальной памяти: кэш разбит на страницы, что
-практически убирает фрагментацию и поднимает пропускную способность.
-↗ [arXiv](https://arxiv.org/abs/2309.06180)
+**PagedAttention** — vLLM's KV-cache memory management: the cache is paged the way an OS pages virtual
+memory, cutting fragmentation and raising throughput. ↗ [arXiv](https://arxiv.org/abs/2309.06180)
 
-**Cold start (холодный старт)** — задержка, прежде чем контейнер с моделью готов отвечать: веса грузятся в
-видеопамять от десятков секунд до минут. Поэтому готовность ≠ запущенный процесс, а scale-to-zero имеет
-цену.
+**Cold start** — the delay before a model container can actually serve: weights take tens of seconds to
+minutes to load into GPU memory. Why readiness is not "process up," and the price scale-to-zero pays on the
+next request.
 
-**OpenAI-compatible API (OpenAI-совместимый API)** — стихийно сложившийся общий стандарт LLM-эндпоинтов: один
-клиентский диалект говорит и с API провайдеров, и с self-hosted инференс-серверами; смена бэкенда почти
-сводится к замене URL.
+**OpenAI-compatible API** — the de facto wire standard for LLM endpoints; one client dialect talks to
+provider APIs and self-hosted inference servers alike, so switching backends is close to a URL change.
 
-## Production — облачные платформы
+## Production — cloud platforms
 
-**Managed endpoint (управляемый эндпоинт)** — модель, которую облачная платформа отдаёт как сервис внутри
-твоего периметра IAM, биллинга и сети: ты её вызываешь, платформа её эксплуатирует.
+**Managed endpoint** — a model served by a cloud AI platform behind your IAM, billing, and network
+perimeter: you call it, the platform runs it.
 
-**Model catalog (каталог моделей)** — набор собственных и сторонних моделей, которые платформа умеет
-поднимать как управляемые эндпоинты (Foundry Models, каталог Bedrock, Model Garden).
+**Model catalog** — the set of first- and third-party models a platform can serve as managed endpoints
+(Foundry Models, the Bedrock catalog, Model Garden).
 
-**Data residency (резидентность данных)** — гарантия того, в каком регионе или геозоне обрабатываются
-запросы; вместе с обязательством не обучать модели на твоих данных и частным подключением образует триаду
-соответствия.
+**Data residency** — the guarantee about where requests are processed (region or geography); together with
+no-training commitments and private networking it forms the compliance triad.
 
-**Provisioned throughput (выделенная пропускная способность)** — зарезервированная под тебя ёмкость
-модели с предсказуемой задержкой, которую покупают вместо общих on-demand токенов (Azure PTU, Vertex
-Provisioned Throughput, уровень Reserved в Bedrock).
+**Provisioned throughput** — reserved, dedicated model capacity with predictable latency, bought instead of
+shared on-demand tokens (Azure PTU, Vertex Provisioned Throughput, the Bedrock Reserved tier).
 
-**Batch mode (пакетный режим)** — асинхронный тариф со скидкой для неинтерактивных нагрузок.
+**Batch mode** — a discounted asynchronous processing tier for non-interactive workloads.
 
-**Managed RAG (управляемый RAG)** — упакованный платформой конвейер от загрузки документов до поиска
-(Bedrock Knowledge Bases, Foundry IQ поверх Azure AI Search, Vertex RAG Engine); скорость в обмен на
-возможность тонкой настройки.
+**Managed RAG** — a platform's packaged ingestion-to-retrieval pipeline (Bedrock Knowledge Bases, Azure
+Foundry IQ on AI Search, Vertex RAG Engine); it trades knobs for speed.
 
-**Vendor lock-in (привязка к поставщику)** — зависимость, которую создают платформенные надстройки
-(управляемый RAG, фирменные SDK), а не сам эндпоинт: он чаще всего OpenAI-совместимый.
+**Vendor lock-in** — dependence created by platform-specific batteries (managed RAG, SDKs) rather than by
+the endpoint itself, which is often OpenAI-compatible.
 
-## Production — экосистема инструментов
+## Production — the tooling ecosystem
 
-**Instrumentation (инструментирование)** — код и SDK-хуки, благодаря которым пайплайн испускает трейсы,
-спаны и метрики; предпосылка наблюдаемости.
+**Instrumentation** — adding the code or SDK hooks that emit traces, spans, and metrics from the pipeline;
+the precondition for observability.
 
-**OpenTelemetry GenAI conventions** — складывающийся вендор-нейтральный стандарт имён спанов и атрибутов
-для LLM-вызовов (модель, токены, вызовы инструментов): инструментирование пишется один раз, экспорт — в
-любую платформу. ↗ [GitHub](https://github.com/open-telemetry/semantic-conventions-genai)
+**OpenTelemetry GenAI conventions** — the emerging vendor-neutral standard for naming LLM spans and
+attributes (model, tokens, tool calls): instrument once, export anywhere. Still experimental as of
+mid-2026. ↗ [GitHub](https://github.com/open-telemetry/semantic-conventions-genai)
 
-**Safety classifier (классификатор безопасности)** — компактная специализированная модель, выставляющая
-тексту на входе или выходе балл риска по категориям (Llama Guard, Granite Guardian); сочетается с
-guardrails-фреймворками.
+**Safety classifier** — a compact specialized model that scores text for risk categories on input or output
+(Llama Guard, Granite Guardian); composes with guardrails frameworks, which orchestrate the checks.
 
-**Red-teaming** — намеренная атака на собственную систему ради измерения защиты (доля успешных атак,
-ASR); в eval-продуктах существует как готовая функция.
+**Red-teaming** — deliberately attacking your own system to measure its defenses (attack success rate);
+productized in eval tools and platform red-team features.
 
 ## Production — LLMOps
 
-**LLMOps** — операционная дисциплина LLM-приложений: деплой, мониторинг и стоимость систем, чьё поведение
-живёт в промптах, версиях моделей, индексах и конфигурации, а не только в коде. MLOps, специализированный
-под приложения на фундаментальных моделях.
+**LLMOps** — the operations discipline for LLM applications: deploying, monitoring, and cost-managing
+systems whose behavior lives in prompts, model versions, indexes, and configs rather than only in code.
+MLOps specialized for foundation-model applications.
 
-**Canary release (канареечный релиз)** — раскатка новой версии (промпта, модели, индекса) на небольшую долю
-живого трафика с наблюдением за метриками качества и стоимости: регрессия проявляется на доле пользователей
-и дёшево откатывается. ↗ [Martin Fowler](https://martinfowler.com/bliki/CanaryRelease.html)
+**Canary release** — routing a small share of live traffic to the new variant (prompt, model, index)
+while watching quality and cost metrics; a regression surfaces on a fraction of users and rolls back
+cheaply.
+↗ [Martin Fowler](https://martinfowler.com/bliki/CanaryRelease.html)
 
-**Shadow deployment (теневой запуск)** — новый вариант работает на зеркальной копии трафика, его ответы
-пользователи не видят; безопасное сравнение на реальных запросах.
+**Shadow deployment** — the new variant runs on mirrored production traffic and its answers are never
+shown to users; a safe quality comparison on real queries.
 
-**Prompt registry (реестр промптов)** — версионированное хранилище промптов, отвязанное от деплоев кода;
-каждый ответ в проде привязывается к точной версии промпта.
+**Prompt registry** — a versioned store of prompts decoupled from code deploys; product teams iterate on
+prompts without shipping code, and every production answer stays attributable to an exact prompt version.
 
-**Model pinning (фиксация версии модели)** — закрепление точных снапшот-версий модели; обновление модели у
-провайдера становится явным деплоем с прогоном eval.
+**Model pinning** — pinning production to exact model snapshot ids instead of a floating alias; a
+provider's model update then becomes an explicit, eval-gated deploy rather than a silent behavior change.
 
-**Model routing (маршрутизация запросов между моделями)** — отправка каждого запроса самой дешёвой модели, которая
-с ним справится; не путать с маршрутизацией запросов по индексам (Часть I) и выбором инструмента (Часть II).
+**Model routing** — sending each request to the cheapest model that can handle it; the router can be a
+rule, a classifier, or a model. Distinct from query routing (which index, Part I) and tool selection
+(which tool, Part II): this picks which model answers.
 
-**Fallback (резервный маршрут)** — заранее настроенная альтернатива (другой регион, провайдер или модель) на
-случай ошибок или превышения лимитов у основной.
+**Fallback** — the pre-configured alternative — another region, another provider, a cheaper model — that
+the system switches to when the primary model errors or rate-limits.
 
-**LLM gateway (LLM-шлюз)** — прослойка, централизующая доступ к моделям: один API, маршрутизация, резервные
-маршруты, ключи, бюджеты (LiteLLM, OpenRouter).
+**LLM gateway** — the layer that centralizes model access behind one API: routing, fallbacks, keys,
+budgets, and rate limits per team (LiteLLM, OpenRouter).
 
-**Prompt caching (кэширование промпта)** — кэширование повторяющегося префикса промпта на стороне
-провайдера; закэшированные входные токены тарифицируются с большой скидкой. Промпт проектируют по схеме
-«статичный префикс — переменный суффикс».
+**Prompt caching** — provider-side caching of the repeated prompt prefix (system prompt, examples, static
+context); cached input tokens are billed at a large discount, so prompts are designed static-prefix-first.
 
-**Semantic caching (семантический кэш)** — возврат сохранённого ответа на почти совпадающий вопрос по
-близости эмбеддингов; экономия в обмен на риск ложного попадания.
+**Semantic caching** — returning a stored answer for a near-duplicate question, matched by embedding
+similarity; saves the whole request's cost at the risk of a false hit on a subtly different question.
 
-**Drift (дрейф)** — смещение входов, корпуса или модели провайдера под неизменной конфигурацией системы:
-дрейф входного трафика, дрейф корпуса, дрейф модели у провайдера.
+**Drift** — the world shifting under a fixed configuration: input drift (traffic asks new kinds of
+questions), corpus drift (documents age), upstream model drift (the provider changes an unpinned model).

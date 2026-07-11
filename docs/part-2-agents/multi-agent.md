@@ -1,159 +1,154 @@
 ---
 id: multi-agent
-title: Мультиагентные системы
+title: Multi-agent systems
 sidebar_position: 4
 ---
 
-# Мультиагентные системы — когда одного агента становится мало
+# Multi-agent systems — several specialized agents instead of one
 
-До сих пор каждый урок Части II строил одного агента. В уроке про [Agentic RAG](./agentic-rag.md)
-появился цикл; в уроке про [использование инструментов](./tool-use.md) — инструменты, которые этот цикл
-дёргает; в уроке про [планирование и циклы](./planning-loops.md) — как направить цикл на цель и заставить
-его остановиться. Этот урок задаёт другой вопрос: что, если вместо одного агента взять несколько
-специализированных агентов, которые работают сообща. Так устроена **мультиагентная система (multi-agent
-system)**.
+Every lesson so far built *one* agent. [agentic-rag](./agentic-rag.md) gave you the loop; [tool-use](./tool-use.md)
+gave it tools to call; [planning-loops](./planning-loops.md) taught it to plan over that loop and to stop.
+This lesson asks a different question: what if, instead of one agent, you use several specialized agents
+that collaborate?
 
-Вопросов у урока ровно два, и оба весят одинаково: зачем вообще разбивать одного агента на нескольких — и,
-не менее важное, когда этого делать не надо. Тот принцип из Agentic RAG — брать самый простой уровень,
-который решает задачу, — работает и здесь. Мультиагентная система — это ступень выше по стоимости, а не приз
-за сложность, и относиться к ней надо так же трезво.
+Two questions run through the whole lesson, and they matter equally. First, *why* would you split one agent
+into several. Second, *when not to*. The discipline from agentic-rag carries straight
+over: take the simplest level that solves the task. Multi-agent is a higher-cost tier, not a prize you win
+for building something impressive.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="kYkZI3oj2W4" title="Multi AI Agent Systems: When One AI Brain Isn't Enough — IBM Technology" />
 
-Разбор той же идеи от IBM: где одного «мозга» перестаёт хватать и зачем разбивать его на команду.
+The same case from IBM: when a single agent stops being enough and you split the work across a team.
 
 :::
 
-## Зачем разбивать одного агента на нескольких
+## Why split one agent into several
 
-**Специализация.** Узкий агент — одна чёткая роль, заточенный под неё промпт, горстка инструментов — бьёт
-одного мега-агента с полусотней инструментов на все случаи жизни. Это прямое продолжение правила из
-tool-use «инструментов мало, и они не пересекаются», только на уровень выше: меньший, ортогональный набор
-инструментов у каждого агента означает меньше ошибок выбора инструмента и более предсказуемое поведение.
+Four reasons, and they don't all pull equally hard.
 
-**Изоляция контекста** — и это главная причина, по которой мультиагентность вообще масштабируется. У каждого
-агента своё окно контекста. **Оркестратор (orchestrator)** видит только результат каждого исполнителя,
-а не всё его промежуточное рассуждение и сырые результаты инструментов. Именно это позволяет мультиагентной
-системе взять работу, чей полный промежуточный контекст никогда не влез бы в одно окно: контекст каждого
-агента остаётся сфокусированным, вместо того чтобы одно окно забивалось шумом всех сразу.
+**Specialization.** A focused agent — a narrow role, a tuned prompt, a handful of tools — beats one
+mega-agent hauling fifty tools around. This is the multi-agent extension of tool-use's *few, non-overlapping
+tools*: a smaller, orthogonal toolset per agent means fewer tool-selection errors and behavior you can
+actually reason about.
 
-**Модульность.** Независимых агентов можно строить, тестировать и переиспользовать по отдельности — по той
-же причине, по которой монолит разбивают на сервисы.
+**Context isolation** is the reason that scales. Each agent gets its own context window, and the
+orchestrator sees only each worker's *result* — not all of its intermediate reasoning, not its raw tool
+output. That is what lets a multi-agent system take on work whose full intermediate context would never fit
+in one window. Instead of a single context filling up with everyone's noise, each agent keeps its own view
+focused on the piece it owns.
 
-**Параллелизм.** Независимые подзадачи можно гонять одновременно на разных агентах, а не последовательно в
-одном цикле.
+**Modularity.** Independent agents can be built, tested, and reused separately — the same reason you split a
+monolith into services.
 
-## Топологии — как агенты связаны между собой
+**Parallelism.** Independent subtasks can run concurrently across agents instead of serially in one loop.
 
-Разбить работу можно по-разному, и способов связать агентов в систему тоже несколько. Вот основные.
+## Topologies — how agents are wired together
 
-**Оркестратор–исполнители** (он же **супервизор (supervisor)**). Ведущий агент разбивает задачу на части,
-раздаёт подзадачи специализированным **агентам-исполнителям (worker)** и собирает их результаты в общий
-ответ. Это самая частая топология — к ней и сводится большинство продовых систем.
+There are a few standard shapes. Most real systems are one of these, or a composite of them.
 
-**Цепочка (chain).** Агенты выстроены последовательно, и каждый преобразует вывод предыдущего: например,
-автор → редактор → фактчекер. Каждое звено делает своё и передаёт дальше. Это **цепочка** агентов — не
-конвейер: конвейер в этой книге закреплён за статической последовательностью шагов из Части I, а здесь речь
-о живых агентах.
+**Orchestrator–workers**, also called supervisor. A lead agent decomposes the task, routes each subtask to
+the specialist worker that fits, and synthesizes the results into one answer. This is the most common
+topology, and the rest of the lesson leans on it.
 
-**Иерархия.** Оркестраторы над оркестраторами: у супервизора в исполнителях сидят агенты, которые сами
-супервизируют собственные команды. Тот же паттерн оркестрации, растянутый вглубь, — так система набирает
-уровни, не ломая устройства.
+**Chain (sequential).** Agents in a chain each transform the previous one's output — writer → editor →
+fact-checker, each stage handing its work to the next. The output of one is the input of the next, in a fixed
+order.
 
-**Дебаты / критик.** Один агент-генератор против агента-**критика (critic)**; или несколько агентов
-независимо предлагают решения задачи, а лучшее из них выбирают. Идея **дебатов (debate)** та же, что у слепого рецензирования:
-независимый взгляд ловит то, что одна-единственная цепочка рассуждения проглатывает, сама себя убедив. А качество и берётся из этих независимых точек зрения.
+**Hierarchical.** Orchestrators of orchestrators: a supervisor whose workers are themselves supervisors of
+their own teams. It's the orchestrator pattern taken to depth, for tasks too large for a single flat team.
 
-## Общение — сообщения и передача управления
+**Debate / critic.** A generator agent proposes, a **critic** agent challenges — or several agents
+independently produce solutions and the best one is picked. Independent perspectives raise quality here for
+the same reason blind reviewers do: an outside viewpoint catches what a single chain would happily
+rationalize its way past.
 
-Общаются агенты сообщениями. Отдельный, более сильный шаг — **передача управления (handoff)**: это когда
-один агент передаёт другому не просто сообщение, а управление плюс относящийся к делу контекст.
+## Communication — messages and handoff
 
-И вот тут главный рычаг проектирования — какой именно контекст получает агент при передаче. Дашь слишком
-мало — он не сможет сделать работу; дашь слишком много — получишь раздувание контекста и потерю фокуса. Это
-мультиагентная версия того же тезиса из tool-use, что описание инструмента — это промпт: здесь «сообщение
-передачи — это промпт». Оно должно нести ровно то, что нужно принимающему агенту, чтобы действовать, — и
-ничего сверх.
+Agents talk to each other through messages. The move that actually transfers work is a **handoff**:
+passing control *plus* the relevant context from one agent to another.
 
-## Оркестратор — это тоже агент
+The design lever that decides whether this works is *what context* travels on each handoff. Give the
+receiving agent too little and it can't do the job. Give it too much and you get context bloat and a worker
+that has lost the thread. This is the multi-agent version of tool-use's *a tool definition is a prompt* —
+here, *the handoff message is a prompt*. It has to carry exactly what the next agent needs to act on, and
+nothing more.
 
-Легко принять оркестратор за какую-то новую сущность. Это не так. Оркестратор — обычный агент, который
-делает три уже знакомых дела разом:
+## The orchestrator is itself an agent
 
-- **декомпозиция** — то самое разбиение цели на подзадачи из урока про планирование;
-- **маршрутизация** — маршрутизатор из Agentic RAG, только здесь он направляет подзадачу **агенту-исполнителю**,
-  а не запрос к инструменту или индексу;
-- **синтез** результатов исполнителей в общий ответ.
+It's tempting to treat the orchestrator as some new kind of component. It isn't. An **orchestrator** is an
+agent doing three familiar jobs at once:
 
-Его «инструменты» — это субагенты. Ничего концептуально нового: те же примитивы, что мы разбирали раньше,
-перенацелены с функций на агентов.
+- **Decomposition** — breaking the goal into subtasks, the planning lesson applied directly.
+- **Routing** — sending each subtask to the right worker. This is agentic-rag's router, only now it routes a
+  subtask to an *agent* rather than a query to a tool or an index.
+- **Synthesis** — combining the workers' results into the final answer.
 
-## Цена, и когда НЕ надо
+Its "tools" are the sub-agents. That's the whole trick: nothing conceptually new, just the earlier primitives
+re-aimed at agents instead of functions.
 
-Теперь честный тормоз. За всё это платят, и цена немаленькая.
+## The cost, and when not to
 
-**Стоимость и латентность умножаются.** N агентов — это порядка N× вызовов модели по сравнению с одиночным
-агентом. Мультиагентность — это скачок вверх по стоимости и латентности, а не бесплатный обед.
+Everything above is the case *for*. Here is the honest brake, because multi-agent is where teams overspend.
 
-**Распространение ошибки.** Промах одного агента отравляет всё, что находится ниже по потоку. Общего эталона
-истины у агентов нет, поэтому неверный промежуточный результат следующий агент принимает за факт и строит на нём
-своё.
+**Cost and latency multiply.** N agents means on the order of N× the model calls of a single agent. This is a
+step up in both cost and latency, not a free lunch.
 
-**Накладные расходы на координацию.** Агенты могут не так понять друг друга, продублировать чужую работу или
-встать во взаимную блокировку, ожидая один другого.
+**Errors propagate.** One agent's mistake poisons everything downstream. There is no shared ground truth, so
+a wrong intermediate result is simply taken as fact by the next agent in line.
 
-**Отлаживать и мерять — сложнее.** Траектория теперь размазана по нескольким агентам, и наблюдаемость (observability) обязана
-сшивать куски в одну связную цепочку — иначе сбой не найти. Это заостряет тезис из планирования: трейсить
-(trace) надо всю траекторию целиком, а в мультиагентной системе она ещё и разорвана между исполнителями.
+**Coordination has overhead.** Agents can miscommunicate, duplicate each other's work, or deadlock waiting on
+one another.
 
-Отсюда правило, **когда НЕ надо**. Один хорошо спроектированный агент чаще всего выигрывает. За мультиагентную
-систему берись только ради настоящей специализации, ради контекста, который не влезет в одно окно, или ради
-подзадач, которые действительно параллелятся. Это та же дисциплина «бери самый простой уровень, который
-решает задачу», что и в Agentic RAG.
+**It's harder to debug and to eval.** The trajectory is now spread across several agents, so observability has
+to *stitch* the pieces into one coherent trace. This sharpens planning-loops' point that you have to trace the
+whole trajectory — now the trajectory doesn't even live in one place.
 
-## Конкретный пример — ты его уже видел
+So the rule. A single well-designed agent usually wins. Reach for multi-agent only for real
+specialization, for context that will not fit in one window, or for genuinely parallelizable subtasks — the
+same *take the simplest level that solves the task* discipline you met in agentic-rag.
 
-Далеко ходить не надо. Редакционная и авторская команды, которые делают такой вот учебник, сами —
-мультиагентные системы вида оркестратор–исполнители. Ведущий (главный редактор или ведущий автор) разбивает
-работу и раздаёт её независимым, намеренно слепым друг к другу специалистам: литературный редактор,
-наивный читатель, редактор фактов, переводчик. Потом ведущий собирает их отчёты в общий результат. А слепы
-специалисты друг к другу ровно по той причине из раздела про дебаты: независимые точки зрения ловят то, что
-единая цепочка пропустила бы.
+## A concrete example — you've likely already used one
 
-Системы глубокого исследования устроены так же. Ведущий агент порождает несколько поисковых субагентов, они работают
-параллельно, а затем агент-синтезатор сводит их находки воедино. Форма всё та же: разбить, раздать, собрать.
+The editorial and authoring teams that produce a handbook like this one *are* orchestrator–worker
+multi-agent systems. A lead — the chief editor or lead author — decomposes the work and routes it to
+independent specialists: a literary editor, a naive reader, a fact editor, a translator. Then it synthesizes
+their reports into a finished page. The specialists are kept blind to each other on purpose, for exactly the
+debate/critic reason above: independent perspectives catch more than a single reviewer reading in sequence.
 
-## Что забрать из урока
+Deep-research systems have the same shape. A lead agent spawns several searchers that work in parallel, then a
+synthesizer combines what they each found into one answer. Same topology, different task.
 
-- Урок про **другой вопрос**: не как усилить одного агента, а стоит ли вообще брать нескольких — и когда
-  этого делать не надо. Мультиагентность — это ступень выше по стоимости, а не приз за сложность.
-- Разбивают ради четырёх вещей: специализация (узкий агент бьёт мега-агента), изоляция контекста (у
-  каждого своё окно, оркестратор видит только результат — главная причина масштабирования), модульность и
-  параллелизм.
-- Топологии, коротко: оркестратор–исполнители (самая частая), цепочка (каждый преобразует вывод
-  предыдущего), иерархия (оркестраторы над оркестраторами) и дебаты / критик (независимые взгляды
-  поднимают качество).
-- Агенты общаются сообщениями, а передача управления несёт управление плюс контекст. Главный рычаг — какой
-  именно контекст передать: «сообщение передачи — это промпт», ровно то и ничего сверх.
-- Оркестратор — обычный агент: декомпозиция + маршрутизация + синтез, где инструменты ему заменяют
-  субагенты. Ничего нового, старые примитивы перенацелены на агентов.
-- Плата реальна: стоимость и латентность × N, распространение ошибки без общей истины, накладные расходы на
-  координацию, разорванная по агентам траектория. Когда НЕ надо: один хороший агент обычно выигрывает —
-  бери команду только ради настоящей специализации, контекста не по размеру окна или реального параллелизма.
-- Мультиагентную систему ты уже видел: редакционные и исследовательские команды агентов — это
-  оркестратор–исполнители, где ведущий разбивает, раздаёт слепым специалистам и собирает.
+## What to take away
 
-**Новые термины** → [Глоссарий](../glossary.md): multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
+- Multi-agent is a higher-cost tier, not a reward — take the simplest level that solves the task, and be
+  as ready to say *when not to* as *when to*.
+- You split one agent into several for four reasons: specialization (focused role + small orthogonal
+  toolset), context isolation (each agent its own window, the orchestrator sees only results — the reason
+  that scales), modularity, and parallelism.
+- Four standard topologies: orchestrator–workers (a lead decomposes, routes, synthesizes — the common
+  one), chain (each agent transforms the previous output), hierarchical (orchestrators of
+  orchestrators), and debate / critic (independent perspectives raise quality).
+- Agents communicate by messages; a handoff passes control plus context, and *the handoff message is a
+  prompt* — carry exactly what the receiver needs, no more.
+- An orchestrator is just an agent: decompose + route + synthesize, with the sub-agents as its tools.
+  Nothing new, the old primitives re-aimed.
+- The brake: cost and latency multiply (~N×), errors propagate with no shared ground truth,
+  coordination has overhead, and it's harder to debug and eval (stitch the trajectory across agents).
+  A single well-designed agent usually wins.
+- You've already seen one: the editorial/authoring team behind a handbook, and deep-research systems, are
+  orchestrator–worker teams — a lead that decomposes, routes to blind specialists, and synthesizes.
+
+**New terms** → [Glossary](../glossary.md): multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: конкретные протоколы обмена и схемы сообщений между агентами, архитектуры общей памяти (blackboard), паттерны назначения ролей и переговоров, eval мультиагентных систем (сшивка траектории по агентам), политики контроля стоимости для команд агентов.
+🚧 Second pass: concrete inter-agent protocols and message schemas, shared-memory (blackboard) architectures, role-assignment and negotiation patterns, multi-agent eval (stitching the trajectory across agents), and cost-control policies for agent teams.
 
-А как оркестратор и изолированные воркеры устроены у Claude (субагенты), OpenAI (handoff) и Gemini (ADK),
-показывает капстоун части: [Реальные агенты](./real-agents.md).
+How the orchestrator and isolated workers are built in Claude (subagents), OpenAI (handoffs), and Gemini
+(ADK) is what the part's capstone shows: [Real agents](./real-agents.md).
 
 :::

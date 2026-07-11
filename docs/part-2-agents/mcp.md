@@ -1,193 +1,185 @@
 ---
 id: mcp
-title: MCP и протоколы агентов
+title: MCP and agent protocols
 sidebar_position: 6
 ---
 
-# MCP и протоколы агентов — единый разъём между агентом и всем остальным
+# MCP and agent protocols — the standard that wires agents to the world
 
-В уроке про [использование инструментов](./tool-use.md) агент научился вызывать инструменты. Но каждая
-интеграция была штучной: агента подключали к инструменту вручную, своим кусочком связующего кода — под этот
-инструмент, под этот API, под этот формат ответа. Один агент, десяток инструментов — терпимо. А дальше —
-комбинаторный взрыв.
+In [tool-use](./tool-use.md) the agent learned to call tools, but every integration was its own bespoke job:
+each agent wired to each tool by hand-written glue. That works for one agent and three tools. It stops
+working the moment you have many of each. With M apps that each need N tools, you are on the hook for M × N
+custom connectors — the same database wrapper rebuilt for every agent, the same agent re-taught for every
+API. This is the **M×N integration problem**, and it grows the way integration problems always grow: badly.
 
-Пусть у тебя `M` приложений (агентов, IDE, чат-клиентов) и `N` инструментов (базы, API, файловые системы).
-Если каждое приложение подключают к каждому инструменту отдельным коннектором, выходит `M × N` штучных
-связок — и каждую надо написать, протестировать и потом чинить, когда API инструмента поменяется. Это
-**проблема M×N интеграций**: рост не линейный, а как произведение. Ровно та же боль, из-за которой в
-железе когда-то развёлся зоопарк несовместимых кабелей.
+A standard is the usual escape. Wrap each tool once, behind one server; implement the client once, in each
+app; then any app can talk to any tool without new glue. That collapses M × N into **N + M** — you write N
+servers and M clients instead of M × N pairwise connectors. The mental picture the standard itself reaches
+for is **a USB-C port for AI applications**: one connector instead of a different cable for every device. This lesson is
+about the protocol that makes that trade, where it genuinely differs from the API docs you already know, and
+the new attack surface it opens.
 
-Лечит её стандарт. Оберни каждый инструмент **один раз** — в сервер, говорящий на общем протоколе, — и
-научи каждое приложение быть клиентом этого протокола один раз. Теперь `M × N` схлопывается в `N + M`:
-`N` серверов плюс `M` клиентов, и любое приложение говорит с любым инструментом без единой новой строчки
-клея. Это и есть **[MCP](https://modelcontextprotocol.io) (Model Context Protocol)** — открытый протокол подключения модели к инструментам и
-данным. Его собственная метафора — **USB-C для AI-приложений**: один стандартный разъём вместо
-фирменного кабеля под каждое устройство.
+:::tip[▶ Video]
 
-:::tip[▶ Видео]
+<YouTube id="g9JIUM0MHgQ" title="CLI vs [MCP](https://modelcontextprotocol.io): How AI Agents Choose the Right Tool for the Job — IBM Technology" />
 
-<YouTube id="g9JIUM0MHgQ" title="CLI vs MCP: How AI Agents Choose the Right Tool for the Job — IBM Technology" />
-
-IBM разбирает ровно тот вопрос, вокруг которого крутится этот урок: чем MCP отличается от того, что у нас
-уже было, — от обычного CLI и описанного API, — и почему это не просто «те же инструменты, но с описаниями».
+Watch this before the Swagger section below — it sets up the same question head-on: when the CLI and the API
+spec already describe what a tool does, what does MCP actually add?
 
 :::
 
-## Что такое MCP
+## What MCP is
 
-**MCP** — открытый стандарт, который Anthropic представила в конце 2024 года, а в декабре 2025 передала
-Agentic AI Foundation под крылом Linux Foundation — в нейтральное управление сообществом. Устроен он по
-клиент-серверной архитектуре, знакомой любому, кто писал сетевой код: одна сторона предоставляет
-возможности, другая их потребляет.
+**MCP (Model Context Protocol)** is an open standard introduced by Anthropic in late 2024 and donated in
+December 2025 to the Agentic AI Foundation under the Linux Foundation — neutral, community-driven
+governance. It is built on a
+client–server architecture. Two roles do the work. An **MCP server** wraps a single tool or data source — a
+database, a file system, a SaaS API, a code repository — and exposes its capabilities in a uniform way. An
+**MCP client** is the agent or app on the other end: it connects to servers and consumes whatever they
+expose. One server can be reached by many clients; one client can hold connections to many servers.
 
-- **MCP-сервер** оборачивает инструмент или источник данных и выставляет его возможности единообразно —
-  в форме, которую поймёт любой клиент.
-- **MCP-клиент** — это агент или приложение, которое подключается к серверам и пользуется этими возможностями.
-  Клиент не знает и не хочет знать, что там внутри сервера; ему хватает протокола.
+What makes MCP more than a tool-calling convention is that it standardizes three primitives, not one:
 
-Стандартизует MCP три вида возможностей — три примитива:
+- **tools** — callable functions, exactly the tool-use concept, now with a standard shape;
+- **resources** — data and context the server exposes to the client (a file's contents, a record, a
+  documentation page) for the model to read;
+- **prompts** — reusable templates the server offers, so a server can ship not just its actions but the
+  known-good way to invoke them.
 
-- **инструменты** (tools) — вызываемые функции. Тот самый инструмент из урока про использование
-  инструментов, только теперь его описание и вызов идут по общему протоколу, а не по самодельной схеме.
-- **ресурсы** (resources) — данные и контекст, которые сервер отдаёт клиенту: содержимое файла, запись из
-  базы, кусок документации. Не действие, а материал для работы.
-- **промпты** (prompts) — готовые шаблоны, которые сервер предлагает клиенту: заготовленная формулировка
-  задачи под конкретный сервер, которую пользователь может вызвать как есть.
+Transport is deliberately boring. A server that runs on your own machine speaks over **stdio**; a remote
+server speaks over **streamable HTTP**. The primitives are the same either way — where the server runs is a
+deployment detail, not a change to what the client sees.
 
-Ходит всё это по одному из двух транспортов. Транспорт **stdio** — для локальных серверов, запущенных рядом с
-клиентом как отдельный процесс: общаются через стандартный ввод-вывод. **Streamable HTTP** — для удалённых
-серверов, живущих за сетью. Транспорт — деталь доставки; примитивы поверх него одни и те же.
+## The AI delta — decoupling tools from agents
 
-## AI-дельта — инструменты отвязаны от агентов
+The point of all this is not tidiness. MCP decouples *building tools* from *building agents*. You author an
+MCP server once, and every MCP client — across apps, across frameworks, across models — can use it, with no
+per-integration glue. A wrapper for your ticketing system stops being something each agent team re-implements
+and becomes something one team ships once and everyone connects to.
 
-Главное, что даёт MCP концептуально, — он **разрывает связь** между тем, кто строит инструменты, и тем, кто
-строит агентов. Раньше инструмент и агент были склеены: функция, написанная под одного агента, под другого
-агента переписывалась заново вместе со всем клеем. С MCP ты пишешь сервер один раз — и им пользуется
-любой MCP-клиент: другой агент, другая модель, другая IDE.
+That is an ecosystem effect rather than a feature. It is the N + M win restated in human terms: a tool built
+for one app is now reusable by any app, the same way a USB-C peripheral works with any host. The value shows
+up not in a single project but in the second, third, and tenth project that reuse the server instead of
+rebuilding it.
 
-Выгода здесь выходит далеко за рамки одной интеграции — это эффект экосистемы. Инструмент, собранный под одно
-приложение, становится многоразовым по всем приложениям и моделям сразу. Тот, кто выставил свой сервис как
-MCP-сервер, разом подключил его ко всему, что говорит на MCP; тот, кто написал MCP-клиента, разом получил
-доступ ко всем существующим серверам. Клей больше не переписывают под каждую пару — в этом вся выгода
-N+M.
+## How MCP differs from Swagger/OpenAPI and CLI `--help`
 
-## Чем MCP отличается от Swagger/OpenAPI и CLI `--help`
+Here is the objection worth taking seriously, because a sharp engineer will raise it: *"MCP is just Swagger
+for LLMs. It slaps descriptions on your endpoints so a model can read them. We've had OpenAPI for a decade."*
+It's a fair challenge, and answering it honestly is the fastest way to understand what MCP is — and what it
+isn't.
 
-Тут живёт устойчивый миф, и его стоит разобрать прямо, потому что иначе ты унесёшь из урока неправильную
-картинку. Миф звучит так: «MCP — это Swagger для LLM, он просто добавляет описания к вызовам». Это в корне
-неверно.
+Start by conceding the part that's true, because it really is true. OpenAPI and Swagger already carry
+semantic descriptions: every endpoint can have a `summary` and a `description`, every parameter a note on
+what it means. CLI `--help` text does the same for command-line tools. And you *can* drive an LLM straight
+off an OpenAPI spec — map each endpoint to a tool definition, hand the model the descriptions, and tool-use's
+rule that **a description is a prompt** applies there word for word. So the difference is emphatically *not*
+"MCP has semantics and the others don't." Anyone who tells you Swagger can't carry meaning is wrong, and the
+rest of this section falls apart if you believe them.
 
-Смотри, где это рассуждение даёт сбой. OpenAPI/Swagger **уже несут семантику**: в спецификации есть поля
-`description` и `summary`, где по-человечески написано, что делает эндпоинт и что значит каждый параметр.
-CLI-утилита несёт то же самое в тексте `--help`. И этой семантики достаточно, чтобы вести по ней модель:
-можно взять OpenAPI-спецификацию, превратить эндпоинты в описания инструментов — и правило из урока про
-инструменты, «описание инструмента — это промпт», сработает здесь ровно так же. Модель прекрасно вызывает
-функции по OpenAPI. Значит, отличие MCP не в том, что у него есть смысл, а у них нет. Смысл есть у всех
-трёх.
+The real deltas are four, and none of them is about having descriptions:
 
-Настоящих отличий четыре, и они не про наличие описаний.
+1. **A runtime consumption protocol, not design-time developer docs.** An MCP client *discovers* a server's
+   capabilities at runtime and calls them through a uniform protocol — the agent asks the server what it
+   offers and then invokes it, live. OpenAPI and `--help` describe an API for a *developer* to read and then
+   write client code against, ahead of time. One is consumed by a running agent; the other is documentation
+   for a human building an integration. That is a difference in *who reads it and when*, not in whether it
+   has meaning.
 
-1. **Протокол потребления в среде выполнения (runtime) против документации для разработчика.** MCP-клиент
-   **обнаруживает** возможности сервера прямо во время работы агента и вызывает их единообразно. OpenAPI и
-   `--help` описывают API для **человека**, который сначала прочитает документацию и напишет под неё
-   клиентский код. Первое агент потребляет на ходу; второе — документация, по которой инженер заранее
-   пишет интеграцию.
-2. **Примитивы, родные для LLM, помимо действий.** Ресурсы (контекст) и промпты (шаблоны) не имеют аналога
-   ни в OpenAPI, ни в CLI — те описывают только вызываемые **действия**. MCP же стандартизует ещё и подачу
-   контекста, и готовые шаблоны.
-3. **Единый клиент.** Любой MCP-клиент говорит с любым MCP-сервером — не нужен штучный клиент под каждый
-   API или под каждый фреймворк. Вот здесь N+M из абстракции становится осязаемым: один раз написанный
-   клиент открывает доступ ко всей экосистеме серверов.
-4. **Сессия и двусторонность.** MCP держит сессию с состоянием: сервер может сам присылать обновления,
-   а через **sampling** — попросить модель клиента что-нибудь сгенерировать. Такой двусторонности у
-   статической спецификации API нет по определению — она описывает вызовы в одну сторону.
+2. **LLM-native primitives beyond actions.** OpenAPI and CLI both describe callable *actions* and nothing
+   else. MCP's resources (context to read) and prompts (templates to reuse) have no equivalent in either —
+   there is no OpenAPI construct for "here is a document the model should have in context" or "here is the
+   blessed template for this operation." MCP standardizes context and templates alongside actions.
 
-Где же гипотеза «это просто инструменты с хорошими описаниями» всё-таки права? Она права на практике — как
-**соглашение**, а не как возможность протокола. MCP-серверы пишут сразу под агента: с оглядкой на ту самую
-дисциплину «описание — это промпт» и на «мало инструментов, и они не пересекаются» из урока про инструменты.
-Поэтому типичный MCP-сервер — отобранный, сфокусированный набор инструментов, который модель читает легче,
-чем сырой автосгенерированный Swagger-дамп на двести эндпоинтов. Но это отличие **практики
-проектирования**, а не семантическая способность, которой у OpenAPI не хватает. Не путай удачное соглашение
-с новой возможностью.
+3. **One uniform client.** Any MCP client talks to any MCP server. There is no bespoke client per API, no
+   per-framework adapter. This is the N + M win made concrete: the client-side glue you'd otherwise rewrite
+   for every API collapses into a single protocol implementation.
 
-## MCP против A2A — агент ↔ инструменты против агент ↔ агент
+4. **A session, and it's bidirectional.** MCP is a stateful session rather than a stack of independent
+   request/response calls. A server can push updates to the client, and through **sampling** a server can ask
+   the *client's* model to generate something for it — a two-way capability that a static API spec has no way
+   to express.
 
-MCP стандартизует связь **агент ↔ инструменты/данные**: как агент дотягивается до внешнего мира. Но в
-[мультиагентных системах](./multi-agent.md) есть отдельная, параллельная нужда — связь **агент ↔ агент**:
-как один агент передаёт задачу другому и получает результат. Это не то же самое, и MCP её не закрывает.
+Now the honest qualifier, because there is a sense in which the objector is right. In practice MCP servers
+*do* tend to be more legible to a model than a raw OpenAPI dump — but for a reason of craft, not capability.
+MCP servers are authored agent-first: their descriptions are written as prompts (tool-use's
+description-as-prompt discipline), and they expose a curated, focused toolset rather than every endpoint an
+API happens to have (tool-use's "few, non-overlapping tools"). A hand-authored MCP server is usually easier
+for a model to use well than an auto-generated 200-endpoint Swagger file. But that is a *design-practice*
+difference, not a semantic power OpenAPI lacks. Swagger can carry every bit of meaning MCP can; MCP servers
+are simply, by convention, written to be consumed by a model. Keep the two apart in your head — "curated for
+an agent" is a habit of authorship, not a property of the protocol.
 
-Под неё складывается свой стандарт — **[A2A](https://a2a-protocol.org) (Agent-to-Agent)**, предложенный Google и переданный затем под
-управление Linux Foundation, — и он не единственный претендент. Область агентных протоколов бурно
-развивается, имена приходят и уходят, поэтому важнее любого списка кандидатов — разделительная черта,
-которая переживёт конкретные названия: **MCP — это агент ↔ инструменты и контекст; A2A — агент ↔ агент**.
-Держи в голове эту черту, и любой новый протокол сразу поймёшь, на какую полку его поставить.
+## MCP vs A2A — agent-to-tools versus agent-to-agent
 
-## Безопасность — новая поверхность атаки
+MCP standardizes one axis: agent to tool, agent to data. There is a second axis it says nothing about — agent
+to *agent*, the communication you needed the moment you built [multi-agent](./multi-agent.md) systems. When
+one agent hands off to another, what protocol carries that? MCP is the wrong tool; it connects an agent to
+its tools, not an agent to a peer.
 
-Каждый MCP-сервер, который ты подключаешь, — это **новая поверхность атаки (attack surface)**. Вредоносный
-или взломанный сервер способен на три неприятные вещи разом. Он может подсунуть косвенное **внедрение
-инструкций в текст (prompt injection)** — спрятать в своих ресурсах или в результате вызова инструмента
-команду, которую модель прочитает как указание; вектором может быть даже само описание инструмента
-(tool poisoning) — оно ведь тоже промпт. Он может утащить данные наружу. И он может выйти за выданные ему
-права, дотянувшись до большего, чем ты собирался ему доверить.
+**[A2A](https://a2a-protocol.org) (Agent-to-Agent)** is the emerging answer — a standard proposed by Google and since moved under the
+Linux Foundation — and it is not the only contender. The distinction worth committing to memory is clean:
+**MCP is agent-to-tools/context; A2A is agent-to-agent.** This corner of the field moves fast and the roster of contenders will have changed by the
+time you read this, so learn the *distinction* rather than the names. The two axes are real and durable; any
+particular protocol on either axis is a snapshot.
 
-Защита — та же дисциплина, что и в уроке про инструменты, только теперь распространённая на чужие серверы:
+## Security — a new attack surface
 
-- **Принцип наименьших привилегий (least privilege)** и ограниченный набор инструментов: чем меньше сервер
-  может, тем меньше цена его компрометации.
-- **Доверять только проверенным серверам.** Локальный (stdio) сервер — это в буквальном смысле чужой код
-  у тебя на машине; удалённый у тебя не исполняется, но остаётся опасным каналом в контуре твоего агента.
-- **Требовать подтверждения человека** на чувствительные действия — то самое право вето из урока про
-  [планирование и циклы](./planning-loops.md).
+Connecting an agent to a server you don't control is connecting it to input you don't control. An MCP server
+is a **new attack surface**. A malicious or compromised server can smuggle indirect **prompt injection** into
+the resources and tool results it returns — text that reads as instructions to your model; even the tool
+description itself is an injection vector (tool poisoning), because a description is a prompt. It can try to
+exfiltrate data the agent has access to. It can over-reach the permissions it was granted, doing more than
+the one job you connected it for. The uniform protocol that makes servers easy to plug in makes a hostile
+server just as easy to plug in.
 
-И сквозная нить безопасности из Части I тянется сюда без изменений: **иерархия инструкций** и
-**spotlighting** (маркировка недоверенного текста) распространяются на ресурсы и результаты MCP-сервера
-ровно так же, как на любой внешний текст. Контент, пришедший от сервера, — это недоверенный ввод, а не
-доверенные инструкции. Оборачивая инструмент в MCP, ты не выносишь его за периметр безопасности — ты
-добавляешь этому периметру ещё один участок границы, который надо стеречь.
-
----
-
-На этом урок завершается, а с ним — базовый набор приёмов Части II. Оглянёмся назад. Мы начали с одного агентного цикла в уроке про
-[Agentic RAG](./agentic-rag.md) — `рассуждение → решение → действие → наблюдение`. Дали агенту руки в уроке
-про [инструменты](./tool-use.md). Научились [удерживать цикл на цели и в
-границах](./planning-loops.md). Собрали из агентов [команды](./multi-agent.md) и увидели, как всё это
-[пакуют фреймворки оркестрации](./orchestration-frameworks.md). А сегодня — про стандартные протоколы,
-которые сшивают это в единое целое, когда система выходит в прод. От одиночного цикла до общего разъёма
-между агентом, инструментами и другими агентами — вот и вся базовая оснастка Части II. А как все эти приёмы
-выглядят на живых Claude, OpenAI и Gemini — в [финальном разборе реальных агентов](./real-agents.md).
-
-## Что забрать из урока
-
-- **Проблема M×N интеграций**: `M` приложений × `N` инструментов = штучные коннекторы, растущие как
-  произведение. Стандарт схлопывает это в `N + M` — обернул инструмент в сервер один раз, написал клиента
-  один раз, и любое приложение говорит с любым инструментом. MCP — **USB-C для AI-приложений**.
-- **MCP** — открытый клиент-серверный стандарт (создан Anthropic в конце 2024, с декабря 2025 — проект
-  Agentic AI Foundation под Linux Foundation). **MCP-сервер** выставляет
-  возможности, **MCP-клиент** их потребляет. Стандартизует три примитива: **инструменты**, **ресурсы**,
-  **промпты**. Транспорт — stdio локально, streamable HTTP удалённо.
-- AI-дельта: MCP **отвязывает инструменты от агентов** — сервер пишут один раз, им пользуется любой клиент.
-  Это эффект экосистемы, а не удобство одной интеграции.
-- Миф «MCP — это Swagger для LLM» неверен, но **не потому, что у Swagger нет семантики** — она есть, и по
-  OpenAPI можно вести модель. Настоящие отличия: потребление в среде выполнения против документации для
-  разработчика; примитивы за пределами действий (ресурсы и промпты); единый клиент под все серверы; сессия
-  с состоянием и двусторонней связью (вплоть до sampling). «Лучше описанные инструменты» — это соглашение
-  о практике, а не возможность, которой OpenAPI лишён.
-- **MCP = агент ↔ инструменты; A2A (Agent-to-Agent) = агент ↔ агент.** Запоминай черту, а не список
-  протоколов, — эта область быстро меняется.
-- MCP-сервер — **новая поверхность атаки**: косвенный prompt injection, утечка данных, выход за права.
-  Защита прежняя — **принцип наименьших привилегий**, только проверенные серверы, подтверждение человека на
-  опасное; иерархия инструкций и spotlighting из Части I накрывают и содержимое серверов.
-
-**Новые термины** → [Глоссарий](../glossary.md): MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
+The defense is the discipline you already have, extended one layer out. Grant **least privilege** — a limited
+toolset per server, nothing the task doesn't require. Connect only to servers you have vetted and trust;
+"it's on a registry" is not vetting. Require human approval for sensitive actions, so a compromised server
+can't quietly act on your behalf. And the guardrails from Part I — instruction hierarchy and spotlighting —
+apply directly to MCP: treat everything a server sends, resources and tool results alike, as untrusted *data*
+to be reasoned over, never as trusted *instructions* to be obeyed. A resource is content, not a command,
+even when it's phrased like one.
 
 ---
 
-:::note[Дальше — углубление слоя]
+That closes the lesson — and the core toolkit of Part II. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag.md) —
+retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use.md)), a way to
+plan over many steps and actually stop ([planning-loops](./planning-loops.md)), teammates to divide the work
+([multi-agent](./multi-agent.md)), and frameworks to package all of it
+([orchestration-frameworks](./orchestration-frameworks.md)). This lesson supplied the last piece: the
+standard protocols that wire agents to tools, and to each other, in production. One loop, grown into a system
+that connects to the world through a common plug. What all of it looks like on live Claude, OpenAI, and
+Gemini is the [closing capstone on real agents](./real-agents.md).
 
-🚧 Второй проход: как собрать MCP-сервер на практике, возможности sampling/elicitation в деталях, реестры и
-обнаружение MCP-серверов, компромиссы транспорта (stdio против streamable HTTP), развивающийся ландшафт
-агентных протоколов (A2A и соседи) и схемы развёртывания недоверенных серверов с усиленной защитой
-(hardening).
+## What to take away
+
+- The **M×N integration problem** — M apps × N tools = M × N bespoke connectors — is what a standard exists to
+  kill. MCP collapses it to **N + M**: wrap each tool once as a server, implement the client once per app.
+  Think **a USB-C port for AI applications**.
+- **MCP (Model Context Protocol)** is an open client–server standard (created by Anthropic in late 2024, a
+  project of the Agentic AI Foundation under the Linux Foundation since December 2025). An **MCP server**
+  wraps a tool or data source; an **MCP client** is the agent that consumes it. It standardizes three
+  primitives — **tools**, **resources**, and **prompts** — over stdio (local) or streamable HTTP (remote).
+- The AI delta: MCP **decouples building tools from building agents.** Author a server once, and any client
+  reuses it — an ecosystem effect, not a feature.
+- MCP is *not* "Swagger with descriptions." Swagger and CLI `--help` already carry semantics, and you can
+  drive an LLM off an OpenAPI spec. The real deltas are runtime consumption vs design-time docs, LLM-native
+  primitives beyond actions (resources, prompts), one uniform client, and a bidirectional session (sampling).
+  MCP servers *tend* to be more model-legible — but by authoring convention, not because OpenAPI can't carry
+  meaning.
+- **MCP is agent-to-tools; A2A (Agent-to-Agent) is agent-to-agent.** Two axes. The field churns — learn the
+  distinction, not the current names.
+- An MCP server is a **new attack surface**: indirect prompt injection, data exfiltration, permission
+  over-reach. Defend with **least privilege**, vetted-only servers, and human approval for sensitive actions;
+  treat all server-supplied content as untrusted input, never as instructions.
+
+**New terms** → [Glossary](../glossary.md): MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
+
+---
+
+:::note[Next — going deeper]
+
+🚧 Second pass: building an MCP server hands-on, the sampling/elicitation capabilities in depth, MCP registries and discovery, transport tradeoffs (stdio vs streamable HTTP), the evolving agent-protocol landscape (A2A and peers), and hardened deployment patterns for untrusted servers.
 
 :::

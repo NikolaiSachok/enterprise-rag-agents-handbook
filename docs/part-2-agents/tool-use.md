@@ -1,135 +1,134 @@
 ---
 id: tool-use
-title: Использование инструментов
+title: Tool use
 sidebar_position: 2
 ---
 
-# Использование инструментов (tool use) — как модель действует во внешнем мире
+# Tool use — how the model acts on the outside world
 
-В уроке про Agentic RAG ты усвоил главное: retrieval (поиск) из шага превратился в **действие**,
-которое модель выбирает в цикле. Но retrieval — лишь одно из действий. **Использование инструментов**,
-оно же **вызов функций (function calling)**, — это общий механизм: модель может вызвать любую внешнюю
-функцию. Поиск по базе знаний, SQL-запрос к таблице, обращение к HTTP-API, калькулятор, запуск кода,
-отправка письма. Retrieval оказывается частным случаем — одним из инструментов.
+In the Agentic RAG lesson you took in the key shift: retrieval stopped being a step and became an **action**
+the model chooses inside a loop. But retrieval is just one action. **Tool use** — also called **function
+calling** — is the general mechanism: the model can call any external function. Search over a knowledge
+base, a SQL query against a table, an HTTP API call, a calculator, code execution, sending an email.
+Retrieval turns out to be a special case — one tool among many.
 
-Именно доступ к инструментам превращает модель из «генератора текста» в нечто, способное **действовать**:
-читать актуальные данные, считать точно, менять состояние внешних систем.
+Tool use is exactly what turns the model from a "text generator" into something that can **act**: read live
+data, do exact arithmetic, change the state of external systems.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="h8gMhXYAv1k" title="What is Tool Calling? Connecting LLMs to Your Data — IBM Technology" />
 
-Тот же механизм от IBM: как вызов инструмента подключает модель к твоим данным и системам.
+The same mechanism from IBM: how a tool call wires the model into your data and systems.
 
 :::
 
-## Почему модели нужен посредник — она умеет только текст
+## Why the model needs an intermediary — it only produces text
 
-Модель не выполняет ничего сама — она умеет только выдавать текст. Не ходит в базу, не дёргает API,
-физически не исполняет код. Использование инструментов — это протокол-мост:
+The model executes nothing itself — it only emits text. It won't reach into a database or hit an API; it
+physically doesn't run code. Tool use is the bridging protocol:
 
-1. Модель выдаёт **структурированное намерение**: «вызови функцию X с аргументами Y».
-2. **Твой код** исполняет вызов и получает результат.
-3. Результат возвращается модели в контекст.
-4. Модель продолжает, уже видя результат.
+1. The model emits a **structured intent**: "call function X with arguments Y."
+2. **Your code** runs the call and gets the result.
+3. The result goes back to the model as context.
+4. The model continues, now seeing the result.
 
-Разделение жёсткое: модель решает, что вызвать; твоя среда выполнения (runtime) делает вызов. Модель
-не касается настоящих систем — и именно это разделение окажется границей безопасности (об этом ниже).
+The split is strict: the model decides what to call; your runtime does the calling. The model never
+touches the real systems — and that very split will turn out to be the security boundary (more below).
 
-## Механизм: вызов инструмента
+## The mechanism: a tool call
 
-Разложим на части. Это тот же цикл, что и в Agentic RAG, только действие теперь любое.
+It has a few parts. It's the same loop as in Agentic RAG, only the action is now anything.
 
-- **Описание инструмента (tool definition)** — имя, описание словами и схема параметров (обычно JSON
-  Schema). Это «меню»: какие инструменты есть, что делают, какие аргументы принимают. Ты передаёшь его
-  модели вместе с запросом.
-- **Вызов инструмента (tool call)** — вместо обычного текста (или вместе с ним) модель выдаёт
-  **структурированный вывод (structured output)**: JSON с именем инструмента и аргументами.
-- **Результат инструмента (tool result)** — твоя среда выполнения вызывает инструмент и добавляет результат в
-  диалог отдельным сообщением.
-- Модель **продолжает**: видя результат, она либо вызывает следующий инструмент, либо отвечает.
+- **Tool definition** — a name, a description in words, and a parameter schema (usually JSON Schema). This
+  is the "menu": which tools exist, what they do, what arguments they take. You pass it to the model along
+  with the query.
+- **Tool call** — instead of ordinary text (or alongside it), the model emits **structured output**: JSON
+  with the tool name and the arguments.
+- **Tool result** — your runtime runs the tool and appends the result to the conversation as a separate
+  message.
+- The model **continues**: seeing the result, it either calls another tool or answers.
 
 ```mermaid
 flowchart LR
-    Defs["Описания инструментов"] --> M["Модель"]
+    Defs["Tool definitions"] --> M["Model"]
     M --> TC["tool call: sql_query(...)"]
-    TC --> X["Твой код исполняет запрос"]
-    X --> TR["tool result: 42 строки"]
+    TC --> X["Your code runs the query"]
+    X --> TR["tool result: 42 rows"]
     TR --> M
-    M --> Ans["Ответ"]
+    M --> Ans["Answer"]
 ```
 
-## Описание инструмента — это промпт, а не только сигнатура
+## A tool definition is a prompt, not just a signature
 
-Вот главная AI-дельта по сравнению с обычным проектированием API. Модель выбирает инструмент и заполняет
-аргументы **по словесному описанию** — в реализацию она заглянуть не может. Имя, текст описания и описания
-параметров — это то, по чему вероятностная модель решает, *когда* и *как* дёрнуть функцию. Размытое
-описание — и модель вызовет не вовремя, возьмёт не тот инструмент или подставит мусорные аргументы. Поэтому описания инструментов — часть
-проектирования промптов (prompt engineering), а «вызывающая сторона» здесь не детерминированный код, а
-модель, читающая естественный язык.
+Here's the main AI delta versus ordinary API design. The model selects a tool and fills its arguments by
+**reading the description in words** — it cannot look into your implementation. The name, the description
+text, and the parameter descriptions are what a probabilistic model uses to decide *when* and *how* to
+invoke the function. A vague description, and the model calls at the wrong time, picks the wrong tool, or fills in junk
+arguments. So tool descriptions are part of prompt engineering, and the "caller" here isn't deterministic
+code — it's a model reading natural language.
 
-## Что делает инструмент хорошим
+## What makes a tool good
 
-- **Чёткое, однозначное описание** — по нему модель отличает один инструмент от другого.
-- **Строго типизированные, узкие параметры** (JSON Schema, `enum`, форматы) сужают то, что модель вправе
-  выдать, и режут долю невалидных вызовов.
-- **Инструментов мало, и они не пересекаются.** Десяток близких по смыслу функций путает модель — растёт
-  доля ошибок выбора инструмента (tool selection). Набор отбирают и сознательно ограничивают, а не
-  наращивают.
-- **Понятные ошибки.** Когда инструмент падает, верни сообщение, по которому модель сможет исправиться
-  («дата должна быть в формате ГГГГ-ММ-ДД»). Тогда цикл сам себя чинит: плохой вызов → внятная ошибка →
-  переформулировка → повтор.
-- **Правильная гранулярность** — не слишком мелко (десять вызовов ради одной задачи) и не слишком крупно
-  (один инструмент на всё).
+- **A clear, unambiguous description** — the model tells tools apart by their description, not by the code
+  behind them.
+- **Strictly typed, constrained parameters** (JSON Schema, `enum`, formats) narrow what the model may emit
+  and cut the rate of malformed calls.
+- **Few tools, and non-overlapping.** A dozen functions close in meaning confuse the model — tool-selection
+  errors climb. Curate the set; don't grow it.
+- **Clear errors.** When a tool fails, return a message the model can recover from ("date must be
+  YYYY-MM-DD"). Then the loop repairs itself: bad call → clear error → reformulation → retry.
+- **The right granularity** — not too fine (ten calls for one task), not too coarse (one tool for
+  everything).
 
-## Где это ломается
+## Where it breaks
 
-- **Не тот инструмент — или ни одного.** Модель взяла неверную функцию либо ответила из памяти вместо
-  вызова. Лечится описаниями и сокращением набора.
-- **Невалидные аргументы** — выдуманные или неправильные параметры. Помогают строгая схема, валидация и
-  понятные ошибки для самокоррекции.
-- **Выдумка поверх результата.** Модель может «дофантазировать» поверх результата — особенно невнятного или
-  пустого. Возвращай его отдельным сообщением, явно помеченным как результат инструмента; это снижает
-  риск, но не снимает его.
-- **Безопасность — новый и серьёзный риск.** Инструмент, который **действует** (пишет, отправляет,
-  исполняет код), теперь управляется выводом модели, а вывод можно увести в сторону через prompt injection (внедрение
-  инструкций в текст) — в том числе косвенный, спрятанный в найденном контенте. Отсюда защита: **принцип
-  наименьших привилегий (least privilege)** — ограничь набор инструментов, разделяй читающие и пишущие,
-  требуй подтверждения опасных действий. Тогда даже успешная инъекция мало что сможет сделать.
+- **The wrong tool — or none.** The model took the wrong function, or answered from memory instead of
+  calling. Fixed by descriptions and a smaller set.
+- **Invalid arguments** — invented or wrong parameters. Fixed by a strict schema, validation, and clear
+  errors for self-correction.
+- **Making things up on top of the result.** The model may confabulate on top of a result — especially a
+  muddled or empty one. Return the result as a separate message, explicitly marked as tool output; that
+  lowers the risk but doesn't remove it.
+- **Security — a new and serious risk.** A tool that **acts** (writes, sends, executes code) is now driven
+  by the model's output, and that output can be hijacked via prompt injection — including the indirect kind
+  hidden in retrieved content. Hence the defense: **least privilege** — limit the tool set available to the
+  agent, separate read tools from write tools, require confirmation for dangerous actions. Then even a
+  successful injection can do very little.
 
-## Связь с RAG
+## The link back to RAG
 
-Круг замыкается: **retrieval — это инструмент.** Agentic RAG из прошлого урока — частный случай
-использования инструментов, где главный инструмент — поиск. Как только у агента несколько инструментов, он
-закрывает тот самый случай «разные источники под разные вопросы»: retrieval — в базу знаний, SQL — в таблицы,
-веб-поиск — за свежим, калькулятор — за точным счётом. Маршрутизатор (router) из того же урока как раз и
-выбирает, какой инструмент пустить в ход.
+The circle closes: **retrieval is a tool.** Agentic RAG from the previous lesson is a special case of tool
+use where the main tool is search. Once the agent has several tools, it covers that "different sources for
+different questions" case: retrieval into the knowledge base, SQL into tables, web search for what's fresh,
+a calculator for exact arithmetic. The router from the previous lesson is precisely what picks which tool to
+use.
 
-## Что забрать из урока
+## What to take away
 
-- Использование инструментов (tool use) — общий механизм: модель вызывает любую внешнюю функцию;
-  retrieval — его частный случай.
-- Модель только порождает намерение, а исполняет его твой код: она решает «что», твой код делает «как».
-  Это же и граница безопасности.
-- Механизм — «описание инструмента → вызов инструмента → результат инструмента → продолжение»; тот же
-  цикл, что в Agentic RAG, с любым действием.
-- Описание инструмента — это промпт: модель выбирает по словам, а не по коду. Хороший инструмент: чёткое
-  описание, строгая схема, мало и без пересечений, понятные ошибки.
-- Новые провалы: не тот инструмент, невалидные аргументы, выдумка поверх результата и безопасность —
-  пишущий инструмент плюс prompt injection, отсюда принцип наименьших привилегий.
+- Tool use (function calling) — the general mechanism: the model calls any external function; retrieval
+  is a special case of it.
+- The model only produces the intent — your code executes it: the model decides "what," your runtime
+  does "how." That is also the security boundary.
+- The mechanism is "tool definition → tool call → tool result → continue"; the same loop as Agentic RAG,
+  with any action.
+- A tool definition is a prompt: the model chooses by the words, not the code. A good tool: clear
+  description, strict schema, few and non-overlapping, clear errors.
+- New failure modes: the wrong tool, invalid arguments, making things up on top of the result, and
+  security — a write tool plus prompt injection, hence least privilege.
 
-**Новые термины** → [Глоссарий](../glossary.md): tool use / function calling, tool definition, tool call,
-tool result, tool selection, JSON Schema, structured output.
+**New terms** → [Glossary](../glossary.md): tool use / function calling, tool definition, tool call, tool
+result, tool selection, JSON Schema, structured output.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: параллельные вызовы инструментов, форматы схем и строгий (constrained) декодинг, стратегии
-обработки ошибок и повторов, цена контекста при десятках инструментов. Стандарт подключения инструментов —
-уже не углубление, а отдельный урок: [MCP и протоколы агентов](./mcp.md).
+🚧 Second pass: parallel tool calls, schema formats and constrained decoding, error-and-retry strategies,
+the context cost of dozens of tools. The standard for connecting tools is no longer a deepening topic but a
+lesson of its own: [MCP and agent protocols](./mcp.md).
 
-А как ровно этот механизм вызова инструментов устроен у Claude, OpenAI и Gemini сегодня, показывает
-капстоун части: [Реальные агенты](./real-agents.md).
+And how this exact tool-calling mechanism looks in Claude, OpenAI, and Gemini today is what the part's
+capstone shows: [Real agents](./real-agents.md).
 
 :::

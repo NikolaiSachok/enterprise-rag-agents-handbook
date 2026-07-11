@@ -1,8 +1,17 @@
 # Enterprise RAG & Agents Handbook — Project Guide
 
-A public, open-source, **bilingual (RU primary / EN)** teaching handbook on production RAG and agentic
-systems. Built with **Docusaurus → GitHub Pages** (docs = the course, blog = article excerpts, Mermaid
-diagrams, offline local search).
+A public, open-source, **bilingual** teaching handbook on production RAG and agentic systems. Built with
+**Docusaurus → GitHub Pages** (docs = the course, blog = article excerpts, Mermaid diagrams, offline local
+search).
+
+**Locale model (EN-canonical).** English is the **default locale** — it lives in the top-level `docs/` +
+`blog/` and serves at the site root `/`. Russian is a secondary locale under
+`i18n/ru/docusaurus-plugin-content-docs/current/` (+ `i18n/ru/docusaurus-plugin-content-blog/`) and serves
+at `/ru/`. This is only the URL/serving structure: **RU stays audience-primary in *authoring*** (written
+natively per the workflow below, never machine-translated). A first visitor's browser language is
+auto-detected (blocking `<head>` script in `docusaurus.config.ts`, `localeDetectionScript`) and their choice
+is remembered in a `preferred_locale` cookie; the whole mechanism is **locale-list-driven** — adding a
+locale = add it to the `LOCALES`/`localeConfigs` in the config, no other code change.
 
 ## Audiences (every page should serve all three)
 1. **Learners** — any engineer studying the topic should come away understanding it: teach the *why* and
@@ -32,9 +41,10 @@ Keeps the handbook lean and respects the reader's time — no Tool-101 filler.
   a language-agnostic **fact skeleton** (claims + sources + term decisions against the style canon, drafted
   in EN where models reason best), then **independent native prose drafts per language in parallel** —
   never one language translated from another's finished prose. **RU is audience-primary** (never produced
-  by translation); the EN draft lives in the parallel i18n tree
-  (`i18n/en/docusaurus-plugin-content-docs/current/...`). Small mirror touch-ups to existing EN pages may
-  still be translation-based — full lessons are drafted natively per language.
+  by translation) and lives in the parallel i18n tree
+  (`i18n/ru/docusaurus-plugin-content-docs/current/...`); **EN is the default locale** and lives in the
+  top-level `docs/`. Small mirror touch-ups to existing pages may still be translation-based — full lessons
+  are drafted natively per language.
 - Structure: **Part I — RAG** → **Part II — Agents**, a single-definition **Glossary**, and (later)
   per-topic case-study pages kept separate from the industry-general theory pages.
 - **Editorial gate** = the `editorial-team` skill (`~/.claude/skills/editorial-team`) — the single source of
@@ -116,8 +126,9 @@ every layer-close, alongside the prose editorial pass.
 
 **Part-opener convention (uniform across ALL parts).** Every Part is fronted by a written opener page, never
 a bare auto-index:
-- `docs/part-N-<slug>/overview.md` — `id: overview`, `sidebar_label: "Обзор части"` (EN `"Part overview"`),
-  and **no** `sidebar_position` (it is the category index, not a child in the list).
+- `docs/part-N-<slug>/overview.md` (EN, default) — `id: overview`, `sidebar_label: "Part overview"` (the RU
+  mirror at `i18n/ru/.../current/part-N-<slug>/overview.md` uses `"Обзор части"`), and **no**
+  `sidebar_position` (it is the category index, not a child in the list).
 - `_category_.json` points at it: `{"label": "…", "position": N, "link": {"type": "doc", "id":
   "part-N-<slug>/overview"}}` — so the part label itself opens the opener and the doc is pulled out of the
   child list (no duplicate). Mirror it in **both** locales.
@@ -139,7 +150,7 @@ a bare auto-index:
    from its milestone up front, and move it when issues are added or the plan shifts.
 4. **Uniformity** — a new page matches the established skeleton (frontmatter, «Что забрать из урока», «Новые
    термины» → glossary, deepening `:::note`) and the admonition/link/video conventions above, in the
-   RU-primary + EN-parallel layout.
+   EN-default (`docs/`) + RU-parallel (`i18n/ru/`) layout.
 A `🚧` anywhere must mean *planned next*, never *silently missing*.
 
 ## Engineering workflow (SDLC)
@@ -182,8 +193,10 @@ proportionate to a docs site, no ceremony for its own sake.
   didn't touch (`git status` before every commit; stage your paths explicitly, no `git add -A`).
 
 ## Local dev
-- RU (default): `npm run start`
-- EN: `npm run start -- --locale en`
+- EN (default): `npm run start`
+- RU: `npm run start -- --locale ru`
 - Full both-locale build (must pass before publish): `npm run build`
+- Locale-flip / detection E2E (needs a served prod build): `npm run test:e2e` (detection + locale-scroll +
+  tablet layout) — see `e2e/`.
 - Deploy config in `docusaurus.config.ts` (`url`, `baseUrl`, `organizationName`) and the Pages workflow
   use placeholders — set them before the first deploy.

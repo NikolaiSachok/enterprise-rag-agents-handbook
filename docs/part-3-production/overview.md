@@ -1,35 +1,34 @@
 ---
 id: overview
-title: Часть III — Production и LLMOps
-sidebar_label: Обзор части
+title: Part III — Production & LLMOps
+sidebar_label: Part overview
 ---
 
-# Часть III — Production и LLMOps
+# Part III — Production & LLMOps
 
-В Частях I и II мы собрали систему: статический RAG-конвейер и агентов поверх него. Часть III — про то,
-**как это доводят до прода**: сервинг, облачные платформы, экосистема инструментов и эксплуатация. Это
-прикладной слой, о котором вакансии говорят языком инструментов, — тот самый, что отделяет «у меня на
-ноутбуке работает» от «работает под нагрузкой, с наблюдаемостью и в рамках бюджета».
+Parts I and II assembled the system: a static RAG pipeline and agents on top of it. Part III is about **how
+you actually ship it**: serving, cloud platforms, the tooling ecosystem, and operations. This is the applied
+layer the job market names by tool — the one that separates "works on my laptop" from "works under load,
+observably, and on budget."
 
-## Что внутри
+## What's inside
 
-- **[Serving — сервинг на FastAPI и Docker](./serving.md)** — как завернуть модель или агента в сервис:
-  API, стриминг, контейнер, инференс-серверы.
-- **[Облачные AI-платформы](./cloud-platforms.md)** — [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service), [Amazon Bedrock](https://aws.amazon.com/bedrock/), Google Cloud Gemini
-  Enterprise Agent Platform (экс-Vertex AI): что они дают и чем отличаются.
-- **[Экосистема инструментов](./tooling-ecosystem.md)** — eval, guardrails, observability в проде: чем
-  мерить, чем смотреть, чем защищать.
-- **[LLMOps — деплой, мониторинг, стоимость](./llmops.md)** — жизнь LLM-системы после релиза.
+- **[Serving — FastAPI + Docker](./serving.md)** — wrapping a model or agent in a service: API, streaming,
+  container, inference servers.
+- **[Cloud AI platforms](./cloud-platforms.md)** — [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service), [Amazon Bedrock](https://aws.amazon.com/bedrock/), Google Cloud Gemini
+  Enterprise Agent Platform (formerly [Vertex AI](https://cloud.google.com/vertex-ai)): what they offer and how they differ.
+- **[The tooling ecosystem](./tooling-ecosystem.md)** — eval, guardrails, observability in production:
+  what to measure, what to guard, what to see.
+- **[LLMOps — deploy, monitor, cost](./llmops.md)** — the LLM system's life after release.
 
-## Предпосылки
+## Prerequisites
 
-Нужны Части I и II целиком: сервинг и эксплуатация предполагают, что RAG-агент у тебя уже собран и ты
-понимаешь, как он устроен.
+All of Parts I and II — serving and operations assume the RAG agent itself is already built and understood.
 
-:::note[Статус]
+:::note[Status]
 
-Базовые уроки Части III дописаны и опубликованы: сервинг, облачные AI-платформы, экосистема инструментов
-и LLMOps. 🚧 Впереди второй проход — углубление каждого слоя (темы в пометках «Дальше — углубление слоя»
-на страницах уроков).
+Part III's base is complete — every lesson is published: serving, cloud AI platforms, the tooling
+ecosystem, and LLMOps. 🚧 A second pass is still ahead — deepening each layer (topics listed in the
+"Next — going deeper" notes on the lesson pages).
 
 :::

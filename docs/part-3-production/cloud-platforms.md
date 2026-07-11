@@ -1,249 +1,232 @@
 ---
 id: cloud-platforms
-title: Облачные AI-платформы
+title: Cloud AI platforms
 sidebar_position: 2
 ---
 
-# Облачные AI-платформы — где считаются твои токены
+# Cloud AI platforms — where your tokens get computed
 
-[Урок про сервинг](./serving.md) закончился развилкой: нижний блок архитектуры — инференс-сервер
-(inference server) — можно держать у себя, а можно арендовать, и тогда на его месте остаётся чужой
-эндпоинт. Сегодня разбираем ветку «арендовать» всерьёз. Дело в том, что арендовать модель можно двумя
-очень разными способами, и разница между ними не техническая, а организационная: кто подписывает
-контракт, чьи роли доступа действуют и в какой счёт за облако ложатся расходы на токены.
+[Serving](./serving.md) ended at a fork. The application layer — auth, the RAG pipeline, guardrails,
+streaming — is yours either way; the open question was the second box in the diagram: do you run the model
+on your own GPUs, or rent it? This lesson walks the rent branch properly, because renting turns out to have
+a fork of its own.
 
-Всего же способов потреблять модель три, и они выстраиваются вдоль одной оси «контроль — удобство».
-Self-host: свои GPU, свой инференс-сервер, максимум контроля — и вся эксплуатационная ноша твоя. Прямой
-API поставщика модели — OpenAI, Anthropic, Google: самый простой путь, но запросы уходят на серверы
-поставщика, а отношения с ним — отдельный двусторонний контракт мимо твоего облачного договора. И третий
-способ, герой этого урока: **управляемая (managed) AI-платформа** твоего облака — те же модели, но
-выставленные как **управляемые эндпоинты (managed endpoints)** внутри облака, где уже живут твои данные и
-сервисы.
+There are three ways to get tokens out of a model, and they line up along one axis: control versus
+convenience. At one end sits self-hosting — an inference server on your own GPUs, the option serving already
+covered: maximum control, and the full ops burden that comes with it. At the other end sits the direct
+model-vendor API — OpenAI's, Anthropic's, Google's: the simplest integration there is, but your data travels
+to the vendor, and the relationship lives in a separate bilateral contract your legal team now negotiates
+and tracks. Between them sits the option this lesson is about: your cloud's managed AI platform, where
+models run as **managed endpoints** inside the cloud you already use.
 
 ```mermaid
 flowchart TD
-    APP["Твоё приложение"] --> OWN["Свои GPU + инференс-сервер"]
-    APP --> VENDOR["Прямой API поставщика модели"]
-    APP --> CLOUD["Управляемая AI-платформа облака"]
-    OWN --> OWN2(["Максимум контроля,<br/>вся эксплуатация твоя"])
-    VENDOR --> VENDOR2(["Максимум простоты:<br/>данные уходят к поставщику,<br/>отдельный контракт"])
-    CLOUD --> CLOUD2(["Модель внутри периметра облака:<br/>IAM, биллинг, сеть, аудит"])
+    APP["Your application<br/>the app service from the serving lesson"] --> OWN["Your own GPUs + inference server"]
+    APP --> VENDOR["Direct model-vendor API"]
+    APP --> CLOUD["The cloud's managed AI platform"]
+    OWN --> OWN2(["Maximum control,<br/>maximum ops burden"])
+    VENDOR --> VENDOR2(["Simplest start:<br/>data goes to the vendor,<br/>separate contract"])
+    CLOUD --> CLOUD2(["The model inside the cloud perimeter:<br/>IAM, billing, network, audit"])
 ```
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="XtT5i0ZeHHE" title="AI Inference: The Secret to AI's Superpowers — IBM Technology" />
 
-Что такое инференс (единственное, что все эти платформы на самом деле продают) и почему гонять его под
-нагрузкой — отдельная дисциплина.
+A clean take on what inference — the thing every platform on this page is selling — actually is, and why
+serving it at scale is a discipline of its own.
 
 :::
 
-## Продукт платформы — периметр
+## The platform's product — the perimeter
 
-«Погоди, — скажешь ты, — модель-то та же. Claude на [Bedrock](https://aws.amazon.com/bedrock/) отвечает ровно так же, как Claude по прямому
-API Anthropic. За что тогда платить платформе?» За периметр. Продукт здесь — не модель, а обвязка,
-которую облако выстраивает вокруг неё:
+What does the platform add over calling the vendor directly? The model itself is often the same weights you
+would reach over the vendor's API. What you are buying is the model behind your existing cloud's perimeter:
 
-- **Единая аутентификация.** Доступом к модели управляют те же IAM-роли, что и остальной
-  инфраструктурой, — без второго набора API-ключей, живущего своей жизнью.
-- **Единый биллинг.** Расходы на токены попадают в тот же облачный счёт, что виртуалки и базы, и на них
-  распространяются корпоративные скидки по общему договору.
-- **Сетевая изоляция.** Частные эндпоинты: трафик к модели вообще не выходит в публичный интернет.
-- **Соответствие требованиям — в наследство.** Сертификации облака распространяются на платформу: SOC 2,
-  HIPAA-eligible сервисы, инструменты для соблюдения GDPR.
-- **Журналы аудита и квоты.** Ведутся по проектам и командам: видно, кто сколько сжёг, и задано, кому
-  сколько можно.
+- **Unified auth.** The same IAM roles that already guard your buckets and databases now guard the model —
+  no second set of API keys living a life of its own.
+- **Unified billing.** Tokens land on the same cloud invoice as VMs and databases, with enterprise
+  discounts applying.
+- **Network isolation.** Private endpoints: traffic to the model never crosses the public internet.
+- **Inherited compliance.** The cloud's certifications extend to the platform: SOC 2, HIPAA-eligible
+  services, GDPR tooling.
+- **Audit logs and quotas.** Per project and team: you can see who burned what, and cap who may burn how
+  much.
 
-Для инженера это скучный список. Для корпоративной среды — ровно то, что отличает «попробовали в
-песочнице» от «подписано в прод».
+None of that changes what the model says. All of it changes whether your enterprise is allowed to say
+things to the model.
 
-## Три платформы и урок о переименованиях
+## The three platforms — and a lesson about names
 
-Игроков три — по числу больших облаков, и у каждого своя история с именем.
+As of mid-2026 the big three look like this. **[Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)** is Microsoft's offering, historically the way
+to consume OpenAI models as a first-party Azure service; the platform around it was renamed from Azure AI
+Foundry to Microsoft Foundry at Ignite in November 2025, and models in it are now offered as "Foundry
+Models," split between "Models sold by Azure" and marketplace listings. **[AWS Bedrock](https://aws.amazon.com/bedrock/)** is Amazon's — the
+one name of the three that has held still. **[Vertex AI](https://cloud.google.com/vertex-ai)** is Google Cloud's, and it is mid-rename as this
+page is written: the Gemini Enterprise Agent Platform, announced in April 2026. The console migration
+finished in May 2026, the API endpoints didn't move, and the documentation is genuinely caught between the
+two names.
 
-**[Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)** у Microsoft начинался как отдельный сервис с моделями OpenAI, затем стал частью
-платформы [Azure AI Foundry](https://azure.microsoft.com/en-us/products/ai-foundry), а на Ignite в ноябре 2025-го платформу переименовали в **Microsoft Foundry**.
-Модели в ней доступны как Foundry Models, с внутренним делением на «Models sold by Azure» (модели, которые
-продаёт сам Azure) и модели маркетплейса.
+Read that paragraph again and notice what it is really telling you: two of the three platforms were renamed
+within about a year. Product names and bundle boundaries get reshuffled constantly in this market. What
+survives the renames are the capability categories — the model catalog, the privacy and residency
+guarantees, the managed RAG tier, the platform guardrails, the throughput and pricing model. The rest of
+this lesson is organized by those categories, and that is deliberate: learn the categories, and treat any
+product name — including every name on this page — as a snapshot. The [MCP lesson](../part-2-agents/mcp.md)
+made the same move for agent protocols, and it holds here just as well.
 
-**AWS Bedrock** у Amazon — единственное из трёх имён, которое пока никто не трогал.
+## Model catalogs — who serves whose models
 
-**[Vertex AI](https://cloud.google.com/vertex-ai)** у Google Cloud в апреле 2026-го получил новое имя — **Gemini Enterprise Agent Platform**
-(сокращённо GEAP); к маю переехала консоль, API-эндпоинты остались прежними, а документация пока честно
-живёт на два дома: часть страниц под старым именем, часть под новым.
+The **model catalog** is the first category: which models can this platform serve to you as managed
+endpoints?
 
-Заметь, что произошло: две платформы из трёх сменили имя примерно за год. Это нормальный темп индустрии,
-и он подсказывает, как учить материал. Имена продуктов и состав пакетов тасуются постоянно; эту чехарду
-переживают только категории возможностей — каталог моделей, гарантии приватности и резидентности,
-управляемый RAG, платформенные ограничители (guardrails), устройство тарифов и ёмкости. Выучи категории — и
-любое свежее имя само разложится по полкам, а любое название из этого урока считай снимком на дату. В
-[уроке про MCP](../part-2-agents/mcp.md) мы уже договаривались держаться разделительных черт — границ
-между категориями, а не имён, — потому что списки имён устаревают быстрее, чем печатается страница. Здесь
-тот же приём.
+Azure OpenAI's founding pitch was exclusive: GPT models with Azure's
+enterprise wrapper, and for years that was precisely why enterprises used it. The Foundry catalog has since
+gone broad — around 1,900 models, with Anthropic joining at Ignite 2025 alongside Microsoft, OpenAI,
+Mistral, xAI, Meta, DeepSeek, and Hugging Face. Bedrock was multi-vendor
+from the start, and the old rule of thumb "no OpenAI on AWS" is now simply false: OpenAI's open-weight
+gpt-oss models arrived in August 2025, and frontier GPT models went GA on Bedrock in June 2026. On Google's
+side, Gemini is the first-party anchor and Model Garden carries the third-party and open models — a name
+that, notably, survived the platform rename around it.
 
-## Каталоги моделей — кто чьи модели выставляет
-
-**Каталог моделей (model catalog)** — первое, что смотрят на платформе: какие модели она вообще умеет
-поднимать как управляемые эндпоинты.
-
-У Azure отношения с OpenAI особые: GPT-семейство живёт там на правах родного сервиса самого Azure, и
-долгое время именно доступ к GPT в корпоративном периметре был главной причиной идти в Azure OpenAI.
-Сегодня каталог Foundry куда шире — порядка 1 900 моделей: Microsoft, OpenAI, Anthropic (добавлены на том
-же Ignite 2025), Mistral, xAI, Meta, DeepSeek, Hugging Face.
-
-Bedrock с самого начала строился как мультивендорная платформа: Anthropic (Claude), Meta (Llama), Mistral, Cohere,
-собственные модели Amazon (Nova) — а с недавних пор и OpenAI. Сначала модели с открытыми весами gpt-oss в
-августе 2025-го, затем, с июня 2026-го, флагманские GPT-модели в общем доступе. Тезис «моделей OpenAI на
-AWS не бывает» устарел — не повторяй его на собеседовании.
-
-У Google родная модель — Gemini, а сторонние и открытые живут в Model Garden, в том числе Claude. Имя
-Model Garden, кстати, пережило переименование всей платформы.
-
-| Платформа | Родные модели | Каталог |
+| Platform | First-party anchor | Catalog breadth |
 |---|---|---|
-| Microsoft Foundry (экс-Azure AI Foundry) | GPT-семейство OpenAI как родной сервис Azure | ~1 900 моделей: OpenAI, Anthropic, Mistral, xAI, Meta, DeepSeek, Hugging Face и др. |
-| AWS Bedrock | Amazon Nova | Anthropic, Meta, Mistral, Cohere, OpenAI (gpt-oss, флагманские GPT) и др. |
-| Gemini Enterprise Agent Platform (экс-Vertex AI) | Gemini | Model Garden: Claude, открытые модели и др. |
+| Microsoft Foundry (Azure OpenAI) | OpenAI GPT family as a first-party Azure service | ~1,900 models: Microsoft, OpenAI, Anthropic, Mistral, xAI, Meta, DeepSeek, Hugging Face |
+| AWS Bedrock | Amazon's own Nova family | Multi-vendor from day one: Anthropic, Meta, Mistral, Cohere, and more — now including OpenAI |
+| Gemini Enterprise Agent Platform (Vertex AI) | Gemini | Model Garden: third-party models (including Claude) plus open models |
 
-Отсюда следствие, которое пару лет назад прозвучало бы странно. Раньше выбор модели диктовал выбор
-облака: нужен GPT — иди в Azure, нужен Claude — смотри на AWS. Эпоха эксклюзивных каталогов заканчивается:
-Claude теперь есть на всех трёх платформах, флагманские GPT добрались до Bedrock, Anthropic — до каталога
-Foundry. Связка «модель → облако» слабеет, и центр тяжести сравнения смещается в сторону обвязки: резидентность,
-надстройка управляемого RAG, экономика выделенной ёмкости. К ним и переходим.
+The consequence is bigger than any single row. Model choice used to dictate cloud choice: if you needed GPT,
+you went to Azure, and that was the end of the conversation. That exclusive-catalog era is ending — OpenAI
+frontier models run on Bedrock, Anthropic sits in the Foundry catalog, and Claude is now available on all
+three platforms. As the coupling between model and cloud weakens, the differentiators shift to the wrapper:
+residency guarantees, the managed RAG tier, capacity economics. That is exactly where the rest of this
+lesson goes.
 
-## Приватность и резидентность данных
+## Privacy and data residency
 
-Первый вопрос корпоративного заказчика к любой из трёх звучит одинаково: «Вы учитесь на наших данных?»
-И ответ у всех трёх одинаковый: нет. Каждая платформа фиксирует в документации, что твои промпты и ответы
-модели не используются для обучения фундаментальных моделей и обрабатываются внутри границы сервиса.
-Мелкий шрифт при этом различается: у Google обещание действует «по умолчанию», а у Azure есть оговорка про
-мониторинг злоупотреблений — содержимое, на котором сработали фильтры, может просмотреть живой человек, если этот
-механизм не отключён по отдельной заявке. Честная формулировка поэтому такая: «на твоих данных не учатся
-в базовой конфигурации» — а перед подписанием контракта мелкий шрифт читают целиком.
+All three platforms make the same core commitment for their enterprise AI offerings: your prompts and
+outputs are not used to train foundation models, and they are processed within the service boundary. The
+fine print differs enough to matter. Google qualifies its commitment with "by default." Azure's carries an
+abuse-monitoring caveat: in the default configuration, content flagged by abuse monitoring can be reviewed
+by humans unless your organization has opted out. Read the current data-privacy page of whichever platform
+you deploy on — this is one of the places where the exact wording is the product.
 
-Второй вопрос — где. **Резидентность данных (data residency)** — это про то, где физически считается
-инференс: ты выбираешь регион или геозону, которая обрабатывает запросы. Тонкость в том, что
-доступность конкретной модели в конкретном регионе — вещь переменчивая, и новинки добираются до регионов
-с запозданием. Поэтому у каждой платформы есть свой ползунок «резидентность или ёмкость», под своими
-именами. У Azure это типы развёртывания: Standard regional, Data Zone, Global. У Bedrock — межрегиональный
-инференс с географическими профилями: ограниченными US / EU / APAC либо глобальными. У Vertex/GEAP —
-региональные эндпоинты либо глобальный: он даёт больше ёмкости — и никаких гарантий резидентности.
+**Data residency** is the guarantee about *where* inference happens. You choose the region or geography that
+processes your requests — with the standing caveat that model availability varies by region and lags the
+newest models. Each platform then offers a residency-versus-capacity dial under its own names: Azure has
+deployment types (Standard regional, Data Zone, Global), Bedrock has cross-Region inference (geographic
+profiles bounded to US, EU, or APAC versus global profiles), and Vertex offers regional endpoints versus the
+global endpoint — where global explicitly means no residency guarantee. The names will churn; the dial
+itself — pinned geography with tighter capacity at one end, pooled worldwide capacity with no residency
+promise at the other — is the durable mechanism.
 
-Зачем всё это нужно? Регуляторика. GDPR и отраслевые режимы привязывают обработку персональных и
-регулируемых данных к географии; резидентность плюс обязательство не обучать плюс частная сеть — триада
-соответствия, после которой юридический отдел даёт системе зелёный свет. На практике именно эта триада чаще
-всего и решает спор «платформа или прямой API» в пользу платформы. Причём развилку ты уже проходил: в
-[уроке про ingestion](../part-1-rag/ingestion.md) мы выбирали между self-hosted эмбеддингами и
-эмбеддингами по API. Тот же выбор, теперь на уровне модели.
+Why enterprises care is not abstract. Regulatory regimes — GDPR, sector rules in finance and healthcare —
+bind where personal and regulated data may be processed. Residency plus the no-training commitment plus
+private networking form the compliance triad that lets a legal team sign off, and in practice this triad is
+often the deciding argument for a platform over a direct vendor API. You have met this fork before:
+[ingestion](../part-1-rag/ingestion.md) posed the self-hosted-versus-API choice for embedding models. This
+is the same fork, now at the level of the model itself.
 
-Третий элемент триады — **частное подключение (private networking)**: у всех трёх есть механизм, при котором
-промпты не выходят в публичный интернет даже по дороге к эндпоинту. Имена опять свои: Azure Private Link,
-AWS PrivateLink с VPC-эндпоинтами, у Google — Private Service Connect.
+The third leg deserves one concrete sentence. All three platforms support private connectivity, so prompts
+never traverse the public internet: Azure Private Link, AWS PrivateLink with VPC endpoints, and Google
+Private Service Connect.
 
-## Управляемый RAG и платформенные ограничители
+## Managed RAG and platform guardrails
 
-Поверх голых эндпоинтов платформы продают готовые надстройки, собранные из знакомых тебе деталей.
+Each platform also sells a **managed RAG** tier — Part I's pipeline (ingestion → chunking → embedding →
+vector store → retrieval, sometimes reranking) packaged as a product. On AWS that is the classic Bedrock
+Knowledge Bases, joined in June 2026 by the fully managed Amazon Bedrock Managed Knowledge Base, with native
+connectors and AgentCore integration. On Azure, Azure AI Search is the retrieval backbone, and Foundry IQ is
+the current packaged grounding tier; its predecessor, "On Your Data," is retiring in October 2026. On
+Google, RAG Engine covers the pipeline, next to the enterprise search product (Vertex AI Search, being
+relabeled under the Agent Platform). As everywhere on this page: capability first, names in parentheses,
+expiration dates assumed.
 
-Первая надстройка — **управляемый RAG (managed RAG)**: весь конвейер Части I — загрузка документов,
-чанкинг, эмбеддинги, векторное хранилище, поиск, местами и реранкинг — упакованный в один продукт. У AWS
-это классические Bedrock Knowledge Bases плюс Amazon Bedrock Managed Knowledge Base (сервис общедоступен с
-июня 2026-го: полностью управляемый, с готовыми подключениями к источникам данных и стыковкой с AgentCore).
-У Azure поисковой основой служит Azure AI Search, а готовая надстройка, которая опирает ответы на твои
-данные, сейчас называется Foundry IQ; её предшественник On Your Data доживает последние месяцы — до октября 2026-го.
-У Google — RAG Engine плюс корпоративный поиск Vertex AI Search, который прямо сейчас переезжает под
-вывеску агентной платформы.
+The tradeoff is the one to internalize. Managed RAG buys speed — a working pipeline in days, no
+infrastructure of your own — and pays for it with the knobs Part I taught you to turn. Chunking strategy,
+hybrid weighting, reranker choice, and eval hooks vary by product and may be fixed or opaque. Teams that
+need to tune quality through the eval loop from [evaluation](../part-1-rag/cross-cutting/evaluation.md)
+often outgrow the managed tier, or keep it only for ingestion and storage while owning retrieval themselves.
+A fair default reading: managed for standard corpora, custom when eval says the defaults fail.
 
-Что покупаешь и что отдаёшь? Покупаешь скорость: работающий RAG за дни, без собственной инфраструктуры.
-Отдаёшь настройки, которым была посвящена половина Части I, — стратегию чанкинга, веса гибридного поиска,
-выбор реранкера, точки для подключения оценки; что из этого доступно, зависит от продукта, а часть
-просто зашита. Отсюда трезвое правило: управляемая надстройка — разумное умолчание для стандартного
-корпуса, собственный конвейер — когда [оценка](../part-1-rag/cross-cutting/evaluation.md) показывает, что
-умолчания не дотягивают. Команды, которым нужно всерьёз докручивать качество по eval-циклу, из управляемого
-RAG нередко вырастают — или оставляют ему только загрузку и хранение.
+Guardrails have been productized the same way. Bedrock ships Guardrails — configurable filters for harmful
+content, PII, and denied topics, plus contextual grounding checks that score an answer against the retrieved
+context and enforce a threshold. Azure ships AI Content Safety, including Prompt Shields for
+prompt-injection detection, surfaced in Foundry as "Guardrails + controls" — and yes, Azure renamed its
+content filters to "Guardrails," a bonus data point for the names-are-snapshots rule. Google ships Model
+Armor. All of these implement the concepts from the
+[guardrails lesson](../part-1-rag/cross-cutting/guardrails.md) as managed services — which sets up the
+make-or-buy question that the [tooling ecosystem](./tooling-ecosystem.md) lesson takes on directly.
 
-Вторая надстройка — ограничители как продукт. Bedrock Guardrails — настраиваемые фильтры: вредный контент,
-PII, запретные темы и проверка опоры на контекст (contextual grounding check), которая выставляет ответу
-балл за опору на найденные чанки и режет по порогу. У Azure — AI Content Safety, включая Prompt Shields
-для обнаружения prompt injection (внедрения инструкций в текст); в Foundry всё это идёт под шапкой
-«Guardrails + controls» — да, Azure переименовал свои контент-фильтры в Guardrails, ещё одно очко в пользу
-тезиса о категориях и именах. У Google — Model Armor. Всё это концепции
-[урока про guardrails](../part-1-rag/cross-cutting/guardrails.md), реализованные как управляемые сервисы;
-строить самому или брать готовое — развилка, к которой мы вернёмся в
-[уроке про экосистему инструментов](./tooling-ecosystem.md).
+## Throughput and pricing models
 
-## Пропускная способность и модели оплаты
+You will not find a single price in this section, because absolute prices rot faster than platform names.
+The pricing *models*, though, are stable, and every platform offers the same two consumption modes.
+On-demand is pay-per-token on shared capacity, subject to rate limits and quotas. Reserved capacity buys
+dedicated throughput with predictable latency for steady high load — generically, **provisioned
+throughput**; locally: PTU (provisioned throughput units) on Azure, Provisioned Throughput on Vertex, and on
+Bedrock the Reserved service tier, after Bedrock restructured its pricing into Reserved, Priority, Standard,
+and Flex tiers in November 2025 (the legacy "Provisioned Throughput" name survives for older and custom
+models).
 
-Конкретные цены протухают быстрее, чем имена платформ, поэтому здесь их не будет — а вот устройство
-тарифов у всех трёх общее, и оно-то как раз долговечно.
+There is a third tier worth knowing: batch. All three platforms document discounted asynchronous batch
+processing for non-interactive workloads — roughly half the on-demand price, for supported models (Azure
+Batch, Bedrock batch inference, Vertex batch predictions). If a workload doesn't need an answer in seconds —
+nightly document processing, bulk classification, offline eval runs — batch mode is the cheapest tokens the
+platform will sell you. Don't confuse it with continuous batching from the [serving](./serving.md) lesson:
+that lives in the inference server's GPU scheduler, while batch mode is a pricing tier at the API level.
 
-Режимов потребления везде два. On-demand (по требованию): платишь за токены, ёмкость общая, поверх неё —
-квоты и лимит частоты запросов (rate limit). И зарезервированная ёмкость: **выделенная пропускная способность
-(provisioned throughput)** с предсказуемой задержкой — для ровной высокой нагрузки. Имена свои: у Azure
-это PTU (provisioned throughput units), у Vertex — Provisioned Throughput, у Bedrock — уровень Reserved.
-В ноябре 2025-го Bedrock перекроил тарифную сетку — теперь это четвёрка Reserved / Priority / Standard /
-Flex, — а старый Provisioned Throughput оставил для моделей постарше и моделей, которые заказчик дообучил
-под свои задачи.
+One operational constant ties the section together: quotas are per-region and per-model, and a production
+design must handle 429s no matter which platform serves it. That is the retry-and-rate-cap checklist from
+[serving](./serving.md), and it is the opening problem of [LLMOps](./llmops.md), where routing and fallbacks
+pick up what a single endpoint can't guarantee.
 
-Есть и третий режим — **пакетный (batch)**: асинхронная обработка для неинтерактивных задач вроде ночной
-разметки корпуса или массовой суммаризации. По документации всех трёх, цена в нём примерно вдвое
-ниже on-demand — для поддерживаемых моделей (Azure Batch, batch inference в Bedrock, batch predictions у
-Vertex/GEAP). Не путай его с непрерывным батчингом из [урока про сервинг](./serving.md): тот живёт в
-GPU-планировщике инференс-сервера, а пакетный режим — тариф на уровне API.
+## How to choose
 
-И одно объединяет все тарифы: квоты считаются на регион и на модель, и прод обязан уметь жить с
-ответом 429 на любой платформе. Дисциплина повторных попыток и собственных лимитов из урока про сервинг
-никуда не девается, а в [уроке про LLMOps](./llmops.md) мы достроим её: добавим маршрутизацию запросов
-между моделями и резервные маршруты (fallbacks).
+Start with how the decision actually gets made. In practice, the platform is usually chosen by
+existing cloud commitment — where your data, IAM, and enterprise agreement already live — and not by model
+benchmarks. That is less lazy than it sounds: the wrapper is the product, and the wrapper is worth the most
+where your infrastructure already is. Given that, the differentiators actually worth comparing are four:
+does it serve the models you need, in your region; does the residency and compliance story fit your
+regulator; does the managed RAG tier fit, or will you run your own pipeline; and what do the
+provisioned-capacity economics look like at your load.
 
-## Как выбирают на самом деле
+Whichever platform wins, keep one architectural hedge: leave the application layer provider-agnostic.
+OpenAI-compatible clients and a gateway or router layer — the pattern [LLMOps](./llmops.md) develops with
+[LiteLLM](https://www.litellm.ai) and friends — preserve the option to move. Note where the **vendor lock-in** actually lives: the
+endpoints are increasingly interchangeable, while the platform SDKs and managed tiers are the sticky parts.
+Lock-in lives in the batteries, not in the endpoint.
 
-Скучная правда: чаще всего платформу определяет уже сделанный облачный выбор. Данные, IAM-роли и
-корпоративный договор уже живут в каком-то облаке — туда и идут за моделями; бенчмарки моделей
-решают этот вопрос редко. А вот что действительно различается и заслуживает честного сравнения — четыре
-вещи:
+## What to take away
 
-1. модели: есть ли у платформы те, что тебе нужны, и доступны ли они в твоём регионе;
-2. регуляторика: сходится ли триада соответствия — резидентность, обязательство не обучать, частное
-   подключение — с требованиями твоих регуляторов;
-3. управляемый RAG: ложится ли он на твой корпус — или тебе в любом случае строить своё;
-4. экономика выделенной ёмкости на твоей реальной нагрузке.
+- Three ways to consume a model: self-host on your GPUs, call the model vendor's API directly, or use your
+  cloud's managed AI platform — a control-versus-convenience axis.
+- The platform's product is the model behind your cloud's existing perimeter: IAM, billing, private
+  networking, inherited compliance, audit logs, quotas.
+- Names are snapshots — two of the three platforms renamed within about a year. The durable things are the
+  capability categories: catalog, privacy/residency, managed RAG, guardrails, pricing model.
+- Catalogs differ but converge: Claude on all three, OpenAI models on Bedrock. As exclusivity fades, the
+  wrapper becomes the differentiator.
+- The compliance triad — data residency, no-training commitments, private networking — is what lets legal
+  sign off, and often what decides platform versus direct API.
+- Managed RAG trades Part I's knobs for speed: a fine default for standard corpora, outgrown when eval says
+  the defaults fail.
+- Learn the pricing models and skip the prices: on-demand per-token, provisioned throughput for steady
+  load, batch at roughly half price for asynchronous work. Quotas are per-region, per-model; design for
+  429s.
+- Choose by cloud commitment plus the four real differentiators: models in your region, compliance fit,
+  managed-RAG fit, capacity economics.
+- Keep the app layer provider-agnostic — lock-in lives in the batteries, not the endpoint.
 
-И последний совет. Держи слой приложения независимым от поставщика: OpenAI-совместимый клиент и
-шлюз-маршрутизатор между приложением и эндпоинтами сохраняют право переехать (в
-[уроке про LLMOps](./llmops.md) посмотрим на [LiteLLM](https://www.litellm.ai) и шлюзы подробнее). Сильнее всего привязывают
-собственные SDK платформ и управляемые надстройки: **привязка к поставщику (vendor lock-in)** живёт в
-надстройках, а вот сам эндпоинт переносится легко.
-
-## Что забрать из урока
-
-- Потреблять модель можно тремя способами: свои GPU (контроль и вся эксплуатация), прямой API поставщика
-  (просто, но данные у него и контракт отдельный), управляемая платформа облака (модель внутри твоего
-  периметра).
-- Продукт платформы — периметр: единые IAM и биллинг, частные эндпоинты, унаследованные сертификации,
-  аудит, квоты. Модель та же самая.
-- Имена тасуются (две платформы из трёх переименовались примерно за год) — учи категории: каталог
-  моделей, приватность и резидентность, управляемый RAG, ограничители, устройство тарифов.
-- Каталоги различаются, но эпоха эксклюзивов заканчивается: Claude на всех трёх, GPT добрался до Bedrock.
-  Различия переезжают в обвязку.
-- Триада соответствия — резидентность + обязательство не обучать + частное подключение; чаще всего именно
-  она и решает в пользу платформы.
-- Управляемый RAG — скорость в обмен на настройки: умолчание для стандартного корпуса; своё — когда оценка
-  показывает, что умолчания не дотягивают.
-- Тарифы: on-demand с квотами и лимитами, выделенная пропускная способность для ровной нагрузки, пакетный
-  режим примерно вдвое дешевле. Закладывайся на ответ 429 на любой платформе.
-- Выбирают по облачной прописке, а сравнивают четыре вещи: модели в регионе, соответствие, RAG-надстройку,
-  экономику ёмкости. Слой приложения держи переносимым — привязка живёт в надстройках.
-
-**Новые термины** → [Глоссарий](../glossary.md): managed endpoint, model catalog, data residency,
-provisioned throughput, batch mode, managed RAG, vendor lock-in.
+**New terms** → [Glossary](../glossary.md): managed endpoint, model catalog, data residency, provisioned
+throughput, batch mode, managed RAG, vendor lock-in.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: дообучение (fine-tuning) моделей на платформах, агентные платформы (Bedrock AgentCore,
-Foundry Agent Service, Vertex Agent Engine), моделирование стоимости и FinOps для LLM-нагрузок,
-мультиоблачные шлюзы и суверенные облака.
+🚧 Second pass: fine-tuning offerings on the platforms, the agent platforms (Bedrock AgentCore, Foundry
+Agent Service, Vertex Agent Engine), cost modeling and FinOps for LLM workloads, multi-cloud gateway
+patterns, and sovereign-cloud offerings.
 
 :::

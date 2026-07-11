@@ -1,187 +1,193 @@
 ---
 id: planning-loops
-title: Планирование и циклы
+title: Planning & loops
 sidebar_position: 3
 ---
 
-# Планирование и циклы — как удерживать цикл на цели и в границах
+# Planning & loops — steering the loop toward the goal, and making it stop
 
-В уроке про [Agentic RAG](./agentic-rag.md) ты получил цикл: `рассуждение → решение → действие → наблюдение`,
-повторять до готовности отвечать. В уроке про [использование инструментов](./tool-use.md) выяснилось, что
-каждое действие в этом цикле — вызов инструмента: модель порождает намерение, твой код исполняет. Но один
-вопрос мы так и не задали. Когда задача требует не одного шага, а *многих* — как агент решает,
-в какой последовательности их делать, и что вообще останавливает цикл?
+In [agentic-rag](./agentic-rag.md) you got the loop: `reason → decide → act → observe`, spinning until the
+model decides it's ready. In [tool-use](./tool-use.md) you saw that every action in that loop is a tool call —
+the model emits the intent, your code does the calling. So the agent has freedom of movement and a set of
+actions. What we never asked: on a task that takes *many* steps, how does the agent decide the sequence of
+steps — and what makes the loop **stop**? That control layer is this lesson.
 
-Вот об этом слое урок. Agentic RAG дал агенту цикл; здесь мы разбираемся, как направить этот цикл на цель
-и ограничить его так, чтобы он действительно остановился. Прошлые уроки давали агенту свободу — этот про
-то, как не дать этой свободе сойти с цели и выйти из границ.
+One line for the whole lesson: agentic-rag gave the agent a loop; this lesson is about steering that loop
+toward the goal and bounding it so it actually stops.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="D37Ijn2o5U0" title="Why Agentic AI Fails: Infinite Loops, Planning Errors, and More — IBM Technology" />
 
-Ровно оборотная сторона урока: бесконечные циклы и ошибки планирования — как именно цикл сходит с рельсов.
+This is the failure side of the whole lesson: the concrete ways the loop goes wrong — infinite loops and
+planning errors — and why freedom over the sequence is what makes them possible.
 
 :::
 
-## Декомпозиция задачи — из цели в шаги
+## Task decomposition — turning a goal into steps
 
-Реальная задача редко укладывается в один вызов инструмента. «Сверь эти два отчёта и подсвети расхождения» —
-это уже целая последовательность: прочитать оба, сверить их поле за полем, собрать
-расхождения. **Декомпозиция задачи (task decomposition)** — и есть разбиение цели на подзадачи, которые
-агент берёт по одной за раз.
+**Task decomposition** means breaking the goal into subtasks the agent can take one at a time. A real
+request — "reconcile these two reports and flag the discrepancies" — isn't one tool call. It's a sequence:
+load the first, load the second, line them up, compare field by field, collect what doesn't match. The agent
+has to get from the goal to that sequence somehow.
 
-Происходит это двумя способами. **Явно** — агент заранее выписывает план или todo-список и идёт по нему.
-Или **неявно** — план нигде не записан, он *возникает* пошагово, по ходу рассуждения в цикле. Второй способ —
-это ровно тот цикл по умолчанию из Agentic RAG: агент нигде не планирует наперёд, он просто на каждом шаге
-решает, что делать дальше.
+It happens two ways. **Explicit**: the agent writes a plan — a todo list — up front and works down it.
+**Implicit**: nothing gets written down; the plan *emerges* step by step as the agent reasons in the loop.
+The implicit version is just the default loop from agentic-rag, running without a plan on paper.
 
-Записать план явно помогает сразу с двух сторон. Модели он даёт опору для рассуждения: с написанным планом
-она сбивается с курса реже, чем с планом, который держит в голове. А тебе он даёт то, по чему
-можно отслеживать прогресс, — видно, какие подзадачи уже закрыты, а какие ещё нет.
+Making the plan explicit buys you two concrete things. It gives the model a scaffold to reason against — a
+written plan keeps it on track far better than holding the whole thing in its head. And it gives *you*
+something to track progress against: you can look at the list and see which subtasks are closed and which
+aren't. That second point matters more than it sounds; hold onto it.
 
-## Две стратегии, как выстроить шаги: ReAct против plan-and-execute
+## Two strategies for sequencing the steps
 
-Дальше — само **планирование (planning)**: как именно упорядочить шаги. Есть две крайности.
+Once you're decomposing, there are two ways to sequence what comes out. They pull in opposite directions.
 
-**ReAct** (Reasoning + Acting) — рассуждение и действие чередуются: агент рассуждает один шаг, действует,
-смотрит на результат, рассуждает следующий. План не фиксируется наперёд — он возникает шаг за шагом и
-подстраивается под каждое наблюдение. Это в точности цикл по умолчанию из Agentic RAG. Его сила —
-**гибкость**: агент реагирует на то, что реально видит, а не на то, что вообразил в начале. Слабость вылезает
-на длинных задачах: без зафиксированного плана агент легко блуждает, зацикливается или теряет цель —
-каждый шаг оказывается новым локальным решением, а общую нить удерживать нечему.
+**ReAct (Reasoning + Acting)** interleaves the two: the agent reasons one step, acts, observes, reasons the
+next step. The plan is never fixed up front — it emerges step by step and adapts to each observation. This is
+exactly the default loop from agentic-rag. Its strength is flexibility: it reacts to what it actually sees,
+not to what it guessed beforehand. Its weakness shows on long tasks. With no fixed plan, it can wander,
+cycle, or lose the goal — every step is a fresh local decision, and nothing is holding the global thread.
 
-**Plan-and-execute** (планирование-и-исполнение) — другая стратегия: спланировать всю последовательность
-шагов наперёд, а потом исполнять её, перепланируя, когда шаг сорвался. Так структурнее и дешевле: ты
-рассуждаешь о плане один раз, а не перерассуждаешь с нуля на каждом шаге, — поэтому на длинных,
-структурных задачах это выигрывает.
+**Plan-and-execute** goes the other way: plan the whole step sequence up front, then execute it. It's more
+structured and cheaper — you reason about the plan *once* instead of re-reasoning from scratch on every step,
+which pays off on long, structured tasks. The cost is rigidity. A plan fixed up front can be wrong the moment
+reality diverges from it. So plan-and-execute is only usable *with* a re-planning mechanism: when a step
+fails or an observation breaks the plan, the agent has to be able to revise the plan rather than blindly push
+on. That mechanism has a name — **re-planning** — and without it, plan-and-execute is a trap.
 
-Плата за структуру — **жёсткость**. План, зафиксированный наперёд, может оказаться неверным ровно в тот
-момент, когда реальность разошлась с ним. Поэтому plan-and-execute годится только с механизмом
-перепланирования: когда шаг сорвался или наблюдение сломало план, агент должен уметь пересобрать план,
-а не тупо переть по нему дальше. **Перепланирование (re-planning)** — это имя такого механизма.
+The tradeoff in one line: ReAct buys adaptivity, plan-and-execute buys structure and economy.
 
-Компромисс в одну строку: ReAct берёт гибкостью, plan-and-execute — структурой и экономией.
-На практике их комбинируют: высокоуровневые шаги планируют наперёд, каждый шаг исполняют локальным
-ReAct-циклом, а при срыве шага — перепланируют. Чисто одну из двух стратегий берут редко.
+In practice you rarely pick one purely. You combine them: plan the high-level steps up front, execute each
+step with a local ReAct loop, and re-plan when a step fails. The plan gives you the global thread; the inner
+loop gives you local adaptivity; re-planning is the joint between them.
 
-## Главная проблема — цикл, который не останавливается как надо
+## The core failure — a loop that won't terminate correctly
 
-У всего этого слоя есть фирменная беда: **цикл не завершается корректно.** Отдай агенту власть над
-последовательностью шагов — и он может не остановиться там, где статический конвейер физически не мог бы промахнуться.
-У конвейера шагов ровно столько, сколько прописано; у агента — сколько он сам решит.
+Here's the signature failure of this whole layer: **the loop doesn't terminate correctly.** Hand the agent
+freedom over the sequence and it can fail to stop where a static pipeline never could — a
+fixed `retrieve → generate` path always ends because there's nowhere else to go. A loop has to *decide* to
+end. That decision is the new thing that can break.
 
-Провал этот принимает три конкретные формы:
+It breaks in three shapes:
 
-- **Никогда не останавливается** — агент вызывает инструменты до бесконечности, так и не решив, что дело
-  сделано.
-- **Застревает на одном и том же неудачном действии** — тот же запрос, тот же падающий вызов, та же ошибка,
-  снова и снова, без всякого продвижения.
-- **Уходит от цели** — каждый шаг локально выглядит разумным, но агент медленно уплывает от того, о чём его
-  на самом деле просили.
+- **It never stops.** The agent keeps calling tools forever, never deciding it's done.
+- **It gets stuck repeating the same failing action.** Same query, same failing call, same error — over and
+  over, making no progress.
+- **It drifts from the goal.** Each step is locally plausible, but the agent slowly wanders off what it was
+  actually asked to do.
 
-## Защиты — послойно
+None of these are exotic. All three are the price of the freedom agentic-rag introduced — the same freedom
+that made the loop able to handle multi-hop questions is what lets it spin.
 
-Одного рубильника тут нет. Защиту **выстраивают слоями** — так же, как в Части I строили эшелонированную
-защиту.
+## Defenses — layered
 
-**Бюджеты и лимиты.** Жёсткий потолок на число шагов, вызовов инструментов, токенов, стоимость или время по
-часам. Потолок достигнут — цикл останавливается, что бы модель ни «хотела». Это **бюджет шагов / лимит
-итераций (step budget / iteration limit)**, и в проде он не обсуждается: это последний рубеж, который
-гарантирует остановку даже тогда, когда все умные защиты не сработали.
+There is no single switch that fixes non-termination. You layer defenses, weakest-but-hardest at the bottom,
+smartest at the top.
 
-**Обнаружение зацикливания (loop detection).** Отслеживай, не повторяет ли агент одно и то же действие — тот
-же вызов, те же аргументы, тот же результат — и вмешивайся, как только это случилось, вместо того чтобы дать ему
-крутиться вхолостую.
+**Budgets and limits.** A hard cap — on steps, tool calls, tokens, cost, or wall-clock time. When the cap is
+hit, the loop stops no matter what the model "wants." This one is non-negotiable in production. It's the
+backstop that guarantees termination even when every smarter defense fails, and it's the reason a runaway
+agent costs you a bounded amount of money instead of an unbounded one.
 
-**Критерий остановки (termination criterion).** Заданное условие «готово», которое часто реализуют как
-специальный инструмент-сигнал «finish»: модель вызывает его, чтобы объявить, что закончила. Так «я всё?»
-перестаёт быть размытым суждением на каждом шаге и становится явным действием.
+**Loop detection.** Watch for the agent repeating the same action — same call, same arguments, same result —
+and break in when it does, instead of letting it spin. This catches shape two before the budget has to.
 
-**Отслеживание прогресса.** Держи цель и уже закрытые подзадачи в контексте, чтобы агент видел, где
-он находится относительно плана. Это прямая защита от ухода от цели.
+**A termination criterion.** Define what "done" actually means, and make it explicit. The common
+implementation is a "finish" tool the model calls to declare it's finished — rather than leaving "am I
+done?" as a fuzzy judgement the model re-makes every step and can get wrong every step.
 
-**Рефлексия.** Самый умный слой — про него отдельно ниже.
+**Progress tracking.** Keep the goal and the already-closed subtasks in context, so the agent can see where
+it stands against the plan. (This is where that explicit plan pays off a second time.) It's the direct
+defense against drift: an agent that can see the goal is less likely to wander off it.
 
-## Рефлексия и самокритика — главный рычаг против ухода от цели и тихого зацикливания
+**Reflection.** The smartest layer — and worth its own section.
 
-**Рефлексия (reflection)** — это выделенный шаг, на котором агент **судит собственную траекторию**: продвигаюсь
-ли я? это вообще работает? не пора ли сменить курс? — и решает остановиться, перепланировать или продолжить.
-Дальше в тексте она же — и саморефлексия, и самокритика: это одно и то же.
+## Reflection — the main lever against drift and silent looping
 
-Рефлексия — родственница самокоррекции из Agentic RAG, но на другом уровне. Там самокоррекция судила
-качество выдачи: «эти чанки не о том, ищи снова». Здесь рефлексия судит план и цикл целиком, а не одну
-конкретную выдачу.
+**Reflection (self-critique)** is a dedicated step where the agent judges its own trajectory. Am I making
+progress? Is this actually working? Should I change course? — and on the answer, it decides to stop, re-plan,
+or continue.
 
-И в этом её ценность. Рефлексия — главный рычаг против обоих провалов сразу: и ухода от цели, и тихого
-зацикливания, — тех двух, что голый бюджет умеет только *обрубить*, но не *предотвратить*. Бюджет
-останавливает плохой цикл; рефлексия — то, что способно заметить, что цикл плохой, и починить его.
+It's a relative of the self-correction from agentic-rag, but aimed one level up. Self-correction there
+judged *retrieval quality*: these chunks are off, search again. Reflection here judges the *plan and the loop
+as a whole* — not one retrieval, the whole trajectory.
 
-## Кодовый агент — этот слой, ставший видимым
+And this is why reflection matters more than it first looks. A budget only *cuts off* a bad loop; it doesn't
+*prevent* one. Drift and silent looping are exactly the two failures a raw budget will happily let run right
+up to the cap and then guillotine. Reflection is the layer that can notice the loop has gone bad and fix it
+before the cap — steer instead of chop. The budget is your guarantee that the agent stops; reflection is your
+best shot at it stopping *for the right reason*.
 
-Проще всего пощупать весь этот слой на **кодовом агенте**. Дай ему задачу по программированию — и ты буквально
-наблюдаешь, как мимо тебя проплывает его ReAct-цепочка `рассуждение → действие → наблюдение` и поток самокоррекции
-в промежуточном выводе. Цикл, который в Agentic RAG был абстракцией, тут прямо на экране.
+## The coding agent — this layer made visible
 
-А слабые или старые модели делают провалы наглядными. На трудной задаче они порой зацикливаются — снова
-и снова пробуют один и тот же сломанный фикс — или уплывают от курса, от того, о чём ты просил, и дело
-кончается тем, что их приходится останавливать руками.
+If you want to watch this whole control layer with your own eyes, use a coding agent. Hand one a programming
+task and watch its ReAct chain `reason → act → observe` and its self-correction stream past in the intermediate output —
+the loop that was abstract in agentic-rag is right there on screen, step after step.
 
-Этот бытовой опыт и есть урок. Ручная остановка — это **человек-в-цикле (human-in-the-loop)** как бюджет
-последней инстанции, и это конкретная причина, почему бюджеты, рефлексия и человеческое право вето вообще
-важны: ты своими глазами видел, как провал происходит.
+Weaker or older models make the failure modes vivid. On a hard task they sometimes loop — retry the same
+broken fix again and again, same error each time — or drift off course from what you actually asked for. And
+what do you do when that happens? You interrupt them by hand.
 
-## Контекст длинных траекторий
+That everyday reflex *is* the lesson. Manual interruption is a **human-in-the-loop** budget of last resort —
+you, being the cap the agent didn't hit on its own. It's the most concrete argument there is for why budgets,
+reflection, and a human override all matter: you've already watched the failure happen and reached for the
+stop button.
 
-Цикл **набивает контекст** вызовами инструментов и их результатами. На длинной траектории это оборачивается
-раздуванием контекста, растущей стоимостью и **lost-in-the-middle** — модель хуже всего внимает середине
-длинного контекста (это мы разбирали в уроке про генерацию).
+## Long trajectories cost context
 
-Лечится это, если коротко, тремя приёмами — но полноценно они относятся ко второму проходу: суммируй
-историю, держи только релевантное в **рабочей памяти (scratchpad)** — черновике агента — и веди
-структурированный список уже сделанного.
+One more cost, quieter than non-termination but always present. The loop fills the context with tool calls
+and their results, step by step. Over a long trajectory that means context bloat, rising cost per call, and
+**lost-in-the-middle** — the model attends worst to the middle of a long context, so the early steps of a
+trajectory can effectively fall out of view right when the agent needs them.
 
-## Где это сидит и чем отзывается дальше
+The mitigations belong to the second pass, but name them now: summarize the history as it grows, keep only
+what's still relevant in a **scratchpad / working memory**, and hold a structured list of what's already
+done. That last one, again, is your explicit plan earning its keep.
 
-Разложим по местам. Это **слой управления над циклом** (Agentic RAG) и над инструментами (tool use):
-декомпозиция и остановка сидят *поверх* цикла «рассуждение → решение → действие → наблюдение», который дёргает
-инструменты.
+## Where this sits — and what it costs downstream
 
-**Наблюдаемость** (observability) тут из полезной становится обязательной. Чтобы отладить незавершение
-цикла, приходится **трейсить (trace)** всю траекторию — всю цепочку шагов целиком, — потому что сбой может
-прятаться где угодно на её
-протяжении. Это заостряет тот тезис из Agentic RAG, что наблюдаемость перестаёт быть роскошью.
+Placement first. This is the control layer *over* the loop from agentic-rag and *over* the tools from
+tool-use: decomposition and termination sit on top of the `reason → decide → act → observe` loop that calls tools.
+Nothing here replaces those lessons — it steers what they built.
 
-И eval теперь меряет качество траектории — не только «ответил или нет», но дошёл ли до цели и за сколько
-шагов. Эффективность и завершаемость входят в само качество.
+Two downstream consequences sharpen points you've already met. **Observability** stops being merely useful and
+becomes essential. To debug non-termination you have to trace the *whole* trajectory — the entire chain of
+steps — because the failure can be anywhere in it: a bad decomposition, one wrong step, a missing
+re-plan. Without the full trace you're guessing. And eval now measures trajectory quality, not just "did
+it answer." Did it reach the goal, and in how many steps? Efficiency and termination are part of quality now —
+an agent that gets the right answer in forty steps when six would do is not a good agent.
 
-## Что забрать из урока
+## What to take away
 
-- Этот урок — **слой управления поверх цикла и инструментов**: декомпозиция задачи разбивает цель на шаги,
-  а критерий остановки решает, где цикл заканчивается.
-- **Декомпозиция** бывает явной (агент выписывает план) и неявной (план возникает по ходу цикла); явный план
-  даёт опору модели и видимость прогресса тебе.
-- **ReAct против plan-and-execute**: первый берёт гибкостью, второй — структурой и экономией; жёсткий план
-  живёт только с перепланированием, и на практике две стратегии комбинируют.
-- Фирменный сбой слоя — **цикл, который не завершается корректно**, в трёх формах: не останавливается,
-  застревает на одном действии, уходит от цели.
-- Защиту строят слоями: **бюджеты и лимиты** (последний рубеж, в проде обязательны), обнаружение зацикливания,
-  критерий остановки, отслеживание прогресса — и, как самый умный слой, **рефлексия**: она не обрубает
-  уход от цели и тихое зацикливание, а предотвращает их.
-- **Наблюдаемость и eval** сдвигаются на уровень траектории: трейсить всю цепочку шагов, мерять не только
-  «дошёл ли», но и «за сколько».
+- This lesson is the **control layer over the loop and the tools** — decomposition and termination sitting on
+  top of `reason → decide → act → observe`. It steers the freedom the earlier lessons handed the model.
+- **Task decomposition** turns a goal into a sequence of subtasks, either **explicitly** (a written plan you
+  can track) or **implicitly** (a plan that just emerges in the loop). Writing it down helps the model *and*
+  helps you.
+- **ReAct** interleaves reasoning and acting and adapts step by step; **plan-and-execute** plans up front and
+  is cheaper on long structured tasks but needs **re-planning** to survive contact with reality. Real systems
+  combine them — plan high-level, ReAct locally, re-plan on failure.
+- The signature failure is a **loop that won't terminate correctly**, in three shapes: never stops, gets
+  stuck repeating a failing action, or drifts from the goal.
+- Defend in layers — **budgets** (the non-negotiable backstop), **loop detection**, an explicit **termination
+  criterion**, **progress tracking**, and at the top **reflection**, the layer that *prevents* a bad loop
+  instead of just cutting it off. A coding agent is where you watch all of this succeed and fail.
+- Downstream, **observability becomes mandatory** (trace the whole trajectory to debug it) and **eval measures
+  the trajectory** — whether it reached the goal, and in how many steps.
 
-**Новые термины** → [Глоссарий](../glossary.md): planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
+**New terms** → [Glossary](../glossary.md): planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: поиск по дереву/графу планов (в духе ToT), конкретные фреймворки рефлексии, политики бюджета
-и стоимости в проде, архитектуры памяти для длинных траекторий (эпизодическая против рабочей), метрики
-eval на уровне траектории.
+🚧 Second pass: tree/graph search over plans (ToT-style), concrete reflection frameworks, budget and cost
+policies in production, memory architectures for long trajectories (episodic vs working memory), and
+trajectory-level eval metrics.
 
-А как цикл, лимиты шагов и восстановление после сбоя выглядят у Claude, OpenAI и Gemini, разбирает
-капстоун части: [Реальные агенты](./real-agents.md).
+How the loop, its step caps, and recovery from failure look across Claude, OpenAI, and Gemini is covered in
+the part's capstone: [Real agents](./real-agents.md).
 
 :::

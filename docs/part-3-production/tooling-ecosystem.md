@@ -1,186 +1,174 @@
 ---
 id: tooling-ecosystem
-title: Экосистема инструментов
+title: The tooling ecosystem
 sidebar_position: 3
 ---
 
-# Экосистема инструментов — чем мерить, чем смотреть, чем защищать
+# The tooling ecosystem — paying Part I's debt
 
-Сквозные уроки Части I заканчивались одной и той же оговоркой в скобках: готовые инструменты — [LangSmith](https://www.langchain.com/langsmith),
-[Guardrails AI](https://www.guardrailsai.com) и прочие — отдельный слой, о нём позже, а здесь мы про принцип. Так закрывались уроки про
-[наблюдаемость](../part-1-rag/cross-cutting/observability.md) и
-[guardrails](../part-1-rag/cross-cutting/guardrails.md), а урок про
-[оценку](../part-1-rag/cross-cutting/evaluation.md) отложил разбор устройства метрик на второй проход.
-«Позже» наступило. Часть I дала тебе понятия — golden set (эталонный набор примеров), трейс (trace), долю
-успешных атак (attack success rate, ASR); этот урок раскладывает по ним рынок готовых инструментов 2026 года и
-отвечает на приземлённый вопрос: что именно ставить и когда.
+Three lessons in Part I ended on the same promissory note.
+[Evaluation](../part-1-rag/cross-cutting/evaluation.md),
+[guardrails](../part-1-rag/cross-cutting/guardrails.md), and
+[observability](../part-1-rag/cross-cutting/observability.md) each taught a principle and then deferred the
+products: "the tools are a separate tooling layer, coming later; here we're on the principle." This is
+later. Part I gave you the concepts — the golden set, the trace, attack success rate. This lesson maps
+those concepts onto the 2026 tool landscape and answers the question the earlier lessons left open: what do
+you actually install, and when?
 
-Каждый из трёх сквозных аспектов оброс собственной категорией продуктов: eval-библиотеки, платформы
-наблюдаемости, guardrails-фреймворки. Держи при этом в голове разницу сроков годности. Понятия
-долговечны, продукты — срез момента: часть имён из этого урока через пару лет устареет, а вопросы, по
-которым их выбирать, останутся прежними — какое понятие Части I продукт реализует и в какое место твоего
-цикла он встаёт.
+One rule organizes everything below. Each of the three cross-cutting concerns has grown its own tool
+category, but the concepts are durable and the tools are snapshots — so judge a tool by which concept it
+implements and where it sits in your loop, not by the length of its feature list.
 
-Границы категорий при этом проходят прямо внутри продуктов. Платформы наблюдаемости — LangSmith, [Langfuse](https://langfuse.com),
-[Phoenix](https://arize.com/phoenix) — несут с собой и eval-функции: датасеты, судей. Причина не в аппетитах поставщиков, а в устройстве самой
-работы: цикл «прод-трейс → eval-кейс», та самая обратная связь из урока про наблюдаемость, — это один
-непрерывный рабочий процесс, и продукты закрыли оба его конца, потому что команде нужен весь цикл,
-а не половина.
+Expect the categories to blur, too. The observability platforms — [LangSmith](https://www.langchain.com/langsmith), [Langfuse](https://langfuse.com), [Phoenix](https://arize.com/phoenix) — all ship
+eval features as well: datasets, judges, scoring runs. That is the **feedback loop** from the observability
+lesson turned into product. A production trace becoming an eval case is one workflow, and the tools grew to
+cover both ends of it.
 
-## Eval-инструменты: Ragas, DeepEval, promptfoo
+## Eval tools
 
-[Ragas](https://ragas.io) — открытая библиотека метрик, заточенных под RAG: faithfulness (верность контексту), response
-relevancy, context precision, context recall. Считает она их в основном через LLM-as-a-judge: балл выставляет
-модель-судья. Словарь узнаваем: context precision и context recall меряют выдачу, faithfulness и
-response relevancy — генерацию, то есть библиотека напрямую воспроизводит разделение retrieval- и
-generation-метрик из урока про оценку. Одна поправка на возраст словаря: response relevancy раньше
-называлась answer relevancy — это ровно та «релевантность ответа», которую ты знаешь по Части I; метрика
-та же, имя сменилось.
+**[Ragas](https://ragas.io)** is an open-source library of RAG-specific metrics: faithfulness, response relevancy, context
+precision, context recall — most of them computed LLM-as-a-judge-style. A mapping note: response
+relevancy is the metric that used to be called answer relevancy — Ragas's name for the answer relevance you
+know from the evaluation lesson. The names land straight on Part I's vocabulary, the retrieval-vs-generation
+split included: context precision and context recall score the retrieval side, faithfulness and response
+relevancy the generation side. Ragas can also generate a candidate test set over your corpus.
 
-[DeepEval](https://deepeval.com) — тоже открытый, но с другим характером: это pytest для eval. Кейс оформляется как юнит-тест —
-`assert_test`, порог по метрике — и падает точно так же, как падает обычный тест. Поэтому прогон eval в
-CI выглядит как ещё один тестовый прогон, без отдельной обвязки.
+**[DeepEval](https://deepeval.com)** is open source too, and its angle is pytest: an eval case is a unit test — `assert_test`, a
+metric, a threshold — so running your evals in CI works the way running any other test suite does. If your
+team already lives in pytest, the adoption cost is close to zero.
 
-Третий инструмент, [promptfoo](https://www.promptfoo.dev), — открытый и конфигурируемый: сравнения описываются YAML-файлом. Его стихия —
-сравнительные матрицы: несколько промптов, несколько моделей, один прогон — и таблица, где видно, кто где
-выигрывает. Вторая его сильная сторона — возможности red-teaming (наступательное тестирование защиты: ты
-атакуешь собственную систему) — к ним мы вернёмся в разделе про ограничители. В CI он встраивается так же легко.
+The third tool, **[promptfoo](https://www.promptfoo.dev)**, is open source and config-driven: YAML files describe prompts, models, and assertions, and
+the tool renders side-by-side prompt/model comparison matrices and runs in CI. It also ships red-teaming
+features — hold that thought for the guardrails section.
 
-Чего eval-инструменты за тебя не сделают — так это golden set. Все три считают метрики по примерам, которые
-принёс ты; качество датасета остаётся твоей работой, и правило «чистота важнее объёма» из урока про
-оценку никуда не делось. Ragas умеет синтезировать примеры-кандидаты по корпусу (testset generation) —
-это ускоряет старт, но последним фильтром качества остаётся вычитка человеком.
+Now the part no tool ships: the golden set. Every one of these computes metrics over examples *you*
+provide, and dataset quality stays your job — Part I's "a small clean set beats a big noisy one" doesn't
+stop being true because the metrics come from a library now. Ragas will synthesize candidate examples for
+you, but human review remains the quality gate.
 
-## Инструменты наблюдаемости: LangSmith, Langfuse, Phoenix
+## Observability platforms
 
-[LangSmith](https://www.langchain.com/langsmith) — платформа трейсинга и eval из экосистемы [LangChain](https://www.langchain.com). Живёт как SaaS; вариант с развёртыванием
-у себя адресован корпоративным клиентам. Если твой стек уже стоит на LangChain или [LangGraph](https://www.langchain.com/langgraph), теснее
-интеграции не найти: трейсы из фреймворка штатно текут прямо в LangSmith.
+**[LangSmith](https://www.langchain.com/langsmith)** is the [LangChain](https://www.langchain.com) ecosystem's tracing-and-eval platform — SaaS first, with a self-hosted
+option reserved for enterprise plans. If you're already on LangChain or [LangGraph](https://www.langchain.com/langgraph), this is the tightest
+integration you'll get.
 
-[Langfuse](https://langfuse.com) — открытый код (ядро под MIT; часть корпоративных функций закрыта отдельной лицензией) и
-развёртывание у себя через Docker или Kubernetes. Отсюда его роль — выбор по умолчанию там, где данные не
-имеют права покидать периметр, — знакомый мотив корпоративной среды. Внутри — трейсинг, управление
-промптами (prompt management), датасеты с eval, дашборды стоимости.
+**[Langfuse](https://langfuse.com)** is open source (MIT core; some enterprise features are license-gated) and self-hostable with
+Docker or Kubernetes — the default choice when data must not leave your perimeter. It covers tracing,
+prompt management, datasets and evals, and cost dashboards.
 
-[Arize Phoenix](https://arize.com/phoenix) — трейсинг и eval, тоже разворачивается у себя; по формулировке собственной документации,
-он построен поверх [OpenTelemetry](https://opentelemetry.io), а инструментирование (instrumentation) обеспечивает [OpenInference](https://github.com/Arize-ai/openinference).
-Тонкость в лицензии: Phoenix распространяется под ELv2 — код свободно доступен и живёт на твоих
-серверах, но в строгом смысле это source-available, а не open source, так что в один ряд с MIT-ядром
-Langfuse его ставить некорректно.
+**[Arize Phoenix](https://arize.com/phoenix)** is self-hostable tracing and eval, "built on top of [OpenTelemetry](https://opentelemetry.io) and powered by
+[OpenInference](https://github.com/Arize-ai/openinference) instrumentation," as its own docs put it. One licensing note worth being precise about:
+Phoenix ships under ELv2 — source-available, free to run yourself, but not open source in the OSI sense —
+so don't file it next to MIT-licensed Langfuse without the asterisk.
 
-Упоминание OpenTelemetry — сокращённо OTel — здесь важнее, чем кажется. OTel постепенно становится
-вендор-нейтральным фундаментом всей категории: в нём стандартизуются GenAI-конвенции — единые имена спанов
-и атрибутов для LLM-вызовов: модель, токены, вызовы инструментов. Выгода прямая: инструментирование
-пишешь один раз, а экспортёр направляешь в любую платформу — код сбора трейсов переживает любого
-конкретного поставщика. Честности ради: на середину 2026-го статус конвенций — Development, то есть
-экспериментальный; сами они переехали в отдельный репозиторий `open-telemetry/semantic-conventions-genai`,
-где рядом стандартизуют и конвенции для [MCP](../part-2-agents/mcp.md) — Часть II передаёт привет.
+Underneath all three, **OpenTelemetry** (OTel) is becoming the vendor-neutral substrate. Its GenAI semantic
+conventions standardize the span and attribute names for LLM calls — which model, how many tokens, which
+tool calls — so your **instrumentation**, the code hooks that emit traces and metrics from the pipeline,
+can outlive any one vendor: instrument once, point the exporter wherever you like. One caveat, because it
+matters: as of mid-2026 these conventions are still in Development status — experimental and moving. They
+now live in a dedicated repository, `open-telemetry/semantic-conventions-genai`, which also covers
+conventions for [MCP](https://modelcontextprotocol.io) — the protocol from [MCP and agent protocols](../part-2-agents/mcp.md) getting its
+observability vocabulary.
 
-Положи функции этих платформ рядом — и увидишь, что все они реализуют один и тот же примитив Части I.
-Трейс, собранный из спанов (span): запрос → чанки + score → промпт → вывод модели → шаги агента. Стоимость
-и латентность, посчитанные по каждому спану. Обратная связь от пользователей, привязанная к конкретному
-трейсу. И кнопка «превратить этот плохой трейс в eval-кейс» — тот самый цикл «прод-трейс → eval-кейс» из урока про
-наблюдаемость, ставший функцией продукта.
+Strip the branding and all three platforms implement exactly one thing: the primitive from the
+observability lesson. The trace of spans — query → chunks with scores → prompt → model output → agent
+steps — plus cost and latency accounting per span, plus user feedback captured onto traces, plus a button
+that says, in effect, "promote this bad trace to an eval case." The feedback loop as a product feature.
+That's also why these platforms grew eval features: once you hold the traces, you hold the raw material for
+the golden set.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="446x7GqXdaA" title="AI Agents Best Practices: Monitoring, Governance, & Optimization — IBM Technology" />
 
-Как мониторинг, управление и оптимизация выглядят для агентной системы в проде — категории готовых
-инструментов этого урока в действии.
+How monitoring, governance, and optimization look for agentic systems in production — this lesson's tool
+categories in motion.
 
 :::
 
-## Ограничители: фреймворки, классификаторы, сервисы платформ
+## Guardrails tools
 
-Готовые ограничители (guardrails) бывают двух видов. Первый — **фреймворки**, оборачивающие вход и выход твоей
-системы программируемыми проверками. Guardrails AI — библиотека валидаторов на Python с каталогом
-Guardrails Hub; среди прочего валидирует структурированный вывод. NVIDIA [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails) мыслит
-диалогами: сценарные правила — сам продукт зовёт их «rails» — описываются конфигурацией на языке Colang.
-Второй вид — **модели-классификаторы безопасности** (safety classifier): [Llama Guard](https://www.llama.com/llama-protections/) от Meta и Granite
-Guardian от IBM — компактные специализированные модели, которые ставишь на вход и выход, и они
-выставляют тексту балл риска по категориям. Разделение труда простое: фреймворки оркеструют проверки,
-классификаторы судят текст. И одно с другим сочетается: проверка внутри фреймворка может звать
-классификатор безопасности как один из своих шагов.
+Guardrails products come in two shapes. The first is frameworks that wrap your input and output with
+programmable checks: **[Guardrails AI](https://www.guardrailsai.com)** — a Python validator library plus the Guardrails Hub, including
+structured-output validation — and **NVIDIA [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails)**, where dialogue "rails" are defined in a
+configuration language called Colang.
 
-Всё то же самое можно вообще не разворачивать самому: облачные платформы продают эти проверки как
-управляемые сервисы — Bedrock Guardrails, Azure AI Content Safety, фильтры безопасности Vertex и Model Armor из
-[урока про облачные платформы](./cloud-platforms.md). Развилка знакома по всей Части III: платформенный
-сервис — меньше контроля, ноль обслуживания и привязка к поставщику; открытый стек — полный контроль, но
-эксплуатация на тебе.
+The second shape is the **safety classifier** — a model that scores text for risk categories: **Llama
+Guard** from Meta and **[Granite Guardian](https://github.com/ibm-granite/granite-guardian)** from IBM, compact specialized models you place on the input, the
+output, or both. Frameworks orchestrate; classifier models judge. And the two shapes compose: a framework
+rail can call a classifier model as one of its checks.
 
-И качество самих ограничителей тоже меряется — той самой долей успешных атак из урока про
-guardrails. Наступательная часть уже встроена в eval-продукты: red-teaming есть в promptfoo, свои
-red-team-функции предлагают и платформы. Так замыкается ещё один круг: ограничители настраивают,
-атакуют, меряют ASR и докручивают.
+The make-or-buy fork runs through here as well — the same fork as everywhere in Part III. The identical
+concepts ship as managed platform services: Bedrock Guardrails, Azure AI Content Safety, Vertex's safety
+filters and Model Armor, all familiar from [the cloud platforms lesson](./cloud-platforms.md).
+Platform-managed means less control, zero maintenance, one vendor; open source means full control and your
+own ops.
 
-## В каком порядке внедрять
+And guardrails quality is itself measured — Part I gave you the metric, attack success rate (ASR). The
+**red-teaming** tooling lives in the eval products: promptfoo's red-teaming features, the platforms' own
+red-team offerings. That closes the loop: guardrails get configured, attacked, measured, and tuned.
 
-Отраслевого стандарта на этот счёт нет, поэтому дальше — разумный порядок по умолчанию для типичной
-продуктовой команды; относись к нему как к авторскому суждению, которое можно и пересмотреть под свою
-ситуацию.
+## When to adopt what
 
-Первым — **трейсинг**. Он дешевле всего добавляется и нужен раньше всего: без него ты в принципе не
-видишь провалов, а отлаживать невидимое нельзя. Предварительных условий у него нет — инструментирование
-ставится на систему любой зрелости.
+The order below is a judgment call — a sensible default for a typical product team, not an industry
+standard — but the reasoning behind each step holds up.
 
-Вторым — **eval в CI**, как только начинаешь всерьёз дорабатывать пайплайн. Регрессии («улучшил X — тихо
-сломал Y») ловятся только прогоном на эталоне; это та самая разработка через eval (eval-driven development) из Части I. Идёт
-он позже трейсинга по прозаической причине: eval требует golden set, а golden set требует труда.
+1. **Tracing first.** It's the cheapest to add — no prerequisites beyond an SDK and an exporter — and you
+   need it to debug anything at all. Without traces you cannot even see your failures, let alone fix them.
+2. **Eval in CI** once you start iterating on the pipeline, to protect against regressions — Part I's
+   eval-driven development. It comes second for an honest reason: eval needs a golden set, and a golden set
+   takes effort.
+3. **Guardrails** as you approach real users and a real attack surface — earlier if the domain is regulated
+   or the input is adversarial from day one. Guardrails need a threat model, and a threat model usually
+   emerges with usage.
 
-Третьим — **ограничители**, перед выходом на живых пользователей. Им нужна модель угроз, а она обычно
-вырастает из реального использования: пока трафика нет, ты защищаешься от гипотез. Два исключения
-сдвигают их в самое начало: регулируемая отрасль — и вход, который враждебен с первого дня.
-
-Вся связка целиком — с точками, куда встают продукты этого урока:
+Here is the whole production loop with the product names attached — the Part I linkage, productized:
 
 ```mermaid
 flowchart LR
-    subgraph W["Ограничители: Guardrails AI / NeMo Guardrails / Llama Guard / Granite Guardian"]
-        P[Прод-система]
+    subgraph GR["Guardrails: Guardrails AI / NeMo Guardrails / Llama Guard / Granite Guardian"]
+        P["Production system"]
     end
-    P -- Трейсы --> O["Наблюдаемость:<br/>LangSmith / Langfuse / Phoenix"]
-    O -- Плохие трейсы --> GS[Golden set]
-    GS --> E["Eval в CI:<br/>Ragas / DeepEval / promptfoo"]
-    E -- Проверка перед деплоем --> P
-    E -- "Red-teaming (ASR)" --> W
+    P -- "traces" --> O["Observability:<br/>LangSmith / Langfuse / Phoenix"]
+    O -- "bad traces" --> G["Golden set"]
+    G --> E["Eval in CI:<br/>Ragas / DeepEval / promptfoo"]
+    E -- "gates the deploy" --> P
+    E -- "red-teaming (ASR)" --> GR
 ```
 
-Это схема связки из урока про наблюдаемость — «eval мерит, guardrails защищают, observability видит и
-возвращает найденное в eval», — только теперь у каждого узла есть имена продуктов. Как эта связка живёт
-после релиза — тема [урока про LLMOps](./llmops.md).
+How this loop lives after release is the subject of the [LLMOps lesson](./llmops.md).
 
-Последнее предостережение — самое важное. Поставить eval-инструмент ещё не значит иметь eval: продукт с
-крошечным или шумным датасетом рисует уверенные дашборды поверх мусора. «Без эталона весь eval рушится»
-звучало ещё в Части I — на уровне готовых инструментов эта фраза верна дословно. Они усиливают
-дисциплину, но не заменяют её.
+One anti-pattern can make that whole diagram lie to you: adopting an eval tool is not the same as having
+eval. A tool pointed at a shallow, noisy dataset produces confident-looking dashboards over garbage —
+Part I put it as "without a reference the whole eval falls apart," and it stays true with a product logo on
+top. Tools amplify discipline; they don't replace it.
 
-## Что забрать из урока
+## What to take away
 
-- Понятия Части I долговечны, продукты — срез 2026 года. Выбирай, ответив на два вопроса: какое понятие
-  продукт реализует и куда в твоём цикле встаёт.
-- Большая тройка платформ наблюдаемости — LangSmith, Langfuse, Phoenix — обзавелась и eval-функциями,
-  потому что «прод-трейс → eval-кейс» — один рабочий процесс.
-- Метрики Ragas — словарь Части I: context precision/recall про выдачу, faithfulness и response
-  relevancy (бывшая answer relevancy, наша «релевантность ответа») про генерацию.
-- Golden set остаётся твоей работой: eval-инструменты считают метрики по твоим примерам, синтезированные
-  кандидаты вычитывает человек.
-- OpenTelemetry с GenAI-конвенциями — вендор-нейтральная основа: инструментирование один раз, экспорт
-  куда угодно; статус пока экспериментальный.
-- Ограничители: фреймворки (Guardrails AI, NeMo Guardrails) оркеструют, классификаторы безопасности
-  (Llama Guard, [Granite Guardian](https://github.com/ibm-granite/granite-guardian)) судят, платформенные сервисы снимают эксплуатацию с тебя — и всё это
-  сочетается между собой; качество меряй долей успешных атак.
-- Порядок по умолчанию: трейсинг → eval в CI → ограничители (раньше, если отрасль регулируемая или вход
-  враждебный с первого дня).
+- The concepts are durable, the tools are snapshots — judge a tool by which Part I concept it implements
+  and where it sits in your loop.
+- The big observability platforms (LangSmith, Langfuse, Phoenix) grew eval features because production
+  trace → eval case is one workflow, and the tools cover both ends of it.
+- Ragas metric names are Part I's vocabulary (response relevancy = the former answer relevancy); DeepEval
+  makes eval cases pytest unit tests; promptfoo does YAML-driven comparison matrices plus red-teaming.
+- No tool solves the golden set: dataset quality stays your job, and synthesized examples still pass
+  through human review.
+- OpenTelemetry's GenAI conventions are the emerging vendor-neutral substrate (still experimental as of
+  mid-2026): instrument once, export anywhere. Phoenix is ELv2 source-available — not open source in the
+  OSI sense.
+- Guardrails tools: frameworks (Guardrails AI, NeMo Guardrails) orchestrate, safety classifiers (Llama
+  Guard, Granite Guardian) judge, and the same concepts ship as managed platform services — the usual
+  make-or-buy fork. Measure them with ASR via red-teaming.
+- Default adoption order: tracing → eval in CI → guardrails.
 
-**Новые термины** → [Глоссарий](../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
+**New terms** → [Glossary](../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: устройство метрик Ragas изнутри (обещанное ещё в пометке об углублении урока про оценку),
-GenAI-конвенции OpenTelemetry на практике, развёртывание Langfuse у себя, собственные валидаторы для
-Guardrails AI, плейбуки red-teaming, eval агентных траекторий (trajectory scoring).
+🚧 Second pass: Ragas metric internals (the deepening promised back in the evaluation lesson), the OTel
+GenAI conventions in practice, self-hosting Langfuse, writing your own Guardrails AI validators,
+red-teaming playbooks, and agent-specific evals (trajectory scoring).
 
 :::

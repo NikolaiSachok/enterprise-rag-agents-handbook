@@ -1,284 +1,260 @@
 ---
 id: llmops
-title: "LLMOps — деплой, мониторинг, стоимость"
+title: "LLMOps — deploy, monitor, cost"
 sidebar_position: 4
 ---
 
-# LLMOps — жизнь LLM-системы после релиза
+# LLMOps — the LLM system's life after release
 
-Система написана, обёрнута в сервис и выкачена в прод. По меркам классической разработки — финиш; по меркам
-LLM-приложения — начало самого интересного. Всё, что ты до сих пор настраивал руками — качество ответов,
-поведение агента, счёт за токены, — теперь живёт своей жизнью на реальном трафике. Дисциплина, которая
-этим занимается, называется **LLMOps**: эксплуатация LLM-приложений — деплой (deployment), мониторинг и
-контроль стоимости.
+[Serving](./serving.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms.md) decided
+where the model runs. [The tooling ecosystem](./tooling-ecosystem.md) gave you eval, guardrails, and
+observability as products. One question remains, and it's the one that fills the rest of the system's
+life: what does it mean to *operate* this thing — to change it safely, watch it, and pay for it, week
+after week?
 
-Индустрия — взять хотя бы формулировку IBM — определяет LLMOps как MLOps, операционную практику машинного
-обучения, в применении к большим языковым моделям; в таком широком смысле туда входит и
-дообучение моделей. У этой книги прицел поуже: ты строишь приложения поверх готовых моделей, а не обучаешь
-свои. Поэтому наша рамка такая — обучать
-тебе почти никогда не придётся; ты собираешь систему из промптов, версий моделей, поисковых индексов и
-конфигурации и эксплуатируешь эту сборку. Эта оптика и определяет весь урок.
+**LLMOps** is the industry's name for that discipline: MLOps specialized for LLM applications. In IBM's
+framing — and most definitions follow it — the scope covers the full lifecycle, fine-tuning included. This
+handbook cuts a sharper angle, because as an application builder you rarely train anything: what you
+compose and operate are prompts, model versions, retrieval indexes, and configs. Take that as our lens
+rather than the industry definition — it's the slice of LLMOps a RAG-and-agents team lives in daily.
 
-:::tip[▶ Видео]
+:::tip[▶ Video]
 
 <YouTube id="cvPEiPt7HXo" title="Large Language Model Operations (LLMOps) Explained — IBM Technology" />
 
-Вся дисциплина одним проходом: что в эксплуатации LLM-приложений меняется по сравнению с классическим
-MLOps.
+The discipline in one pass — what LLMOps inherits from MLOps and what it changes.
 
 :::
 
-## AI-дельта — артефакт и тест
+## The AI delta — artifact and test
 
-В классическом DevOps деплоят код: артефакт один, и его версия однозначно определяет поведение сервиса.
-У LLM-приложения поведение определяется целым набором артефактов:
+Behind that lens sits the delta that drives this whole lesson. In classic DevOps the deployable artifact
+is code: ship the same build, get the same behavior. In an LLM application, behavior is defined by five
+artifacts at once:
 
-- промпты — системный и все шаблоны на пути запроса;
-- модель — какая именно и какой версии;
-- снимок индекса — что заингестили в корпус, каким чанкингом, какой моделью эмбеддингов;
-- конфигурация пайплайна — top-K, реранкер, пороги;
-- политики ограничителей (guardrails).
+- the prompts — the system prompt and every template on the request path;
+- the model — its identity and exact version;
+- the index snapshot — what's ingested, with which chunking and embedding config;
+- the pipeline config — top-K, the reranker, thresholds;
+- the guardrail policies.
 
-Изменение любого из них — это деплой. Подкрутил порог реранкера, переехал на свежую версию модели, залил
-в корпус новую пачку документов — качество ответов могло уехать, хотя дифф кода пуст. Держи эту мысль в
-голове: всё остальное в уроке — её следствия.
+A change to any one of them is a deploy. And any one of them can regress quality with zero code diff.
 
-Вторая дельта — тест. Вывод модели недетерминирован, а качество ответа — величина непрерывная: ответ
-бывает лучше или хуже, «прошёл/не прошёл» тут не работает. Юнит-тесты по-прежнему нужны — они страхуют код
-обвязки, — но регрессии качества ловят не они. Инструмент против регрессий здесь — eval из урока про
-[оценку](../part-1-rag/cross-cutting/evaluation.md): golden set и метрики с порогами.
+Testing changed along with the artifact. Outputs are nondeterministic and quality comes in degrees, whereas
+a unit test wants a clean pass or fail — so the regression instrument is
+[eval](../part-1-rag/cross-cutting/evaluation.md), not unit tests alone. Everything below is that one
+sentence, unpacked into a working operation.
 
-## Деплой — CI/CD для LLM-приложения
+## Deploy — CI/CD when the artifact isn't just code
 
-Раз уронить качество может любое изменение, у каждого изменения должны быть регрессионные ворота
-(quality gate). Ими
-становится eval в CI: правка промпта, модели, индекса или конфига запускает прогон golden set, и если метрики
-просели ниже порога — слияние блокируется. Это регрессионный eval из Части I, превращённый в обязательную
-стадию CI; собирают его инструментами из урока про [экосистему](./tooling-ecosystem.md) — [promptfoo](https://www.promptfoo.dev),
-[DeepEval](https://deepeval.com) или [Ragas](https://ragas.io) прямо в CI.
-
-Вместе с мониторингом, до которого мы дойдём ниже, всё это замыкается в цикл — смысловой стержень урока
-и, пожалуй, всей Части III:
-
-```mermaid
-flowchart TD
-    A["Изменение: промпт / модель / индекс / конфиг"] --> B{"Eval в CI на golden set"}
-    B -- "Балл ниже порога" --> A
-    B -- "Порог пройден" --> C["Деплой: канареечный или теневой"]
-    C --> D["Прод: трейсы, метрики качества и стоимости"]
-    D --> E["Плохие трейсы становятся новыми eval-кейсами"]
-    E --> A
-```
-
-### Промпт — код и конфигурация одновременно
-
-Как код, промпт обязан жить под контролем версий: диффы на ревью, история, откат (rollback) одной
-командой. Как конфигурация, он меняется чаще кода — и когда промпты крутит продуктовая команда, не
-желающая ждать релизного цикла, их выносят в **реестр промптов** (prompt registry): версионированное
-хранилище вроде модуля управления промптами в [LangSmith](https://www.langchain.com/langsmith) или [Langfuse](https://langfuse.com). Какой бы вариант ты ни выбрал, инвариант
-один: каждый ответ в проде должен быть привязан к точной версии промпта. Связывает их трейсинг — трейс
-записывает, какой версией промпта порождён ответ.
-
-### Фиксация версии модели
-
-Провайдеры версионируют и выводят модели из эксплуатации. У OpenAI это различие deprecation и shutdown:
-модель сначала объявляют устаревшей и лишь потом отключают, публикуя таблицу замен; идентификаторы часто
-датированы — снапшоты вида `gpt-4o-2024-05-13`. У Anthropic — жизненный цикл Active → Legacy →
-Deprecated → Retired с уведомлением об отключении не меньше чем за 60 дней. Форма идентификаторов у
-провайдеров различается, но суть одна: у модели есть точная версия, и прод обязан её фиксировать —
-это **фиксация версии модели** (model pinning). Незафиксированный алиас может изменить поведение у тебя
-за спиной — без единого твоего действия. А когда ты сам переезжаешь на новую версию, это полноценный
-деплой: сначала прогнать eval, потом раскатывать постепенно.
-
-### Постепенная раскатка
-
-Приёмы постепенной раскатки переезжают из DevOps почти как есть. **Канареечный релиз** (canary release) —
-новый промпт или новая модель получают небольшую долю живого трафика, остальной трафик продолжает ходить
-в старую версию. **Теневой запуск** (shadow deployment) — новый вариант работает на копии трафика, но его
-ответы пользователям не показываются: безопасное сравнение качества на реальных запросах. A/B-тест —
-знакомый по Части I онлайн-eval, сравнение вариантов на живых пользователях. LLM меняет здесь одно —
-предмет наблюдения: классическая раскатка смотрит на ошибки и латентность, LLM-раскатка — ещё и на косвенные
-показатели качества и на стоимость. Новый промпт может не уронить ни одного запроса и при этом удвоить
-счёт или испортить ответы.
-
-### Корпус тоже релизится
-
-Про последний артефакт из списка забывают чаще всего. Переингест корпуса — новый чанкинг, новая модель
-эмбеддингов — меняет поведение поиска по всей системе разом; смена модели эмбеддингов вообще означает
-полную переиндексацию, как мы видели в уроке про [ingestion](../part-1-rag/ingestion.md). Значит,
-обновление корпуса — версионированный релиз со своим прогоном eval, а не фоновая задача, которую крутит
-ночной крон.
-
-## Мониторинг — наблюдаемость плюс оповещения
-
-Мониторинг LLM-приложения — это [наблюдаемость](../part-1-rag/cross-cutting/observability.md) из
-Части I, работающая непрерывно, плюс оповещения об изменении метрик. Часть приборной панели стандартна для
-любого сервиса: перцентили латентности (p50/p95), доли ошибок и таймаутов, стоимость в токенах на запрос.
-Часть — специфика LLM, косвенные показатели качества: доля отказов (не стала ли система говорить «не
-знаю» чаще обычного), частота срабатывания ограничителей, доля ответов с обратной связью от
-пользователей. Снимают и прямой показатель: часто на небольшой выборке прод-трафика гоняют
-LLM-as-a-judge — судья выставляет баллы ответам из выборки, а её размер держит стоимость самой проверки
-в рамках.
-
-### Дрейф
-
-Оповещения нужны ещё и потому, что система деградирует без твоих изменений. Общее имя этому — **дрейф**
-(drift), и к LLM-приложению он подкрадывается с трёх сторон.
-
-- **Дрейф входного трафика** — пользователи начинают спрашивать о другом, и golden set перестаёт
-  отражать реальный трафик. Понятие устоявшееся (input drift из MLOps), для LLM-приложений работает
-  без поправок.
-- **Дрейф корпуса** — наше собственное расширение, не термин индустрии, но явление совершенно реальное:
-  документы стареют, и система честно отвечает на основе фактов, которые уже неверны.
-- **Дрейф модели у провайдера** — провайдер обновил незафиксированную модель, и поведение сменилось.
-  Уточнение «у провайдера» обязательно: в классическом MLOps «дрейф модели» означает деградацию качества
-  модели на уехавших данных — это другой смысл.
-
-Средств против дрейфа два: мониторинг распределения тем и намерений во входящих запросах — и регулярные
-прогоны eval-метрик на свежих выборках из прода.
-
-### Цикл инцидента
-
-Сквозная нить книги — «наблюдаемость питает оценку» — превращается здесь в отработанный порядок действий.
-Плохой прод-трейс → разбор: retrieval-провал или generation-провал, то самое разделение провалов из
-Части I → случай уходит новым кейсом в golden set → фикс → eval подтверждает, что кейс закрыт и ничего
-рядом не сломано → деплой. Инструменты из урока про [экосистему](./tooling-ecosystem.md) поддерживают
-этот путь буквально кнопкой «превратить трейс в eval-кейс». Так каждый инцидент сужает регрессионные
-ворота: однажды пойманная беда второй раз в прод не пройдёт.
-
-## Стоимость и латентность
-
-:::tip[▶ Видео]
-
-<YouTube id="7gMg98Hf3uM" title="What Makes Large Language Models Expensive? — IBM Technology" />
-
-Куда на самом деле уходят деньги — токены, вычисления, размер модели: анатомия стоимости, с которой
-работают рычаги этого раздела.
-
-:::
-
-В классическом сервисе стоимость — строчка в месячном счёте за железо. Здесь она — полноправная
-эксплуатационная метрика, потому что каждый запрос сжигает тарифицируемые токены. Стоимость растёт вместе
-с трафиком — это ожидаемо. Коварнее то, что она растёт и вместе с длиной промпта: незамеченное изменение —
-потяжелевший системный промпт, лишние чанки в контексте, разговорчивый агентный цикл — тихо умножает
-счёт, ничего заметно не меняя в поведении. Поэтому к стоимости запроса относятся так же серьёзно, как к
-качеству; настоящая метрика зрелой системы — качество на доллар.
-
-### Маршрутизация запросов между моделями
-
-Не всякому запросу нужна самая сильная модель. Классификацию, простые вопросы и рутинное извлечение
-тянет дешёвая быстрая модель; дорогую приберегают для сложной генерации. **Маршрутизация запросов между
-моделями** (model routing) отдаёт каждый запрос самой дешёвой модели, которая с ним справится; сам
-маршрутизатор может быть правилом, обученным классификатором или ещё одной моделью. Только не спутай
-уровни: маршрутизатор из Части I решал, куда направить запрос — в какой индекс или инструмент; выбор
-инструмента в агентном цикле — отдельная, третья история; а здесь решается, какой модели отдать работу.
-
-### Резервные маршруты и LLM-шлюз
-
-Сбои у провайдера и ответы 429 (превышен лимит запросов) — не катастрофа, а рутина эксплуатации. Прод
-держит цепочку резервов (fallback): та же модель в другом регионе, другой провайдер, в крайнем случае —
-модель попроще в режиме деградации. Централизует всё это **LLM-шлюз** (LLM gateway) — прослойка
-между приложением и провайдерами: один OpenAI-совместимый интерфейс ко всем моделям, маршрутизация,
-резервные маршруты, управление ключами, бюджеты и лимиты частоты по командам разработки. Открытый пример — [LiteLLM](https://www.litellm.ai),
-размещённый сервис — [OpenRouter](https://openrouter.ai).
-
-### Кэширование — два вида
-
-Первый вид живёт у провайдера. **Кэширование промпта** (prompt caching) опирается на то, что промпты
-LLM-приложения сильно повторяются в начале: системный промпт, few-shot-примеры (образцы в промпте), статический контекст
-идут одним и тем же префиксом в каждом запросе. Провайдер кэширует префикс, и повторно прочитанные
-входные токены стоят порядка одной десятой базовой цены — сейчас так у обоих крупных провайдеров, точные
-множители смотри на их страницах цен. Есть и обратная сторона: запись в кэш стоит дороже базовой цены
-входных токенов — у Anthropic в 1,25 или 2 раза в зависимости от времени жизни кэша, у новейших
-моделей OpenAI в 1,25 раза. Закэшировать префикс, который ни разу не перечитают, — чистый убыток. Отсюда
-правило проектирования: проектируй промпт под кэш — статичное в начало, переменное в конец.
-
-Второй вид — кэш ответов на твоей стороне. Простейшая форма — кэш точного совпадения, но дословно
-повторяющийся вопрос — редкость, поэтому чаще применяют
-**семантический кэш** (semantic caching): близость эмбеддингов решает, что вопрос «почти тот же», и
-пользователю возвращается сохранённый ответ без похода в модель. Расплата — риск ложного попадания:
-вопрос с тонким, но существенным отличием получит чужой ответ. Семантический кэш всегда жертвует
-толикой корректности ради экономии — выбирай порог близости, помня об этом.
-
-### Диета токенов
-
-Самый надёжный рычаг — просто тратить меньше токенов. Меньше чанков в контексте: отбор лучших вместо
-всех, как в уроке про [generation](../part-1-rag/generation.md). Короче системный промпт — каждое лишнее
-предложение в нём умножается на весь трафик. Жёсткий потолок длины ответа. Суммаризация рабочей памяти
-(scratchpad) агента вместо её бесконечного роста — приём из урока про [планирование и
-циклы](../part-2-agents/planning-loops.md). У латентности рычаги родственные: стриминг ответа снижает
-воспринимаемую задержку (урок про [сервинг](./serving.md)), модель поменьше отвечает быстрее
-большой, а независимые стадии пайплайна можно исполнять параллельно.
-
-### Пакетный тариф для офлайн-работы
-
-Не всё, что ходит в модель, обслуживает живого пользователя. Ночное обогащение документов, бэкфилы
-(дозаполнение данных задним числом), генерация синтетических данных для eval — всё это работа без человека
-у экрана, и ей не нужен ответ за секунды. Для неё у провайдеров есть пакетный тариф (batch), знакомый по
-уроку про [облачные платформы](./cloud-platforms.md): скидка порядка 50% в обмен на SLA в часах.
-
-### Бюджеты
-
-Последний рычаг — организационный. Зрелые команды обычно заводят на LLM-шлюзе бюджеты токенов по
-командам и фичам — с оповещением при приближении к пределу и жёстким лимитом на самом шлюзе. Знакомая
-идея: в Части II мы уже давали агенту бюджет шагов, здесь бюджет получает вся система. И в чек-лист
-деплоя добавляется ревью стоимости — как мы видели, изменение промпта есть изменение стоимости, даже
-когда качество не пострадало.
-
-Соберём рычаги этого раздела на одной схеме пути запроса:
+The whole discipline compresses into one loop. It's the spine of this lesson — and, as you'll see by the
+end, the closing image of the handbook:
 
 ```mermaid
 flowchart LR
-    Q["Запрос"] --> SC{"Семантический кэш"}
-    SC -- "Совпадение" --> R["Сохранённый ответ"]
-    SC -- "Промах" --> T["Сборка промпта: диета токенов"]
-    T --> G["LLM-шлюз: маршрутизация, резервные маршруты, бюджеты"]
-    G --> P["Провайдер: кэш промпта, пакетный тариф"]
-    P --> O["Ответ модели"]
+    C["Change<br/>prompt / model / index / config"] --> E["Eval in CI<br/>golden set"]
+    E -- "fail" --> C
+    E -- "pass" --> D["Deploy<br/>canary / shadow"]
+    D --> P["Production<br/>traces, metrics, cost"]
+    P --> T["Bad traces<br/>new eval cases"]
+    T --> C
+```
+
+The gate at the front is **eval in CI**. Every change to a prompt, model, index, or config runs the golden
+set; if the metrics fall below threshold, the merge is blocked. This is Part I's regression eval promoted
+to a pipeline stage — the same [promptfoo](https://www.promptfoo.dev) / [DeepEval](https://deepeval.com) / [Ragas](https://ragas.io) stack you met in
+[the tooling ecosystem](./tooling-ecosystem.md), now wired into CI with a red-green verdict. A prompt tweak
+that quietly drops faithfulness by ten points gets caught the same way a broken build does.
+
+### Prompts are code — and config
+
+Prompts live a double life. They are code: keep them in version control, where a prompt change arrives as
+a reviewable diff and rolls back like any other commit. And they are config: when product teams iterate on
+wording daily, a **prompt registry** — the prompt management in [LangSmith](https://www.langchain.com/langsmith) or [Langfuse](https://langfuse.com) — lets them ship
+prompt versions without a code deploy. Either home is fine. The invariant is attribution: every production
+answer must trace back to an exact prompt version, which is why the trace records it.
+
+### Pin the model
+
+Providers version their models and retire them. OpenAI distinguishes deprecation from shutdown, publishes
+replacement mappings, and issues timestamped snapshots — often with the date in the id, like
+`gpt-4o-2024-05-13`, though the id shape varies by provider. Anthropic runs an explicit lifecycle —
+Active, Legacy, Deprecated, Retired — with at least 60 days' notice before retirement.
+
+So production pins exact versions. An unpinned alias is a deploy you didn't schedule: the provider moves
+what the alias points to, and your system's behavior shifts with no diff anywhere on your side. **Model
+pinning** turns that surprise back into a decision — when you move to a new version, you treat it as the
+deploy it is: re-run eval, then roll out gradually.
+
+### Roll out gradually
+
+The rollout patterns come straight from release engineering, with one twist. A **canary release** sends a
+small share of live traffic to the new prompt or model and watches the metrics. A **shadow deployment**
+runs the new variant on mirrored traffic without showing its answers to anyone — a safe quality comparison
+on real queries. An **A/B test** is Part I's online eval: two variants, user-facing, compared on outcomes.
+The twist is what you watch: not just errors and latency, but quality proxies and cost. A canary that
+answers fast, cheap, and slightly wrong is a failing canary — and only quality metrics will say so.
+
+### The corpus is a release too
+
+The index is behavior. Re-ingest with a new chunking config and retrieval shifts across the entire corpus;
+switch the embedding model and you owe a full re-index — Part I's
+[ingestion](../part-1-rag/ingestion.md) rule. So put corpus updates through the same gate as everything
+else: a versioned release that passes eval, rather than a background job that runs overnight and quietly
+reshapes what the system knows.
+
+## Monitoring in production
+
+Monitoring is [observability](../part-1-rag/cross-cutting/observability.md) running continuously, plus
+alerting on movement. The classic panel carries over: latency percentiles (p50/p95), error and timeout
+rates, token cost per request. The LLM-specific panel holds quality proxies — indirect signals that
+quality moved: refusal rate, guardrail-trigger rate, the rate of user feedback, and — common practice by
+now — an online LLM-as-a-judge scoring a *sample* of production traffic. A sample, because the judge
+burns tokens too; you bound its cost like any other spend.
+
+### Drift — three flavors
+
+A frozen configuration doesn't mean frozen behavior, because the world underneath it moves. **Input
+drift** is the established term: users start asking new kinds of questions, and the golden set no longer
+represents traffic — eval stays green on queries nobody sends anymore. **Corpus drift** is this handbook's
+extension of the same idea (the phenomenon is real; the pairing is our coinage): documents age, and
+answers begin citing facts that were true at ingestion time. And **upstream model drift**: the provider
+updates a model behind an unpinned alias, and behavior shifts with zero change on your side. Keep the
+"upstream" qualifier — in classic MLOps, "model drift" means your own model's performance degrading, a
+different sense. Detection is shared across all three: watch the topic and intent distribution of incoming
+traffic, and re-run eval on fresh samples rather than only on the aging golden set.
+
+### The incident loop, now a runbook
+
+The through-line this handbook has drawn since Part I closes here, at production scale. A bad production
+trace comes in → you decompose it — retrieval failure or generation failure, Part I's decomposition → the
+query becomes a new golden-set case → you fix → eval confirms → you deploy. "Observability feeds eval" was
+a principle back in Part I; in production it's a runbook — a fixed sequence a teammate can execute on a
+Tuesday afternoon. The platforms from [the tooling ecosystem](./tooling-ecosystem.md) shorten the middle
+step to one click: promote a trace to an eval case.
+
+## Cost and latency — the levers
+
+:::tip[▶ Video]
+
+<YouTube id="7gMg98Hf3uM" title="What Makes Large Language Models Expensive? — IBM Technology" />
+
+Where the money actually goes — the token-and-compute cost anatomy behind every lever in this section.
+
+:::
+
+In a classic service, cost is mostly infrastructure — an ops concern, rarely *the* ops concern. Here every
+request burns metered tokens, and spend scales along two axes at once: with usage and with prompt length.
+The second axis is the treacherous one because it moves silently: a longer system prompt, two extra
+retrieved chunks, an agent loop that grew chattier — each multiplies the per-request bill without a single
+alert firing, unless you made cost per request a first-class metric. Treat it as eval-grade: the number
+you actually optimize is quality per dollar.
+
+### Route between models
+
+Not every request deserves the flagship model. Classification, simple lookups, short factual questions —
+a cheap, fast model handles them; the expensive one earns its price on hard generation. **Model routing**
+sends each request to the cheapest model that can handle it, and the router can be a rule, a trained
+classifier, or a model itself. Mind the terminology: this is routing *between models* — the third routing
+sense in this book. Part I's query router picked an index, Part II's agent picked a tool; this one picks
+who answers.
+
+### Fallbacks and the gateway
+
+Provider outages and 429s aren't incidents; they're weather. Production keeps a **fallback** chain — the
+same model in another region, another provider, a cheaper model in degraded mode — tried in order when
+the primary errors or rate-limits. The natural home for all of this is an **LLM gateway**: one
+OpenAI-compatible interface in front of every model you use, centralizing routing, fallbacks, API keys,
+budgets, and per-team rate limits. [LiteLLM](https://www.litellm.ai) is the open-source example; [OpenRouter](https://openrouter.ai), the hosted one.
+
+### Caching — twice
+
+The first cache is the provider's. **Prompt caching** stores the repeated *prefix* of your prompt — the
+system prompt, few-shot examples, static context — so it isn't reprocessed on every call. Both major
+providers now bill cached input tokens at flat rates on the order of one tenth of the base input price
+(the exact multipliers live on their pricing pages). The honest clause: cache *writes* cost more than
+base input — Anthropic charges 1.25x or 2x depending on cache lifetime, OpenAI 1.25x on its newest
+models — so caching a prefix that's never re-read is a net loss. The design consequence: build prompts
+cache-first, static prefix then variable suffix, since anything dynamic ends the reusable prefix right
+where it appears.
+
+The second cache is yours. Response caching returns a stored answer for a repeated question — exact-match,
+or **semantic caching**, which matches near-duplicate questions by embedding similarity. Semantic caching
+trades correctness risk for cost: a false hit on a subtly different question hands the user someone else's
+answer.
+
+### The token diet
+
+The cheapest token is the one you never send. Retrieve fewer chunks — Part I's context packing: the best
+ones rather than all of them. Tighten the system prompt. Cap output length. Summarize agent scratchpads
+instead of letting them grow with every step
+([planning and loops](../part-2-agents/planning-loops.md)). The diet has latency siblings: streaming for
+perceived latency (the [serving](./serving.md) lesson), smaller and faster models where routing allows,
+and parallelizing pipeline stages that don't depend on each other.
+
+### The batch tier
+
+Work that can wait shouldn't pay the interactive price. Nightly corpus enrichment, backfills, synthetic
+data generation for eval — the batch tier from the [cloud platforms](./cloud-platforms.md) lesson runs
+them at roughly half price, in exchange for an hours-scale SLA. As levers go it's the simplest one here:
+classify the workload as offline and collect the discount.
+
+### Budgets close the loop
+
+The mature practice — common, though not a standard — is per-team and per-feature token budgets with
+alerts, enforced where all traffic already flows: at the gateway. And cost review joins the deploy
+checklist, because the lesson's opening delta cuts both ways — a prompt change is a cost change. The loop
+you saw at the top of this page runs on quality *and* on dollars.
+
+Here is the section's lever map, laid over the request path:
+
+```mermaid
+flowchart LR
+    Q["Request"] --> SC{"Semantic cache"}
+    SC -- "hit" --> R["Stored answer"]
+    SC -- "miss" --> T["Prompt assembly: token diet"]
+    T --> G["LLM gateway: routing, fallbacks, budgets"]
+    G --> P["Provider: prompt cache, batch tier"]
+    P --> O["Model answer"]
 ```
 
 ---
 
-На этом закрываются и урок, и Часть III, и вся базовая часть курса. Оглянёмся на путь этой части: мы
-обернули систему в сервис в уроке про [сервинг](./serving.md), выбрали, где будет жить модель, в уроке про
-[облачные платформы](./cloud-platforms.md), обвязали пайплайн готовыми продуктами в уроке про
-[экосистему инструментов](./tooling-ecosystem.md) — а сегодня научились со всем этим хозяйством жить после
-релиза: деплоить без страха, замечать деградацию раньше пользователей, держать счёт в рамках. Теперь
-отойдём на шаг и окинем взглядом всю книгу. Часть I собрала конвейер — слои Ingestion, Retrieval, Generation и сквозные аспекты:
-оценку, ограничители, наблюдаемость. Часть II дала конвейеру агентность: цикл «рассуждение → решение →
-действие → наблюдение», инструменты, планирование, команды агентов и протоколы. Часть III довела всё это
-до прода. От первого чанка до системы, которая работает под нагрузкой, за регрессионными воротами и в
-рамках бюджета, — вот и весь путь. База пройдена; дальше — углублённые проходы по слоям.
+That closes Part III, and with it the handbook's base course. Part III's own arc was short and practical:
+we wrapped the pipeline as a [service](./serving.md), chose
+[where the model runs](./cloud-platforms.md), assembled the [tooling](./tooling-ecosystem.md) around the
+loop, and — in this lesson — learned to operate what we built. The longer arc is the book's. Part I built
+the pipeline: chunks, embeddings, retrieval, generation, and the cross-cutting disciplines that make it
+measurable and safe. Part II gave it agency: the loop, the tools, the plans, the teammates, the protocols.
+Part III shipped it. What began as "split the documents and search them" leaves as a running service with
+an eval gate in front of every change and a loop that turns its own failures into test cases. That loop
+never finishes — which is the point. A production LLM system isn't done; it's operated.
 
-## Что забрать из урока
+## What to take away
 
-- **Артефакт LLM-приложения** — не только код: промпты, версия модели, снимок индекса, конфигурация
-  пайплайна, политики ограничителей. Изменение любого из них — деплой и возможная регрессия качества при
-  пустом диффе кода.
-- **Eval в CI** — регрессионные ворота: на каждое изменение гоняется golden set, метрики ниже порога
-  блокируют слияние.
-- **Фиксация версии модели.** Провайдеры выводят модели из эксплуатации, незафиксированный алиас меняет
-  поведение сам по себе; обновление модели — это деплой: eval, затем постепенная раскатка.
-- Раскатка — **канареечный релиз**, **теневой запуск**, A/B; следить надо не только за ошибками и
-  латентностью, но и за косвенными показателями качества и стоимостью.
-- **Мониторинг** — наблюдаемость непрерывно плюс оповещения: латентность, ошибки, стоимость на запрос,
-  доля отказов, срабатывания ограничителей, обратная связь, судейские баллы на выборке прод-трафика.
-- **Дрейф** приходит с трёх сторон: входной трафик, корпус, модель у провайдера. Ловится мониторингом
-  распределения тем и прогонами eval-метрик на свежих выборках.
-- **Цикл инцидента**: плохой трейс → разбор провала → новый кейс в golden set → фикс → eval → деплой.
-- **Рычаги стоимости**: маршрутизация запросов между моделями, резервные маршруты и LLM-шлюз,
-  кэширование промпта и семантический кэш, диета токенов, пакетный тариф для офлайна.
-- **Бюджеты токенов** на шлюзе по командам и фичам; ревью стоимости — часть чек-листа деплоя.
+- The deployable artifact is **prompt + model version + index + config + guardrail policies**, not just
+  code. A change to any of them is a deploy, and any of them can regress quality with zero code diff.
+- **Eval in CI** is the regression gate: every change runs the golden set; metrics below threshold block
+  the merge.
+- **Pin exact model versions.** Providers deprecate and retire models; an unpinned alias changes behavior
+  under you. A provider model update is a deploy: re-run eval, roll out gradually.
+- Roll out with **canary / shadow / A/B** — and watch quality proxies plus cost, not only errors and
+  latency.
+- Monitoring adds a quality panel: refusal rate, guardrail triggers, user feedback, a judge-scored sample
+  of traffic — and watches **drift**: input, corpus, and upstream model.
+- The incident loop is a runbook: bad trace → retrieval-vs-generation decomposition → new golden-set
+  case → fix → eval confirms → deploy.
+- Cost levers: **model routing**, **fallbacks** behind an **LLM gateway**, **prompt caching** (static
+  prefix first) plus a **semantic cache**, the token diet, and the **batch tier** for offline work.
+- Budgets live at the gateway, and cost review belongs in the deploy checklist: a prompt change is a cost
+  change.
 
-**Новые термины** → [Глоссарий](../glossary.md): LLMOps, canary release, shadow deployment, prompt
-registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
+**New terms** → [Glossary](../glossary.md): LLMOps, canary release, shadow deployment, prompt registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Next — going deeper]
 
-🚧 Второй проход: операционная сторона дообучения (когда дообучать вместо промптов), FinOps-модели для
-LLM, автоматический разбор регрессий, SLO и бюджеты ошибок (error budgets) для качества, инфраструктура
-очередей для пакетных работ.
+🚧 Second pass: fine-tuning ops (when to tune the model instead of the prompt), FinOps models for LLM spend, automatic regression triage, SLOs and error budgets for quality, and queue infrastructure for batch workloads.
 
 :::

@@ -1,42 +1,43 @@
 ---
 id: overview
-title: Часть I — RAG
-sidebar_label: Обзор части
+title: Part I — RAG
+sidebar_label: Part overview
 ---
 
-# Часть I — RAG
+# Part I — RAG
 
-RAG (retrieval-augmented generation) — это способ заставить LLM отвечать по **твоим** документам, а не по
-тому, что она запомнила на обучении. Перед генерацией система находит релевантные куски твоих данных и
-кладёт их модели в контекст. Часть I разбирает этот путь как **статический конвейер**: фиксированную
-последовательность шагов, одинаковую для любого запроса.
+RAG (retrieval-augmented generation) is how you make an LLM answer from **your** documents rather than from
+what it memorized in training. Before generating, the system finds the relevant pieces of your data and
+puts them in the model's context. Part I works through this path as a **static pipeline**: a fixed sequence
+of steps, the same for every query.
 
-У всей части один диагностический костяк — **разделение провалов**. Плохой ответ бывает двух
-видов: *retrieval-провал* (retrieval failure — нужного куска не оказалось в выдаче) и *generation-провал*
-(generation failure — кусок нашли, но модель им не воспользовалась или переврала). Почти каждое решение в
-конвейере закрывает одну из этих двух поломок, и первым делом всегда стоит понять, какая из них перед тобой.
+One diagnostic backbone runs through the whole part — **failure decomposition**. A bad answer comes in one
+of two kinds: a *retrieval failure* (the piece you needed never made it into the results) or a *generation
+failure* (the piece was retrieved, but the model ignored or garbled it). Almost every decision in the
+pipeline addresses one of these two breakages, and the first move is always to tell which one you're
+looking at.
 
-## Что внутри
+## What's inside
 
-- **[Ingestion](./ingestion.md)** — офлайн-подготовка документов: чанкинг и эмбеддинги, метаданные. Здесь
-  задаётся потолок качества всего поиска.
-- **[Retrieval](./retrieval.md)** — как превратить «ближайшие векторы» в действительно релевантную выдачу:
-  трансформация запроса, гибридный поиск, реранкинг, фильтры и права доступа.
-- **[Generation](./generation.md)** — как опереть ответ на найденный контекст: grounding, цитирование,
-  честный отказ вместо выдумки.
-- **Сквозные аспекты** — то, что не сводится к одному шагу: [eval](./cross-cutting/evaluation.md) (узнать,
-  что система работает), [guardrails](./cross-cutting/guardrails.md) (удержать её в безопасных рамках),
-  [observability](./cross-cutting/observability.md) (видеть, что она делает в проде).
+- **[Ingestion](./ingestion.md)** — the offline preparation of documents: chunking and embeddings,
+  metadata. This is where the ceiling on all of search quality gets set.
+- **[Retrieval](./retrieval.md)** — how to turn "nearest vectors" into genuinely relevant results: query
+  transformation, hybrid search, reranking, filters and access control.
+- **[Generation](./generation.md)** — how to ground the answer in the retrieved context: grounding,
+  citations, an honest refusal instead of invention.
+- **Cross-cutting concerns** — what doesn't reduce to a single step: [eval](./cross-cutting/evaluation.md)
+  (knowing the system works), [guardrails](./cross-cutting/guardrails.md) (keeping it safe),
+  [observability](./cross-cutting/observability.md) (seeing what it does in production).
 
-## Предпосылки
+## Prerequisites
 
-Общее знакомство с LLM: что такое промпт, контекст и эмбеддинг на уровне идеи. Глубокая математика не нужна —
-объясняем по первым принципам.
+General familiarity with LLMs: what a prompt, a context, and an embedding are at the level of the idea. No
+deep math required — we explain from first principles.
 
-:::note[Статус]
+:::note[Status]
 
-База Части I дописана — опубликованы все уроки: Ingestion, Retrieval, Generation и сквозные аспекты (eval,
-guardrails, observability). 🚧 Впереди второй проход — углубление каждого слоя (темы в пометках «Дальше —
-углубление слоя» на страницах уроков).
+Part I's base is complete — every lesson is published: Ingestion, Retrieval, Generation, and the
+cross-cutting concerns (eval, guardrails, observability). 🚧 A second pass is still ahead — deepening each
+layer (topics listed in the "Next — going deeper" notes on the lesson pages).
 
 :::

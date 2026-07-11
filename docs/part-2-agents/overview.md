@@ -1,48 +1,47 @@
 ---
 id: overview
-title: Часть II — Агенты
-sidebar_label: Обзор части
+title: Part II — Agents
+sidebar_label: Part overview
 ---
 
-# Часть II — Агенты
+# Part II — Agents
 
-В Части I ты собрал **статический конвейер**: запрос проходит фиксированный путь `retrieve → generate`,
-и управляет этим путём код. Часть II передаёт управление модели. Конвейер превращается в **цикл, которым
-руководит сама LLM**: она решает, искать ли, что искать, каким инструментом воспользоваться и когда
-остановиться. Это и есть агент.
+In Part I you assembled a **static pipeline**: a query runs a fixed path, `retrieve → generate`, and the
+code owns that path. Part II hands control to the model. The pipeline becomes a **loop the LLM itself
+drives**: it decides whether to search, what to search for, which tool to use, and when to stop. That is an
+agent.
 
-Держи в голове одну сквозную мысль на всю часть: мы наращиваем свободу модели — от одного решения о маршруте до
-полного цикла с планированием и несколькими агентами — и на каждом шаге платим за эту свободу латентностью,
-стоимостью и сложностью отладки. Инженерная задача не в том, чтобы «сделать поагентнее», а в том, чтобы
-взять **минимально необходимую степень агентности**.
+Hold one line through the whole part: we keep giving the model more freedom — from a single routing
+decision to a full loop with planning and several agents — and at every step we pay for that freedom in
+latency, cost, and debugging difficulty. The engineering job isn't to "make it more agentic," it's to take the
+**minimum degree of agency the task needs**.
 
-## Что внутри
+## What's inside
 
-- **[Agentic RAG](./agentic-rag.md)** — retrieval превращается из шага в действие внутри цикла; спектр от
-  маршрутизатора (router) до полного цикла.
-- **[Использование инструментов (tool use)](./tool-use.md)** — как модель вызывает внешние функции: поиск,
-  SQL, API, калькулятор.
-- **[Планирование и циклы (planning & loops)](./planning-loops.md)** — ReAct и plan-and-execute, декомпозиция
-  задачи, критерий остановки и борьба с зацикливанием.
-- **[Мультиагентные системы (multi-agent)](./multi-agent.md)** — несколько специализированных агентов,
-  роли, передача управления; топологии и когда НЕ дробить одного агента.
-- **[Фреймворки оркестрации](./orchestration-frameworks.md)** — [LangGraph](https://www.langchain.com/langgraph), [LangChain](https://www.langchain.com), Microsoft Agent
-  Framework, [CrewAI](https://www.crewai.com): что они дают поверх голого цикла и когда лучше без них.
-- **[MCP и протоколы агентов](./mcp.md)** — стандартизованный доступ агента к инструментам и данным; [MCP](https://modelcontextprotocol.io)
-  против [A2A](https://a2a-protocol.org).
-- **[Реальные агенты — Claude, OpenAI, Gemini](./real-agents.md)** — финал части: каждый приём Части II,
-  прогнанный по Claude, OpenAI и Gemini; за дюжиной несовместимых API — один и тот же долговечный приём.
+- **[Agentic RAG](./agentic-rag.md)** — retrieval turns from a step into an action inside a loop; the
+  spectrum from router to full loop.
+- **[Tool use](./tool-use.md)** — how the model calls external functions: search, SQL, APIs, a calculator.
+- **[Planning & loops](./planning-loops.md)** — ReAct and plan-and-execute, task decomposition, termination
+  criteria, and breaking out of loops.
+- **[Multi-agent systems](./multi-agent.md)** — several specialized agents, roles, handoff; the topologies
+  and when NOT to split one agent.
+- **[Orchestration frameworks](./orchestration-frameworks.md)** — [LangGraph](https://www.langchain.com/langgraph), [LangChain](https://www.langchain.com), Microsoft Agent
+  Framework, [CrewAI](https://www.crewai.com): what they add on top of a bare loop, and when to skip them.
+- **[MCP and agent protocols](./mcp.md)** — a standardized way for an agent to reach tools and data; [MCP](https://modelcontextprotocol.io)
+  versus [A2A](https://a2a-protocol.org).
+- **[Real agents — Claude, OpenAI, Gemini](./real-agents.md)** — the capstone: every Part II technique run
+  across all three vendors, showing the same durable move under a dozen incompatible APIs.
 
-## Предпосылки
+## Prerequisites
 
-Часть I целиком, особенно слой **Retrieval** (агент вызывает его как инструмент) и **сквозные аспекты** —
-eval и observability из «желательных» здесь становятся обязательными.
+All of Part I, especially the **Retrieval** layer (the agent calls it as a tool) and the **cross-cutting
+concerns** — here eval and observability move from nice-to-have to mandatory.
 
-:::note[Статус]
+:::note[Status]
 
-База Части II дописана — опубликованы все уроки: Agentic RAG, использование инструментов, планирование и
-циклы, мультиагентные системы, фреймворки оркестрации, MCP и финальный разбор реальных агентов (Claude,
-OpenAI, Gemini). 🚧 Впереди второй проход — углубление каждого слоя (темы в пометках «Дальше — углубление
-слоя» на страницах уроков).
+Part II's base is complete — every lesson is published: Agentic RAG, tool use, planning & loops, multi-agent
+systems, orchestration frameworks, MCP, and the closing capstone on real agents (Claude, OpenAI, Gemini).
+🚧 A second pass is still ahead — deepening each layer (topics listed in the "Next — going deeper" notes on
+the lesson pages).
 
 :::
