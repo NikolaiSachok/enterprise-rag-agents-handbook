@@ -16,7 +16,7 @@ type YouTubeProps = {
  *   so several videos on one page don't slow down the initial load.
  * - responsive 16:9 wrapper so it never breaks the mobile layout.
  */
-export default function YouTube({id, title = 'YouTube video'}: YouTubeProps): JSX.Element {
+export default function YouTube({id, title = 'YouTube video'}: YouTubeProps): React.JSX.Element {
   return (
     <div className={styles.wrapper}>
       <iframe
