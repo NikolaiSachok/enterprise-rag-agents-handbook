@@ -121,13 +121,12 @@ result, tool selection, JSON Schema, structured output.
 
 ---
 
-:::note[Next: Part 2 — Deep dive]
+:::note[Next — part 2 of the lesson]
 
-**→ [Part 2 — Deep dive](./deep-dive.md).** Parallel tool calls, schema formats and constrained decoding,
-error-and-retry strategies, the context cost of dozens of tools — the mechanism taken to mastery.
+**[Reliability & scale](./deep-dive.md)** — taking tool calls to production: parallel calls, schema formats
+and constrained decoding, error-and-retry handling, and the context cost of dozens of tools.
 
-Nearby: the standard for connecting tools is a lesson of its own, [MCP and agent protocols](../mcp.md); and
-how this mechanism looks in Claude, OpenAI, and Gemini today is the part's capstone,
-[Real agents](../real-agents.md).
+See also: connecting tools through a shared standard — [MCP and agent protocols](../mcp.md); how it looks
+across Claude, OpenAI, and Gemini — [the part's capstone](../real-agents.md).
 
 :::

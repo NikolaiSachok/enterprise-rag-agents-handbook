@@ -185,10 +185,11 @@ Deep dive"** page. The convention (piloted on Tool use, #64):
   mastery detail (internals, failure-mode catalogue, "when NOT to," scale concerns) → Часть 2. If in doubt,
   the base stays tight and the detail goes to Часть 2.
 - **Pointers both ways, no stale 🚧.** Once Часть 2 exists, Часть 1's closing `:::note` stops being a `🚧`
-  preview and becomes a **live «→ Часть 2 — Глубже» / "→ Part 2 — Deep dive"** pointer (title
-  `:::note[Дальше: Часть 2 — Глубже]` / `[Next: Part 2 — Deep dive]`, linking `./deep-dive.md`); Часть 2
-  **backlinks to Часть 1** (`./index.md`) in its first lines. Gate 4 (managing editor) enforces both on every
-  future deepening.
+  preview and becomes a **live, plain pointer to Часть 2** — title `:::note[Дальше — вторая часть урока]` /
+  `[Next — part 2 of the lesson]`, naming the deep-dive by its **descriptive label** and listing its topics
+  matter-of-factly (**no marketing** — no «доведённый до мастерского уровня» / "taken to mastery", no
+  «показывает капстоун» sales phrasing), linking `./deep-dive.md`; Часть 2 **backlinks to Часть 1**
+  (`./index.md`) in its first lines. Gate 4 (managing editor) enforces both on every future deepening.
 - **Same standard as a base lesson**, authored the same way (authoring-team → editorial-team, RU-primary),
   with the house skeleton (takeaways, glossary footer), Mermaid, `.md`-only links, and glossary + style-canon
   updates shipped in the same PR.
