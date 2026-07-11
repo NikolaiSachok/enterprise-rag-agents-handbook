@@ -7,7 +7,7 @@ sidebar_position: 5
 # Orchestration frameworks — what a framework adds over the bare loop
 
 The lessons so far built agents up from primitives: the loop in [agentic-rag](./agentic-rag.md), the tools it
-calls in [tool-use](./tool-use.md), planning and termination over that loop in
+calls in [tool-use](./tool-use/index.md), planning and termination over that loop in
 [planning-loops](./planning-loops.md), and teams of agents in [multi-agent](./multi-agent.md). In practice
 you don't hand-roll all of that. You reach for an **orchestration framework** — [LangChain](https://www.langchain.com), [LangGraph](https://www.langchain.com/langgraph),
 [LlamaIndex](https://www.llamaindex.ai), and their neighbors. This lesson is about what a framework actually adds on top of the bare loop,

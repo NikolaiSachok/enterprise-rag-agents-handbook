@@ -45,7 +45,7 @@ community default for LLM services.
 
 Three of its features earn their keep daily. Native `async`/`await` route handlers make the interleaving
 above simply the way you write. [Pydantic](https://pydantic.dev) models validate request and response shapes at the boundary —
-which pairs directly with structured output from [tool-use](../part-2-agents/tool-use.md): the schema the
+which pairs directly with structured output from [tool-use](../part-2-agents/tool-use/index.md): the schema the
 model was asked to produce gets checked before anything leaves your service. And the auto-generated
 OpenAPI docs keep the contract your service exposes current without anyone maintaining it.
 

@@ -1,0 +1,8 @@
+{
+  "label": "Tool use",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "part-2-agents/tool-use/index"
+  }
+}

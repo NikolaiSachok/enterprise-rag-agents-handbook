@@ -1,7 +1,6 @@
 ---
-id: tool-use
 title: Tool use
-sidebar_position: 2
+slug: /part-2-agents/tool-use/
 ---
 
 # Tool use — how the model acts on the outside world
@@ -117,18 +116,18 @@ use.
 - New failure modes: the wrong tool, invalid arguments, making things up on top of the result, and
   security — a write tool plus prompt injection, hence least privilege.
 
-**New terms** → [Glossary](../glossary.md): tool use / function calling, tool definition, tool call, tool
+**New terms** → [Glossary](../../glossary.md): tool use / function calling, tool definition, tool call, tool
 result, tool selection, JSON Schema, structured output.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next: Part 2 — Deep dive]
 
-🚧 Second pass: parallel tool calls, schema formats and constrained decoding, error-and-retry strategies,
-the context cost of dozens of tools. The standard for connecting tools is no longer a deepening topic but a
-lesson of its own: [MCP and agent protocols](./mcp.md).
+**→ [Part 2 — Deep dive](./deep-dive.md).** Parallel tool calls, schema formats and constrained decoding,
+error-and-retry strategies, the context cost of dozens of tools — the mechanism taken to mastery.
 
-And how this exact tool-calling mechanism looks in Claude, OpenAI, and Gemini today is what the part's
-capstone shows: [Real agents](./real-agents.md).
+Nearby: the standard for connecting tools is a lesson of its own, [MCP and agent protocols](../mcp.md); and
+how this mechanism looks in Claude, OpenAI, and Gemini today is the part's capstone,
+[Real agents](../real-agents.md).
 
 :::
