@@ -172,7 +172,7 @@ vLLM itself.
 
 :::
 
-The names, as of this writing: **vLLM** is the open-source standard for GPU serving; **[SGLang](https://docs.sglang.io)** is the
+The names, as of this writing: **[vLLM](https://docs.vllm.ai)** is the open-source standard for GPU serving; **[SGLang](https://docs.sglang.io)** is the
 other major open-source GPU server; **[Ollama](https://ollama.com)** is the convenience option for local and dev use — not a
 production-class server. (Hugging
 Face's [TGI](https://github.com/huggingface/text-generation-inference), once a peer of these, was put into maintenance mode in December 2025 and its repository

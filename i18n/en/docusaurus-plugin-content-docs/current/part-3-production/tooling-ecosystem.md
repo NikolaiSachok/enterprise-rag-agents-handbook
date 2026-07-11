@@ -48,15 +48,15 @@ you, but human review remains the quality gate.
 
 ## Observability platforms
 
-**LangSmith** is the [LangChain](https://www.langchain.com) ecosystem's tracing-and-eval platform — SaaS first, with a self-hosted
+**[LangSmith](https://www.langchain.com/langsmith)** is the [LangChain](https://www.langchain.com) ecosystem's tracing-and-eval platform — SaaS first, with a self-hosted
 option reserved for enterprise plans. If you're already on LangChain or [LangGraph](https://www.langchain.com/langgraph), this is the tightest
 integration you'll get.
 
-**Langfuse** is open source (MIT core; some enterprise features are license-gated) and self-hostable with
+**[Langfuse](https://langfuse.com)** is open source (MIT core; some enterprise features are license-gated) and self-hostable with
 Docker or Kubernetes — the default choice when data must not leave your perimeter. It covers tracing,
 prompt management, datasets and evals, and cost dashboards.
 
-**Arize Phoenix** is self-hostable tracing and eval, "built on top of [OpenTelemetry](https://opentelemetry.io) and powered by
+**[Arize Phoenix](https://arize.com/phoenix)** is self-hostable tracing and eval, "built on top of [OpenTelemetry](https://opentelemetry.io) and powered by
 [OpenInference](https://github.com/Arize-ai/openinference) instrumentation," as its own docs put it. One licensing note worth being precise about:
 Phoenix ships under ELv2 — source-available, free to run yourself, but not open source in the OSI sense —
 so don't file it next to MIT-licensed Langfuse without the asterisk.
