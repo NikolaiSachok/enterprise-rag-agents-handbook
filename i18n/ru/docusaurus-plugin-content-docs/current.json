@@ -4,27 +4,27 @@
     "description": "The label for version current"
   },
   "sidebar.handbookSidebar.category.Part I — RAG": {
-    "message": "Part I — RAG",
+    "message": "Часть I — RAG",
     "description": "The label for category 'Part I — RAG' in sidebar 'handbookSidebar'"
   },
   "sidebar.handbookSidebar.category.Cross-cutting": {
-    "message": "Cross-cutting",
+    "message": "Сквозные аспекты",
     "description": "The label for category 'Cross-cutting' in sidebar 'handbookSidebar'"
   },
   "sidebar.handbookSidebar.category.Cross-cutting.link.generated-index.description": {
-    "message": "Three things run through every stage of the pipeline and don't reduce to a single step: how you know the system works (Evaluation), how you keep it safe (Guardrails), and how you see what it's doing in production (Observability). We start with evaluation — without it there's nothing to tune the rest against.",
+    "message": "Три вещи проходят через все стадии пайплайна и не сводятся к одному шагу: как узнать, что система работает (Evaluation), как удержать её безопасной (Guardrails) и как видеть, что она делает в проде (Observability). Начинаем с оценки — без неё остальное настраивать нечем.",
     "description": "The generated-index page description for category 'Cross-cutting' in sidebar 'handbookSidebar'"
   },
   "sidebar.handbookSidebar.category.Part II — Agents": {
-    "message": "Part II — Agents",
+    "message": "Часть II — Агенты",
     "description": "The label for category 'Part II — Agents' in sidebar 'handbookSidebar'"
   },
   "sidebar.handbookSidebar.category.Tool use": {
-    "message": "Tool use",
+    "message": "Использование инструментов",
     "description": "The label for category 'Tool use' in sidebar 'handbookSidebar'"
   },
   "sidebar.handbookSidebar.category.Part III — Production & LLMOps": {
-    "message": "Part III — Production & LLMOps",
+    "message": "Часть III — Production и LLMOps",
     "description": "The label for category 'Part III — Production & LLMOps' in sidebar 'handbookSidebar'"
   }
 }

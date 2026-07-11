@@ -12,6 +12,13 @@ natively per the workflow below, never machine-translated). A first visitor's br
 auto-detected (blocking `<head>` script in `docusaurus.config.ts`, `localeDetectionScript`) and their choice
 is remembered in a `preferred_locale` cookie; the whole mechanism is **locale-list-driven** — adding a
 locale = add it to the `LOCALES`/`localeConfigs` in the config, no other code change.
+- **Sidebar CATEGORY labels are localized in `i18n/ru/docusaurus-plugin-content-docs/current.json`**, NOT in
+  the localized `_category_.json`. A `_category_.json` under `i18n/ru/…` is silently OVERRIDDEN by
+  `current.json` at render time, so a RU label only in `_category_.json` renders as the English source string.
+  When you add/rename a category (e.g. a deepened lesson's folder), set its RU label in `current.json` under
+  `sidebar.handbookSidebar.category.<English label>` — keep the i18n `_category_.json` in sync too, but
+  `current.json` is the one that actually renders. (Regression source: the EN-canonical flip left every RU
+  category label English because they were only in `_category_.json`.)
 
 ## Audiences (every page should serve all three)
 1. **Learners** — any engineer studying the topic should come away understanding it: teach the *why* and
