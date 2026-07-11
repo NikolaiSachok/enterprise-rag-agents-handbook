@@ -36,7 +36,7 @@ deep math required — we explain from first principles.
 
 :::note[Status]
 
-The base pass through the layer is complete. 🚧 Deeper passes (document parsing, hybrid-search internals,
+The base pass through the part is complete. 🚧 Deeper passes (document parsing, hybrid-search internals,
 evaluation, and more) arrive as separate rounds — see the "Next — going deeper" notes at the end of each
 lesson.
 

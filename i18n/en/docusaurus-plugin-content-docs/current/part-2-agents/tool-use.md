@@ -25,7 +25,7 @@ The same mechanism from IBM: how a tool call wires the model into your data and 
 
 ## Why the model needs an intermediary — it only produces text
 
-**The model executes nothing itself** — it only emits text. It won't reach into a database or hit an API; it
+The model executes nothing itself — it only emits text. It won't reach into a database or hit an API; it
 physically doesn't run code. Tool use is the bridging protocol:
 
 1. The model emits a **structured intent**: "call function X with arguments Y."
@@ -33,7 +33,7 @@ physically doesn't run code. Tool use is the bridging protocol:
 3. The result goes back to the model as context.
 4. The model continues, now seeing the result.
 
-The split is strict: **the model decides what to call; your runtime does the calling.** The model never
+The split is strict: the model decides what to call; your runtime does the calling. The model never
 touches the real systems — and that very split will turn out to be the security boundary (more below).
 
 ## The mechanism: a tool call
@@ -106,16 +106,16 @@ use.
 
 ## What to take away
 
-- **Tool use (function calling)** — the general mechanism: the model calls any external function; retrieval
+- Tool use (function calling) — the general mechanism: the model calls any external function; retrieval
   is a special case of it.
-- The model **only produces the intent** — your code executes it: the model decides "what," your runtime
+- The model only produces the intent — your code executes it: the model decides "what," your runtime
   does "how." That is also the security boundary.
-- The mechanism is **tool definition → tool call → tool result → continue**; the same loop as Agentic RAG,
+- The mechanism is "tool definition → tool call → tool result → continue"; the same loop as Agentic RAG,
   with any action.
-- **A tool definition is a prompt**: the model chooses by the words, not the code. A good tool: clear
+- A tool definition is a prompt: the model chooses by the words, not the code. A good tool: clear
   description, strict schema, few and non-overlapping, clear errors.
 - New failure modes: the wrong tool, invalid arguments, making things up on top of the result, and
-  **security** — a write tool plus prompt injection, hence **least privilege**.
+  security — a write tool plus prompt injection, hence least privilege.
 
 **New terms** → [Glossary](../glossary.md): tool use / function calling, tool definition, tool call, tool
 result, tool selection, JSON Schema, structured output.

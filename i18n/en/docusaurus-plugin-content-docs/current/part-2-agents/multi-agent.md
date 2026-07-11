@@ -8,7 +8,7 @@ sidebar_position: 4
 
 Every lesson so far built *one* agent. [agentic-rag](./agentic-rag.md) gave you the loop; [tool-use](./tool-use.md)
 gave it tools to call; [planning-loops](./planning-loops.md) taught it to plan over that loop and to stop.
-This lesson asks a different question: what if, instead of one agent, you use **several specialized agents**
+This lesson asks a different question: what if, instead of one agent, you use several specialized agents
 that collaborate?
 
 Two questions run through the whole lesson, and they matter equally. First, *why* would you split one agent
@@ -52,7 +52,7 @@ There are a few standard shapes. Most real systems are one of these, or a compos
 the specialist worker that fits, and synthesizes the results into one answer. This is the most common
 topology, and the rest of the lesson leans on it.
 
-**Chain (sequential).** Agents in a **chain** each transform the previous one's output — writer → editor →
+**Chain (sequential).** Agents in a chain each transform the previous one's output — writer → editor →
 fact-checker, each stage handing its work to the next. The output of one is the input of the next, in a fixed
 order.
 
@@ -66,13 +66,13 @@ rationalize its way past.
 
 ## Communication — messages and handoff
 
-Agents talk to each other through **messages**. The move that actually transfers work is a **handoff**:
+Agents talk to each other through messages. The move that actually transfers work is a **handoff**:
 passing control *plus* the relevant context from one agent to another.
 
 The design lever that decides whether this works is *what context* travels on each handoff. Give the
 receiving agent too little and it can't do the job. Give it too much and you get context bloat and a worker
 that has lost the thread. This is the multi-agent version of tool-use's *a tool definition is a prompt* —
-here, **the handoff message is a prompt**. It has to carry exactly what the next agent needs to act on, and
+here, *the handoff message is a prompt*. It has to carry exactly what the next agent needs to act on, and
 nothing more.
 
 ## The orchestrator is itself an agent
@@ -122,20 +122,20 @@ synthesizer combines what they each found into one answer. Same topology, differ
 
 ## What to take away
 
-- Multi-agent is a **higher-cost tier**, not a reward — take the simplest level that solves the task, and be
+- Multi-agent is a higher-cost tier, not a reward — take the simplest level that solves the task, and be
   as ready to say *when not to* as *when to*.
-- You split one agent into several for four reasons: **specialization** (focused role + small orthogonal
-  toolset), **context isolation** (each agent its own window, the orchestrator sees only results — the reason
-  that scales), **modularity**, and **parallelism**.
-- Four standard topologies: **orchestrator–workers** (a lead decomposes, routes, synthesizes — the common
-  one), **chain** (each agent transforms the previous output), **hierarchical** (orchestrators of
-  orchestrators), and **debate / critic** (independent perspectives raise quality).
-- Agents communicate by messages; a **handoff** passes control plus context, and **the handoff message is a
-  prompt** — carry exactly what the receiver needs, no more.
-- An **orchestrator is just an agent**: decompose + route + synthesize, with the sub-agents as its tools.
+- You split one agent into several for four reasons: specialization (focused role + small orthogonal
+  toolset), context isolation (each agent its own window, the orchestrator sees only results — the reason
+  that scales), modularity, and parallelism.
+- Four standard topologies: orchestrator–workers (a lead decomposes, routes, synthesizes — the common
+  one), chain (each agent transforms the previous output), hierarchical (orchestrators of
+  orchestrators), and debate / critic (independent perspectives raise quality).
+- Agents communicate by messages; a handoff passes control plus context, and *the handoff message is a
+  prompt* — carry exactly what the receiver needs, no more.
+- An orchestrator is just an agent: decompose + route + synthesize, with the sub-agents as its tools.
   Nothing new, the old primitives re-aimed.
-- The brake: **cost and latency multiply (~N×)**, **errors propagate** with no shared ground truth,
-  **coordination has overhead**, and it's **harder to debug and eval** (stitch the trajectory across agents).
+- The brake: cost and latency multiply (~N×), errors propagate with no shared ground truth,
+  coordination has overhead, and it's harder to debug and eval (stitch the trajectory across agents).
   A single well-designed agent usually wins.
 - You've already seen one: the editorial/authoring team behind a handbook, and deep-research systems, are
   orchestrator–worker teams — a lead that decomposes, routes to blind specialists, and synthesizes.

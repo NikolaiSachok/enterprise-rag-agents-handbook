@@ -52,7 +52,7 @@ At the core is a simple loop. It spins until the model decides it's ready to ans
 
 ```mermaid
 flowchart LR
-    R["Reason<br/>what I know, what I lack"] --> Q{"enough?"}
+    R["Reason<br/>what I know, what I lack"] --> Q{"Enough?"}
     Q -- "yes" --> Ans["Answer"]
     Q -- "no" --> D["Decide<br/>which action"]
     D --> A["Act<br/>a retrieval / tool call"]
@@ -101,7 +101,7 @@ the model**.
 3. **Full loop (ReAct-style).** A real `reason → decide → act → observe` in a loop, with self-correction and
    a variable number of steps.
 
-One practical rule to lock in now: **take the simplest level that solves the task.** A full
+One practical rule to lock in now: take the simplest level that solves the task. A full
 agentic loop isn't a prize, it's a cost. Often a router on top of good static RAG beats a "full agent" on
 cost, latency, and stability.
 
@@ -116,7 +116,7 @@ Hand control to the model, and you pay for exactly that.
 - **Debugging and eval get harder.** The failure can happen at any step of the loop: a bad routing
   decision, a bad reformulation, a loop that won't terminate.
 
-Hence the direct bridge to the cross-cutting layer. **Observability** goes from useful to **mandatory**:
+Hence the direct bridge to the cross-cutting layer. **Observability** goes from useful to mandatory:
 without a record of the whole chain of steps and calls, you simply can't debug the agent's bad answer. And
 **eval** now measures not only "found / generated" but the quality of the trajectory — was the route chosen
 right, did the agent loop forever. Part I isn't repealed: it becomes the foundation on top of which the
@@ -124,17 +124,17 @@ agent makes its decisions.
 
 ## What to take away
 
-- **Static RAG** = a fixed `retrieve → generate` pipeline, the code in control. **Agentic RAG** = retrieval
-  becomes an **action in a loop**, the model in control.
-- Agency is needed where the pipeline breaks: **multi-hop**, "no retrieval needed", **source routing**,
-  **self-correction** after a bad result.
-- The mechanism is the **reason → decide → act → observe** loop, repeated until it's ready to answer.
-- It's a **spectrum**: router → query planning → full loop. Take the **simplest level** that solves the
+- Static RAG = a fixed `retrieve → generate` pipeline, the code in control. Agentic RAG = retrieval
+  becomes an action in a loop, the model in control.
+- Agency is needed where the pipeline breaks: multi-hop, "no retrieval needed", source routing,
+  self-correction after a bad result.
+- The mechanism is the "reason → decide → act → observe" loop, repeated until it's ready to answer.
+- It's a spectrum: router → query planning → full loop. Take the simplest level that solves the
   task.
-- You pay in **latency, cost, unpredictability, and debugging difficulty** — which is why **observability
-  and eval from Part I become mandatory**.
+- You pay in latency, cost, unpredictability, and debugging difficulty — which is why observability
+  and eval from Part I become mandatory.
 
-**New terms** → [Glossary](../glossary.md): Agentic RAG, agent loop, ReAct (reasoning + acting),
+**New terms** → [Glossary](../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting),
 routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection, iterative
 retrieval.
 

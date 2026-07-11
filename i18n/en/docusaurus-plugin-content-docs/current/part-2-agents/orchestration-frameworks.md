@@ -33,7 +33,7 @@ is a good orientation before we get into what each layer buys you.
 Start with the honest question: if you skip the framework, what do you write yourself? Once you've built a
 couple of agents from scratch, the answer is a familiar pile of plumbing.
 
-The loop comes first — the reason→act→observe cycle itself, spun until the agent decides it's done. Then the
+The loop comes first — the reason → decide → act → observe cycle itself, spun until the agent decides it's done. Then the
 tool-calling glue around it: the schemas the model reads, the dispatch that maps a tool name to the right
 function, and the formatting that folds each result back into the conversation. Neither of those is deep, but
 both are fiddly, and you write them every single time.
@@ -72,17 +72,19 @@ writing adapters by hand. LangChain lives here, and so does LlamaIndex, which is
 particular. If your problem is "wire the agent to fifteen different services," this is the layer you're
 shopping in.
 
-The **control-flow and state layer** is where the graph idea lives: LangGraph, and Semantic Kernel from
-Microsoft, which is enterprise-oriented and organized around skills and planners rather than an explicit
-graph. This is the layer that owns the state machine of the previous section.
+The **control-flow and state layer** is where the graph idea lives: LangGraph, and Microsoft Agent
+Framework, Microsoft's enterprise-oriented entry. This is the layer that owns the state machine of the
+previous section.
 
-The **multi-agent layer** packages the multi-agent lesson's topologies. AutoGen (also Microsoft) centers on agents that
-converse with one another; CrewAI organizes work into role-based "crews" of agents with assigned jobs. When
-the thing you want to model *is* a team, you start here.
+The **multi-agent layer** packages the multi-agent lesson's topologies. CrewAI organizes work into
+role-based "crews" of agents with assigned jobs; Microsoft Agent Framework ships prebuilt multi-agent
+orchestrations, inherited from AutoGen — agents that converse with one another. When the thing you want to
+model *is* a team, you start here.
 
 One caveat, and it matters more than the taxonomy. These borders blur — LangChain does control flow too,
-frameworks copy each other's good ideas within a release or two, and the whole ecosystem churns fast. Read the
-three layers as a snapshot of philosophies, not a durable leaderboard. Learn the categories; the version
+frameworks copy each other's good ideas within a release or two, and the whole ecosystem churns fast —
+Microsoft Agent Framework 1.0 (GA April 2026) absorbed Semantic Kernel and AutoGen, both now in maintenance
+mode. Read the three layers as a snapshot of philosophies, not a durable leaderboard. Learn the categories; the version
 numbers will have moved by the time you ship.
 
 ## Typical patterns you actually use
@@ -140,9 +142,10 @@ layer that Part III takes up: the graph you built here is the thing you'll trace
 - The main abstraction most frameworks converge on is the **agent as a graph / state machine**: nodes (call
   model, call tool, decide) and edges (control flow, including loops). The AI-delta is that this turns an
   opaque `while` loop into a controllable, inspectable, resumable machine.
-- Sort the players by layer — integrations (LangChain, LlamaIndex), control-flow/state (LangGraph, Semantic
-  Kernel), multi-agent (AutoGen, CrewAI) — but treat it as a snapshot: the borders blur and the ecosystem
-  churns. Learn the categories, not the version numbers.
+- Sort the players by layer — integrations (LangChain, LlamaIndex), control-flow/state (LangGraph,
+  Microsoft Agent Framework), multi-agent (CrewAI and Microsoft Agent Framework's orchestrations) — but
+  treat it as a snapshot: the borders blur and the ecosystem churns. Learn the categories, not the version
+  numbers.
 - The cost is **abstraction**: a framework hides the prompt and control flow, so you debug through layers you
   didn't write. For a simple agent, a plain loop plus native tool-calling is clearer.
 - The rule: **primitives first**. Use a framework to remove boilerplate, not to avoid understanding — a graph

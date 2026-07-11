@@ -30,7 +30,9 @@ spec already describe what a tool does, what does MCP actually add?
 
 ## What MCP is
 
-**MCP (Model Context Protocol)** is an open standard introduced by Anthropic in late 2024, built on a
+**MCP (Model Context Protocol)** is an open standard introduced by Anthropic in late 2024 and donated in
+December 2025 to the Agentic AI Foundation under the Linux Foundation — neutral, community-driven
+governance. It is built on a
 client–server architecture. Two roles do the work. An **MCP server** wraps a single tool or data source — a
 database, a file system, a SaaS API, a code repository — and exposes its capabilities in a uniform way. An
 **MCP client** is the agent or app on the other end: it connects to servers and consumes whatever they
@@ -154,7 +156,8 @@ that connects to the world through a common plug.
 - The **M×N integration problem** — M apps × N tools = M × N bespoke connectors — is what a standard exists to
   kill. MCP collapses it to **N + M**: wrap each tool once as a server, implement the client once per app.
   Think **a USB-C port for AI applications**.
-- **MCP (Model Context Protocol)** is an open client–server standard (Anthropic, late 2024). An **MCP server**
+- **MCP (Model Context Protocol)** is an open client–server standard (created by Anthropic in late 2024, a
+  project of the Agentic AI Foundation under the Linux Foundation since December 2025). An **MCP server**
   wraps a tool or data source; an **MCP client** is the agent that consumes it. It standardizes three
   primitives — **tools**, **resources**, and **prompts** — over stdio (local) or streamable HTTP (remote).
 - The AI delta: MCP **decouples building tools from building agents.** Author a server once, and any client

@@ -310,8 +310,8 @@ solutions, raising quality through independent perspectives.
 ## Agents — orchestration frameworks
 
 **Orchestration framework** — a library that packages the agent loop, tool-calling glue, state, control
-flow, and multi-agent orchestration so you don't hand-roll them (LangChain, LangGraph, LlamaIndex, Semantic
-Kernel, AutoGen, CrewAI).
+flow, and multi-agent orchestration so you don't hand-roll them: LangChain, LangGraph, LlamaIndex,
+Microsoft Agent Framework (the successor to Semantic Kernel and AutoGen), CrewAI.
 
 **Agent as a graph / state machine** — modeling an agent as nodes (call model / call tool / decide) and
 edges (control flow, including loops) so the loop becomes inspectable, resumable, and controllable.
@@ -326,7 +326,8 @@ in a framework, a first-class interrupt node.
 
 ## Agents — MCP and agent protocols
 
-**MCP (Model Context Protocol)** — an open client–server standard (Anthropic, late 2024) for connecting
+**MCP (Model Context Protocol)** — an open client–server standard (created by Anthropic in late 2024, a
+project of the Agentic AI Foundation under the Linux Foundation since December 2025) for connecting
 agents to tools and data; standardizes tools, resources, and prompts. Turns M×N bespoke integrations into
 N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
@@ -340,5 +341,5 @@ N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
 **M×N integration problem** — M apps × N tools = M×N bespoke connectors; a standard collapses it to N+M.
 
-**A2A (Agent-to-Agent)** — an emerging standard (Google) for agent-to-agent communication; MCP is
-agent-to-tools, A2A is agent-to-agent.
+**A2A (Agent-to-Agent)** — an emerging standard (created by Google, a Linux Foundation project since
+June 2025) for agent-to-agent communication; MCP is agent-to-tools, A2A is agent-to-agent.

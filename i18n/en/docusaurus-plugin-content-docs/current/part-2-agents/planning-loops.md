@@ -123,7 +123,7 @@ best shot at it stopping *for the right reason*.
 ## The coding agent — this layer made visible
 
 If you want to watch this whole control layer with your own eyes, use a coding agent. Hand one a programming
-task and watch its `reason → act → observe` chain and its self-correction stream past in the intermediate output —
+task and watch its ReAct chain `reason → act → observe` and its self-correction stream past in the intermediate output —
 the loop that was abstract in agentic-rag is right there on screen, step after step.
 
 Weaker or older models make the failure modes vivid. On a hard task they sometimes loop — retry the same
@@ -149,7 +149,7 @@ done. That last one, again, is your explicit plan earning its keep.
 ## Where this sits — and what it costs downstream
 
 Placement first. This is the control layer *over* the loop from agentic-rag and *over* the tools from
-tool-use: decomposition and termination sit on top of the `reason → act → observe` loop that calls tools.
+tool-use: decomposition and termination sit on top of the `reason → decide → act → observe` loop that calls tools.
 Nothing here replaces those lessons — it steers what they built.
 
 Two downstream consequences sharpen points you've already met. **Observability** stops being merely useful and
@@ -162,7 +162,7 @@ an agent that gets the right answer in forty steps when six would do is not a go
 ## What to take away
 
 - This lesson is the **control layer over the loop and the tools** — decomposition and termination sitting on
-  top of `reason → act → observe`. It steers the freedom the earlier lessons handed the model.
+  top of `reason → decide → act → observe`. It steers the freedom the earlier lessons handed the model.
 - **Task decomposition** turns a goal into a sequence of subtasks, either **explicitly** (a written plan you
   can track) or **implicitly** (a plan that just emerges in the loop). Writing it down helps the model *and*
   helps you.

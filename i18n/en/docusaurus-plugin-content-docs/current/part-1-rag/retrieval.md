@@ -11,7 +11,7 @@ like this: embed the query, return the K nearest vectors by cosine. That's a sta
 finished solution. The retrieval layer is about turning "nearest vectors" into results that are genuinely
 relevant, ordered correctly, and kept within what a given user is allowed to see.
 
-Hold on to the frame from the first lesson: a **retrieval failure** is when the chunk you needed isn't in
+Hold on to the frame from the part overview: a **retrieval failure** is when the chunk you needed isn't in
 what you returned. The whole layer comes down to making that miss happen less often.
 
 :::tip[▶ Video]
@@ -108,7 +108,7 @@ Precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](./cross-cut
 
 **New terms** → [Glossary](../glossary.md): retrieval failure / generation failure, dense retrieval,
 top-K, query transformation, multi-query, HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank
-Fusion, reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K,
+Fusion (RRF), reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K,
 nDCG, MRR.
 
 ---

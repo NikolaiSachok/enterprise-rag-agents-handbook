@@ -7,7 +7,7 @@ sidebar_position: 3
 # Generation
 
 Retrieval handed over good, permitted context. Now the "G" — the model has to phrase an answer **from that
-context**. Go back to the frame from the first lesson: a **generation failure** is when the chunk you needed
+context**. Go back to the frame from the part overview: a **generation failure** is when the chunk you needed
 *was* in the context, but the answer still came out wrong. The model ignored it, garbled it, or mixed in its
 own guess. This layer is about not letting that happen.
 

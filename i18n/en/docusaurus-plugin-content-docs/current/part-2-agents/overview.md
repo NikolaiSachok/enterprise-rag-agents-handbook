@@ -25,8 +25,8 @@ latency, cost, and debugging difficulty. The engineering job isn't to "make it m
   criteria, and breaking out of loops.
 - **[Multi-agent systems](./multi-agent.md)** — several specialized agents, roles, handoff; the topologies
   and when NOT to split one agent.
-- **[Orchestration frameworks](./orchestration-frameworks.md)** — LangGraph, LangChain, Semantic Kernel,
-  AutoGen, CrewAI: what they add on top of a bare loop, and when to skip them.
+- **[Orchestration frameworks](./orchestration-frameworks.md)** — LangGraph, LangChain, Microsoft Agent
+  Framework, CrewAI: what they add on top of a bare loop, and when to skip them.
 - **[MCP and agent protocols](./mcp.md)** — a standardized way for an agent to reach tools and data; MCP
   versus A2A.
 

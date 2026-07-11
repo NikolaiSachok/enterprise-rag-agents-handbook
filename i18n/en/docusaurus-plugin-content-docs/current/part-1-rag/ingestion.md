@@ -37,8 +37,8 @@ Two independent constraints force the split:
    single idea is sharp. The vector of an entire 40-page manual is a blurry cloud that matches *any*
    specific question poorly.
 2. **A chunk is both the unit of search and the unit of what the LLM sees.** Search runs over chunks,
-   and the chunks it finds are what get fed to the model. Keep this in mind for the whole section: **a
-   chunk plays two roles at once, and they pull its size requirements in opposite directions.**
+   and the chunks it finds are what get fed to the model. Keep this in mind for the whole section: a
+   chunk plays two roles at once, and they pull its size requirements in opposite directions.
 
 ### The key tradeoff: large chunk vs. small chunk
 
@@ -107,13 +107,13 @@ it). Three reasons to lay this down right here:
   payroll ledger back in an answer. Permissions are checked at the chunk level — and it's the metadata
   that carries them.
 
-**Takeaway: metadata is laid down at the chunking stage.** If you didn't attach it then, there's nowhere
+**Takeaway:** metadata is laid down at the chunking stage. If you didn't attach it then, there's nowhere
 to get it from later.
 
 ### Looking ahead: a chunk has two roles — you can split them apart
 
 Back to the fact that a chunk is both searched over and fed to the LLM. An advanced idea (in detail — in
-the [retrieval](./retrieval.md) layer): **it doesn't have to be the same piece of text.** You can *search*
+the [retrieval](./retrieval.md) layer): it doesn't have to be the same piece of text. You can *search*
 over small, sharp chunks (a good embedding) and *feed the LLM* a larger parent fragment around the match
 (full context). This family of techniques is *parent-document / small-to-big retrieval*. For now it's
 enough to remember that splitting a chunk's two roles apart is possible.
@@ -128,7 +128,7 @@ enough to remember that splitting a chunk's two roles apart is possible.
   and access control.
 - You **measure** chunk size with metrics — you don't guess it.
 
-**New terms** → [Glossary](../glossary.md): chunk, chunk overlap, recursive/structural chunking, semantic
+**New terms** → [Glossary](../glossary.md): chunk, chunk overlap, recursive / structural chunking, semantic
 chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 ---
@@ -140,11 +140,11 @@ You know the general mechanics: chunk → vector → vector database. Here are t
 
 ### What an embedding actually is
 
-An embedding is a vector in a space where **geometric closeness means closeness in meaning**. The model
+An embedding is a vector in a space where geometric closeness means **closeness in meaning**. The model
 is a trained "text → vector" function: texts about the same thing land near each other, unrelated ones
 land far apart. Search is then "find the vectors nearest to the query's vector."
 
-The main consequence follows: **retrieval quality is capped by embedding quality.** If the vector of the
+The main consequence follows: retrieval quality is capped by embedding quality. If the vector of the
 chunk you need didn't land near the query's vector, there's almost nothing further down the pipeline that
 can save it (hybrid search only softens the blow — more on that in the retrieval layer). That's why
 the choice of model lays the foundation for all of retrieval.

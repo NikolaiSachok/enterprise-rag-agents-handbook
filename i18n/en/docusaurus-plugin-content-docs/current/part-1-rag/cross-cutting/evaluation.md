@@ -13,7 +13,7 @@ better" into a number. That's what separates production from a demo, and it's wh
 
 ## The core principle: evaluate retrieval and generation separately
 
-The failure decomposition from the first lesson turns into a working tool here. The two stages break in
+The failure decomposition from the part overview turns into a working tool here. The two stages break in
 different ways and get fixed with different levers — so you have to measure them apart.
 
 | | **Retrieval metrics** — did we find the right chunks? | **Generation metrics** — is the answer good given the context? |
@@ -85,12 +85,12 @@ The main practical power of eval: it shows you which stage the failure is in.
 
 - Eval turns "feels better" into a number; it makes the pipeline tunable and separates production from a
   demo.
-- Measure retrieval and generation **separately** — they break in different ways.
-- Retrieval: **Recall@K** (the main one), Precision@K, MRR, nDCG. Generation: faithfulness, answer
+- Measure retrieval and generation separately — they break in different ways.
+- Retrieval: Recall@K (the main one), Precision@K, MRR, nDCG. Generation: faithfulness, answer
   relevance, correctness.
-- You need a **golden set** (question + relevant chunks / correct answer); a clean set beats a big one.
-- **LLM-as-a-judge** scores free-form text against a rubric; mind the biases, validate against humans.
-- **Offline** (regressions in CI) + **online** (feedback, A/B).
+- You need a golden set (question + relevant chunks / correct answer); a clean set beats a big one.
+- LLM-as-a-judge scores free-form text against a rubric; mind the biases, validate against humans.
+- Offline (regressions in CI) + online (feedback, A/B).
 - Metrics tell you which stage to fix.
 
 **New terms** → [Glossary](../../glossary.md): evaluation, golden set / golden dataset / ground truth, answer relevance,

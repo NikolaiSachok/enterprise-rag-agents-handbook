@@ -48,26 +48,35 @@ expensive, slow patterns and optimize: caching, a cheaper model, fewer chunks in
 
 Production traces and user feedback become new eval cases — exactly the hard, failing real-world queries.
 Catch a bad answer in production → add it to the golden set → guard against the regression. The loop closes:
-**eval measures, guardrails protect, observability sees and feeds what it finds back into eval.** The whole
+eval measures, guardrails protect, observability sees and feeds what it finds back into eval. The whole
 cross-cutting layer is one loop.
 
-*(The tools — LangSmith, LangFuse, Arize Phoenix, OpenTelemetry — are a separate tooling layer, coming
+*(The tools — LangSmith, Langfuse, Arize Phoenix, OpenTelemetry — are a separate tooling layer, coming
 later; here we're on the principle.)*
+
+---
+
+This closes more than the lesson — it closes Part I. You now hold its backbone: a bad answer decomposes
+into a retrieval failure or a generation failure, the pipeline is built layer by layer — ingestion,
+retrieval, generation — and the cross-cutting practices keep it measurable, safe, and visible. In
+[Part II](../../part-2-agents/overview.md) this static pipeline comes alive: the model starts making the
+control-flow decisions — and all the discipline you've built here travels with you.
 
 ## What to take away
 
 - Observability = seeing what a live LLM system actually does; you need it because the system is
   nondeterministic and, without a full record, a bad answer can't be debugged.
-- The core primitive is the **trace** (spans) of one request end to end: query → retrieval+score → prompt →
+- The core primitive is the trace (spans) of one request end to end: query → retrieval+score → prompt →
   output → agent steps.
-- Log the RAG specifics: **chunks with scores**, the final prompt, the raw output, latency/tokens/cost per
+- Log the RAG specifics: chunks with scores, the final prompt, the raw output, latency/tokens/cost per
   step.
-- Three pillars: **traces** (the key one for LLM), metrics (latency/cost/quality), logs.
-- **Cost and latency** come first (tokens = money, calls are slow).
-- Observability **feeds eval**: production failures → new golden-set cases → eval-driven development.
+- Three pillars: traces (the key one for LLM), metrics (latency/cost/quality), logs.
+- Cost and latency come first (tokens = money, calls are slow).
+- Observability feeds eval: production failures → new golden-set cases → eval-driven development.
 
-**New terms** → [Glossary](../../glossary.md): observability, trace / span, RAG tracing, cost per request,
-latency, token accounting, three pillars (metrics / logs / traces), feedback loop.
+**New terms** → [Glossary](../../glossary.md): observability, trace / span, RAG tracing, cost per request /
+token accounting, latency (p50 / p95), three pillars (metrics / logs / traces), feedback loop
+(observability → eval).
 
 ---
 
