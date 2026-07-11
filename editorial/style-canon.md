@@ -489,8 +489,8 @@ milestone-проход.
 | part-2-agents/orchestration-frameworks | #72 (авторский гейт) | milestone-проход #81, milestone-проход #83 |
 | part-2-agents/mcp | #80 | milestone-проход #81 |
 | glossary | #58 | #59, #67, #69, #72, #78, milestone-проход #81, #82, milestone-проход #83 |
-| part-3-production/overview | холодный прогон #TBD | — |
-| part-3-production/serving | холодный прогон #TBD | — |
-| part-3-production/cloud-platforms | холодный прогон #TBD | — |
-| part-3-production/tooling-ecosystem | холодный прогон #TBD | — |
-| part-3-production/llmops | холодный прогон #TBD | — |
+| part-3-production/overview | холодный прогон #85 | — |
+| part-3-production/serving | холодный прогон #85 | — |
+| part-3-production/cloud-platforms | холодный прогон #85 | — |
+| part-3-production/tooling-ecosystem | холодный прогон #85 | — |
+| part-3-production/llmops | холодный прогон #85 | — |
