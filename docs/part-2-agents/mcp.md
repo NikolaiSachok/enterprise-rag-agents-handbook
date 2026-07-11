@@ -6,7 +6,7 @@ sidebar_position: 6
 
 # MCP and agent protocols — the standard that wires agents to the world
 
-In [tool-use](./tool-use.md) the agent learned to call tools, but every integration was its own bespoke job:
+In [tool-use](./tool-use/index.md) the agent learned to call tools, but every integration was its own bespoke job:
 each agent wired to each tool by hand-written glue. That works for one agent and three tools. It stops
 working the moment you have many of each. With M apps that each need N tools, you are on the hook for M × N
 custom connectors — the same database wrapper rebuilt for every agent, the same agent re-taught for every
@@ -144,7 +144,7 @@ even when it's phrased like one.
 ---
 
 That closes the lesson — and the core toolkit of Part II. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag.md) —
-retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use.md)), a way to
+retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use/index.md)), a way to
 plan over many steps and actually stop ([planning-loops](./planning-loops.md)), teammates to divide the work
 ([multi-agent](./multi-agent.md)), and frameworks to package all of it
 ([orchestration-frameworks](./orchestration-frameworks.md)). This lesson supplied the last piece: the

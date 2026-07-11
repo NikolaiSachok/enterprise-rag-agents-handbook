@@ -7,7 +7,7 @@ sidebar_position: 3
 # Planning & loops — steering the loop toward the goal, and making it stop
 
 In [agentic-rag](./agentic-rag.md) you got the loop: `reason → decide → act → observe`, spinning until the
-model decides it's ready. In [tool-use](./tool-use.md) you saw that every action in that loop is a tool call —
+model decides it's ready. In [tool-use](./tool-use/index.md) you saw that every action in that loop is a tool call —
 the model emits the intent, your code does the calling. So the agent has freedom of movement and a set of
 actions. What we never asked: on a task that takes *many* steps, how does the agent decide the sequence of
 steps — and what makes the loop **stop**? That control layer is this lesson.

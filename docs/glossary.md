@@ -257,6 +257,32 @@ parameters and narrows what the model may emit.
 **Structured output** — model output in a prescribed machine-readable form (JSON to a schema) rather than
 free text; the basis for reliable tool calling.
 
+**Parallel tool calls** — several independent tool calls the model emits in one turn; the runtime fans them
+out (runs them concurrently) and fans them in (collects the results). Valid only when the calls don't depend
+on or interfere with each other; controlled per vendor (`disable_parallel_tool_use`, `parallel_tool_calls`).
+
+**Constrained decoding** — enforcing a schema during generation: the schema is compiled to a grammar, and at
+each step every token that would break the grammar is masked out, so the output is schema-valid by
+construction rather than validated afterward.
+
+**Strict mode / Structured Outputs** — the productized switch (`strict: true`) that turns constrained
+decoding on for tool arguments; guarantees well-formed, schema-valid arguments (not correct ones). Requires
+`additionalProperties: false` and every property marked required.
+
+**Idempotency / idempotency key** — a write is idempotent when running it twice with the same input has the
+same effect as running it once; an idempotency key lets the server dedupe retried writes, so a retry after a
+timeout is safe. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Idempotence)
+
+**Tool-RAG / dynamic tool loadout** — retrieving only the tools relevant to the current query and loading
+just those, instead of shipping the whole catalog on every request; RAG over the tool menu. Cuts token cost
+and tool-selection errors on large tool sets.
+
+**Argument validation** — checking a tool call's arguments before executing, at two levels: schema-level
+(types, enums, formats) and semantic (values wrong in context — an unknown id, an out-of-range amount).
+
+**Retry budget** — a hard ceiling on retry attempts, per call and per run; without it a deterministically
+failing call becomes a non-terminating retry loop. Mirrors the step budget and token budget.
+
 ## Agents — planning & loops
 
 **Planning** — how the agent arranges the sequence of steps toward a goal; the plan may be fixed up front or

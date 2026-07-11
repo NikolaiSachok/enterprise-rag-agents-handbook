@@ -7,7 +7,7 @@ sidebar_position: 7
 # Real agents — Claude, OpenAI, Gemini illustrate the techniques
 
 Part II built the agent one capability at a time: the loop that decides for itself in
-[agentic-rag](./agentic-rag.md), the tools it acts with in [tool-use](./tool-use.md), a way to plan and
+[agentic-rag](./agentic-rag.md), the tools it acts with in [tool-use](./tool-use/index.md), a way to plan and
 actually stop in [planning-loops](./planning-loops.md), teammates to divide the work in
 [multi-agent](./multi-agent.md), the frameworks that package all of it in
 [orchestration-frameworks](./orchestration-frameworks.md), and the protocol that wires it to the world in
@@ -35,7 +35,7 @@ complexity, so the engineering is choosing the *least* agency that does the job,
 Every agent grows hands the same way. You declare a tool as a name, a description in words, and a
 JSON Schema of its arguments; the model emits a **structured intent** — which tool, what arguments — but
 never runs anything; your runtime executes the call and feeds the result back; the loop continues. That is
-the tool-use round-trip from [tool-use](./tool-use.md), and it is identical across all three vendors. Only
+the tool-use round-trip from [tool-use](./tool-use/index.md), and it is identical across all three vendors. Only
 the shape on the wire changes.
 
 ```mermaid
@@ -75,7 +75,7 @@ vague description misfires the same way whichever vendor you picked.
 Which is exactly why the failure modes are vendor-independent. The wrong tool or no call at all, invalid
 arguments, a model confabulating on top of the result — those come from tool *design*, not from the API
 that carries them. Strict schemas and a small, non-overlapping tool set are the fix on all three, and no
-vendor sells you out of doing that work ([tool-use](./tool-use.md)).
+vendor sells you out of doing that work ([tool-use](./tool-use/index.md)).
 
 ## Getting data — retrieval is a tool with citations
 
@@ -141,7 +141,7 @@ much reasoning you bought ([planning-loops](./planning-loops.md)).
 A good agent recovers instead of dying. A tool error is fed back as *model-visible text* so the model
 corrects itself and retries, and longer work is made **resumable** by persisting state, so a run can pick up
 from a checkpoint instead of restarting from zero. This is tool-use's "clear errors → the loop self-heals,"
-scaled up from one call to a whole run ([tool-use](./tool-use.md)).
+scaled up from one call to a whole run ([tool-use](./tool-use/index.md)).
 
 As of mid-2026, Claude returns a tool error through `tool_result` with `is_error:true` and an instructive
 message; the docs note it "will retry 2–3 times with corrections before apologizing." The Agent SDK persists sessions as local
@@ -169,7 +169,7 @@ progress by real state rather than a timestamp ([planning-loops](./planning-loop
 You don't trust the loop blindly. You interpose checks around tool calls and I/O: a pre-hook that can block
 or demand approval before a dangerous action, a post-hook that inspects output, a policy layer that gates
 what's even allowed. It is the least-privilege principle from tool-use turned into machinery
-([tool-use](./tool-use.md)).
+([tool-use](./tool-use/index.md)).
 
 Claude ships this at the harness level. **Claude Code hooks** are lifecycle events you shell out from —
 `PreToolUse` (which can block), `PostToolUse`, `PermissionRequest`, `Stop`, `SubagentStop`, and more — and
@@ -193,7 +193,7 @@ Gemini/ADK gives you a fixed callback matrix, in-model safety, and a bolt-on Mod
 
 And the same durable failure: a guardrail you can bypass isn't one. The dangerous surface is the tool that
 *writes or acts*, reached through prompt injection, so human-in-the-loop approval on sensitive actions is
-the real backstop. A hook that only logs stops nothing ([tool-use](./tool-use.md)).
+the real backstop. A hook that only logs stops nothing ([tool-use](./tool-use/index.md)).
 
 ## Multi-agent — split into an orchestrator and isolated workers
 
