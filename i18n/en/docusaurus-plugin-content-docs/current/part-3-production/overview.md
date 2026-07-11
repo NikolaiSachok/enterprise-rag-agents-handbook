@@ -1,7 +1,7 @@
 ---
 id: overview
 title: Part III — Production & LLMOps
-sidebar_label: Part III — Production & LLMOps
+sidebar_label: Part overview
 ---
 
 # Part III — Production & LLMOps
@@ -14,7 +14,8 @@ observably, and on budget."
 ## What's inside
 
 - **Serving — FastAPI + Docker** 🚧 — wrapping a model or agent in a service: API, container, scaling.
-- **Cloud AI platforms** 🚧 — Azure OpenAI, AWS Bedrock, GCP Vertex: what they offer and how they differ.
+- **Cloud AI platforms** 🚧 — Azure OpenAI, Amazon Bedrock, Google Cloud Gemini Enterprise Agent Platform
+  (formerly Vertex AI): what they offer and how they differ.
 - **The tooling ecosystem** 🚧 — eval, guardrails, observability in production: what to measure, what to
   guard, what to see.
 - **LLMOps** 🚧 — deploy, monitor, cost: the LLM system's life after release.

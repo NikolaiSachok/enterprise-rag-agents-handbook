@@ -7,6 +7,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
  *  - docs/intro.md                -> Введение (root)
  *  - docs/part-1-rag/*            -> Часть I — RAG
  *  - docs/part-2-agents/*         -> Часть II — Агенты
+ *  - docs/part-3-production/*     -> Часть III — Production и LLMOps
  *  - docs/glossary.md            -> Глоссарий
  * Ordering comes from `sidebar_position` frontmatter and `_category_.json`.
  */

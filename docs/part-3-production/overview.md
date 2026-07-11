@@ -1,7 +1,7 @@
 ---
 id: overview
 title: Часть III — Production и LLMOps
-sidebar_label: Часть III — Production и LLMOps
+sidebar_label: Обзор части
 ---
 
 # Часть III — Production и LLMOps
@@ -15,7 +15,8 @@ sidebar_label: Часть III — Production и LLMOps
 
 - **Serving — FastAPI + Docker** 🚧 — как завернуть модель или агента в сервис: API, контейнер,
   масштабирование.
-- **Облачные AI-платформы** 🚧 — Azure OpenAI, AWS Bedrock, GCP Vertex: что они дают и чем отличаются.
+- **Облачные AI-платформы** 🚧 — Azure OpenAI, Amazon Bedrock, Google Cloud Gemini Enterprise Agent
+  Platform (экс-Vertex AI): что они дают и чем отличаются.
 - **Экосистема инструментов** 🚧 — eval, guardrails, observability в проде: чем мерить, чем защищать, чем
   видеть.
 - **LLMOps** 🚧 — деплой, мониторинг, стоимость: жизнь LLM-системы после релиза.
