@@ -422,7 +422,7 @@ Provisioned Throughput, уровень Reserved в Bedrock).
 (Bedrock Knowledge Bases, Foundry IQ поверх Azure AI Search, Vertex RAG Engine); скорость в обмен на
 ручки настройки.
 
-**Vendor lock-in (привязка к поставщику)** — зависимость, которую создают платформенные «батарейки»
+**Vendor lock-in (привязка к поставщику)** — зависимость, которую создают платформенные надстройки
 (управляемый RAG, фирменные SDK), а не сам эндпоинт: он чаще всего OpenAI-совместимый.
 
 ## Production — экосистема инструментов
