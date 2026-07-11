@@ -205,6 +205,15 @@ proportionate to a docs site, no ceremony for its own sake.
   `# vX` comment), not a moving tag — supply-chain hardening. The repo's Actions policy **enforces** this
   (GitHub-owned actions only, SHA-pinned), so an unpinned `@v4` will hard-fail the run at startup.
 - **Deploy:** merge to `main` → GitHub Actions builds all locales → GitHub Pages.
+- **Drive PR → CI → merge autonomously; don't make the user poll.** After opening a PR, watch CI to
+  completion and act on the result yourself — do not end the turn parked on a wait or promising "I'll report
+  when CI passes". The mechanism: launch a background wait whose **completion re-invokes you** —
+  `until gh pr checks <N> --json bucket --jq 'all(.[]; .bucket != "pending")' | grep -q true; do sleep 15; done`
+  with `run_in_background: true` — that completion IS your notification hook. On it: **green →** merge (then
+  confirm `gh pr view <N> --json state` = `MERGED`) → clean up branch/worktree → report the finished result;
+  **red →** report the failure and the failing check now, don't sit on it. Self-merge of your own green PRs is
+  pre-authorized for this repo. The user should never have to ask "how's CI?" or "did it merge?" — a state
+  change he'd act on is a cue to report, not to wait.
 - **Concurrent agents: worktree isolation + cleanup.** More than one agent/session may write to this repo
   at once, and the main checkout has ONE global branch — so every writing agent works in its **own git
   worktree** (`git worktree add ../<name> -b <branch>`), never in the shared main checkout, and integrates
