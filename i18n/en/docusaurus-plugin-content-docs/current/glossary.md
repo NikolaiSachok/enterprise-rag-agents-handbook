@@ -346,6 +346,31 @@ N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
 June 2025) for agent-to-agent communication; MCP is agent-to-tools, A2A is agent-to-agent.
 ↗ [a2a-protocol.org](https://a2a-protocol.org)
 
+## Agents — real agents (capstone)
+
+**Extended thinking** — the visible reasoning blocks a model emits before answering; in Claude they surface
+as `thinking` blocks.
+
+**Interleaved thinking** — reasoning *between* tool calls, not only before the first one; in Claude it is
+automatic on adaptive-thinking models.
+
+**Reasoning effort** — controlling reasoning depth with a discrete dial (OpenAI's `reasoning.effort`:
+`none`/`minimal`/`low`/`medium`/`high`/`xhigh`); the reasoning tokens themselves stay opaque and are billed
+as output.
+
+**Thinking budget** — a numeric cap on how much a model reasons per request (Gemini's `thinkingBudget`),
+shifting in Gemini 3 to discrete `thinking_level` tiers.
+
+**Claude Code hooks** — runtime lifecycle events you can shell out from (`PreToolUse` can block a call,
+plus `PostToolUse`, `Stop`, and more).
+
+**ADK callbacks** — a fixed matrix of interception points in ADK (`before`/`after` for agent, model, and
+tool); returning an object from a callback short-circuits the call.
+
+**Permission modes** — modes that decide what an agent may do without confirmation
+(`default`/`acceptEdits`/`plan`/`bypassPermissions`…), evaluated in a fixed order where a `deny` rule blocks
+even under `bypassPermissions`.
+
 ## Production — serving
 
 **Serving** — running a model or a pipeline as a network service. Two distinct senses: serving the

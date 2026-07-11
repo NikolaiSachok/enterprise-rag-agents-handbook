@@ -50,7 +50,9 @@ AutoGen, CrewAI, LangSmith, OpenAPI, Swagger, FastAPI, Pydantic, uvicorn, Docker
 Ollama, Hugging Face (TGI, HF_HOME), Microsoft Foundry (экс-Azure AI Foundry), AWS Bedrock, Vertex AI /
 Gemini Enterprise Agent Platform (GEAP), Model Garden, Amazon Nova, Azure AI Search, Foundry IQ, Ragas,
 DeepEval, promptfoo, Langfuse, Arize Phoenix, OpenTelemetry (OTel), OpenInference, NVIDIA NeMo Guardrails,
-Llama Guard, Granite Guardian, Model Armor, LiteLLM, OpenRouter, Colang**.
+Llama Guard, Granite Guardian, Model Armor, LiteLLM, OpenRouter, Colang, Responses API, Conversations API,
+Agents SDK (OpenAI), Claude Agent SDK, ADK (Agent Development Kit), McpToolset, SequentialAgent, ParallelAgent,
+LoopAgent, AgentTool, Moderation API**.
 
 ### 1.2. Устоявшиеся русские формы (кириллица + мост)
 
@@ -171,6 +173,13 @@ Llama Guard, Granite Guardian, Model Armor, LiteLLM, OpenRouter, Colang**.
 | бэкфил | backfill | (мост-пояснение при первом упоминании: «дозаполнение данных задним числом») |
 | офлайн-, онлайн- (офлайн-работа, онлайн-eval) | offline / online | «оффлайн» с двумя «ф» |
 | заингестить, переингест (dev-жаргон при kept-EN «ingestion») | to ingest, re-ingestion | (в нейтральной прозе — «загрузка в корпус») |
+| расширенное мышление | extended thinking | «экстендед-…»; голое «extended thinking» в теле после моста |
+| чередующееся мышление | interleaved thinking | «интерливед-…»; «перемежающееся мышление» |
+| уровень рассуждения | reasoning effort | «усилие рассуждения» (кандидат); голый `reasoning.effort` в связной прозе без русской формы (в коде/схеме — как есть) |
+| бюджет размышления | thinking budget | «бюджет мышления» («мышление» закреплено за extended/interleaved thinking; форма зеркалит «бюджет шагов» / «бюджет токенов»). Отличать от «бюджета шагов» и «бюджета токенов» |
+| хуки | hooks (Claude Code) | голое «hooks» латиницей в теле (в коде и именах событий `PreToolUse` и т.п. — как есть). НЕ то же, что колбэки ADK |
+| колбэки | callbacks (ADK) | «функции обратного вызова» (описательно — можно); голое «callbacks» латиницей в теле. НЕ то же, что хуки Claude Code |
+| режимы разрешений | permission modes | «гейтинг разрешений» ✗; «гейт разрешений» — только про одиночный шаг-проверку в конвейере разрешений |
 
 «Enterprise» остаётся латиницей только в собственных именах (название книги, «enterprise RAG» как
 устойчивый ярлык темы).
@@ -186,6 +195,7 @@ Llama Guard, Granite Guardian, Model Armor, LiteLLM, OpenRouter, Colang**.
 ### 1.3. Ложные друзья и запрещённые кальки (сводно)
 
 рубрика ← rubric; пассаж ← passage; референс ← reference; коммодити ← commodity; заземлить ← to ground;
+«форма провода» ← wire format (образ «формы провода» читается как физический провод; → «форма обмена»);
 смещение ← bias (у судьи); «поднимают попадание» ← lift the hit rate (→ «повышают долю попаданий»);
 «против запроса» ← against the query (→ «в паре с запросом»); «приоритезирует» (→ «отдаёт приоритет»);
 «сшил / сшивает» ← stitched together / wired up (про соединение агента с инструментами, MCP и т.п. —
@@ -302,9 +312,12 @@ Llama Guard, Granite Guardian, Model Armor, LiteLLM, OpenRouter, Colang**.
   «аккаунт» / «учётная запись», никогда «счёт». (3) Счётная игра слов («где считаются твои токены») —
   допустима там, где двойное чтение заякорено контекстом (закреплено за заголовком cloud-platforms).
   Голый «счёт» там, где доступно чтение «учётная запись», не писать.
-- **«уровень»: тариф vs слой vs надстройка.** Тарифный уровень (pricing tier) — «уровень Reserved»,
-  «тарифный уровень» ✓. Слой абстракции — «слой» (резервация выше). Готовый платформенный продукт поверх
-  эндпоинта (packaged offering) — всегда «надстройка», никогда «уровень» (§1.2).
+- **«уровень»: тариф vs слой vs надстройка vs усилие рассуждения.** Тарифный уровень (pricing tier) —
+  «уровень Reserved», «тарифный уровень» ✓. Слой абстракции — «слой» (резервация выше). Готовый
+  платформенный продукт поверх эндпоинта (packaged offering) — всегда «надстройка», никогда «уровень»
+  (§1.2). Степень усилия рассуждения модели (reasoning effort / `thinking_level`) — «уровень рассуждения»,
+  «дискретные уровни»: законный четвёртый смысл, вводится только в рамке управления рассуждением; рядом с
+  тарифами, слоями и надстройками по-прежнему запрещён без уточнителя.
 - **«резерв / резервный»: fallback vs зарезервированная ёмкость.** «Резервный маршрут», «цепочка
   резервов» — fallback; «зарезервированная ёмкость», «уровень Reserved» — provisioned/reserved capacity.
   Голый «резерв» рядом с тарифами и ёмкостью не писать.
@@ -446,6 +459,12 @@ Llama Guard, Granite Guardian, Model Armor, LiteLLM, OpenRouter, Colang**.
   «диета токенов», «сбои — не катастрофа, а рутина»,
   «регрессионные ворота (quality gate)» *(на испытании)* — фигура llmops; мост «(quality gate)» обязателен
   при первом употреблении на странице.
+- Фигуры капстоуна `real-agents` (подтверждены холодным прогоном при первом контакте): метафора-каркас
+  «части тела» для разделов — «Руки» (инструменты), «Голова» (планирование и циклы), «Тормоза» (хуки и
+  ограничители); «три вывески» (три вендора как витрины одного приёма). «Разъём» (§7) — каноническая
+  метафора MCP из §1.2. **Отвергнуто:** «форма провода» (wire shape) — наивный читатель декодирует её как
+  «физическую форму провода», а не как формат обмена на проводе (калька английского *wire format*);
+  заменено на «форма обмена» (§1.3).
 - Антитезу «не X, а Y» использовать умеренно: это фирменный приём, но 3+ на короткую страницу — перебор.
 - **Испытательный срок фигур.** Фигура, впервые введённая в каком-то PR, не может в том же PR войти в
   список разрешённых как защищённая: до явного подтверждения «наивным читателем» при первом контакте она
@@ -515,6 +534,7 @@ milestone-проход.
 | part-2-agents/multi-agent | #72 (авторский гейт) | milestone-проход #81, milestone-проход #83 |
 | part-2-agents/orchestration-frameworks | #72 (авторский гейт) | milestone-проход #81, milestone-проход #83 |
 | part-2-agents/mcp | #80 | milestone-проход #81 |
+| part-2-agents/real-agents | этот PR (первая полная сверка — капстоун) | — |
 | glossary | #58 | #59, #67, #69, #72, #78, milestone-проход #81, #82, milestone-проход #83 |
 | part-3-production/overview | холодный прогон #85 | — |
 | part-3-production/serving | холодный прогон #85 | — |

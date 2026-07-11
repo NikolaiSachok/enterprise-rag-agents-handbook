@@ -29,6 +29,8 @@ latency, cost, and debugging difficulty. The engineering job isn't to "make it m
   Framework, [CrewAI](https://www.crewai.com): what they add on top of a bare loop, and when to skip them.
 - **[MCP and agent protocols](./mcp.md)** — a standardized way for an agent to reach tools and data; [MCP](https://modelcontextprotocol.io)
   versus [A2A](https://a2a-protocol.org).
+- **[Real agents — Claude, OpenAI, Gemini](./real-agents.md)** — the capstone: every Part II technique run
+  across all three vendors, showing the same durable move under a dozen incompatible APIs.
 
 ## Prerequisites
 
@@ -38,7 +40,8 @@ concerns** — here eval and observability move from nice-to-have to mandatory.
 :::note[Status]
 
 Part II's base is complete — every lesson is published: Agentic RAG, tool use, planning & loops, multi-agent
-systems, orchestration frameworks, and MCP. 🚧 A second pass is still ahead — deepening each layer (topics
-listed in the "Next — going deeper" notes on the lesson pages).
+systems, orchestration frameworks, MCP, and the closing capstone on real agents (Claude, OpenAI, Gemini).
+🚧 A second pass is still ahead — deepening each layer (topics listed in the "Next — going deeper" notes on
+the lesson pages).
 
 :::
