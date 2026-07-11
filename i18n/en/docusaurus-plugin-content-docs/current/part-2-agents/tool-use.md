@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Tool use — how the model acts on the outside world
 
-In the Agentic RAG lesson you took on the key shift: retrieval stopped being a step and became an **action**
+In the Agentic RAG lesson you took in the key shift: retrieval stopped being a step and became an **action**
 the model chooses inside a loop. But retrieval is just one action. **Tool use** — also called **function
 calling** — is the general mechanism: the model can call any external function. Search over a knowledge
 base, a SQL query against a table, an HTTP API call, a calculator, code execution, sending an email.
@@ -125,6 +125,7 @@ result, tool selection, JSON Schema, structured output.
 :::note[Next — going deeper]
 
 🚧 Second pass: parallel tool calls, schema formats and constrained decoding, error-and-retry strategies,
-the context cost of dozens of tools, MCP as the standard for connecting tools.
+the context cost of dozens of tools. The standard for connecting tools is no longer a deepening topic but a
+lesson of its own: [MCP and agent protocols](./mcp.md).
 
 :::

@@ -15,7 +15,7 @@ API. This is the **M×N integration problem**, and it grows the way integration 
 A standard is the usual escape. Wrap each tool once, behind one server; implement the client once, in each
 app; then any app can talk to any tool without new glue. That collapses M × N into **N + M** — you write N
 servers and M clients instead of M × N pairwise connectors. The mental picture the standard itself reaches
-for is **USB-C for AI tools**: one connector instead of a different cable for every device. This lesson is
+for is **a USB-C port for AI applications**: one connector instead of a different cable for every device. This lesson is
 about the protocol that makes that trade, where it genuinely differs from the API docs you already know, and
 the new attack surface it opens.
 
@@ -45,7 +45,7 @@ What makes MCP more than a tool-calling convention is that it standardizes three
   known-good way to invoke them.
 
 Transport is deliberately boring. A server that runs on your own machine speaks over **stdio**; a remote
-server speaks over **HTTP/SSE**. The primitives are the same either way — where the server runs is a
+server speaks over **streamable HTTP**. The primitives are the same either way — where the server runs is a
 deployment detail, not a change to what the client sees.
 
 ## The AI delta — decoupling tools from agents
@@ -111,12 +111,13 @@ an agent" is a habit of authorship, not a property of the protocol.
 ## MCP vs A2A — agent-to-tools versus agent-to-agent
 
 MCP standardizes one axis: agent to tool, agent to data. There is a second axis it says nothing about — agent
-to *agent*, the communication you needed the moment you built the [multi-agent](./multi-agent.md) systems. When one agent hands off to another, what protocol carries that? MCP is the wrong tool;
-it connects an agent to its tools, not an agent to a peer.
+to *agent*, the communication you needed the moment you built [multi-agent](./multi-agent.md) systems. When
+one agent hands off to another, what protocol carries that? MCP is the wrong tool; it connects an agent to
+its tools, not an agent to a peer.
 
-**A2A (Agent-to-Agent)** is the emerging answer — a standard from Google, among others, for agent-to-agent
-communication. The distinction worth committing to memory is clean: **MCP is agent-to-tools/context; A2A is
-agent-to-agent.** This corner of the field moves fast and the roster of contenders will have changed by the
+**A2A (Agent-to-Agent)** is the emerging answer — a standard proposed by Google and since moved under the
+Linux Foundation — and it is not the only contender. The distinction worth committing to memory is clean:
+**MCP is agent-to-tools/context; A2A is agent-to-agent.** This corner of the field moves fast and the roster of contenders will have changed by the
 time you read this, so learn the *distinction* rather than the names. The two axes are real and durable; any
 particular protocol on either axis is a snapshot.
 
@@ -124,7 +125,8 @@ particular protocol on either axis is a snapshot.
 
 Connecting an agent to a server you don't control is connecting it to input you don't control. An MCP server
 is a **new attack surface**. A malicious or compromised server can smuggle indirect **prompt injection** into
-the resources and results it returns — text that reads as instructions to your model. It can try to
+the resources and tool results it returns — text that reads as instructions to your model; even the tool
+description itself is an injection vector (tool poisoning), because a description is a prompt. It can try to
 exfiltrate data the agent has access to. It can over-reach the permissions it was granted, doing more than
 the one job you connected it for. The uniform protocol that makes servers easy to plug in makes a hostile
 server just as easy to plug in.
@@ -137,9 +139,9 @@ apply directly to MCP: treat everything a server sends, resources and tool resul
 to be reasoned over, never as trusted *instructions* to be obeyed. A resource is content, not a command,
 even when it's phrased like one.
 
-## Closing Part II
+---
 
-That closes the arc. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag.md) —
+That closes both the lesson and Part II. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag.md) —
 retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use.md)), a way to
 plan over many steps and actually stop ([planning-loops](./planning-loops.md)), teammates to divide the work
 ([multi-agent](./multi-agent.md)), and frameworks to package all of it
@@ -151,10 +153,10 @@ that connects to the world through a common plug.
 
 - The **M×N integration problem** — M apps × N tools = M × N bespoke connectors — is what a standard exists to
   kill. MCP collapses it to **N + M**: wrap each tool once as a server, implement the client once per app.
-  Think **USB-C for AI tools**.
+  Think **a USB-C port for AI applications**.
 - **MCP (Model Context Protocol)** is an open client–server standard (Anthropic, late 2024). An **MCP server**
   wraps a tool or data source; an **MCP client** is the agent that consumes it. It standardizes three
-  primitives — **tools**, **resources**, and **prompts** — over stdio (local) or HTTP/SSE (remote).
+  primitives — **tools**, **resources**, and **prompts** — over stdio (local) or streamable HTTP (remote).
 - The AI delta: MCP **decouples building tools from building agents.** Author a server once, and any client
   reuses it — an ecosystem effect, not a feature.
 - MCP is *not* "Swagger with descriptions." Swagger and CLI `--help` already carry semantics, and you can
