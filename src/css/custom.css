@@ -28,3 +28,63 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* ------------------------------------------------------------------------- *
+ * Tablet "middle" layout (landscape tablets, ~997–1279px)
+ *
+ * Stock Docusaurus has a single breakpoint at 997px: below it the left doc
+ * sidebar and the right table of contents both collapse (drawer + inline TOC);
+ * at/above it BOTH show as fixed columns. On a landscape tablet (iPad 1024,
+ * iPad Pro 11" ~1180) that leaves the article crushed between a ~300px sidebar
+ * and a 25% TOC column — barely 500px of text at 1024px wide.
+ *
+ * In this band we keep the left sidebar (there's room for nav + content as two
+ * columns, and it stays collapsible via Docusaurus's built-in toggle) but drop
+ * the desktop TOC column and surface the same inline collapsible TOC that phones
+ * get, so no table-of-contents is lost. The content column then grows to fill
+ * the reclaimed width.
+ *
+ * At ≥1280px the untouched three-column desktop layout returns; below 997px is
+ * stock behaviour. Both TOCs are already in the DOM at these widths (Docusaurus
+ * server-renders the mobile TOC and hides it with CSS >997px), so this is a
+ * pure CSS reveal/hide — no swizzle needed.
+ *
+ * Selectors are scoped to the doc main container and the exact doc row
+ * (`> .container > .row`) so nested `.row`/`.col` inside markdown are untouched.
+ * The 75%-cap that squeezes the content column lives in the theme's CSS-module
+ * class (`docItemCol_*`, hashed); we override it structurally via the first
+ * column of the doc row, which is version-stable, rather than the hashed class.
+ * ------------------------------------------------------------------------- */
+@media (min-width: 997px) and (max-width: 1279.98px) {
+  /* Drop the right-hand TOC column entirely (not just its contents) so it
+     reclaims no width. `display` is a normal declaration, and an unlayered rule
+     beats the theme's layered one, so no layer/!important needed here. */
+  main[class*='docMainContainer'] > .container > .row > .col--3 {
+    display: none;
+  }
+
+  /* Surface the inline collapsible TOC (the theme hides it >997px to avoid a
+     hydration flash). Also a normal declaration → unlayered wins. */
+  .theme-doc-toc-mobile {
+    display: block !important;
+  }
+}
+
+/* Let the article column fill the row once the TOC column is gone.
+ *
+ * The theme caps it with `.docItemCol { max-width: 75% !important }`, and — this
+ * is the catch — Docusaurus 3.8+ ships its theme-classic module CSS inside
+ * `@layer docusaurus.theme-classic`. For *!important* declarations the cascade
+ * order is reversed: a layered rule beats an unlayered one regardless of
+ * specificity, so an override written here in (unlayered) custom.css can never
+ * win, no matter how specific. We must join the same layer; then normal
+ * specificity applies within it and our more specific selector wins. (The
+ * display rules above are *normal* declarations, where unlayered already wins —
+ * only this !important cap needs the layer.) */
+@layer docusaurus.theme-classic {
+  @media (min-width: 997px) and (max-width: 1279.98px) {
+    main[class*='docMainContainer'] > .container > .row > .col:first-child {
+      max-width: 100% !important;
+    }
+  }
+}
