@@ -4,7 +4,7 @@ title: MCP and agent protocols
 sidebar_position: 6
 ---
 
-# MCP and agent protocols — the standard that wires agents to the world
+# The standard that wires agents to the world
 
 In [tool-use](./tool-use/index.md) the agent learned to call tools, but every integration was its own bespoke job:
 each agent wired to each tool by hand-written glue. That works for one agent and three tools. It stops

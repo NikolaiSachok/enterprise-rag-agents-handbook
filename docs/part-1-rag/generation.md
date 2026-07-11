@@ -4,7 +4,7 @@ title: Generation
 sidebar_position: 3
 ---
 
-# Generation
+# Composing a grounded answer from the context
 
 Retrieval handed over good, permitted context. Now the "G" — the model has to phrase an answer **from that
 context**. Go back to the frame from the part overview: a **generation failure** is when the chunk you needed

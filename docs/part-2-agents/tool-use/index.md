@@ -3,7 +3,7 @@ title: Tool use
 slug: /part-2-agents/tool-use/
 ---
 
-# Tool use — how the model acts on the outside world
+# How the model acts on the outside world
 
 In the Agentic RAG lesson you took in the key shift: retrieval stopped being a step and became an **action**
 the model chooses inside a loop. But retrieval is just one action. **Tool use** — also called **function

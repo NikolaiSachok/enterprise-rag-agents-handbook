@@ -4,7 +4,7 @@ title: Cloud AI platforms
 sidebar_position: 2
 ---
 
-# Cloud AI platforms — where your tokens get computed
+# Where your tokens get computed
 
 [Serving](./serving.md) ended at a fork. The application layer — auth, the RAG pipeline, guardrails,
 streaming — is yours either way; the open question was the second box in the diagram: do you run the model

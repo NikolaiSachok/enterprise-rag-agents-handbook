@@ -4,7 +4,7 @@ title: Orchestration frameworks
 sidebar_position: 5
 ---
 
-# Orchestration frameworks — what a framework adds over the bare loop
+# What a framework adds over the bare loop
 
 The lessons so far built agents up from primitives: the loop in [agentic-rag](./agentic-rag.md), the tools it
 calls in [tool-use](./tool-use/index.md), planning and termination over that loop in

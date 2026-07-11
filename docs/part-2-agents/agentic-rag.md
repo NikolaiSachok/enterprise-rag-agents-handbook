@@ -4,7 +4,7 @@ title: Agentic RAG
 sidebar_position: 1
 ---
 
-# Agentic RAG — retrieval becomes a decision, not a step
+# Retrieval becomes a decision, not a step
 
 Through all of Part I you held one picture in your head: a fixed pipeline. A query comes in and always takes
 the same path, `retrieve → generate`. One search, one generation, done. The pipeline doesn't look at the

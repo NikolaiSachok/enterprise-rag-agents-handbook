@@ -4,7 +4,7 @@ title: Observability
 sidebar_position: 3
 ---
 
-# Observability
+# Seeing what the system does in production
 
 Eval tells you whether the system is good (offline, on a dataset). Guardrails keep it safe. **Observability**
 is seeing what the system actually does in production, on live traffic. Without it, production problems are

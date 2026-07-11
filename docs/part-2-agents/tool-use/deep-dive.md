@@ -4,7 +4,7 @@ sidebar_label: "Part 2 — Deep dive"
 sidebar_position: 2
 ---
 
-# Tool use — deep dive: parallel calls, constrained decoding, retries, and the cost of a large toolset
+# Parallel calls, constrained decoding, retries, and the cost of a large toolset
 
 [Part 1](./index.md) laid out the mechanism — tool definition → tool call → tool result → continue. This page takes that same round-trip to mastery: what happens when the model fires several calls at once, how a schema gets enforced token by token, how a loop recovers from a bad call instead of dying, and what breaks once the toolset grows to dozens. Part 1 is assumed throughout — the round-trip, the security boundary, "a tool definition is a prompt," and the good-tool checklist are not re-taught here, only built on.
 

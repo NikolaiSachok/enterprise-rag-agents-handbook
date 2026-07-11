@@ -4,7 +4,7 @@ title: "Guardrails"
 sidebar_position: 2
 ---
 
-# Guardrails
+# A protective layer on input and output
 
 You can make a system accurate (retrieval/generation) and measurable (eval). In production it also has to be safe: resist attacks, protect sensitive data, refuse what's harmful. Guardrails are a protective layer on the input and on the output. For enterprise AI that isn't optional.
 

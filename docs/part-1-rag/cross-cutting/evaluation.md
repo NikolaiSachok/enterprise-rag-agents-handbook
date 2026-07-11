@@ -4,7 +4,7 @@ title: "Evaluation"
 sidebar_position: 1
 ---
 
-# Evaluation
+# Measuring quality instead of guessing
 
 More than once we've hit the wall of "you measure that with metrics" — at chunking, retrieval,
 reranking, and faithfulness. Evaluation is **how** you measure. It's not a side topic: without it you tune

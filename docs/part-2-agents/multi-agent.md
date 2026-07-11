@@ -4,7 +4,7 @@ title: Multi-agent systems
 sidebar_position: 4
 ---
 
-# Multi-agent systems — several specialized agents instead of one
+# Several specialized agents instead of one
 
 Every lesson so far built *one* agent. [agentic-rag](./agentic-rag.md) gave you the loop; [tool-use](./tool-use/index.md)
 gave it tools to call; [planning-loops](./planning-loops.md) taught it to plan over that loop and to stop.

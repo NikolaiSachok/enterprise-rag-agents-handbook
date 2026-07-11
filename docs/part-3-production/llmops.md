@@ -4,7 +4,7 @@ title: "LLMOps — deploy, monitor, cost"
 sidebar_position: 4
 ---
 
-# LLMOps — the LLM system's life after release
+# The LLM system's life after release
 
 [Serving](./serving.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms.md) decided
 where the model runs. [The tooling ecosystem](./tooling-ecosystem.md) gave you eval, guardrails, and

@@ -4,7 +4,7 @@ title: "Serving — FastAPI + Docker"
 sidebar_position: 1
 ---
 
-# Serving — from notebook to service
+# From notebook to service
 
 Part II closed with the system finally whole: a RAG pipeline grown into an agent, wired to its tools and
 to other agents through standard protocols. But everything you've built so far shares one unstated

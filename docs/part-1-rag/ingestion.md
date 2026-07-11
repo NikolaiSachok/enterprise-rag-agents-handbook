@@ -4,7 +4,7 @@ title: Ingestion
 sidebar_position: 1
 ---
 
-# Ingestion
+# From documents to a searchable index
 
 Ingestion is the offline half of RAG: everything that happens to your documents **before** the first
 question is ever asked. This is where you prepare everything that search will later run over. The

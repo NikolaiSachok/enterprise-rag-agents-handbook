@@ -4,7 +4,7 @@ title: Real agents — Claude, OpenAI, Gemini
 sidebar_position: 7
 ---
 
-# Real agents — Claude, OpenAI, Gemini illustrate the techniques
+# Claude, OpenAI, Gemini illustrate the techniques
 
 Part II built the agent one capability at a time: the loop that decides for itself in
 [agentic-rag](./agentic-rag.md), the tools it acts with in [tool-use](./tool-use/index.md), a way to plan and

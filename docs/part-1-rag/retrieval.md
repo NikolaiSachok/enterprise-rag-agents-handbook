@@ -4,7 +4,7 @@ title: Retrieval
 sidebar_position: 2
 ---
 
-# Retrieval
+# Finding the right context for the query
 
 After ingestion, the chunks are already sitting in a vector database. The naive version of retrieval goes
 like this: embed the query, return the K nearest vectors by cosine. That's a starting point, not a

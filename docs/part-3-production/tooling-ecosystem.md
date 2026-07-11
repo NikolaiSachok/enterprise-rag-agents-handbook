@@ -4,7 +4,7 @@ title: The tooling ecosystem
 sidebar_position: 3
 ---
 
-# The tooling ecosystem — paying Part I's debt
+# Paying Part I's debt
 
 Three lessons in Part I ended on the same promissory note.
 [Evaluation](../part-1-rag/cross-cutting/evaluation.md),
