@@ -146,4 +146,7 @@ retrieval.
 non-termination and step limits, passing history correctly between iterations, evaluating an agent's
 trajectory.
 
+How those same actions — web search, fetch, grounding — are built into Claude, OpenAI, and Gemini is what
+the part's capstone works through: [Real agents](./real-agents.md).
+
 :::

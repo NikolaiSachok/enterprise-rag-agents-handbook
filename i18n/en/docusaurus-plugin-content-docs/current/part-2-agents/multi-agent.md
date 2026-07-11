@@ -148,4 +148,7 @@ synthesizer combines what they each found into one answer. Same topology, differ
 
 🚧 Second pass: concrete inter-agent protocols and message schemas, shared-memory (blackboard) architectures, role-assignment and negotiation patterns, multi-agent eval (stitching the trajectory across agents), and cost-control policies for agent teams.
 
+How the orchestrator and isolated workers are built in Claude (subagents), OpenAI (handoffs), and Gemini
+(ADK) is what the part's capstone shows: [Real agents](./real-agents.md).
+
 :::

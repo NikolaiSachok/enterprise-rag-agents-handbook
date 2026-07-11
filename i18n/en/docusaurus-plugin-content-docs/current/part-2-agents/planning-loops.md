@@ -187,4 +187,7 @@ an agent that gets the right answer in forty steps when six would do is not a go
 policies in production, memory architectures for long trajectories (episodic vs working memory), and
 trajectory-level eval metrics.
 
+How the loop, its step caps, and recovery from failure look across Claude, OpenAI, and Gemini is covered in
+the part's capstone: [Real agents](./real-agents.md).
+
 :::

@@ -128,4 +128,7 @@ result, tool selection, JSON Schema, structured output.
 the context cost of dozens of tools. The standard for connecting tools is no longer a deepening topic but a
 lesson of its own: [MCP and agent protocols](./mcp.md).
 
+And how this exact tool-calling mechanism looks in Claude, OpenAI, and Gemini today is what the part's
+capstone shows: [Real agents](./real-agents.md).
+
 :::

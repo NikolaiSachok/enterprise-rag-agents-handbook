@@ -160,4 +160,7 @@ trace and measure there.
 
 🚧 Second pass: a concrete LangGraph graph walkthrough, durable execution and checkpoint backends, framework-native memory and multi-agent constructs compared, declarative vs imperative agent definitions, and framework-level tracing/eval integration (Part III).
 
+How these constructs map across Claude, OpenAI, and Gemini is pulled together in the part's capstone
+comparison table: [Real agents](./real-agents.md).
+
 :::
