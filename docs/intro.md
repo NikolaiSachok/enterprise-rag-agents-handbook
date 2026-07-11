@@ -30,10 +30,10 @@ slug: /
   guardrails, observability) статического конвейера.
 - **[Часть II — Агенты](./part-2-agents/overview.md):** agentic RAG, использование инструментов, планирование
   и циклы, мультиагентные системы, фреймворки оркестрации, MCP.
-- **[Часть III — Production и LLMOps](./part-3-production/overview.md)** (🚧 планируется): serving на FastAPI + Docker, облачные AI-платформы
-  (Azure OpenAI, Amazon Bedrock, Google Cloud Gemini Enterprise Agent Platform — экс-Vertex AI), экосистема
-  инструментов (eval, guardrails, observability) и
-  LLMOps — деплой, мониторинг, стоимость. Прикладной слой, который рынок называет по инструментам.
+- **[Часть III — Production и LLMOps](./part-3-production/overview.md):** сервинг на FastAPI + Docker,
+  облачные AI-платформы (Azure OpenAI, Amazon Bedrock, Google Cloud Gemini Enterprise Agent Platform —
+  экс-Vertex AI), экосистема инструментов (eval, guardrails, observability) и LLMOps — деплой, мониторинг,
+  стоимость. Прикладной слой, который рынок называет по инструментам.
 - **[Глоссарий](./glossary.md):** единые определения терминов, на которые ссылаются страницы.
 
 Каждая часть открывается страницей-обзором: с чего она начинается, что внутри и что нужно

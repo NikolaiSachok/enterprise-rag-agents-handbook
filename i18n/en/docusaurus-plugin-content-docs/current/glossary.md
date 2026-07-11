@@ -343,3 +343,112 @@ N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
 **A2A (Agent-to-Agent)** — an emerging standard (created by Google, a Linux Foundation project since
 June 2025) for agent-to-agent communication; MCP is agent-to-tools, A2A is agent-to-agent.
+
+## Production — serving
+
+**Serving** — running a model or a pipeline as a network service. Two distinct senses: serving the
+application (your RAG/agent pipeline behind an API) and serving the model (running LLM inference itself).
+
+**Inference** — the model computing outputs from inputs in production — the forward pass as a service, as
+opposed to training. What you buy from a provider API or run on your own GPUs.
+
+**Inference server** — a specialized server for LLM inference on GPUs: continuous batching, KV-cache
+management, an OpenAI-compatible API (vLLM, SGLang, Ollama).
+
+**SSE (Server-Sent Events)** — a one-way event stream over plain HTTP; the standard transport for token
+streaming from LLM APIs. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Server-sent_events)
+
+**Time-to-first-token (TTFT)** — the latency until the first streamed token reaches the user; the
+perceived-latency metric that streaming optimizes.
+
+**Streaming** — sending tokens to the user as they are generated instead of waiting for the complete
+answer; the main perceived-latency lever (TTFT).
+
+**Continuous batching** — inference-server scheduling where requests join and leave the running batch at
+token granularity instead of waiting for the whole batch to finish; the main throughput lever.
+
+**PagedAttention** — vLLM's KV-cache memory management: the cache is paged the way an OS pages virtual
+memory, cutting fragmentation and raising throughput. ↗ [arXiv](https://arxiv.org/abs/2309.06180)
+
+**Cold start** — the delay before a model container can actually serve: weights take tens of seconds to
+minutes to load into GPU memory. Why readiness is not "process up," and the price scale-to-zero pays on the
+next request.
+
+**OpenAI-compatible API** — the de facto wire standard for LLM endpoints; one client dialect talks to
+provider APIs and self-hosted inference servers alike, so switching backends is close to a URL change.
+
+## Production — cloud platforms
+
+**Managed endpoint** — a model served by a cloud AI platform behind your IAM, billing, and network
+perimeter: you call it, the platform runs it.
+
+**Model catalog** — the set of first- and third-party models a platform can serve as managed endpoints
+(Foundry Models, the Bedrock catalog, Model Garden).
+
+**Data residency** — the guarantee about where requests are processed (region or geography); together with
+no-training commitments and private networking it forms the compliance triad.
+
+**Provisioned throughput** — reserved, dedicated model capacity with predictable latency, bought instead of
+shared on-demand tokens (Azure PTU, Vertex Provisioned Throughput, the Bedrock Reserved tier).
+
+**Batch mode** — a discounted asynchronous processing tier for non-interactive workloads.
+
+**Managed RAG** — a platform's packaged ingestion-to-retrieval pipeline (Bedrock Knowledge Bases, Azure
+Foundry IQ on AI Search, Vertex RAG Engine); it trades knobs for speed.
+
+**Vendor lock-in** — dependence created by platform-specific batteries (managed RAG, SDKs) rather than by
+the endpoint itself, which is often OpenAI-compatible.
+
+## Production — the tooling ecosystem
+
+**Instrumentation** — adding the code or SDK hooks that emit traces, spans, and metrics from the pipeline;
+the precondition for observability.
+
+**OpenTelemetry GenAI conventions** — the emerging vendor-neutral standard for naming LLM spans and
+attributes (model, tokens, tool calls): instrument once, export anywhere. Still experimental as of
+mid-2026. ↗ [GitHub](https://github.com/open-telemetry/semantic-conventions-genai)
+
+**Safety classifier** — a compact specialized model that scores text for risk categories on input or output
+(Llama Guard, Granite Guardian); composes with guardrails frameworks, which orchestrate the checks.
+
+**Red-teaming** — deliberately attacking your own system to measure its defenses (attack success rate);
+productized in eval tools and platform red-team features.
+
+## Production — LLMOps
+
+**LLMOps** — the operations discipline for LLM applications: deploying, monitoring, and cost-managing
+systems whose behavior lives in prompts, model versions, indexes, and configs rather than only in code.
+MLOps specialized for foundation-model applications.
+
+**Canary release** — routing a small share of live traffic to the new variant (prompt, model, index)
+while watching quality and cost metrics; a regression surfaces on a fraction of users and rolls back
+cheaply.
+↗ [Martin Fowler](https://martinfowler.com/bliki/CanaryRelease.html)
+
+**Shadow deployment** — the new variant runs on mirrored production traffic and its answers are never
+shown to users; a safe quality comparison on real queries.
+
+**Prompt registry** — a versioned store of prompts decoupled from code deploys; product teams iterate on
+prompts without shipping code, and every production answer stays attributable to an exact prompt version.
+
+**Model pinning** — pinning production to exact model snapshot ids instead of a floating alias; a
+provider's model update then becomes an explicit, eval-gated deploy rather than a silent behavior change.
+
+**Model routing** — sending each request to the cheapest model that can handle it; the router can be a
+rule, a classifier, or a model. Distinct from query routing (which index, Part I) and tool selection
+(which tool, Part II): this picks which model answers.
+
+**Fallback** — the pre-configured alternative — another region, another provider, a cheaper model — that
+the system switches to when the primary model errors or rate-limits.
+
+**LLM gateway** — the layer that centralizes model access behind one API: routing, fallbacks, keys,
+budgets, and rate limits per team (LiteLLM, OpenRouter).
+
+**Prompt caching** — provider-side caching of the repeated prompt prefix (system prompt, examples, static
+context); cached input tokens are billed at a large discount, so prompts are designed static-prefix-first.
+
+**Semantic caching** — returning a stored answer for a near-duplicate question, matched by embedding
+similarity; saves the whole request's cost at the risk of a false hit on a subtly different question.
+
+**Drift** — the world shifting under a fixed configuration: input drift (traffic asks new kinds of
+questions), corpus drift (documents age), upstream model drift (the provider changes an unpinned model).

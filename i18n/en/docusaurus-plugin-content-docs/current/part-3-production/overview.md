@@ -13,12 +13,13 @@ observably, and on budget."
 
 ## What's inside
 
-- **Serving — FastAPI + Docker** 🚧 — wrapping a model or agent in a service: API, container, scaling.
-- **Cloud AI platforms** 🚧 — Azure OpenAI, Amazon Bedrock, Google Cloud Gemini Enterprise Agent Platform
-  (formerly Vertex AI): what they offer and how they differ.
-- **The tooling ecosystem** 🚧 — eval, guardrails, observability in production: what to measure, what to
-  guard, what to see.
-- **LLMOps** 🚧 — deploy, monitor, cost: the LLM system's life after release.
+- **[Serving — FastAPI + Docker](./serving.md)** — wrapping a model or agent in a service: API, streaming,
+  container, inference servers.
+- **[Cloud AI platforms](./cloud-platforms.md)** — Azure OpenAI, Amazon Bedrock, Google Cloud Gemini
+  Enterprise Agent Platform (formerly Vertex AI): what they offer and how they differ.
+- **[The tooling ecosystem](./tooling-ecosystem.md)** — eval, guardrails, observability in production:
+  what to measure, what to guard, what to see.
+- **[LLMOps — deploy, monitor, cost](./llmops.md)** — the LLM system's life after release.
 
 ## Prerequisites
 
@@ -26,6 +27,8 @@ All of Parts I and II — serving and operations assume the RAG agent itself is 
 
 :::note[Status]
 
-🚧 The part hasn't started yet — it's planned next. Lessons will appear here as they're written.
+Part III's base is complete — every lesson is published: serving, cloud AI platforms, the tooling
+ecosystem, and LLMOps. 🚧 A second pass is still ahead — deepening each layer (topics listed in the
+"Next — going deeper" notes on the lesson pages).
 
 :::
