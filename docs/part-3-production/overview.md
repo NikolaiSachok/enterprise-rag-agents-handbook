@@ -1,7 +1,7 @@
 ---
 id: overview
 title: Часть III — Production и LLMOps
-sidebar_label: Обзор части
+sidebar_label: Часть III — Production и LLMOps
 ---
 
 # Часть III — Production и LLMOps

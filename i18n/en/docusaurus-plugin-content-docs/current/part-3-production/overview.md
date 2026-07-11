@@ -1,7 +1,7 @@
 ---
 id: overview
 title: Part III — Production & LLMOps
-sidebar_label: Part overview
+sidebar_label: Part III — Production & LLMOps
 ---
 
 # Part III — Production & LLMOps
