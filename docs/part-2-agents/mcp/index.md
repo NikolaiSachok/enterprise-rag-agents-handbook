@@ -37,7 +37,7 @@ database, a file system, a SaaS API, a code repository — and exposes its capab
 **MCP client** is the agent or app on the other end: it connects to servers and consumes whatever they
 expose. One server can be reached by many clients; one client can hold connections to many servers.
 
-What makes MCP more than a tool-calling convention is that it standardizes three primitives, not one:
+What makes MCP more than a tool-calling convention is that it standardises three primitives, not one:
 
 - **tools** — callable functions, exactly the tool-use concept, now with a standard shape;
 - **resources** — data and context the server exposes to the client (a file's contents, a record, a
@@ -88,7 +88,7 @@ The real deltas are four, and none of them is about having descriptions:
 2. **LLM-native primitives beyond actions.** OpenAPI and CLI both describe callable *actions* and nothing
    else. MCP's resources (context to read) and prompts (templates to reuse) have no equivalent in either —
    there is no OpenAPI construct for "here is a document the model should have in context" or "here is the
-   blessed template for this operation." MCP standardizes context and templates alongside actions.
+   blessed template for this operation." MCP standardises context and templates alongside actions.
 
 3. **One uniform client.** Any MCP client talks to any MCP server. There is no bespoke client per API, no
    per-framework adapter. This is the N + M win made concrete: the client-side glue you'd otherwise rewrite
@@ -111,7 +111,7 @@ an agent" is a habit of authorship, not a property of the protocol.
 
 ## MCP vs A2A — agent-to-tools versus agent-to-agent
 
-MCP standardizes one axis: agent to tool, agent to data. There is a second axis it says nothing about — agent
+MCP standardises one axis: agent to tool, agent to data. There is a second axis it says nothing about — agent
 to *agent*, the communication you needed the moment you built [multi-agent](../multi-agent/index.md) systems. When
 one agent hands off to another, what protocol carries that? MCP is the wrong tool; it connects an agent to
 its tools, not an agent to a peer.
@@ -132,7 +132,7 @@ exfiltrate data the agent has access to. It can over-reach the permissions it wa
 the one job you connected it for. The uniform protocol that makes servers easy to plug in makes a hostile
 server just as easy to plug in.
 
-The defense is the discipline you already have, extended one layer out. Grant **least privilege** — a limited
+The defence is the discipline you already have, extended one layer out. Grant **least privilege** — a limited
 toolset per server, nothing the task doesn't require. Connect only to servers you have vetted and trust;
 "it's on a registry" is not vetting. Require human approval for sensitive actions, so a compromised server
 can't quietly act on your behalf. And the guardrails from Part I — instruction hierarchy and spotlighting —
@@ -158,7 +158,7 @@ Gemini is the [closing capstone on real agents](../real-agents.md).
   Think **a USB-C port for AI applications**.
 - **MCP (Model Context Protocol)** is an open client–server standard (created by Anthropic in late 2024, a
   project of the Agentic AI Foundation under the Linux Foundation since December 2025). An **MCP server**
-  wraps a tool or data source; an **MCP client** is the agent that consumes it. It standardizes three
+  wraps a tool or data source; an **MCP client** is the agent that consumes it. It standardises three
   primitives — **tools**, **resources**, and **prompts** — over stdio (local) or streamable HTTP (remote).
 - The AI delta: MCP **decouples building tools from building agents.** Author a server once, and any client
   reuses it — an ecosystem effect, not a feature.

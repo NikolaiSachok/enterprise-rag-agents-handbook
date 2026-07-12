@@ -115,7 +115,7 @@ nDCG, MRR.
 :::note[Next — part 2 of the lesson]
 
 **[Fusion, ranking & metrics](./deep-dive.md)** — the retrieval layer's second pass: HyDE mechanics and when
-it backfires, hybrid-fusion internals (RRF weighting and score normalization), reranker choice (cross-encoder
+it backfires, hybrid-fusion internals (RRF weighting and score normalisation), reranker choice (cross-encoder
 vs LLM), parent-document and late-interaction (ColBERT) retrieval, query routing, pre- vs post-filter, and
 the ranking metrics (nDCG, MRR) spelled out.
 

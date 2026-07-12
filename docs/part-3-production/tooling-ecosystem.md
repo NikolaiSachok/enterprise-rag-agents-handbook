@@ -15,7 +15,7 @@ later. Part I gave you the concepts — the golden set, the trace, attack succes
 those concepts onto the 2026 tool landscape and answers the question the earlier lessons left open: what do
 you actually install, and when?
 
-One rule organizes everything below. Each of the three cross-cutting concerns has grown its own tool
+One rule organises everything below. Each of the three cross-cutting concerns has grown its own tool
 category, but the concepts are durable and the tools are snapshots — so judge a tool by which concept it
 implements and where it sits in your loop, not by the length of its feature list.
 
@@ -52,7 +52,7 @@ you, but human review remains the quality gate.
 option reserved for enterprise plans. If you're already on LangChain or [LangGraph](https://www.langchain.com/langgraph), this is the tightest
 integration you'll get.
 
-**[Langfuse](https://langfuse.com)** is open source (MIT core; some enterprise features are license-gated) and self-hostable with
+**[Langfuse](https://langfuse.com)** is open source (MIT core; some enterprise features are licence-gated) and self-hostable with
 Docker or Kubernetes — the default choice when data must not leave your perimeter. It covers tracing,
 prompt management, datasets and evals, and cost dashboards.
 
@@ -62,7 +62,7 @@ Phoenix ships under ELv2 — source-available, free to run yourself, but not ope
 so don't file it next to MIT-licensed Langfuse without the asterisk.
 
 Underneath all three, **OpenTelemetry** (OTel) is becoming the vendor-neutral substrate. Its GenAI semantic
-conventions standardize the span and attribute names for LLM calls — which model, how many tokens, which
+conventions standardise the span and attribute names for LLM calls — which model, how many tokens, which
 tool calls — so your **instrumentation**, the code hooks that emit traces and metrics from the pipeline,
 can outlive any one vendor: instrument once, point the exporter wherever you like. One caveat, because it
 matters: as of mid-2026 these conventions are still in Development status — experimental and moving. They
@@ -81,7 +81,7 @@ the golden set.
 
 <YouTube id="446x7GqXdaA" title="AI Agents Best Practices: Monitoring, Governance, & Optimization — IBM Technology" />
 
-How monitoring, governance, and optimization look for agentic systems in production — this lesson's tool
+How monitoring, governance, and optimisation look for agentic systems in production — this lesson's tool
 categories in motion.
 
 :::
@@ -94,7 +94,7 @@ structured-output validation — and **NVIDIA [NeMo Guardrails](https://develope
 configuration language called Colang.
 
 The second shape is the **safety classifier** — a model that scores text for risk categories: **Llama
-Guard** from Meta and **[Granite Guardian](https://github.com/ibm-granite/granite-guardian)** from IBM, compact specialized models you place on the input, the
+Guard** from Meta and **[Granite Guardian](https://github.com/ibm-granite/granite-guardian)** from IBM, compact specialised models you place on the input, the
 output, or both. Frameworks orchestrate; classifier models judge. And the two shapes compose: a framework
 rail can call a classifier model as one of its checks.
 

@@ -9,7 +9,7 @@ The lessons so far built agents up from primitives: the loop in [agentic-rag](..
 calls in [tool-use](../tool-use/index.md), planning and termination over that loop in
 [planning-loops](../planning-loops/index.md), and teams of agents in [multi-agent](../multi-agent/index.md). In practice
 you don't hand-roll all of that. You reach for an **orchestration framework** — [LangChain](https://www.langchain.com), [LangGraph](https://www.langchain.com/langgraph),
-[LlamaIndex](https://www.llamaindex.ai), and their neighbors. This lesson is about what a framework actually adds on top of the bare loop,
+[LlamaIndex](https://www.llamaindex.ai), and their neighbours. This lesson is about what a framework actually adds on top of the bare loop,
 so you can choose one and use it well: not reimplement what it already gives you, and not hide behind it when
 something breaks.
 
@@ -45,7 +45,7 @@ On top of that sit the things that grow as the agent does:
 - The production tail — tracing hooks, streaming, persistence, and checkpointing.
 
 None of this is the interesting part of your agent. It's the boilerplate underneath it. A framework's core
-pitch is that it writes this pile for you, once and consistently, so your code is about the behavior and not
+pitch is that it writes this pile for you, once and consistently, so your code is about the behaviour and not
 the wiring.
 
 ## The main abstraction — an agent as a graph / state machine
@@ -75,7 +75,7 @@ The **control-flow and state layer** is where the graph idea lives: LangGraph, a
 Framework, Microsoft's enterprise-oriented entry. This is the layer that owns the state machine of the
 previous section.
 
-The **multi-agent layer** packages the multi-agent lesson's topologies. [CrewAI](https://www.crewai.com) organizes work into
+The **multi-agent layer** packages the multi-agent lesson's topologies. [CrewAI](https://www.crewai.com) organises work into
 role-based "crews" of agents with assigned jobs; [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/) ships prebuilt multi-agent
 orchestrations, inherited from [AutoGen](https://github.com/microsoft/autogen) — agents that converse with one another. When the thing you want to
 model *is* a team, you start here.
@@ -113,7 +113,7 @@ A framework is not free, and the costs are the mirror image of the benefits.
 The sharpest one is **abstraction cost**. A framework hides the prompt and the control flow — which is exactly
 what you wanted, right up until something breaks and you're debugging *through* layers of code you didn't
 write. For a simple agent, a plain loop plus the provider's native tool-calling is clearer, shorter, and far
-easier to debug than the same behavior threaded through a graph framework. The abstraction earns its cost only
+easier to debug than the same behaviour threaded through a graph framework. The abstraction earns its cost only
 when there's real complexity for it to manage.
 
 Two more sit alongside it. **Ecosystem churn** means the APIs and the blessed patterns shift release to

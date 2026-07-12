@@ -7,7 +7,7 @@ sidebar_label: Part overview
 # Part I — RAG
 
 RAG (retrieval-augmented generation) is how you make an LLM answer from **your** documents rather than from
-what it memorized in training. Before generating, the system finds the relevant pieces of your data and
+what it memorised in training. Before generating, the system finds the relevant pieces of your data and
 puts them in the model's context. Part I works through this path as a **static pipeline**: a fixed sequence
 of steps, the same for every query.
 

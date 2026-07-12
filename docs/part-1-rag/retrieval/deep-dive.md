@@ -29,7 +29,7 @@ So the verdict is narrow: reach for HyDE when you have no in-domain labels and q
 
 Hybrid search was Part 1's single biggest step up, and it hid a real problem inside the word "merge." Dense similarity is bounded — cosine lives in roughly [-1, 1], often squeezed to [0, 1]. BM25 is unbounded and its scale shifts with the corpus and the query. The two live on incompatible axes, so you cannot add them. Everything about fusion is a way around that.
 
-One family fixes the scales. **Score fusion** normalizes both retrievers onto a common range and then takes a weighted sum. Min-max maps each score to [0, 1] as `(s − min) / (max − min)`; z-score standardizes as `(s − mean) / std`. Then `combined = α·norm(dense) + (1 − α)·norm(sparse)`, where α is the dial between meaning and exact match. It keeps score *magnitude* — a runaway-best match stays visibly best — which is exactly its appeal. It is also fragile: min-max over a single query's candidate set swings wildly when the top score is an outlier, and because score distributions differ query to query, one fixed normalization miscalibrates the next query.
+One family fixes the scales. **Score fusion** normalises both retrievers onto a common range and then takes a weighted sum. Min-max maps each score to [0, 1] as `(s − min) / (max − min)`; z-score standardises as `(s − mean) / std`. Then `combined = α·norm(dense) + (1 − α)·norm(sparse)`, where α is the dial between meaning and exact match. It keeps score *magnitude* — a runaway-best match stays visibly best — which is exactly its appeal. It is also fragile: min-max over a single query's candidate set swings wildly when the top score is an outlier, and because score distributions differ query to query, one fixed normalisation miscalibrates the next query.
 
 The other family refuses to trust the scores at all. **Reciprocal Rank Fusion (RRF)** (Cormack, Clarke, and Büttcher, SIGIR 2009) throws away raw scores and keeps only rank position:
 
@@ -37,7 +37,7 @@ The other family refuses to trust the scores at all. **Reciprocal Rank Fusion (R
 score(d) = Σ over lists  1 / (k + rank_i(d))
 ```
 
-The constant `k = 60` is the paper's empirical default. It flattens how steeply a document's contribution falls with rank, so a single first-place finish can't dominate the fused order. A weighted variant, `Σ wᵢ / (k + rankᵢ(d))`, lets you favour one retriever. RRF is robust precisely because it needs no calibration — it sidesteps the normalization problem entirely rather than solving it, which is why it's the default fusion in many vector databases.
+The constant `k = 60` is the paper's empirical default. It flattens how steeply a document's contribution falls with rank, so a single first-place finish can't dominate the fused order. A weighted variant, `Σ wᵢ / (k + rankᵢ(d))`, lets you favour one retriever. RRF is robust precisely because it needs no calibration — it sidesteps the normalisation problem entirely rather than solving it, which is why it's the default fusion in many vector databases.
 
 ```mermaid
 flowchart LR
@@ -50,7 +50,7 @@ flowchart LR
     RRF --> F["Fused ranking"]
 ```
 
-The tradeoff is the mirror image of score fusion's. RRF is simple and robust but blind to magnitude — a match that beats the field by a mile is filed as "rank 1" and nothing more. Score fusion keeps that magnitude but demands careful, per-query, distribution-aware normalization to be trustworthy. So make RRF the default, and only move to score fusion once you've actually measured that magnitude carries signal for your data *and* you can normalize it reliably per query. Reaching for score fusion first is how you inherit its fragility without its payoff.
+The tradeoff is the mirror image of score fusion's. RRF is simple and robust but blind to magnitude — a match that beats the field by a mile is filed as "rank 1" and nothing more. Score fusion keeps that magnitude but demands careful, per-query, distribution-aware normalisation to be trustworthy. So make RRF the default, and only move to score fusion once you've actually measured that magnitude carries signal for your data *and* you can normalise it reliably per query. Reaching for score fusion first is how you inherit its fragility without its payoff.
 
 ## Which reranker, and when
 
@@ -74,7 +74,7 @@ Three retrieval paradigms sit on one axis, and naming them together makes the th
 
 **Late interaction**, introduced by **ColBERT** (Khattab and Zaharia, SIGIR 2020), lands between them. Instead of one vector per document it produces a *bag of per-token vectors* — a **multi-vector** representation — and the document's token vectors are precomputed offline, exactly like a bi-encoder. The interaction is deferred to scoring time. For each query token, **MaxSim** takes the maximum cosine similarity over all of the document's token vectors, and the relevance score is the sum of those maxima across the query tokens. "Late" is the load-bearing word: the fine-grained, token-level matching happens *after* independent encoding, at scoring time — as opposed to the "early" interaction a cross-encoder performs inside its transformer, where query and document tokens attend to each other from the first layer.
 
-What you get is most of the cross-encoder's token-level precision — strong on exact and entity matching, and on out-of-domain generalization — while keeping the document side precomputable, so it can search a full corpus rather than only rerank K. What you pay is storage, and the bill is steep: a vector *per token* instead of per chunk means hundreds of vectors per passage. ColBERTv2 (2021) adds residual compression to shrink that footprint, and the index isn't a plain ANN over one vector per document — it needs a specialized engine. That storage and infrastructure cost, not any weakness in quality, is why late interaction is a powerful middle ground rather than the default.
+What you get is most of the cross-encoder's token-level precision — strong on exact and entity matching, and on out-of-domain generalisation — while keeping the document side precomputable, so it can search a full corpus rather than only rerank K. What you pay is storage, and the bill is steep: a vector *per token* instead of per chunk means hundreds of vectors per passage. ColBERTv2 (2021) adds residual compression to shrink that footprint, and the index isn't a plain ANN over one vector per document — it needs a specialised engine. That storage and infrastructure cost, not any weakness in quality, is why late interaction is a powerful middle ground rather than the default.
 
 ## The chunk problem, attacked from both ends
 
@@ -117,17 +117,17 @@ Part 1 promised the metrics get formalized in the Evaluation layer, and the full
 
 **MRR** (mean reciprocal rank) takes `1 / rank` of the *first* relevant result and averages it over queries. It rewards putting one right answer high and is blind to everything after that first hit, which makes it the right metric when there is essentially one right answer — a known-item or navigational lookup where the second-best result is irrelevant by definition.
 
-**nDCG** (normalized discounted cumulative gain) grades the whole ranked list with graded relevance. `DCG = Σ rel_i / log2(i + 1)` sums each result's relevance discounted by its position, so a relevant document deep in the list contributes less; dividing by the ideal ordering's DCG (IDCG) normalizes the result to [0, 1]. Where MRR is binary, first-hit, and blind past that hit, nDCG is graded, whole-list, and position-discounted — it's the metric to reach for when relevance comes in degrees and the entire ordering matters.
+**nDCG** (normalized discounted cumulative gain) grades the whole ranked list with graded relevance. `DCG = Σ rel_i / log2(i + 1)` sums each result's relevance discounted by its position, so a relevant document deep in the list contributes less; dividing by the ideal ordering's DCG (IDCG) normalises the result to [0, 1]. Where MRR is binary, first-hit, and blind past that hit, nDCG is graded, whole-list, and position-discounted — it's the metric to reach for when relevance comes in degrees and the entire ordering matters.
 
 The through-line ties the whole page together: measure the stage you're tuning. Recall@K tells you whether the first-stage retriever put the answer in the candidate set at all; nDCG or MRR tell you whether the reranker then ordered it correctly. Put the ranking metric on the recall stage, or the recall metric on the reranker, and you'll be blind to the exact failure you're trying to fix.
 
 ## What to take away
 
 - HyDE searches with an embedded hypothetical answer to bridge the gap between a question's shape and its answer's; it wins most with no in-domain labels and short queries, and backfires on latency budgets, tuned retrievers, exact-token lookups, and unfamiliar topics where the model invents a document pointing away from your corpus.
-- Dense and BM25 scores live on incompatible scales, so you can't add them: rank-based fusion is the robust default because it needs no calibration, and score-based fusion is worth its fragility only once you've measured that magnitude carries signal you can normalize per query.
+- Dense and BM25 scores live on incompatible scales, so you can't add them: rank-based fusion is the robust default because it needs no calibration, and score-based fusion is worth its fragility only once you've measured that magnitude carries signal you can normalise per query.
 - A trained cross-encoder is the low-latency, deterministic, high-throughput default reranker; an LLM reranker buys zero-shot, instruction-driven ordering at real cost and nondeterminism, and the two compose — cross-encoder over the K, LLM over the surviving few.
 - Between a single-vector encoder and a joint encoder sits per-token, precomputed matching scored with MaxSim: it keeps most of the fine-grained precision and can search a whole corpus, and storage — a vector per token — is the only reason it isn't the default.
 - The chunk that searches well and the chunk that generates well come apart; enrich what you return at query time, or bake document context into what you index before embedding, and the two stack with hybrid search and reranking rather than replacing them.
 - Routing and filter placement decide the candidate set before ranking runs: a wrong route or a permission check applied too late loses the answer where nothing downstream can recover it, so access control cuts before the search, always.
 
-**New terms** → [Glossary](../../glossary.md): score fusion / score normalization, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.
+**New terms** → [Glossary](../../glossary.md): score fusion / score normalisation, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.

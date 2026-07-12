@@ -55,7 +55,7 @@ The classic example of a small chunk is losing the **reference**. A sentence fro
 
 As a standalone chunk this is garbage: *what* is "it"? which year's quarter? The embedding of such a
 sentence won't match anything meaningfully, and even if it does surface, the LLM can't do anything with
-it. The context ("it" = division X's revenue for 2025) stayed in the neighboring paragraph, which didn't
+it. The context ("it" = division X's revenue for 2025) stayed in the neighbouring paragraph, which didn't
 make it into this chunk.
 
 That's why the "just cut every N characters" approach fails — and why smarter strategies emerged.
@@ -65,7 +65,7 @@ That's why the "just cut every N characters" approach fails — and why smarter 
 1. **Fixed-size.** Cut every N tokens/characters. Simple, fast, reproducible. Downside: it cuts blindly —
    mid-sentence, mid-table. The baseline that everything else builds on.
 2. **Overlap.** Adjacent chunks partly overlap — a "sliding window." If a fact lands on the cut line, it
-   survives intact in at least one of the two neighboring chunks (provided the fact is shorter than the
+   survives intact in at least one of the two neighbouring chunks (provided the fact is shorter than the
    overlap). A cheap fix for facts sliced in half.
    The price is duplicated text. It's applied almost always, on top of any strategy; overlap is usually
    ~10–20% of the chunk size.
@@ -73,7 +73,7 @@ That's why the "just cut every N characters" approach fails — and why smarter 
    first by sections, then — if a piece is still too big — by paragraphs, then by sentences. Chunk
    boundaries line up with idea boundaries. The **industry default** — the "simple and almost always
    decent" tradeoff.
-4. **Semantic.** Walk through the sentences and look at their embeddings: as long as neighboring
+4. **Semantic.** Walk through the sentences and look at their embeddings: as long as neighbouring
    sentences are close in meaning, they're one chunk; a sharp drop in similarity signals a topic shift —
    that is, a boundary. The chunks come out as tightly "about one thing" as possible. Downside: it's more
    expensive (you have to embed already at the splitting stage) and doesn't always earn its cost.
@@ -175,7 +175,7 @@ exactly what **reranking** is. More in the [retrieval](../retrieval/index.md) la
 
 ### How you pick an embedding model
 
-- **Tuned for retrieval (retrieval-optimized).** Not every model is trained for search — you want ones
+- **Tuned for retrieval (retrieval-optimised).** Not every model is trained for search — you want ones
   trained on "query ↔ passage" pairs, not on general sentence similarity.
 - **Vector dimensionality** (384 / 768 / 1536+). Higher is more expressive but more expensive: memory,
   search speed, cost. "Bigger" ≠ "always better."
@@ -191,7 +191,7 @@ exactly what **reranking** is. More in the [retrieval](../retrieval/index.md) la
 ### The similarity metric — in brief
 
 **Cosine similarity** (the angle between vectors; it accounts for direction and ignores length) is the
-default choice. Many models emit normalized vectors, where cosine ≈ dot product. The rule: use the
+default choice. Many models emit normalised vectors, where cosine ≈ dot product. The rule: use the
 metric the model was trained for (stated on its model card) — a mismatch hurts quality.
 
 ### Two common pitfalls
@@ -207,12 +207,12 @@ metric the model was trained for (stated on its model card) — a mismatch hurts
 - **Bi-encoder** (fast, precomputed, = vector search) vs. **cross-encoder** (accurate, per pair, =
   reranking).
 - Retrieval quality is capped by embedding quality.
-- Choose along the axes: retrieval-optimized · dimensionality · language/domain · input length · **API
+- Choose along the axes: retrieval-optimised · dimensionality · language/domain · input length · **API
   vs. self-hosted (privacy)**.
 - One model for both query and document; watch the metric and the prefixes.
 
 **New terms** → [Glossary](../../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
-dimensionality, cosine similarity, retrieval-optimized (asymmetric) embeddings, multilingual embeddings,
+dimensionality, cosine similarity, retrieval-optimised (asymmetric) embeddings, multilingual embeddings,
 self-hosted vs API embeddings.
 
 :::tip[▶ Video]
@@ -220,7 +220,7 @@ self-hosted vs API embeddings.
 <YouTube id="t9IDoenf-lo" title="What is a Vector Database? — IBM Technology" />
 
 A bridge to the next layer: where the chunk vectors get stored and how you search them for nearest
-neighbors quickly.
+neighbours quickly.
 
 :::
 

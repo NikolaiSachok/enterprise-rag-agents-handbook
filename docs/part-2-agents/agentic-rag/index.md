@@ -110,7 +110,7 @@ Hand control to the model, and you pay for exactly that.
 
 - **Latency and cost.** N steps means N LLM calls plus N retrievals. One question easily turns into 5–10
   calls to the model.
-- **Unpredictability.** The number of steps and the path now depend on the model — behavior is harder to
+- **Unpredictability.** The number of steps and the path now depend on the model — behaviour is harder to
   guarantee.
 - **Debugging and eval get harder.** The failure can happen at any step of the loop: a bad routing
   decision, a bad reformulation, a loop that won't terminate.

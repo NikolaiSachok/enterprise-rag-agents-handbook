@@ -3,11 +3,11 @@ title: Multi-agent systems
 slug: /part-2-agents/multi-agent/
 ---
 
-# Several specialized agents instead of one
+# Several specialised agents instead of one
 
 Every lesson so far built *one* agent. [agentic-rag](../agentic-rag/index.md) gave you the loop; [tool-use](../tool-use/index.md)
 gave it tools to call; [planning-loops](../planning-loops/index.md) taught it to plan over that loop and to stop.
-This lesson asks a different question: what if, instead of one agent, you use several specialized agents
+This lesson asks a different question: what if, instead of one agent, you use several specialised agents
 that collaborate?
 
 Two questions run through the whole lesson, and they matter equally. First, *why* would you split one agent
@@ -27,9 +27,9 @@ The same case from IBM: when a single agent stops being enough and you split the
 
 Four reasons, and they don't all pull equally hard.
 
-**Specialization.** A focused agent — a narrow role, a tuned prompt, a handful of tools — beats one
+**Specialisation.** A focused agent — a narrow role, a tuned prompt, a handful of tools — beats one
 mega-agent hauling fifty tools around. This is the multi-agent extension of tool-use's *few, non-overlapping
-tools*: a smaller, orthogonal toolset per agent means fewer tool-selection errors and behavior you can
+tools*: a smaller, orthogonal toolset per agent means fewer tool-selection errors and behaviour you can
 actually reason about.
 
 **Context isolation** is the reason that scales. Each agent gets its own context window, and the
@@ -105,7 +105,7 @@ to *stitch* the pieces into one coherent trace. This sharpens planning-loops' po
 whole trajectory — now the trajectory doesn't even live in one place.
 
 So the rule. A single well-designed agent usually wins. Reach for multi-agent only for real
-specialization, for context that will not fit in one window, or for genuinely parallelizable subtasks — the
+specialisation, for context that will not fit in one window, or for genuinely parallelisable subtasks — the
 same *take the simplest level that solves the task* discipline you met in agentic-rag.
 
 ## A concrete example — you've likely already used one
@@ -123,7 +123,7 @@ synthesizer combines what they each found into one answer. Same topology, differ
 
 - Multi-agent is a higher-cost tier, not a reward — take the simplest level that solves the task, and be
   as ready to say *when not to* as *when to*.
-- You split one agent into several for four reasons: specialization (focused role + small orthogonal
+- You split one agent into several for four reasons: specialisation (focused role + small orthogonal
   toolset), context isolation (each agent its own window, the orchestrator sees only results — the reason
   that scales), modularity, and parallelism.
 - Four standard topologies: orchestrator–workers (a lead decomposes, routes, synthesizes — the common

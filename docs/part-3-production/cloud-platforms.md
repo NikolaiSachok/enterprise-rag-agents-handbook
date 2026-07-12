@@ -69,19 +69,19 @@ two names.
 
 Read that paragraph again and notice what it is really telling you: two of the three platforms were renamed
 within about a year. Product names and bundle boundaries get reshuffled constantly in this market. What
-survives the renames are the capability categories — the model catalog, the privacy and residency
+survives the renames are the capability categories — the model catalogue, the privacy and residency
 guarantees, the managed RAG tier, the platform guardrails, the throughput and pricing model. The rest of
-this lesson is organized by those categories, and that is deliberate: learn the categories, and treat any
+this lesson is organised by those categories, and that is deliberate: learn the categories, and treat any
 product name — including every name on this page — as a snapshot. The [MCP lesson](../part-2-agents/mcp/index.md)
 made the same move for agent protocols, and it holds here just as well.
 
-## Model catalogs — who serves whose models
+## Model catalogues — who serves whose models
 
-The **model catalog** is the first category: which models can this platform serve to you as managed
+The **model catalogue** is the first category: which models can this platform serve to you as managed
 endpoints?
 
 Azure OpenAI's founding pitch was exclusive: GPT models with Azure's
-enterprise wrapper, and for years that was precisely why enterprises used it. The Foundry catalog has since
+enterprise wrapper, and for years that was precisely why enterprises used it. The Foundry catalogue has since
 gone broad — around 1,900 models, with Anthropic joining at Ignite 2025 alongside Microsoft, OpenAI,
 Mistral, xAI, Meta, DeepSeek, and Hugging Face. Bedrock was multi-vendor
 from the start, and the old rule of thumb "no OpenAI on AWS" is now simply false: OpenAI's open-weight
@@ -89,15 +89,15 @@ gpt-oss models arrived in August 2025, and frontier GPT models went GA on Bedroc
 side, Gemini is the first-party anchor and Model Garden carries the third-party and open models — a name
 that, notably, survived the platform rename around it.
 
-| Platform | First-party anchor | Catalog breadth |
+| Platform | First-party anchor | Catalogue breadth |
 |---|---|---|
 | Microsoft Foundry (Azure OpenAI) | OpenAI GPT family as a first-party Azure service | ~1,900 models: Microsoft, OpenAI, Anthropic, Mistral, xAI, Meta, DeepSeek, Hugging Face |
 | AWS Bedrock | Amazon's own Nova family | Multi-vendor from day one: Anthropic, Meta, Mistral, Cohere, and more — now including OpenAI |
 | Gemini Enterprise Agent Platform (Vertex AI) | Gemini | Model Garden: third-party models (including Claude) plus open models |
 
 The consequence is bigger than any single row. Model choice used to dictate cloud choice: if you needed GPT,
-you went to Azure, and that was the end of the conversation. That exclusive-catalog era is ending — OpenAI
-frontier models run on Bedrock, Anthropic sits in the Foundry catalog, and Claude is now available on all
+you went to Azure, and that was the end of the conversation. That exclusive-catalogue era is ending — OpenAI
+frontier models run on Bedrock, Anthropic sits in the Foundry catalogue, and Claude is now available on all
 three platforms. As the coupling between model and cloud weakens, the differentiators shift to the wrapper:
 residency guarantees, the managed RAG tier, capacity economics. That is exactly where the rest of this
 lesson goes.
@@ -108,7 +108,7 @@ All three platforms make the same core commitment for their enterprise AI offeri
 outputs are not used to train foundation models, and they are processed within the service boundary. The
 fine print differs enough to matter. Google qualifies its commitment with "by default." Azure's carries an
 abuse-monitoring caveat: in the default configuration, content flagged by abuse monitoring can be reviewed
-by humans unless your organization has opted out. Read the current data-privacy page of whichever platform
+by humans unless your organisation has opted out. Read the current data-privacy page of whichever platform
 you deploy on — this is one of the places where the exact wording is the product.
 
 **Data residency** is the guarantee about *where* inference happens. You choose the region or geography that
@@ -204,8 +204,8 @@ Lock-in lives in the batteries, not in the endpoint.
 - The platform's product is the model behind your cloud's existing perimeter: IAM, billing, private
   networking, inherited compliance, audit logs, quotas.
 - Names are snapshots — two of the three platforms renamed within about a year. The durable things are the
-  capability categories: catalog, privacy/residency, managed RAG, guardrails, pricing model.
-- Catalogs differ but converge: Claude on all three, OpenAI models on Bedrock. As exclusivity fades, the
+  capability categories: catalogue, privacy/residency, managed RAG, guardrails, pricing model.
+- Catalogues differ but converge: Claude on all three, OpenAI models on Bedrock. As exclusivity fades, the
   wrapper becomes the differentiator.
 - The compliance triad — data residency, no-training commitments, private networking — is what lets legal
   sign off, and often what decides platform versus direct API.
@@ -218,7 +218,7 @@ Lock-in lives in the batteries, not in the endpoint.
   managed-RAG fit, capacity economics.
 - Keep the app layer provider-agnostic — lock-in lives in the batteries, not the endpoint.
 
-**New terms** → [Glossary](../glossary.md): managed endpoint, model catalog, data residency, provisioned
+**New terms** → [Glossary](../glossary.md): managed endpoint, model catalogue, data residency, provisioned
 throughput, batch mode, managed RAG, vendor lock-in.
 
 ---
@@ -226,7 +226,7 @@ throughput, batch mode, managed RAG, vendor lock-in.
 :::note[Next — going deeper]
 
 🚧 Second pass: fine-tuning offerings on the platforms, the agent platforms (Bedrock AgentCore, Foundry
-Agent Service, Vertex Agent Engine), cost modeling and FinOps for LLM workloads, multi-cloud gateway
+Agent Service, Vertex Agent Engine), cost modelling and FinOps for LLM workloads, multi-cloud gateway
 patterns, and sovereign-cloud offerings.
 
 :::

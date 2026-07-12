@@ -128,7 +128,7 @@ physically lives — the trace starts in your service — and the production too
 
 If your container wraps only the app — a pipeline that calls provider APIs — there is no AI delta to speak
 of. It's a normal slim Python image, and the rules are the ones you already know: small layers, no secrets
-baked in, config from the environment. Containerizing an LLM application is just containerizing a Python
+baked in, config from the environment. Containerising an LLM application is just containerising a Python
 service.
 
 Everything changes when the model itself lives in the container.
@@ -155,7 +155,7 @@ out a cold start.
 
 ## Serving the model — inference servers
 
-Serving an LLM well is a specialized systems problem, not a web problem. The throughput wins live at the
+Serving an LLM well is a specialised systems problem, not a web problem. The throughput wins live at the
 level of GPU scheduling: **continuous batching**, where new requests join the running batch at token
 granularity instead of waiting for the whole batch to finish, and memory management like [vLLM](https://docs.vllm.ai)'s
 **PagedAttention**, which pages the KV cache the way an operating system pages virtual memory, cutting the
@@ -186,7 +186,7 @@ the backend is OpenAI itself, vLLM on your own GPUs, or a cloud endpoint. Switch
 URL change, not a rewrite — with one honest caveat: compatibility covers the core chat-completions
 surface, not every parameter of every backend.
 
-Which leaves the lesson's architecture takeaway, a clean division of labor. The FastAPI layer owns the
+Which leaves the lesson's architecture takeaway, a clean division of labour. The FastAPI layer owns the
 product: auth, RAG orchestration, guardrails, streaming to the user, accounting. The inference server owns
 the GPU: batching, KV cache, model loading. Chaining them — app service in front, inference server behind —
 is the standard self-hosted architecture; and if you use a provider API instead, nothing structural

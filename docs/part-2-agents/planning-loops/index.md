@@ -80,14 +80,14 @@ It breaks in three shapes:
 None of these are exotic. All three are the price of the freedom agentic-rag introduced — the same freedom
 that made the loop able to handle multi-hop questions is what lets it spin.
 
-## Defenses — layered
+## Defences — layered
 
-There is no single switch that fixes non-termination. You layer defenses, weakest-but-hardest at the bottom,
+There is no single switch that fixes non-termination. You layer defences, weakest-but-hardest at the bottom,
 smartest at the top.
 
 **Budgets and limits.** A hard cap — on steps, tool calls, tokens, cost, or wall-clock time. When the cap is
 hit, the loop stops no matter what the model "wants." This one is non-negotiable in production. It's the
-backstop that guarantees termination even when every smarter defense fails, and it's the reason a runaway
+backstop that guarantees termination even when every smarter defence fails, and it's the reason a runaway
 agent costs you a bounded amount of money instead of an unbounded one.
 
 **Loop detection.** Watch for the agent repeating the same action — same call, same arguments, same result —
@@ -99,7 +99,7 @@ done?" as a fuzzy judgement the model re-makes every step and can get wrong ever
 
 **Progress tracking.** Keep the goal and the already-closed subtasks in context, so the agent can see where
 it stands against the plan. (This is where that explicit plan pays off a second time.) It's the direct
-defense against drift: an agent that can see the goal is less likely to wander off it.
+defence against drift: an agent that can see the goal is less likely to wander off it.
 
 **Reflection.** The smartest layer — and worth its own section.
 
@@ -141,7 +141,7 @@ and their results, step by step. Over a long trajectory that means context bloat
 **lost-in-the-middle** — the model attends worst to the middle of a long context, so the early steps of a
 trajectory can effectively fall out of view right when the agent needs them.
 
-The mitigations belong to the second pass, but name them now: summarize the history as it grows, keep only
+The mitigations belong to the second pass, but name them now: summarise the history as it grows, keep only
 what's still relevant in a **scratchpad / working memory**, and hold a structured list of what's already
 done. That last one, again, is your explicit plan earning its keep.
 

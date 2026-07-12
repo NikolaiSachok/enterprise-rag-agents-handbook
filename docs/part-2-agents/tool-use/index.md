@@ -91,7 +91,7 @@ code — it's a model reading natural language.
   lowers the risk but doesn't remove it.
 - **Security — a new and serious risk.** A tool that **acts** (writes, sends, executes code) is now driven
   by the model's output, and that output can be hijacked via prompt injection — including the indirect kind
-  hidden in retrieved content. Hence the defense: **least privilege** — limit the tool set available to the
+  hidden in retrieved content. Hence the defence: **least privilege** — limit the tool set available to the
   agent, separate read tools from write tools, require confirmation for dangerous actions. Then even a
   successful injection can do very little.
 

@@ -244,7 +244,7 @@ The governance is worth dating precisely, because it shows how fast this moved. 
 the Linux Foundation — co-founded with Block and OpenAI. All three vendors are MCP *clients* today. Claude
 exposes an API **MCP connector** (remote HTTP only, tool-calls only) and Claude Code as an MCP client that
 also speaks local stdio. OpenAI's Agents SDK connects MCP servers (`MCPServerStdio` / `…StreamableHttp` /
-hosted) and the Responses API carries a hosted `{type:"mcp"}` tool over a catalog of OpenAI-maintained
+hosted) and the Responses API carries a hosted `{type:"mcp"}` tool over a catalogue of OpenAI-maintained
 connectors. Gemini/ADK connects through **`McpToolset`**, which converts a server's schemas into ADK tools,
 and the Gemini API has a native `mcp_server` remote tool type — with an honest dated caveat: as of mid-2026
 the docs state "Gemini 3 does not support remote MCP, this is coming soon." Underneath all three, the
@@ -254,12 +254,12 @@ is `2025-11-25`.
 
 The differences are ones of role. Anthropic *authored* MCP and co-governs it, and its API connector is
 remote-only while Claude Code covers local stdio. OpenAI is a co-founding *consumer* with the widest
-transport range and a hosted connector catalog. Gemini/ADK supports it through `McpToolset`, with the frank
+transport range and a hosted connector catalogue. Gemini/ADK supports it through `McpToolset`, with the frank
 "remote MCP coming soon" gap. None of that touches the durable point: *MCP is agent ↔ tools; A2A is
 agent ↔ agent* ([A2A](https://a2a-protocol.org): Google-originated, now under the Linux Foundation, at v1.0).
 
 The durable failure comes bundled with it. Every MCP server is a new attack surface — a malicious one can inject
-instructions through tool poisoning, exfiltrate data, or over-reach its grant. The defense is unchanged from
+instructions through tool poisoning, exfiltrate data, or over-reach its grant. The defence is unchanged from
 [mcp](./mcp/index.md): least privilege, only servers you trust, and human approval on sensitive actions.
 
 ## The seven techniques, three agents
@@ -333,6 +333,6 @@ keep. Once you can see it, a new vendor's documentation is something you consult
 
 :::note[Next — going deeper]
 
-🚧 Second pass: per-vendor deep dives (each SDK hands-on), a fact-rot sweep cadence for this fast-aging page, computer-use and browser tools, evals across vendors, and cost/latency benchmarking of the three.
+🚧 Second pass: per-vendor deep dives (each SDK hands-on), a fact-rot sweep cadence for this fast-ageing page, computer-use and browser tools, evals across vendors, and cost/latency benchmarking of the three.
 
 :::

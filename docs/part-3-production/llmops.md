@@ -12,7 +12,7 @@ observability as products. One question remains, and it's the one that fills the
 life: what does it mean to *operate* this thing — to change it safely, watch it, and pay for it, week
 after week?
 
-**LLMOps** is the industry's name for that discipline: MLOps specialized for LLM applications. In IBM's
+**LLMOps** is the industry's name for that discipline: MLOps specialised for LLM applications. In IBM's
 framing — and most definitions follow it — the scope covers the full lifecycle, fine-tuning included. This
 handbook cuts a sharper angle, because as an application builder you rarely train anything: what you
 compose and operate are prompts, model versions, retrieval indexes, and configs. Take that as our lens
@@ -26,11 +26,11 @@ The discipline in one pass — what LLMOps inherits from MLOps and what it chang
 
 :::
 
-## The AI delta — artifact and test
+## The AI delta — artefact and test
 
-Behind that lens sits the delta that drives this whole lesson. In classic DevOps the deployable artifact
-is code: ship the same build, get the same behavior. In an LLM application, behavior is defined by five
-artifacts at once:
+Behind that lens sits the delta that drives this whole lesson. In classic DevOps the deployable artefact
+is code: ship the same build, get the same behaviour. In an LLM application, behaviour is defined by five
+artefacts at once:
 
 - the prompts — the system prompt and every template on the request path;
 - the model — its identity and exact version;
@@ -40,12 +40,12 @@ artifacts at once:
 
 A change to any one of them is a deploy. And any one of them can regress quality with zero code diff.
 
-Testing changed along with the artifact. Outputs are nondeterministic and quality comes in degrees, whereas
+Testing changed along with the artefact. Outputs are nondeterministic and quality comes in degrees, whereas
 a unit test wants a clean pass or fail — so the regression instrument is
 [eval](../part-1-rag/cross-cutting/evaluation/index.md), not unit tests alone. Everything below is that one
 sentence, unpacked into a working operation.
 
-## Deploy — CI/CD when the artifact isn't just code
+## Deploy — CI/CD when the artefact isn't just code
 
 The whole discipline compresses into one loop. It's the spine of this lesson — and, as you'll see by the
 end, the closing image of the handbook:
@@ -82,7 +82,7 @@ replacement mappings, and issues timestamped snapshots — often with the date i
 Active, Legacy, Deprecated, Retired — with at least 60 days' notice before retirement.
 
 So production pins exact versions. An unpinned alias is a deploy you didn't schedule: the provider moves
-what the alias points to, and your system's behavior shifts with no diff anywhere on your side. **Model
+what the alias points to, and your system's behaviour shifts with no diff anywhere on your side. **Model
 pinning** turns that surprise back into a decision — when you move to a new version, you treat it as the
 deploy it is: re-run eval, then roll out gradually.
 
@@ -97,7 +97,7 @@ answers fast, cheap, and slightly wrong is a failing canary — and only quality
 
 ### The corpus is a release too
 
-The index is behavior. Re-ingest with a new chunking config and retrieval shifts across the entire corpus;
+The index is behaviour. Re-ingest with a new chunking config and retrieval shifts across the entire corpus;
 switch the embedding model and you owe a full re-index — Part I's
 [ingestion](../part-1-rag/ingestion/index.md) rule. So put corpus updates through the same gate as everything
 else: a versioned release that passes eval, rather than a background job that runs overnight and quietly
@@ -112,17 +112,17 @@ quality moved: refusal rate, guardrail-trigger rate, the rate of user feedback, 
 now — an online LLM-as-a-judge scoring a *sample* of production traffic. A sample, because the judge
 burns tokens too; you bound its cost like any other spend.
 
-### Drift — three flavors
+### Drift — three flavours
 
-A frozen configuration doesn't mean frozen behavior, because the world underneath it moves. **Input
+A frozen configuration doesn't mean frozen behaviour, because the world underneath it moves. **Input
 drift** is the established term: users start asking new kinds of questions, and the golden set no longer
 represents traffic — eval stays green on queries nobody sends anymore. **Corpus drift** is this handbook's
 extension of the same idea (the phenomenon is real; the pairing is our coinage): documents age, and
 answers begin citing facts that were true at ingestion time. And **upstream model drift**: the provider
-updates a model behind an unpinned alias, and behavior shifts with zero change on your side. Keep the
+updates a model behind an unpinned alias, and behaviour shifts with zero change on your side. Keep the
 "upstream" qualifier — in classic MLOps, "model drift" means your own model's performance degrading, a
 different sense. Detection is shared across all three: watch the topic and intent distribution of incoming
-traffic, and re-run eval on fresh samples rather than only on the aging golden set.
+traffic, and re-run eval on fresh samples rather than only on the ageing golden set.
 
 ### The incident loop, now a runbook
 
@@ -148,7 +148,7 @@ request burns metered tokens, and spend scales along two axes at once: with usag
 The second axis is the treacherous one because it moves silently: a longer system prompt, two extra
 retrieved chunks, an agent loop that grew chattier — each multiplies the per-request bill without a single
 alert firing, unless you made cost per request a first-class metric. Treat it as eval-grade: the number
-you actually optimize is quality per dollar.
+you actually optimise is quality per dollar.
 
 ### Route between models
 
@@ -164,7 +164,7 @@ who answers.
 Provider outages and 429s aren't incidents; they're weather. Production keeps a **fallback** chain — the
 same model in another region, another provider, a cheaper model in degraded mode — tried in order when
 the primary errors or rate-limits. The natural home for all of this is an **LLM gateway**: one
-OpenAI-compatible interface in front of every model you use, centralizing routing, fallbacks, API keys,
+OpenAI-compatible interface in front of every model you use, centralising routing, fallbacks, API keys,
 budgets, and per-team rate limits. [LiteLLM](https://www.litellm.ai) is the open-source example; [OpenRouter](https://openrouter.ai), the hosted one.
 
 ### Caching — twice
@@ -186,11 +186,11 @@ answer.
 ### The token diet
 
 The cheapest token is the one you never send. Retrieve fewer chunks — Part I's context packing: the best
-ones rather than all of them. Tighten the system prompt. Cap output length. Summarize agent scratchpads
+ones rather than all of them. Tighten the system prompt. Cap output length. Summarise agent scratchpads
 instead of letting them grow with every step
 ([planning and loops](../part-2-agents/planning-loops/index.md)). The diet has latency siblings: streaming for
 perceived latency (the [serving](./serving.md) lesson), smaller and faster models where routing allows,
-and parallelizing pipeline stages that don't depend on each other.
+and parallelising pipeline stages that don't depend on each other.
 
 ### The batch tier
 
@@ -232,11 +232,11 @@ never finishes — which is the point. A production LLM system isn't done; it's 
 
 ## What to take away
 
-- The deployable artifact is **prompt + model version + index + config + guardrail policies**, not just
+- The deployable artefact is **prompt + model version + index + config + guardrail policies**, not just
   code. A change to any of them is a deploy, and any of them can regress quality with zero code diff.
 - **Eval in CI** is the regression gate: every change runs the golden set; metrics below threshold block
   the merge.
-- **Pin exact model versions.** Providers deprecate and retire models; an unpinned alias changes behavior
+- **Pin exact model versions.** Providers deprecate and retire models; an unpinned alias changes behaviour
   under you. A provider model update is a deploy: re-run eval, roll out gradually.
 - Roll out with **canary / shadow / A/B** — and watch quality proxies plus cost, not only errors and
   latency.

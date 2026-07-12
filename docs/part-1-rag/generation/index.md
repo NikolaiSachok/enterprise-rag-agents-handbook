@@ -31,7 +31,7 @@ How you assemble the prompt is half the battle. The basic structure: a system in
 chunks (clearly set apart) + the user's question. Three things break most often:
 
 - **Marking the context off explicitly.** Flag where the sources begin and end, so the model can tell "data
-  to answer from" apart from "instructions." This doubles as the first line of defense against prompt
+  to answer from" apart from "instructions." This doubles as the first line of defence against prompt
   injection (more on that in the Guardrails layer).
 - **Order: the lost-in-the-middle effect.** A model "sees" the beginning and end of a long context better
   and loses whatever is buried in the middle. Hence the rule: don't dump 50 chunks — pass a handful of the
@@ -51,7 +51,7 @@ Ways to structure a prompt.
 
 The strongest tool is a simple one: give the model explicit boundaries. "Answer **only** from the provided
 context. If the answer isn't there, say so — don't make it up." That one instruction noticeably cuts the
-share of hallucinations, because it strips the model of its "license" to top up the answer from memory.
+share of hallucinations, because it strips the model of its "licence" to top up the answer from memory.
 
 ## Citations
 
@@ -91,7 +91,7 @@ feeling, it's a number.
 - **Grounding instructions** ("only from the context, otherwise — I don't know") are the main lever against
   hallucinations.
 - **Citations** give verifiability and, on their own, cut down on invention.
-- **Refusal** is normal behavior, not a malfunction.
+- **Refusal** is normal behaviour, not a malfunction.
 - Faithfulness to the context is something you **measure** → the bridge to Evaluation.
 
 **New terms** → [Glossary](../../glossary.md): grounding, grounding instructions, context packing,

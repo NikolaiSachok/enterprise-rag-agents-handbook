@@ -15,14 +15,14 @@ a link follows the definition (↗ Wikipedia for classics, ↗ arXiv for techniq
 **Chunk** — a fragment of a document, the unit of indexing. It is at once the unit of search and the unit
 of what the model gets to see.
 
-**Chunk overlap** — a shared stretch of text between neighboring chunks. It rescues a fact that fell on the
-cut line: the fact survives whole in at least one of the two neighbors (provided the fact is shorter than
+**Chunk overlap** — a shared stretch of text between neighbouring chunks. It rescues a fact that fell on the
+cut line: the fact survives whole in at least one of the two neighbours (provided the fact is shorter than
 the overlap). Usually 10–20% of the chunk size.
 
 **Recursive / structural chunking** — splitting along natural boundaries, hierarchically (sections →
 paragraphs → sentences), so chunk boundaries line up with the boundaries of ideas. The default choice.
 
-**Semantic chunking** — the chunk boundary goes where the semantic closeness of neighboring sentences
+**Semantic chunking** — the chunk boundary goes where the semantic closeness of neighbouring sentences
 drops sharply (a change of topic). Pricier, but each chunk ends up "about one thing."
 
 **Chunk metadata** — data attached to a chunk: source, title, section path, date, access rights. It feeds
@@ -59,10 +59,10 @@ number. More accurate than a bi-encoder but slower (the score can't be precomput
 but costs more in memory, search speed, and money.
 
 **Cosine similarity** — closeness measured by the angle between vectors; it reads direction and ignores
-length. The default metric; for normalized vectors it coincides with the dot product.
+length. The default metric; for normalised vectors it coincides with the dot product.
 ↗ [Wikipedia](https://en.wikipedia.org/wiki/Cosine_similarity)
 
-**Retrieval-optimized (asymmetric) embeddings** — models trained on "query ↔ passage" pairs rather than on
+**Retrieval-optimised (asymmetric) embeddings** — models trained on "query ↔ passage" pairs rather than on
 general sentence similarity. They often expect a `query:` / `passage:` prefix.
 
 **Multilingual embeddings** — embedding models that work across several languages; essential for
@@ -104,7 +104,7 @@ blind spot.
 each ranking, without reconciling their different score scales.
 ↗ [SIGIR'09](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf)
 
-**Score fusion / score normalization** — merging retrievers by their raw scores: normalize each onto a
+**Score fusion / score normalisation** — merging retrievers by their raw scores: normalise each onto a
 common scale (min-max, z-score), then weighted-sum. Keeps score magnitude but is fragile to outliers and
 per-query distribution shifts — the score-based alternative to rank-based RRF.
 
@@ -177,7 +177,7 @@ error.
 rather than the model's memory.
 
 **Parametric knowledge** — what the model learned in training and holds in its weights; RAG deliberately
-suppresses it in favor of the context.
+suppresses it in favour of the context.
 
 **Hallucination** — a confidently stated fact that isn't in the sources, or is wrong.
 
@@ -219,7 +219,7 @@ accuracy. ↗ [arXiv](https://arxiv.org/abs/2309.15217)
 human-like judgment to thousands of examples.
 
 **Judge bias** — systematic (not random) skews of an LLM judge, so they don't average out over more examples:
-position bias (favors the first option — mitigate by swapping order and requiring consistency), verbosity
+position bias (favours the first option — mitigate by swapping order and requiring consistency), verbosity
 bias (longer = better), self-preference / self-enhancement (its own style).
 ↗ [arXiv](https://arxiv.org/abs/2306.05685)
 
@@ -263,12 +263,12 @@ agreement is a signal to sharpen the rubric, not to overrule a dissenter.
 *κ = (p_o − p_e) / (1 − p_e)*, with p_o the observed and p_e the chance-expected agreement.
 ↗ [Wikipedia](https://en.wikipedia.org/wiki/Cohen%27s_kappa)
 
-**Fleiss' kappa** — the generalization of Cohen's kappa to agreement among more than two annotators.
+**Fleiss' kappa** — the generalisation of Cohen's kappa to agreement among more than two annotators.
 ↗ [Wikipedia](https://en.wikipedia.org/wiki/Fleiss%27_kappa)
 
-**Active sampling / active learning** — spending the scarce human-labeling budget where it is most
+**Active sampling / active learning** — spending the scarce human-labelling budget where it is most
 informative (where the judge is least confident, where judges disagree, or where production surfaced a
-failure) instead of labeling at random.
+failure) instead of labelling at random.
 
 ## Guardrails
 
@@ -294,7 +294,7 @@ failure) instead of labeling at random.
 
 **Attack success rate (ASR)** — the share of successful attacks over a set; a guardrails quality metric.
 
-**Defense-in-depth** — layered defense: no single layer is complete; they work together.
+**Defence-in-depth** — layered defence: no single layer is complete; they work together.
 
 ## Observability
 
@@ -458,7 +458,7 @@ same effect as running it once; an idempotency key lets the server dedupe retrie
 timeout is safe. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Idempotence)
 
 **Tool-RAG / dynamic tool loadout** — retrieving only the tools relevant to the current query and loading
-just those, instead of shipping the whole catalog on every request; RAG over the tool menu. Cuts token cost
+just those, instead of shipping the whole catalogue on every request; RAG over the tool menu. Cuts token cost
 and tool-selection errors on large tool sets.
 
 **Argument validation** — checking a tool call's arguments before executing, at two levels: schema-level
@@ -508,7 +508,7 @@ proposes candidate thoughts, self-evaluates each state, and searches the tree br
 lookahead and backtracking, unlike the single linear path of chain-of-thought.
 ↗ [arXiv](https://arxiv.org/abs/2305.10601)
 
-**Graph of Thoughts (GoT)** — generalizes ToT from a tree to an arbitrary graph, so thoughts can be
+**Graph of Thoughts (GoT)** — generalises ToT from a tree to an arbitrary graph, so thoughts can be
 aggregated and merged, not only branched. ↗ [arXiv](https://arxiv.org/abs/2308.09687)
 
 **LATS (Language Agent Tree Search)** — Monte Carlo Tree Search over an agent's actions rather than just its
@@ -542,13 +542,13 @@ exposes the run-to-run variance a single pass@1 hides. ↗ [arXiv](https://arxiv
 
 ## Agents — multi-agent systems
 
-**Multi-agent system** — several specialized agents collaborating instead of one agent; motivated by
-specialization, context isolation, modularity, and parallelism.
+**Multi-agent system** — several specialised agents collaborating instead of one agent; motivated by
+specialisation, context isolation, modularity, and parallelism.
 
 **Orchestrator / supervisor** — a lead agent that decomposes a task, routes subtasks to workers, and
 synthesizes their results; its "tools" are the sub-agents.
 
-**Worker / sub-agent** — a specialized agent that handles a routed subtask and returns a result.
+**Worker / sub-agent** — a specialised agent that handles a routed subtask and returns a result.
 
 **Handoff** — passing control plus the relevant context from one agent to another; the handoff message acts
 as a prompt for the receiving agent.
@@ -559,7 +559,7 @@ writer → editor → fact-checker).
 **Critic / debate** — a topology where a critic agent (or several independent agents) challenges or compares
 solutions, raising quality through independent perspectives.
 
-**FIPA ACL** — the Agent Communication Language standardized by FIPA (2002): a message is a *performative*
+**FIPA ACL** — the Agent Communication Language standardised by FIPA (2002): a message is a *performative*
 (a speech-act — inform, request, propose, cfp…) wrapping fields (sender, receiver, content, ontology,
 protocol, conversation-id). The decades-old ancestor of today's inter-agent message schemas.
 ↗ [Wikipedia](https://en.wikipedia.org/wiki/Foundation_for_Intelligent_Physical_Agents)
@@ -587,7 +587,7 @@ precondition for evaluating a team.
 flow, and multi-agent orchestration so you don't hand-roll them: LangChain, LangGraph, LlamaIndex,
 Microsoft Agent Framework (the successor to Semantic Kernel and AutoGen), CrewAI.
 
-**Agent as a graph / state machine** — modeling an agent as nodes (call model / call tool / decide) and
+**Agent as a graph / state machine** — modelling an agent as nodes (call model / call tool / decide) and
 edges (control flow, including loops) so the loop becomes inspectable, resumable, and controllable.
 
 **Node / edge** — graph elements: a node is a step (call model / call tool / decide); an edge is control
@@ -595,7 +595,7 @@ flow.
 
 **Checkpointing** — persisting agent state so a run can be paused, resumed, and inspected.
 
-**State graph (StateGraph)** — an agent modeled as a shared typed state object plus nodes and edges;
+**State graph (StateGraph)** — an agent modelled as a shared typed state object plus nodes and edges;
 LangGraph's concrete form of the agent-as-a-graph idea.
 
 **Conditional edge** — a graph edge that routes to the next node based on the current state; it is what
@@ -625,7 +625,7 @@ in a framework, a first-class interrupt node.
 
 **MCP (Model Context Protocol)** — an open client–server standard (created by Anthropic in late 2024, a
 project of the Agentic AI Foundation under the Linux Foundation since December 2025) for connecting
-agents to tools and data; standardizes tools, resources, and prompts. Turns M×N bespoke integrations into
+agents to tools and data; standardises tools, resources, and prompts. Turns M×N bespoke integrations into
 N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
 **MCP server** — wraps a tool or data source and exposes its capabilities uniformly.
@@ -673,7 +673,7 @@ servers exist; the official one launched in preview on 2025-09-08. Being listed 
 **Tool poisoning** — indirect prompt injection carried in a tool's description, which the model reads as a
 prompt; the highest-impact client-side MCP vulnerability class.
 
-**Rug pull** — a server that redefines a tool's behavior or description after you approved it, so the trust
+**Rug pull** — a server that redefines a tool's behaviour or description after you approved it, so the trust
 granted at connect time no longer matches what the tool does. The counter is pinning servers and re-reviewing
 on change.
 
@@ -713,14 +713,14 @@ application (your RAG/agent pipeline behind an API) and serving the model (runni
 **Inference** — the model computing outputs from inputs in production — the forward pass as a service, as
 opposed to training. What you buy from a provider API or run on your own GPUs.
 
-**Inference server** — a specialized server for LLM inference on GPUs: continuous batching, KV-cache
+**Inference server** — a specialised server for LLM inference on GPUs: continuous batching, KV-cache
 management, an OpenAI-compatible API (vLLM, SGLang, Ollama).
 
 **SSE (Server-Sent Events)** — a one-way event stream over plain HTTP; the standard transport for token
 streaming from LLM APIs. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Server-sent_events)
 
 **Time-to-first-token (TTFT)** — the latency until the first streamed token reaches the user; the
-perceived-latency metric that streaming optimizes.
+perceived-latency metric that streaming optimises.
 
 **Streaming** — sending tokens to the user as they are generated instead of waiting for the complete
 answer; the main perceived-latency lever (TTFT).
@@ -743,8 +743,8 @@ provider APIs and self-hosted inference servers alike, so switching backends is 
 **Managed endpoint** — a model served by a cloud AI platform behind your IAM, billing, and network
 perimeter: you call it, the platform runs it.
 
-**Model catalog** — the set of first- and third-party models a platform can serve as managed endpoints
-(Foundry Models, the Bedrock catalog, Model Garden).
+**Model catalogue** — the set of first- and third-party models a platform can serve as managed endpoints
+(Foundry Models, the Bedrock catalogue, Model Garden).
 
 **Data residency** — the guarantee about where requests are processed (region or geography); together with
 no-training commitments and private networking it forms the compliance triad.
@@ -769,17 +769,17 @@ the precondition for observability.
 attributes (model, tokens, tool calls): instrument once, export anywhere. Still experimental as of
 mid-2026. ↗ [GitHub](https://github.com/open-telemetry/semantic-conventions-genai)
 
-**Safety classifier** — a compact specialized model that scores text for risk categories on input or output
+**Safety classifier** — a compact specialised model that scores text for risk categories on input or output
 (Llama Guard, Granite Guardian); composes with guardrails frameworks, which orchestrate the checks.
 
-**Red-teaming** — deliberately attacking your own system to measure its defenses (attack success rate);
+**Red-teaming** — deliberately attacking your own system to measure its defences (attack success rate);
 productized in eval tools and platform red-team features.
 
 ## Production — LLMOps
 
 **LLMOps** — the operations discipline for LLM applications: deploying, monitoring, and cost-managing
-systems whose behavior lives in prompts, model versions, indexes, and configs rather than only in code.
-MLOps specialized for foundation-model applications.
+systems whose behaviour lives in prompts, model versions, indexes, and configs rather than only in code.
+MLOps specialised for foundation-model applications.
 
 **Canary release** — routing a small share of live traffic to the new variant (prompt, model, index)
 while watching quality and cost metrics; a regression surfaces on a fraction of users and rolls back
@@ -793,7 +793,7 @@ shown to users; a safe quality comparison on real queries.
 prompts without shipping code, and every production answer stays attributable to an exact prompt version.
 
 **Model pinning** — pinning production to exact model snapshot ids instead of a floating alias; a
-provider's model update then becomes an explicit, eval-gated deploy rather than a silent behavior change.
+provider's model update then becomes an explicit, eval-gated deploy rather than a silent behaviour change.
 
 **Model routing** — sending each request to the cheapest model that can handle it; the router can be a
 rule, a classifier, or a model. Distinct from query routing (which index, Part I) and tool selection
@@ -802,7 +802,7 @@ rule, a classifier, or a model. Distinct from query routing (which index, Part I
 **Fallback** — the pre-configured alternative — another region, another provider, a cheaper model — that
 the system switches to when the primary model errors or rate-limits.
 
-**LLM gateway** — the layer that centralizes model access behind one API: routing, fallbacks, keys,
+**LLM gateway** — the layer that centralises model access behind one API: routing, fallbacks, keys,
 budgets, and rate limits per team (LiteLLM, OpenRouter).
 
 **Prompt caching** — provider-side caching of the repeated prompt prefix (system prompt, examples, static

@@ -107,7 +107,7 @@ Which is why *more is not better*. Add retrieved documents past a point and it *
 
 Given the U-curve, ordering is not cosmetic. Place the packed chunks so the highest-ranked land at the *edges* — start and end — and the weakest in the middle where the model will half-ignore them anyway. The reranker already produced a score order; packing position maps directly onto it. The retriever ranks; the packer *places* according to that ranking.
 
-Two more moves recover budget before you ever hit the window limit. **Deduplicate**: overlapping chunks from ingestion's chunk overlap, plus near-duplicate sources, waste tokens and re-bury the signal by repeating it — drop the redundancy before packing. And **compress** when it earns its keep: context-compression or summarization of the retrieved chunks fits more signal per token, at the price of an extra LLM pass. Name it, reach for it when the window is genuinely the bottleneck, and don't pay for it otherwise.
+Two more moves recover budget before you ever hit the window limit. **Deduplicate**: overlapping chunks from ingestion's chunk overlap, plus near-duplicate sources, waste tokens and re-bury the signal by repeating it — drop the redundancy before packing. And **compress** when it earns its keep: context-compression or summarisation of the retrieved chunks fits more signal per token, at the price of an extra LLM pass. Name it, reach for it when the window is genuinely the bottleneck, and don't pay for it otherwise.
 
 The through-line: long-context packing is Part 1's "few best, at the edges" rule made rigorous — select (rerank), dedupe, order to the U-curve. The window got bigger. The discipline did not become optional.
 

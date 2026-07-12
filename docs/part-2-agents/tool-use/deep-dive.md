@@ -24,9 +24,9 @@ Collecting the results has a contract of its own, and Anthropic's is worth stati
 
 Now the restraint, because two kinds of call have no business in a parallel batch.
 
-Do not parallelize **dependent calls** — where one needs a previous result. That is compositional, sequential calling; run it in order. Batching it is simply wrong, because the second call needs an argument that does not exist yet.
+Do not parallelise **dependent calls** — where one needs a previous result. That is compositional, sequential calling; run it in order. Batching it is simply wrong, because the second call needs an argument that does not exist yet.
 
-Do not blindly parallelize **side-effectful writes**. Concurrent writes to shared state race, and ordering across a batch is undefined — you cannot say which one landed first. For write tools, either disable parallel calls (`disable_parallel_tool_use` / `parallel_tool_calls: false`) or serialize execution in your own runtime. We return to this under idempotency.
+Do not blindly parallelise **side-effectful writes**. Concurrent writes to shared state race, and ordering across a batch is undefined — you cannot say which one landed first. For write tools, either disable parallel calls (`disable_parallel_tool_use` / `parallel_tool_calls: false`) or serialise execution in your own runtime. We return to this under idempotency.
 
 When the model keeps batching things it shouldn't, the documented fix is the prompt itself: instruct it in the system prompt — "Only batch tool calls that are independent of each other." The model batches on an assumption; the system prompt is where you correct the assumption.
 
@@ -58,11 +58,11 @@ How each vendor exposes strict mode:
 
 Constrained decoding is not free. Here is what it costs, and when to skip it:
 
-- **First-call compile cost.** The first request carrying a *new* schema pays a latency penalty while the grammar artifact is computed and preprocessed for sampling; later requests with the same schema hit a cache and run fast. OpenAI documents exactly this — schema to grammar on first sight, cached thereafter. The consequence is practical: churn a freshly generated schema on every call and you defeat the cache, paying the compile tax every single time.
+- **First-call compile cost.** The first request carrying a *new* schema pays a latency penalty while the grammar artefact is computed and preprocessed for sampling; later requests with the same schema hit a cache and run fast. OpenAI documents exactly this — schema to grammar on first sight, cached thereafter. The consequence is practical: churn a freshly generated schema on every call and you defeat the cache, paying the compile tax every single time.
 - **Unsupported schema features.** Strict mode covers only a subset of JSON Schema, and the `additionalProperties: false` plus all-required constraints mean some expressive features are unavailable or have to be reshaped to fit.
 - **Parallelism, as a dated fact.** Parallel function calling did not originally work together with strict mode on OpenAI — to keep strictness you set `parallel_tool_calls: false`. That was later fixed, and parallel calls now work with strict mode.
 
-So be exact about what strict decoding buys. It guarantees well-formed, schema-valid arguments: the JSON parses, the types line up, the enums are honored. It does not guarantee the arguments are *correct*, or that the model reached for the *right* tool. Structure is not semantics — and closing that gap is the entire job of the validation section below.
+So be exact about what strict decoding buys. It guarantees well-formed, schema-valid arguments: the JSON parses, the types line up, the enums are honoured. It does not guarantee the arguments are *correct*, or that the model reached for the *right* tool. Structure is not semantics — and closing that gap is the entire job of the validation section below.
 
 The same mechanism as a loop — schema compiles once, then every decoding step masks and samples:
 
@@ -92,23 +92,23 @@ Not every failure is the model's fault, and those get different handling. For **
 
 And cap it. A **retry budget** — a hard ceiling on attempts, per call and per run — mirrors the step budget and token budget from the planning lesson. Without a ceiling, a call that fails deterministically becomes an **infinite retry loop**: the agent reissues the same doomed call forever and never terminates.
 
-Which points at the real distinction. Retrying earns its keep only when the input to the retry is *different* — a corrected argument, or a transient fault that has since settled. Retry the identical call after a deterministic failure and it fails identically; you have burned budget and money to relearn what you already knew. Recognize the non-progressing case and stop: surface the failure, hand it to a human, or try a different tool. And name it correctly — a loop that won't stop is a failure, a bug in the run, never a "refusal."
+Which points at the real distinction. Retrying earns its keep only when the input to the retry is *different* — a corrected argument, or a transient fault that has since settled. Retry the identical call after a deterministic failure and it fails identically; you have burned budget and money to relearn what you already knew. Recognise the non-progressing case and stop: surface the failure, hand it to a human, or try a different tool. And name it correctly — a loop that won't stop is a failure, a bug in the run, never a "refusal."
 
 That leaves two things not to retry. Do not retry a deterministic failure unchanged; nothing has changed, so the outcome won't either. And do not retry a side-effectful write that might have partially succeeded without an idempotency guarantee behind it — the retry can double-apply what the first attempt already did. Retries are for transient faults and self-corrected arguments; they are not a way to avoid fixing the call. The next section makes that concrete for writes.
 
 ## The context cost of dozens of tools
 
-Every tool definition costs tokens in every request: the name, the description, and the full parameter schema of each tool are serialized into the prompt on every call, used or not. A dozen tools is a standing tax — tokens, latency, money — paid whether or not the model touches any of them. That is the concrete price behind Part 1's "few, non-overlapping tools."
+Every tool definition costs tokens in every request: the name, the description, and the full parameter schema of each tool are serialised into the prompt on every call, used or not. A dozen tools is a standing tax — tokens, latency, money — paid whether or not the model touches any of them. That is the concrete price behind Part 1's "few, non-overlapping tools."
 
 The tax is not only fiscal. **Tool selection** degrades as the set grows: with many close-in-meaning tools the model picks the wrong tool more often, and fails to call when it should — the wrong-tool and no-call failures Part 1 named. A large flat toolset actively makes the agent worse at choosing.
 
-The fix at scale is to stop shipping every tool every time. **Dynamic tool loadout** — also called **tool-RAG** — retrieves only the tools relevant to the current query and loads just those into the request. It is RAG applied to the tool menu instead of to documents: a retrieval step over your tool catalog that keeps the active set small and on topic, turn by turn.
+The fix at scale is to stop shipping every tool every time. **Dynamic tool loadout** — also called **tool-RAG** — retrieves only the tools relevant to the current query and loads just those into the request. It is RAG applied to the tool menu instead of to documents: a retrieval step over your tool catalogue that keeps the active set small and on topic, turn by turn.
 
-**Namespacing** works the same problem from the other side. Give tools structured names and group them — by domain, by server — so the model and your retrieval step can both reason about them; it cuts name collisions and overlap once the catalog is large.
+**Namespacing** works the same problem from the other side. Give tools structured names and group them — by domain, by server — so the model and your retrieval step can both reason about them; it cuts name collisions and overlap once the catalogue is large.
 
-Past some point the answer is not a longer list at all. When one agent is hauling dozens of tools, the fix is to split into **specialized agents**, each with a small, orthogonal toolset — the specialization argument from the [multi-agent](../multi-agent/index.md) lesson. A tool list that keeps growing is itself the signal that you have outgrown a single agent.
+Past some point the answer is not a longer list at all. When one agent is hauling dozens of tools, the fix is to split into **specialised agents**, each with a small, orthogonal toolset — the specialisation argument from the [multi-agent](../multi-agent/index.md) lesson. A tool list that keeps growing is itself the signal that you have outgrown a single agent.
 
-The restraint runs the other way too. Do not reach for tool-RAG prematurely. For a handful of tools it is needless machinery with its own failure surface — a retrieval step that can now misfire and hide a tool the model needed. The simplest thing that works is the full static set; dynamic loadout earns its complexity only when the catalog is genuinely large. Same discipline as everywhere in Part 2: take the simplest level that solves the task.
+The restraint runs the other way too. Do not reach for tool-RAG prematurely. For a handful of tools it is needless machinery with its own failure surface — a retrieval step that can now misfire and hide a tool the model needed. The simplest thing that works is the full static set; dynamic loadout earns its complexity only when the catalogue is genuinely large. Same discipline as everywhere in Part 2: take the simplest level that solves the task.
 
 ## Idempotency and the writes that leave a mark
 
@@ -120,7 +120,7 @@ For writes that are dangerous or irreversible, split the operation in two. A **d
 
 Keep that separation structural, as Part 1 argued: keep read tools and write tools distinct so you can hand the agent broad read access and gate the writes. Least privilege stops being a slogan once the tools themselves are split along the line you mean to guard.
 
-Here the parallel section and this one meet. A fan-out batch has undefined ordering, so two writes dropped into one batch can race or land out of order. Never put order-dependent or conflicting writes in the same parallel batch — serialize them, or disable parallel calls for write tools. Parallelism was the win earlier; on writes it is the trap.
+Here the parallel section and this one meet. A fan-out batch has undefined ordering, so two writes dropped into one batch can race or land out of order. Never put order-dependent or conflicting writes in the same parallel batch — serialise them, or disable parallel calls for write tools. Parallelism was the win earlier; on writes it is the trap.
 
 And the rule that ties retries back to writes: do not lean on retries for a write tool that is not idempotent and has no key. A retry after a timeout that had in fact succeeded double-applies the effect — a second charge, a second email. Fix idempotency first, then allow retries. That order does not flip.
 
@@ -130,7 +130,7 @@ Strict decoding gets you well-formed arguments. It does not get you *acceptable*
 
 The gate has two levels, and they catch different things.
 
-- **Schema-level validation** — types, required fields, enums, formats. Strict, constrained decoding largely covers this at generation time, but validate anyway: for non-strict tools, and as defense in depth.
+- **Schema-level validation** — types, required fields, enums, formats. Strict, constrained decoding largely covers this at generation time, but validate anyway: for non-strict tools, and as defence in depth.
 - **Semantic validation** — the arguments are well-typed and still wrong for the context: an id that doesn't exist, a date in the past, an amount over a limit, a path outside the allowed root. A schema cannot express most of this; your code has to. This is precisely the gap the schema section flagged — structure passing while semantics fail.
 
 When validation rejects an argument, it feeds back the same way an execution error does. A failed check returns a recoverable, model-readable message — error as prompt again — so the model corrects the argument and retries. Same self-healing loop, only now it guards the boundary before execution instead of catching a failure after it.
@@ -142,7 +142,7 @@ That fixes the line between the two levels. Don't push semantic checks into the 
 - In one turn the model can fire several independent calls; your runtime fans them out to run concurrently and fans the results back in together. That is valid only when the calls truly don't depend on or interfere with each other — and nothing enforces it but you.
 - Strict mode enforces a schema by constrained decoding: the schema compiles to a grammar, and the sampler masks every token that would break it. It buys well-formed arguments, not correct ones, and the first call on a new schema pays a compile cost before the cache warms.
 - A failed call recovers when you hand the error back as a prompt — a readable, actionable message the model can correct against. Retry transient faults with backoff under a hard retry budget; retrying an unchanged deterministic failure is an infinite loop, not a recovery.
-- Every tool definition is tokens on every request, and selection accuracy drops as the set grows. Retrieve a small, relevant loadout (tool-RAG) only once the catalog is genuinely large — and past that point, split into specialized agents rather than growing one.
+- Every tool definition is tokens on every request, and selection accuracy drops as the set grows. Retrieve a small, relevant loadout (tool-RAG) only once the catalogue is genuinely large — and past that point, split into specialised agents rather than growing one.
 - A read is safe to retry; a write is not, unless it is idempotent — give write tools an idempotency key, a dry-run/confirm split for the dangerous ones, and never a seat in a parallel batch beside another write.
 - Validate arguments before executing, at two levels: schema-level for shape, semantic for meaning. Strict decoding covers the first; your code has to cover the second; and a validation error feeds back to the model exactly like an execution error.
 

@@ -41,7 +41,7 @@ answer?"
 
 Unlike an ordinary application, every request **costs money** (tokens), and LLM calls are slow. Observability
 has to account for cost-per-request and per-step latency (generation and rerank especially) — to catch the
-expensive, slow patterns and optimize: caching, a cheaper model, fewer chunks in the prompt.
+expensive, slow patterns and optimise: caching, a cheaper model, fewer chunks in the prompt.
 
 ## Feedback: observability feeds eval
 
