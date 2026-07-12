@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Where your tokens get computed
 
-[Serving](./serving.md) ended at a fork. The application layer — auth, the RAG pipeline, guardrails,
+[Serving](./serving/index.md) ended at a fork. The application layer — auth, the RAG pipeline, guardrails,
 streaming — is yours either way; the open question was the second box in the diagram: do you run the model
 on your own GPUs, or rent it? This lesson walks the rent branch properly, because renting turns out to have
 a fork of its own.
@@ -173,12 +173,12 @@ There is a third tier worth knowing: batch. All three platforms document discoun
 processing for non-interactive workloads — roughly half the on-demand price, for supported models (Azure
 Batch, Bedrock batch inference, Vertex batch predictions). If a workload doesn't need an answer in seconds —
 nightly document processing, bulk classification, offline eval runs — batch mode is the cheapest tokens the
-platform will sell you. Don't confuse it with continuous batching from the [serving](./serving.md) lesson:
+platform will sell you. Don't confuse it with continuous batching from the [serving](./serving/index.md) lesson:
 that lives in the inference server's GPU scheduler, while batch mode is a pricing tier at the API level.
 
 One operational constant ties the section together: quotas are per-region and per-model, and a production
 design must handle 429s no matter which platform serves it. That is the retry-and-rate-cap checklist from
-[serving](./serving.md), and it is the opening problem of [LLMOps](./llmops.md), where routing and fallbacks
+[serving](./serving/index.md), and it is the opening problem of [LLMOps](./llmops.md), where routing and fallbacks
 pick up what a single endpoint can't guarantee.
 
 ## How to choose

@@ -13,7 +13,7 @@ sidebar_label: Обзор части
 
 ## Что внутри
 
-- **[Serving — сервинг на FastAPI и Docker](./serving.md)** — как завернуть модель или агента в сервис:
+- **[Serving — сервинг на FastAPI и Docker](./serving/index.md)** — как завернуть модель или агента в сервис:
   API, стриминг, контейнер, инференс-серверы.
 - **[Облачные AI-платформы](./cloud-platforms.md)** — [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service), [Amazon Bedrock](https://aws.amazon.com/bedrock/), Google Cloud Gemini
   Enterprise Agent Platform (экс-Vertex AI): что они дают и чем отличаются.

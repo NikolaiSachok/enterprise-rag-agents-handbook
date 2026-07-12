@@ -1,7 +1,6 @@
 ---
-id: serving
 title: "Serving — FastAPI + Docker"
-sidebar_position: 1
+slug: /part-3-production/serving/
 ---
 
 # From notebook to service
@@ -12,8 +11,8 @@ assumption — it runs on your machine, for you. You start it, you feed it a que
 and when it breaks you are sitting right there. Production removes every part of that: the system runs as
 a service, for other people, many at once, under load, with nobody watching. Part III is about that jump,
 and it unfolds in order — this lesson wraps what you built as a service; the lessons after it ask
-[where the model itself should run](./cloud-platforms.md), [what tooling to put around the running
-system](./tooling-ecosystem.md), and [how to operate it once it's live](./llmops.md).
+[where the model itself should run](../cloud-platforms.md), [what tooling to put around the running
+system](../tooling-ecosystem.md), and [how to operate it once it's live](../llmops.md).
 
 ## One word, two jobs
 
@@ -45,7 +44,7 @@ community default for LLM services.
 
 Three of its features earn their keep daily. Native `async`/`await` route handlers make the interleaving
 above simply the way you write. [Pydantic](https://pydantic.dev) models validate request and response shapes at the boundary —
-which pairs directly with structured output from [tool-use](../part-2-agents/tool-use/index.md): the schema the
+which pairs directly with structured output from [tool-use](../../part-2-agents/tool-use/index.md): the schema the
 model was asked to produce gets checked before anything leaves your service. And the auto-generated
 OpenAPI docs keep the contract your service exposes current without anyone maintaining it.
 
@@ -91,7 +90,7 @@ the first bytes, so when generation fails halfway through, the 200 is already on
 code can take it back. Errors have to travel in-band, as an error event inside the stream — which is
 exactly what the provider APIs do — and every client has to be written for a stream that dies mid-answer.
 
-Streaming also collides with the output-side [guardrails](../part-1-rag/cross-cutting/guardrails/index.md) from
+Streaming also collides with the output-side [guardrails](../../part-1-rag/cross-cutting/guardrails/index.md) from
 Part I: you cannot validate a complete answer you don't have yet. Two options exist, and both are
 compromises. Buffer the whole answer and validate before sending — which throws away the TTFT win you
 streamed for. Or validate incrementally, chunk by chunk — which is weaker: a bad prefix can reach the user
@@ -120,9 +119,9 @@ exhausts the shared quota and everyone else gets errors that aren't their fault.
 limits on your own users are how you protect them from each other.
 
 Last, accounting hooks: log tokens in and tokens out, which model, latency per stage — on every request.
-This is where the [observability](../part-1-rag/cross-cutting/observability/index.md) discipline from Part I
+This is where the [observability](../../part-1-rag/cross-cutting/observability/index.md) discipline from Part I
 physically lives — the trace starts in your service — and the production tooling in
-[tooling-ecosystem](./tooling-ecosystem.md) will assume those hooks exist.
+[tooling-ecosystem](../tooling-ecosystem.md) will assume those hooks exist.
 
 ## Docker — where the AI delta actually is
 
@@ -191,7 +190,7 @@ product: auth, RAG orchestration, guardrails, streaming to the user, accounting.
 the GPU: batching, KV cache, model loading. Chaining them — app service in front, inference server behind —
 is the standard self-hosted architecture; and if you use a provider API instead, nothing structural
 changes — you've simply rented the second box. Whether to rent it or own it is exactly the question of the
-[cloud-platforms](./cloud-platforms.md) lesson.
+[cloud-platforms](../cloud-platforms.md) lesson.
 
 ```mermaid
 flowchart LR
@@ -218,14 +217,20 @@ flowchart LR
 - The inference server owns the GPU (continuous batching, PagedAttention); FastAPI owns the product; the
   OpenAI-compatible API between them makes backends swappable.
 
-**New terms** → [Glossary](../glossary.md): serving, inference, inference server, SSE (Server-Sent Events), time-to-first-token (TTFT), streaming, continuous batching, PagedAttention, cold start, OpenAI-compatible API.
+**New terms** → [Glossary](../../glossary.md): serving, inference, inference server, SSE (Server-Sent Events), time-to-first-token (TTFT), streaming, continuous batching, PagedAttention, cold start, OpenAI-compatible API.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: production ASGI tuning (workers and uvicorn), request queueing and backpressure design,
-vLLM internals (scheduling, quantization), multi-GPU and multi-node serving, Kubernetes GPU scheduling and
-autoscaling on token throughput, serverless GPU.
+**[Throughput & scale](./deep-dive.md)** — the same service under real load: ASGI worker and event-loop
+tuning, request queueing and backpressure, vLLM internals (continuous-batching scheduling, KV-cache paging,
+quantisation), multi-GPU and multi-node parallelism, Kubernetes GPU scheduling and autoscaling on token
+throughput, and serverless GPU.
+
+See also, in Part III: [cloud platforms](../cloud-platforms.md) for rent-vs-own and where the model runs,
+[LLMOps](../llmops.md) for operating it once it's live, and the [tooling ecosystem](../tooling-ecosystem.md)
+for what to wrap around it. For the SLOs and latency budgets that these scaling choices answer to, the
+[observability deep dive](../../part-1-rag/cross-cutting/observability/deep-dive.md).
 
 :::

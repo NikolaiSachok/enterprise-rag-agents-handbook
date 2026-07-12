@@ -70,5 +70,9 @@
   "sidebar.handbookSidebar.category.Part III — Production & LLMOps": {
     "message": "Часть III — Production и LLMOps",
     "description": "The label for category 'Part III — Production & LLMOps' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Serving — FastAPI + Docker": {
+    "message": "Serving — сервинг на FastAPI и Docker",
+    "description": "The label for category 'Serving — FastAPI + Docker' in sidebar 'handbookSidebar'"
   }
 }

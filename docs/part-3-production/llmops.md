@@ -6,7 +6,7 @@ sidebar_position: 4
 
 # The LLM system's life after release
 
-[Serving](./serving.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms.md) decided
+[Serving](./serving/index.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms.md) decided
 where the model runs. [The tooling ecosystem](./tooling-ecosystem.md) gave you eval, guardrails, and
 observability as products. One question remains, and it's the one that fills the rest of the system's
 life: what does it mean to *operate* this thing — to change it safely, watch it, and pay for it, week
@@ -189,7 +189,7 @@ The cheapest token is the one you never send. Retrieve fewer chunks — Part I's
 ones rather than all of them. Tighten the system prompt. Cap output length. Summarise agent scratchpads
 instead of letting them grow with every step
 ([planning and loops](../part-2-agents/planning-loops/index.md)). The diet has latency siblings: streaming for
-perceived latency (the [serving](./serving.md) lesson), smaller and faster models where routing allows,
+perceived latency (the [serving](./serving/index.md) lesson), smaller and faster models where routing allows,
 and parallelising pipeline stages that don't depend on each other.
 
 ### The batch tier
@@ -221,7 +221,7 @@ flowchart LR
 ---
 
 That closes Part III, and with it the handbook's base course. Part III's own arc was short and practical:
-we wrapped the pipeline as a [service](./serving.md), chose
+we wrapped the pipeline as a [service](./serving/index.md), chose
 [where the model runs](./cloud-platforms.md), assembled the [tooling](./tooling-ecosystem.md) around the
 loop, and — in this lesson — learned to operate what we built. The longer arc is the book's. Part I built
 the pipeline: chunks, embeddings, retrieval, generation, and the cross-cutting disciplines that make it

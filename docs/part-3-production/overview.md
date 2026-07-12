@@ -13,7 +13,7 @@ observably, and on budget."
 
 ## What's inside
 
-- **[Serving — FastAPI + Docker](./serving.md)** — wrapping a model or agent in a service: API, streaming,
+- **[Serving — FastAPI + Docker](./serving/index.md)** — wrapping a model or agent in a service: API, streaming,
   container, inference servers.
 - **[Cloud AI platforms](./cloud-platforms.md)** — [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service), [Amazon Bedrock](https://aws.amazon.com/bedrock/), Google Cloud Gemini
   Enterprise Agent Platform (formerly [Vertex AI](https://cloud.google.com/vertex-ai)): what they offer and how they differ.

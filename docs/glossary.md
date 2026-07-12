@@ -738,6 +738,79 @@ next request.
 **OpenAI-compatible API** — the de facto wire standard for LLM endpoints; one client dialect talks to
 provider APIs and self-hosted inference servers alike, so switching backends is close to a URL change.
 
+**ASGI workers** — separate OS processes, each running its own copy of the ASGI server (uvicorn) and its own
+event loop, spawned to use more than one CPU core. Concurrency comes from the event loop, not the worker
+count; workers add cores and cover the CPU-bound slivers (serialisation, tokenisation, JSON).
+
+**uvloop** — a fast libuv-based event-loop implementation bundled in `uvicorn[standard]`; it replaces the
+default asyncio loop for a speed gain at no code change.
+
+**Threadpool offloading** — running unavoidable synchronous work off the event loop, on a worker thread
+(`run_in_threadpool`, `asyncio.to_thread`), so a blocking call doesn't freeze the loop and every concurrent
+request in the process with it.
+
+**Backpressure** — deliberately bounding in-flight work: a semaphore caps concurrent generations and a
+bounded queue caps how many wait, so the service refuses excess load instead of accepting work it cannot
+finish.
+
+**Load shedding** — fast-failing excess requests when the queue is full (a `429`/`503` with `Retry-After`)
+rather than accepting them; a request the client can retry beats a service that melts down for everyone.
+
+**Admission control** — rejecting work up front that will already have blown the client's timeout by the
+time it runs, instead of spending a GPU slot on an answer no one is still waiting for.
+
+**Little's Law** — the queueing identity L = λW: average concurrency equals arrival rate times
+time-in-system. Because an LLM generation's W runs to tens of seconds, even a low request rate implies a
+large concurrency. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Little%27s_law)
+
+**Iteration-level scheduling** — inference-server scheduling (continuous batching) that admits new requests
+and evicts finished ones at every decode step, instead of waiting for a whole static batch to finish;
+introduced by the Orca paper (OSDI 2022).
+
+**Prefill / decode** — the two phases of a generation, with opposite bottlenecks: prefill processes the
+whole prompt in one compute-bound pass; decode emits one token per step, re-reading weights and KV cache,
+and is memory-bandwidth-bound.
+
+**Chunked prefill** — interleaving a long prompt's prefill with ongoing decodes in the same step, so one big
+prompt doesn't stall everyone else's token generation; trades slightly higher p50 TTFT for much better p95.
+
+**Prefix caching** — reusing the KV cache of a shared prompt prefix (e.g. a common system prompt) across
+requests, skipping recomputation of that prefix.
+
+**Quantisation** — storing weights (and optionally activations) at lower precision — FP8, INT8, or INT4 via
+AWQ/GPTQ, below the FP16/BF16 baseline — to cut memory and raise throughput, at some cost to quality.
+
+**KV-cache quantisation** — storing the KV cache itself at lower precision (e.g. FP8), which roughly doubles
+the tokens a given KV pool holds, buying longer contexts or more concurrency.
+
+**Tensor parallelism** — sharding each layer's weight matrices across several GPUs; every layer needs an
+all-reduce to recombine the partial results, so it is communication-heavy and wants a fast interconnect
+(NVLink) within one node.
+
+**Pipeline parallelism** — splitting the layers into stages on different GPUs or nodes, with micro-batches
+flowing stage to stage; far less communication than tensor parallelism, so it tolerates a slower
+interconnect across nodes, at the cost of a pipeline "bubble" while stages fill and drain.
+
+**Data parallelism** — running whole-model replicas behind a load balancer for pure throughput; used when
+the model already fits on a single GPU, unlike tensor/pipeline parallelism, which exist for models that
+don't.
+
+**MIG (Multi-Instance GPU)** — hardware partitioning of an A100/H100 into isolated instances, each with its
+own memory and fault isolation.
+
+**GPU time-slicing** — sharing one GPU by interleaving work on it, with no memory or fault isolation; fine
+for a dev cluster, risky in production where one tenant's fault or memory spike reaches the others.
+
+**KEDA** — a Kubernetes event-driven autoscaler that scales workloads on external/custom metrics (queue
+depth, tokens per second, GPU utilisation), unlike the default HPA, which only sees CPU and memory.
+
+**KServe** — a model-serving layer on Kubernetes (with Knative) that gives request-driven autoscaling,
+including scale-to-zero and concurrency-based scaling.
+
+**Serverless GPU** — GPU capacity billed per second, with scale-to-zero and no cluster to operate (Modal,
+RunPod, Replicate, Baseten, Cloud Run with a GPU); its central problem is the cold-start tax, softened by
+memory snapshots and warm pools.
+
 ## Production — cloud platforms
 
 **Managed endpoint** — a model served by a cloud AI platform behind your IAM, billing, and network

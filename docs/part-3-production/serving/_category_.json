@@ -1,0 +1,8 @@
+{
+  "label": "Serving — FastAPI + Docker",
+  "position": 1,
+  "link": {
+    "type": "doc",
+    "id": "part-3-production/serving/index"
+  }
+}
