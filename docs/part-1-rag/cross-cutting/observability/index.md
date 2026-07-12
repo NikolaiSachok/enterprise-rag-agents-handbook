@@ -88,6 +88,6 @@ accounting with p50/p95 latency and cost budgets.
 
 See also: the sibling cross-cutting concerns — [Evaluation](../evaluation/index.md) (observability's traces
 become new eval cases) and [Guardrails](../guardrails/index.md); and, for observability running continuously
-in production, [LLMOps](../../../part-3-production/llmops.md).
+in production, [LLMOps](../../../part-3-production/llmops/index.md).
 
 :::

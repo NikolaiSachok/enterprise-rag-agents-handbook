@@ -87,6 +87,6 @@ request / token accounting, latency (p50 / p95), three pillars (metrics / logs /
 
 См. также: соседние сквозные аспекты — [Evaluation](../evaluation/index.md) (трейсы наблюдаемости становятся
 новыми eval-кейсами) и [Guardrails](../guardrails/index.md); и, про наблюдаемость, работающую в проде
-непрерывно, — [LLMOps](../../../part-3-production/llmops.md).
+непрерывно, — [LLMOps](../../../part-3-production/llmops/index.md).
 
 :::

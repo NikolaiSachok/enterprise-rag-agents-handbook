@@ -19,7 +19,7 @@ observably, and on budget."
   Enterprise Agent Platform (formerly [Vertex AI](https://cloud.google.com/vertex-ai)): what they offer and how they differ.
 - **[The tooling ecosystem](./tooling-ecosystem/index.md)** — eval, guardrails, observability in production:
   what to measure, what to guard, what to see.
-- **[LLMOps — deploy, monitor, cost](./llmops.md)** — the LLM system's life after release.
+- **[LLMOps — deploy, monitor, cost](./llmops/index.md)** — the LLM system's life after release.
 
 ## Prerequisites
 
@@ -27,8 +27,8 @@ All of Parts I and II — serving and operations assume the RAG agent itself is 
 
 :::note[Status]
 
-Part III's base is complete — every lesson is published: serving, cloud AI platforms, the tooling
-ecosystem, and LLMOps. 🚧 A second pass is still ahead — deepening each layer (topics listed in the
-"Next — going deeper" notes on the lesson pages).
+Part III is complete — every lesson is published, and each now carries its deep-dive second pass: serving,
+cloud AI platforms, the tooling ecosystem, and LLMOps. Follow the "Next — part 2 of the lesson" pointer on
+any lesson page to reach its deep-dive.
 
 :::

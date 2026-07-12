@@ -177,7 +177,7 @@ that lives in the inference server's GPU scheduler, while batch mode is a pricin
 
 One operational constant ties the section together: quotas are per-region and per-model, and a production
 design must handle 429s no matter which platform serves it. That is the retry-and-rate-cap checklist from
-[serving](../serving/index.md), and it is the opening problem of [LLMOps](../llmops.md), where routing and fallbacks
+[serving](../serving/index.md), and it is the opening problem of [LLMOps](../llmops/index.md), where routing and fallbacks
 pick up what a single endpoint can't guarantee.
 
 ## How to choose
@@ -191,7 +191,7 @@ regulator; does the managed RAG tier fit, or will you run your own pipeline; and
 provisioned-capacity economics look like at your load.
 
 Whichever platform wins, keep one architectural hedge: leave the application layer provider-agnostic.
-OpenAI-compatible clients and a gateway or router layer — the pattern [LLMOps](../llmops.md) develops with
+OpenAI-compatible clients and a gateway or router layer — the pattern [LLMOps](../llmops/index.md) develops with
 [LiteLLM](https://www.litellm.ai) and friends — preserve the option to move. Note where the **vendor lock-in** actually lives: the
 endpoints are increasingly interchangeable, while the platform SDKs and managed tiers are the sticky parts.
 Lock-in lives in the batteries, not in the endpoint.
@@ -230,7 +230,7 @@ Agent Engine), platform cost modelling and FinOps (per-platform pricing shapes, 
 cross-region egress), multi-cloud gateway patterns, and sovereign-cloud offerings.
 
 See also, in Part III: [serving](../serving/index.md) for the rent-versus-own fork this lesson answers,
-[LLMOps](../llmops.md) for org-level spend governance and cross-model routing, and the
+[LLMOps](../llmops/index.md) for org-level spend governance and cross-model routing, and the
 [tooling ecosystem](../tooling-ecosystem/index.md) for the make-versus-buy calls around the platform. The serving
 [deep dive](../serving/deep-dive.md) covers serverless GPU and the always-warm-versus-scale-to-zero economics
 from the self-hosting side.

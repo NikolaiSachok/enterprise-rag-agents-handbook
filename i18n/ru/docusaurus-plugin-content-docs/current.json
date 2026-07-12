@@ -82,5 +82,9 @@
   "sidebar.handbookSidebar.category.The tooling ecosystem": {
     "message": "Экосистема инструментов",
     "description": "The label for category 'The tooling ecosystem' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.LLMOps — deploy, monitor, cost": {
+    "message": "LLMOps — деплой, мониторинг, стоимость",
+    "description": "The label for category 'LLMOps — deploy, monitor, cost' in sidebar 'handbookSidebar'"
   }
 }

@@ -941,3 +941,27 @@ similarity; saves the whole request's cost at the risk of a false hit on a subtl
 
 **Drift** — the world shifting under a fixed configuration: input drift (traffic asks new kinds of
 questions), corpus drift (documents age), upstream model drift (the provider changes an unpinned model).
+
+**Grader** — in reinforcement fine-tuning, the scorer you define that rates each candidate answer; its
+score is the reward signal the training optimises against.
+
+**Showback** — reporting each team, feature, or product its own LLM spend for visibility while the cost
+stays on a central budget; the FinOps foundation that is always required first.
+
+**Chargeback** — billing LLM spend back to the consuming team's or product's P&L; stronger accountability
+than showback, but trustworthy only once cost attribution is accurate.
+
+**Release gate** — the quality check that stands between a change and production: eval-in-CI seen from the
+release side, blocking a merge or deploy whose golden-set metrics fall below threshold.
+
+**Error budget policy** — the agreement, signed before an incident, that states what happens when the error
+budget is exhausted — typically a release freeze — and names who takes each action.
+
+**Release freeze** — halting all non-critical releases (P0 and security fixes aside) until a service is
+back within its SLO; the last-resort control an error budget policy triggers.
+
+**Job queue** — infrastructure that decouples the rate work arrives from the rate it is processed: a
+producer enqueues a job and gets an id immediately, and a pool of workers drains the queue asynchronously.
+
+**Dead-letter queue (DLQ)** — a side queue for jobs that have exhausted their retries; it keeps a poison
+job from wedging the main queue, and its growth is a signal worth alerting on.

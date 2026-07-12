@@ -1,0 +1,8 @@
+{
+  "label": "LLMOps — деплой, мониторинг, стоимость",
+  "position": 4,
+  "link": {
+    "type": "doc",
+    "id": "part-3-production/llmops/index"
+  }
+}

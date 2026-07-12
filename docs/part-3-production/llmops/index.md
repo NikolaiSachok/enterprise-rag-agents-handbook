@@ -1,13 +1,12 @@
 ---
-id: llmops
 title: "LLMOps — deploy, monitor, cost"
-sidebar_position: 4
+slug: /part-3-production/llmops/
 ---
 
 # The LLM system's life after release
 
-[Serving](./serving/index.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms/index.md) decided
-where the model runs. [The tooling ecosystem](./tooling-ecosystem/index.md) gave you eval, guardrails, and
+[Serving](../serving/index.md) wrapped the pipeline in a service. [Cloud platforms](../cloud-platforms/index.md) decided
+where the model runs. [The tooling ecosystem](../tooling-ecosystem/index.md) gave you eval, guardrails, and
 observability as products. One question remains, and it's the one that fills the rest of the system's
 life: what does it mean to *operate* this thing — to change it safely, watch it, and pay for it, week
 after week?
@@ -42,7 +41,7 @@ A change to any one of them is a deploy. And any one of them can regress quality
 
 Testing changed along with the artefact. Outputs are nondeterministic and quality comes in degrees, whereas
 a unit test wants a clean pass or fail — so the regression instrument is
-[eval](../part-1-rag/cross-cutting/evaluation/index.md), not unit tests alone. Everything below is that one
+[eval](../../part-1-rag/cross-cutting/evaluation/index.md), not unit tests alone. Everything below is that one
 sentence, unpacked into a working operation.
 
 ## Deploy — CI/CD when the artefact isn't just code
@@ -63,7 +62,7 @@ flowchart LR
 The gate at the front is **eval in CI**. Every change to a prompt, model, index, or config runs the golden
 set; if the metrics fall below threshold, the merge is blocked. This is Part I's regression eval promoted
 to a pipeline stage — the same [promptfoo](https://www.promptfoo.dev) / [DeepEval](https://deepeval.com) / [Ragas](https://ragas.io) stack you met in
-[the tooling ecosystem](./tooling-ecosystem/index.md), now wired into CI with a red-green verdict. A prompt tweak
+[the tooling ecosystem](../tooling-ecosystem/index.md), now wired into CI with a red-green verdict. A prompt tweak
 that quietly drops faithfulness by ten points gets caught the same way a broken build does.
 
 ### Prompts are code — and config
@@ -99,13 +98,13 @@ answers fast, cheap, and slightly wrong is a failing canary — and only quality
 
 The index is behaviour. Re-ingest with a new chunking config and retrieval shifts across the entire corpus;
 switch the embedding model and you owe a full re-index — Part I's
-[ingestion](../part-1-rag/ingestion/index.md) rule. So put corpus updates through the same gate as everything
+[ingestion](../../part-1-rag/ingestion/index.md) rule. So put corpus updates through the same gate as everything
 else: a versioned release that passes eval, rather than a background job that runs overnight and quietly
 reshapes what the system knows.
 
 ## Monitoring in production
 
-Monitoring is [observability](../part-1-rag/cross-cutting/observability/index.md) running continuously, plus
+Monitoring is [observability](../../part-1-rag/cross-cutting/observability/index.md) running continuously, plus
 alerting on movement. The classic panel carries over: latency percentiles (p50/p95), error and timeout
 rates, token cost per request. The LLM-specific panel holds quality proxies — indirect signals that
 quality moved: refusal rate, guardrail-trigger rate, the rate of user feedback, and — common practice by
@@ -130,7 +129,7 @@ The through-line this handbook has drawn since Part I closes here, at production
 trace comes in → you decompose it — retrieval failure or generation failure, Part I's decomposition → the
 query becomes a new golden-set case → you fix → eval confirms → you deploy. "Observability feeds eval" was
 a principle back in Part I; in production it's a runbook — a fixed sequence a teammate can execute on a
-Tuesday afternoon. The platforms from [the tooling ecosystem](./tooling-ecosystem/index.md) shorten the middle
+Tuesday afternoon. The platforms from [the tooling ecosystem](../tooling-ecosystem/index.md) shorten the middle
 step to one click: promote a trace to an eval case.
 
 ## Cost and latency — the levers
@@ -188,14 +187,14 @@ answer.
 The cheapest token is the one you never send. Retrieve fewer chunks — Part I's context packing: the best
 ones rather than all of them. Tighten the system prompt. Cap output length. Summarise agent scratchpads
 instead of letting them grow with every step
-([planning and loops](../part-2-agents/planning-loops/index.md)). The diet has latency siblings: streaming for
-perceived latency (the [serving](./serving/index.md) lesson), smaller and faster models where routing allows,
+([planning and loops](../../part-2-agents/planning-loops/index.md)). The diet has latency siblings: streaming for
+perceived latency (the [serving](../serving/index.md) lesson), smaller and faster models where routing allows,
 and parallelising pipeline stages that don't depend on each other.
 
 ### The batch tier
 
 Work that can wait shouldn't pay the interactive price. Nightly corpus enrichment, backfills, synthetic
-data generation for eval — the batch tier from the [cloud platforms](./cloud-platforms/index.md) lesson runs
+data generation for eval — the batch tier from the [cloud platforms](../cloud-platforms/index.md) lesson runs
 them at roughly half price, in exchange for an hours-scale SLA. As levers go it's the simplest one here:
 classify the workload as offline and collect the discount.
 
@@ -221,8 +220,8 @@ flowchart LR
 ---
 
 That closes Part III, and with it the handbook's base course. Part III's own arc was short and practical:
-we wrapped the pipeline as a [service](./serving/index.md), chose
-[where the model runs](./cloud-platforms/index.md), assembled the [tooling](./tooling-ecosystem/index.md) around the
+we wrapped the pipeline as a [service](../serving/index.md), chose
+[where the model runs](../cloud-platforms/index.md), assembled the [tooling](../tooling-ecosystem/index.md) around the
 loop, and — in this lesson — learned to operate what we built. The longer arc is the book's. Part I built
 the pipeline: chunks, embeddings, retrieval, generation, and the cross-cutting disciplines that make it
 measurable and safe. Part II gave it agency: the loop, the tools, the plans, the teammates, the protocols.
@@ -249,12 +248,14 @@ never finishes — which is the point. A production LLM system isn't done; it's 
 - Budgets live at the gateway, and cost review belongs in the deploy checklist: a prompt change is a cost
   change.
 
-**New terms** → [Glossary](../glossary.md): LLMOps, canary release, shadow deployment, prompt registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
+**New terms** → [Glossary](../../glossary.md): LLMOps, canary release, shadow deployment, prompt registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: fine-tuning ops (when to tune the model instead of the prompt), FinOps models for LLM spend, automatic regression triage, SLOs and error budgets for quality, and queue infrastructure for batch workloads.
+**[Fine-tuning, spend & queues](./deep-dive.md)** — the deep second pass: fine-tuning ops (when to tune the model instead of the prompt, and how to roll a tuned model back), org-level spend governance, the release-gate and rollback angle of regression triage, error budgets as an org process, and queue infrastructure for batch workloads.
+
+See also: [serving](../serving/index.md), [cloud platforms](../cloud-platforms/index.md), [the tooling ecosystem](../tooling-ecosystem/index.md), and the [observability deep dive](../../part-1-rag/cross-cutting/observability/deep-dive.md).
 
 :::

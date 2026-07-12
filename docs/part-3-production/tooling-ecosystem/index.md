@@ -135,7 +135,7 @@ flowchart LR
     E -- "red-teaming (ASR)" --> GR
 ```
 
-How this loop lives after release is the subject of the [LLMOps lesson](../llmops.md).
+How this loop lives after release is the subject of the [LLMOps lesson](../llmops/index.md).
 
 One anti-pattern can make that whole diagram lie to you: adopting an eval tool is not the same as having
 eval. A tool pointed at a shallow, noisy dataset produces confident-looking dashboards over garbage —
@@ -179,6 +179,6 @@ agent-trajectory evaluation in [planning & loops](../../part-2-agents/planning-l
 [multi-agent](../../part-2-agents/multi-agent/deep-dive.md).
 
 See also the neighbouring Part III lessons: [serving](../serving/index.md),
-[cloud platforms](../cloud-platforms/index.md) and [LLMOps](../llmops.md).
+[cloud platforms](../cloud-platforms/index.md) and [LLMOps](../llmops/index.md).
 
 :::
