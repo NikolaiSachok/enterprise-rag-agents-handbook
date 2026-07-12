@@ -26,7 +26,7 @@ RAG (retrieval-augmented generation) — это способ заставить 
   честный отказ вместо выдумки.
 - **Сквозные аспекты** — то, что не сводится к одному шагу: [eval](./cross-cutting/evaluation/index.md) (узнать,
   что система работает), [guardrails](./cross-cutting/guardrails/index.md) (удержать её в безопасных рамках),
-  [observability](./cross-cutting/observability.md) (видеть, что она делает в проде).
+  [observability](./cross-cutting/observability/index.md) (видеть, что она делает в проде).
 
 ## Предпосылки
 

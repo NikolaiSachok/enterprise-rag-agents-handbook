@@ -27,7 +27,7 @@ looking at.
   citations, an honest refusal instead of invention.
 - **Cross-cutting concerns** — what doesn't reduce to a single step: [eval](./cross-cutting/evaluation/index.md)
   (knowing the system works), [guardrails](./cross-cutting/guardrails/index.md) (keeping it safe),
-  [observability](./cross-cutting/observability.md) (seeing what it does in production).
+  [observability](./cross-cutting/observability/index.md) (seeing what it does in production).
 
 ## Prerequisites
 
