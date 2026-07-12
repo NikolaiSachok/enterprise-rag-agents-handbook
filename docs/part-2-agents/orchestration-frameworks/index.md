@@ -1,14 +1,13 @@
 ---
-id: orchestration-frameworks
 title: Orchestration frameworks
-sidebar_position: 5
+slug: /part-2-agents/orchestration-frameworks/
 ---
 
 # What a framework adds over the bare loop
 
-The lessons so far built agents up from primitives: the loop in [agentic-rag](./agentic-rag/index.md), the tools it
-calls in [tool-use](./tool-use/index.md), planning and termination over that loop in
-[planning-loops](./planning-loops/index.md), and teams of agents in [multi-agent](./multi-agent/index.md). In practice
+The lessons so far built agents up from primitives: the loop in [agentic-rag](../agentic-rag/index.md), the tools it
+calls in [tool-use](../tool-use/index.md), planning and termination over that loop in
+[planning-loops](../planning-loops/index.md), and teams of agents in [multi-agent](../multi-agent/index.md). In practice
 you don't hand-roll all of that. You reach for an **orchestration framework** — [LangChain](https://www.langchain.com), [LangGraph](https://www.langchain.com/langgraph),
 [LlamaIndex](https://www.llamaindex.ai), and their neighbors. This lesson is about what a framework actually adds on top of the bare loop,
 so you can choose one and use it well: not reimplement what it already gives you, and not hide behind it when
@@ -105,7 +104,7 @@ first-class node in the graph instead of a manual stop button.
 For teams, the framework hands you a **supervisor or crew construct** — the multi-agent lesson's orchestrator, prebuilt,
 so you configure the topology rather than code it. And running through all of it is **tracing integration**,
 [LangSmith](https://www.langchain.com/langsmith) being the obvious example: the observability layer that lets you see what the graph actually did.
-That's [Part III](../part-3-production/overview.md)'s subject, and it plugs in here.
+That's [Part III](../../part-3-production/overview.md)'s subject, and it plugs in here.
 
 ## When NOT to — the tradeoffs
 
@@ -132,7 +131,7 @@ simple agent, use the provider SDK directly and skip the layer.
 Nothing in this lesson is a new *concept*. Frameworks don't change the ideas from the earlier lessons — the loop,
 tools, planning, the multi-agent topologies. They package them, and hand them back to you minus the
 boilerplate. And because they package the same primitives, they plug straight into the observability and eval layer
-that [Part III](../part-3-production/overview.md) takes up: the graph you built here is the thing you'll
+that [Part III](../../part-3-production/overview.md) takes up: the graph you built here is the thing you'll
 trace and measure there.
 
 ## What to take away
@@ -152,15 +151,19 @@ trace and measure there.
 - The rule: **primitives first**. Use a framework to remove boilerplate, not to avoid understanding — a graph
   framework for controllable complex flows, the provider SDK directly for a simple agent.
 
-**New terms** → [Glossary](../glossary.md): orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
+**New terms** → [Glossary](../../glossary.md): orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: a concrete LangGraph graph walkthrough, durable execution and checkpoint backends, framework-native memory and multi-agent constructs compared, declarative vs imperative agent definitions, and framework-level tracing/eval integration (Part III).
+**[Graphs & durable execution](./deep-dive.md)** — a concrete LangGraph graph walkthrough, durable
+execution and the checkpoint backends behind it, framework-native memory set against multi-agent constructs,
+declarative versus imperative agent definitions, and framework-level tracing and eval.
 
-How these constructs map across Claude, OpenAI, and Gemini is pulled together in the part's capstone
-comparison table: [Real agents](./real-agents.md).
+See also: how these constructs map across Claude, OpenAI, and Gemini —
+[the part's capstone](../real-agents.md); the general loop-control and budget layer a framework packages —
+[planning & loops](../planning-loops/index.md); the standard protocols underneath the transport —
+[MCP](../mcp.md).
 
 :::

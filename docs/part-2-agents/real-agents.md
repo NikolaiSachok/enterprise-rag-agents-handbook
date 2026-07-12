@@ -10,7 +10,7 @@ Part II built the agent one capability at a time: the loop that decides for itse
 [agentic-rag](./agentic-rag/index.md), the tools it acts with in [tool-use](./tool-use/index.md), a way to plan and
 actually stop in [planning-loops](./planning-loops/index.md), teammates to divide the work in
 [multi-agent](./multi-agent/index.md), the frameworks that package all of it in
-[orchestration-frameworks](./orchestration-frameworks.md), and the protocol that wires it to the world in
+[orchestration-frameworks](./orchestration-frameworks/index.md), and the protocol that wires it to the world in
 [mcp](./mcp.md). This lesson teaches nothing new. It takes that whole toolkit to the three agents you meet
 first — Claude, OpenAI, and Gemini — and shows that each technique is the same durable move under a
 different name and a different wire shape.
@@ -225,7 +225,7 @@ Who drives the topology is the difference. Claude gives you isolated subagents, 
 by default. OpenAI draws a sharp line between handing *off* control and keeping it. ADK adds control flow
 the *framework* runs rather than the model — the exact point orchestration-frameworks made: a framework
 packages the loop, and the topology is a design choice you make deliberately
-([orchestration-frameworks](./orchestration-frameworks.md)).
+([orchestration-frameworks](./orchestration-frameworks/index.md)).
 
 The failure is over-eager division. Don't split when one agent would do — every worker adds latency, cost,
 and coordination bugs, and parallel workers sharing a mutable workspace collide. That's multi-agent's "when

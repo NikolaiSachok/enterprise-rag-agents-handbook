@@ -35,6 +35,10 @@
     "message": "Мультиагентные системы",
     "description": "The label for category 'Multi-agent systems' in sidebar 'handbookSidebar'"
   },
+  "sidebar.handbookSidebar.category.Orchestration frameworks": {
+    "message": "Фреймворки оркестрации",
+    "description": "The label for category 'Orchestration frameworks' in sidebar 'handbookSidebar'"
+  },
   "sidebar.handbookSidebar.category.Part III — Production & LLMOps": {
     "message": "Часть III — Production и LLMOps",
     "description": "The label for category 'Part III — Production & LLMOps' in sidebar 'handbookSidebar'"

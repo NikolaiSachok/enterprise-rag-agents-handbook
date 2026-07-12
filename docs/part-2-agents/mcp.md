@@ -147,7 +147,7 @@ That closes the lesson — and the core toolkit of Part II. We started Part II w
 retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use/index.md)), a way to
 plan over many steps and actually stop ([planning-loops](./planning-loops/index.md)), teammates to divide the work
 ([multi-agent](./multi-agent/index.md)), and frameworks to package all of it
-([orchestration-frameworks](./orchestration-frameworks.md)). This lesson supplied the last piece: the
+([orchestration-frameworks](./orchestration-frameworks/index.md)). This lesson supplied the last piece: the
 standard protocols that wire agents to tools, and to each other, in production. One loop, grown into a system
 that connects to the world through a common plug. What all of it looks like on live Claude, OpenAI, and
 Gemini is the [closing capstone on real agents](./real-agents.md).

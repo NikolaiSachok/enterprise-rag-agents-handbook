@@ -433,6 +433,29 @@ flow.
 
 **Checkpointing** — persisting agent state so a run can be paused, resumed, and inspected.
 
+**State graph (StateGraph)** — an agent modeled as a shared typed state object plus nodes and edges;
+LangGraph's concrete form of the agent-as-a-graph idea.
+
+**Conditional edge** — a graph edge that routes to the next node based on the current state; it is what
+encodes the loop's branch (tool call → tools node; done → END).
+
+**Checkpointer** — the component that saves graph state at every super-step, keyed by a thread, so a run can
+be resumed or rewound (time-travel).
+
+**Checkpoint backend** — the swappable storage behind a checkpointer (in-memory / SQLite / Postgres /
+Redis); a dev-versus-prod choice.
+
+**Thread (thread_id)** — the id that isolates one conversation's checkpoint history from another's.
+
+**Durable execution** — a run that resumes from the last successful step after a crash, restart, or long
+pause, built on the checkpointer; `durability` modes (exit / async / sync) trade write-timing for speed.
+
+**Framework long-term memory / store** — cross-thread persistent memory keyed by namespace, distinct from
+the thread-scoped checkpoint state (short-term memory).
+
+**Declarative vs imperative agent definition** — describing agents in configuration (YAML/JSONC, declarative
+workflows) versus building the graph in code (add_node / add_edge).
+
 **Human-in-the-loop (HITL)** — a pause point where a human approves or intervenes before the loop continues;
 in a framework, a first-class interrupt node.
 
