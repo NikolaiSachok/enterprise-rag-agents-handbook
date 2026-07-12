@@ -110,6 +110,45 @@ async function run() {
     `EN was in [${enBefore.index}] "${enBefore.text}" → RU is in [${ruAfter.index}] "${ruAfter.text}" (scrollY=${ruAfter.scrollY})`,
   );
 
+  // ---- Count-mismatch page: proportional fallback (not top) ----
+  // Some parallel-authored deep-dives are subdivided more finely in one locale
+  // than the other (e.g. guardrails deep-dive: RU 18 vs EN 9 h2/h3), so the
+  // section-index mapping can't line up. The feature must fall back to the
+  // whole-document scroll fraction rather than dumping the reader at the top.
+  const mmLesson = 'part-1-rag/cross-cutting/guardrails/deep-dive';
+  const readFraction = () =>
+    page.evaluate(() => {
+      const max = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight,
+        1,
+      );
+      const headings = document.querySelectorAll(
+        '.theme-doc-markdown h2[id], .theme-doc-markdown h3[id]',
+      ).length;
+      return {frac: window.scrollY / max, headings, scrollY: Math.round(window.scrollY)};
+    });
+  await page.goto(`${SITE}/ru/${mmLesson}/`, {waitUntil: 'load'});
+  await page.waitForTimeout(600);
+  await page.evaluate((f) => {
+    const max = Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      1,
+    );
+    window.scrollTo(0, Math.round(f * max));
+  }, 0.55);
+  await page.waitForTimeout(150);
+  const ruMm = await readFraction();
+  await switchLocaleTo(page, 'English');
+  await settle(page);
+  const enMm = await readFraction();
+  check(
+    'count-mismatch page restores by proportional fallback (not top)',
+    enMm.headings !== ruMm.headings &&
+      enMm.scrollY > 200 &&
+      Math.abs(enMm.frac - ruMm.frac) < 0.15,
+    `RU(${ruMm.headings}h @${ruMm.frac.toFixed(2)}) → EN(${enMm.headings}h @${enMm.frac.toFixed(2)}, scrollY=${enMm.scrollY})`,
+  );
+
   // ---- Regression: a plain load (no locale switch) must NOT teleport ----
   await page.goto(`${SITE}/${lesson}/`, {waitUntil: 'load'});
   await page.waitForTimeout(700);

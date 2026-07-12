@@ -21,8 +21,14 @@
  *      mounts we read the record for the current path, scroll to the heading at
  *      that same index (+ the fractional offset), and clear the record.
  *
- * Everything degrades to the default top-of-page behavior: no record, no
- * headings, or a mismatched structure (different heading count) is a no-op.
+ * The two locales are authored in parallel (RU is not a 1:1 translation), so a
+ * page can legitimately be subdivided more finely in one language than the other
+ * — a DIFFERENT h2/h3 count. When that happens the section index+offset can't
+ * line up, so instead of giving up (which dumped the reader back at the top) we
+ * fall back to a proportional whole-document scroll fraction, captured alongside
+ * the structural record. Less precise than section mapping, but it keeps the
+ * reader near where they were. It only degrades to top-of-page when there is no
+ * record at all.
  */
 
 const STORAGE_PREFIX = 'localeScrollPos:';
@@ -38,6 +44,9 @@ type PositionRecord = {
   offset: number;
   /** Number of headings on the source page — a cheap structural sanity check. */
   count: number;
+  /** Source scroll position as a fraction (0..1) of the source page's scrollable
+   *  height. The fallback used when the two locales' heading skeletons differ. */
+  docFraction: number;
   /** Capture time, for the freshness guard. */
   ts: number;
 };
@@ -86,6 +95,12 @@ function absoluteTop(el: HTMLElement): number {
   return el.getBoundingClientRect().top + window.scrollY;
 }
 
+/** Total scrollable distance of the page (>=1 to avoid a divide-by-zero on
+ *  pages shorter than the viewport). */
+function scrollableHeight(): number {
+  return Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+}
+
 /** Start/end of a section in absolute document coordinates. `index === -1` is the
  *  region above the first heading; the last section ends at the document bottom. */
 function sectionBounds(
@@ -111,12 +126,12 @@ function sectionBounds(
 export function capturePosition(destinationPathname: string): void {
   if (!canUseDom()) return;
   const headings = getSectionHeadings();
-  if (headings.length === 0) return; // no headings → nothing meaningful to restore
 
   // The line just under the sticky navbar is the reader's effective "top".
   const referenceLine = window.scrollY + navbarHeight();
 
-  // Last heading that has scrolled at/above the reference line.
+  // Last heading that has scrolled at/above the reference line. Stays -1 (and the
+  // record leans on docFraction) when the page has no h2/h3 headings at all.
   let index = -1;
   for (let i = 0; i < headings.length; i += 1) {
     if (absoluteTop(headings[i]) <= referenceLine) index = i;
@@ -125,11 +140,13 @@ export function capturePosition(destinationPathname: string): void {
 
   const {start, end} = sectionBounds(headings, index);
   const offset = Math.min(Math.max((referenceLine - start) / (end - start), 0), 1);
+  const docFraction = Math.min(Math.max(window.scrollY / scrollableHeight(), 0), 1);
 
   const record: PositionRecord = {
     index,
     offset,
     count: headings.length,
+    docFraction,
     ts: Date.now(),
   };
 
@@ -171,19 +188,32 @@ function clearRecord(pathname: string): void {
 }
 
 /** Compute the scroll target for a record and jump there. Returns the applied
- *  scrollY, or null if the target can't be resolved (structure differs / no
- *  headings) — in which case the caller leaves the page at the top. */
+ *  scrollY, or null only when nothing usable can be resolved. */
 function applyPosition(record: PositionRecord): number | null {
   const headings = getSectionHeadings();
-  if (headings.length === 0) return null;
 
-  // Structural sanity check: if the destination doesn't have the same number of
-  // headings, or the index is out of range, the skeletons don't line up — no-op.
-  if (record.count !== headings.length) return null;
-  if (record.index >= headings.length) return null;
+  // Precise path: the two locales share the same heading skeleton (same count),
+  // so map by section index + fractional offset — accurate even though the two
+  // languages render sections at different pixel heights.
+  const structuresAlign =
+    headings.length > 0 &&
+    record.count === headings.length &&
+    record.index < headings.length;
 
-  const {start, end} = sectionBounds(headings, record.index);
-  const target = start + record.offset * (end - start) - navbarHeight();
+  let target: number;
+  if (structuresAlign) {
+    const {start, end} = sectionBounds(headings, record.index);
+    target = start + record.offset * (end - start) - navbarHeight();
+  } else if (typeof record.docFraction === 'number') {
+    // Fallback: the heading skeletons differ (a page subdivided more finely in
+    // one locale) or there are no headings — restore by the proportional
+    // whole-document scroll fraction so the reader lands near where they were,
+    // never dumped back at the top.
+    target = record.docFraction * scrollableHeight();
+  } else {
+    return null; // pre-fallback record with a mismatched structure → leave at top
+  }
+
   const clamped = Math.max(0, Math.round(target));
   window.scrollTo({top: clamped, left: 0, behavior: 'auto'});
   return clamped;
