@@ -143,7 +143,7 @@ even when it's phrased like one.
 
 ---
 
-That closes the lesson — and the core toolkit of Part II. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag.md) —
+That closes the lesson — and the core toolkit of Part II. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag/index.md) —
 retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use/index.md)), a way to
 plan over many steps and actually stop ([planning-loops](./planning-loops.md)), teammates to divide the work
 ([multi-agent](./multi-agent.md)), and frameworks to package all of it

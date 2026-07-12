@@ -7,7 +7,7 @@ sidebar_position: 7
 # Claude, OpenAI, Gemini illustrate the techniques
 
 Part II built the agent one capability at a time: the loop that decides for itself in
-[agentic-rag](./agentic-rag.md), the tools it acts with in [tool-use](./tool-use/index.md), a way to plan and
+[agentic-rag](./agentic-rag/index.md), the tools it acts with in [tool-use](./tool-use/index.md), a way to plan and
 actually stop in [planning-loops](./planning-loops.md), teammates to divide the work in
 [multi-agent](./multi-agent.md), the frameworks that package all of it in
 [orchestration-frameworks](./orchestration-frameworks.md), and the protocol that wires it to the world in
@@ -81,7 +81,7 @@ vendor sells you out of doing that work ([tool-use](./tool-use/index.md)).
 
 Retrieval is just a tool the agent chooses. It reaches for the web or a file the same way it reaches for
 any function, and the answer comes back with **citations** so a human can check the grounding. This is
-Agentic RAG's "retrieval becomes an action," now shipped as a built-in ([agentic-rag](./agentic-rag.md)).
+Agentic RAG's "retrieval becomes an action," now shipped as a built-in ([agentic-rag](./agentic-rag/index.md)).
 
 As of mid-2026, Claude offers a **web search** server tool with citations always on (priced around $10 per
 1,000 searches plus tokens, versioned through `web_search_20260318`) and a separate **web fetch** tool that
@@ -104,7 +104,7 @@ retrieval failure; it only moves who runs the retriever.
 Grounding is only ever as good as what came back. Stale or irrelevant hits still poison the answer,
 and a model can cite a source it didn't actually use. Citations let a human verify faithfulness; they don't
 guarantee it — the retrieval-failure-versus-generation-failure split from Part I is exactly the tool for
-telling those two apart ([agentic-rag](./agentic-rag.md)).
+telling those two apart ([agentic-rag](./agentic-rag/index.md)).
 
 ## Planning and loops — spend compute to decide better, then cap it
 

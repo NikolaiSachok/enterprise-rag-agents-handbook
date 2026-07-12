@@ -1,7 +1,6 @@
 ---
-id: agentic-rag
 title: Agentic RAG
-sidebar_position: 1
+slug: /part-2-agents/agentic-rag/
 ---
 
 # Retrieval становится решением, а не шагом
@@ -132,18 +131,19 @@ flowchart LR
 - Платишь латентностью, стоимостью, непредсказуемостью и сложностью отладки — из-за чего observability
   и eval из Части I становятся обязательными.
 
-**Новые термины** → [Глоссарий](../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting),
+**Новые термины** → [Глоссарий](../../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting),
 routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection,
 iterative retrieval.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Дальше — вторая часть урока]
 
-🚧 Второй проход: паттерн ReAct в деталях и его альтернативы (plan-and-execute, reflection), борьба с
-зацикливанием и лимиты шагов, корректная передача истории между итерациями, оценка траектории агента.
+**[Итеративный поиск и оценка](./deep-dive.md)** — глубже про цикл поиска: именованные паттерны agentic RAG
+(Self-RAG, corrective RAG, adaptive RAG), как не дать циклу крутиться вхолостую, как передавать найденный
+контекст между шагами и как оценивать всю траекторию поиска.
 
-А как эти же действия — веб-поиск, fetch, опора на контекст — встроены в Claude, OpenAI и Gemini, разбирает
-завершающий урок части: [Реальные агенты](./real-agents.md).
+См. также: как направлять и ограничивать агентный цикл в целом — [Планирование и циклы](../planning-loops.md);
+как эти действия встроены в Claude, OpenAI и Gemini — [завершающий урок части](../real-agents.md).
 
 :::

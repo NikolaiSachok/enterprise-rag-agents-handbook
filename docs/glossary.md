@@ -235,6 +235,28 @@ reformulates the query or searches again.
 
 **Iterative retrieval** — searching in a loop with refinement, rather than one fixed call.
 
+**Self-RAG** — self-reflective RAG: the model is trained to emit special reflection tokens during
+generation that decide, on demand, whether to retrieve for a segment, whether each retrieved passage is
+relevant, and whether the answer is supported by it (and how useful). The retrieve/relevance/support
+judgments are inline in generation, not an external scaffold. ↗ [arXiv](https://arxiv.org/abs/2310.11511)
+
+**Corrective RAG (CRAG)** — a lightweight retrieval evaluator grades retrieved documents and buckets its
+confidence score: Correct → refine (keep only the relevant fragments), Incorrect → discard and fall back to
+web search, Ambiguous → combine both. Plug-and-play on top of any RAG.
+↗ [arXiv](https://arxiv.org/abs/2401.15884)
+
+**Adaptive RAG** — a trained classifier predicts a query's complexity and routes it to the cheapest
+sufficient strategy: no retrieval (answer from parametric memory), single-step retrieval, or multi-step
+iterative retrieval. ↗ [arXiv](https://arxiv.org/abs/2403.14403)
+
+**Retrieval budget** — a hard cap on the retrieval loop — maximum hops, searches, or retrieved tokens — that
+guarantees termination regardless of the model's judgment; the retrieval-specific mirror of the step / token
+budget.
+
+**Sufficient context** — the termination criterion for a retrieval loop: "do I have enough to answer?"
+Stopping too early under-retrieves (unsupported answers); never stopping over-retrieves (cost +
+lost-in-the-middle). Self-RAG's support / usefulness tokens are one implementation.
+
 ## Agents — tools
 
 **Tool use / function calling** — the general mechanism by which the model calls an external function: the
