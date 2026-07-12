@@ -107,6 +107,6 @@ active sampling.
 
 See also: the layers evaluation measures — [Retrieval](../../retrieval/index.md) and
 [Generation](../../generation/index.md); and the sibling cross-cutting concerns —
-[Guardrails](../guardrails.md) and [Observability](../observability.md).
+[Guardrails](../guardrails/index.md) and [Observability](../observability.md).
 
 :::

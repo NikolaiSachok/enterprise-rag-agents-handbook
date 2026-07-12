@@ -9,7 +9,7 @@ sidebar_position: 3
 Сквозные уроки Части I заканчивались одной и той же оговоркой в скобках: готовые инструменты — [LangSmith](https://www.langchain.com/langsmith),
 [Guardrails AI](https://www.guardrailsai.com) и прочие — отдельный слой, о нём позже, а здесь мы про принцип. Так закрывались уроки про
 [наблюдаемость](../part-1-rag/cross-cutting/observability.md) и
-[guardrails](../part-1-rag/cross-cutting/guardrails.md), а урок про
+[guardrails](../part-1-rag/cross-cutting/guardrails/index.md), а урок про
 [оценку](../part-1-rag/cross-cutting/evaluation/index.md) отложил разбор устройства метрик на второй проход.
 «Позже» наступило. Часть I дала тебе понятия — golden set (эталонный набор примеров), трейс (trace), долю
 успешных атак (attack success rate, ASR); этот урок раскладывает по ним рынок готовых инструментов 2026 года и

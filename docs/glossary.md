@@ -276,11 +276,13 @@ failure) instead of labeling at random.
 
 **Prompt injection** — planting instructions in text the model reads to override the system prompt. Direct (from the user) and indirect (hidden in retrieved content — dangerous for RAG).
 
-**Spotlighting** — marking untrusted content (delimiters, random sentinels) so the model sees it as data, not instructions.
+**Spotlighting** — marking untrusted content so the model sees it as data, not instructions. A family of three prompt-level techniques of rising strength and cost: **delimiting** (boundary tokens around the untrusted text), **datamarking** (a marker character interleaved on every whitespace), **encoding** (base64 / ROT13 so the text no longer reads as instructions). ↗ [arXiv](https://arxiv.org/abs/2403.14720)
 
-**Instruction hierarchy** — source priority: system > developer > user > tool/retrieved; retrieved content is least trusted.
+**Instruction hierarchy** — source priority the model is *trained* to obey: system / developer > user > tool / retrieved content. A lower-privilege instruction is followed only when aligned with the higher goal, ignored when it conflicts. ↗ [arXiv](https://arxiv.org/abs/2404.13208)
 
 **PII redaction** — detecting and hiding personal data on input and output; critical with external APIs.
+
+**Reversible vs irreversible masking** — how detected PII is transformed. Irreversible (redact, replace, mask, hash) destroys the original; reversible (encrypt) is recoverable with a key. Reversible masking is pseudonymization, not anonymization — and the key becomes a liability.
 
 **Input / output validation** — checking the input (attacks, off-topic) and the output (leaks, PII, policy violations).
 

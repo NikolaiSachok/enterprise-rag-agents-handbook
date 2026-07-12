@@ -155,7 +155,7 @@ context and enforce a threshold. Azure ships AI Content Safety, including Prompt
 prompt-injection detection, surfaced in Foundry as "Guardrails + controls" — and yes, Azure renamed its
 content filters to "Guardrails," a bonus data point for the names-are-snapshots rule. Google ships Model
 Armor. All of these implement the concepts from the
-[guardrails lesson](../part-1-rag/cross-cutting/guardrails.md) as managed services — which sets up the
+[guardrails lesson](../part-1-rag/cross-cutting/guardrails/index.md) as managed services — which sets up the
 make-or-buy question that the [tooling ecosystem](./tooling-ecosystem.md) lesson takes on directly.
 
 ## Throughput and pricing models

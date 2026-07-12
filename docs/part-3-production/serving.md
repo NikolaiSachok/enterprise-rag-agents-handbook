@@ -91,7 +91,7 @@ the first bytes, so when generation fails halfway through, the 200 is already on
 code can take it back. Errors have to travel in-band, as an error event inside the stream — which is
 exactly what the provider APIs do — and every client has to be written for a stream that dies mid-answer.
 
-Streaming also collides with the output-side [guardrails](../part-1-rag/cross-cutting/guardrails.md) from
+Streaming also collides with the output-side [guardrails](../part-1-rag/cross-cutting/guardrails/index.md) from
 Part I: you cannot validate a complete answer you don't have yet. Two options exist, and both are
 compromises. Buffer the whole answer and validate before sending — which throws away the TTFT win you
 streamed for. Or validate incrementally, chunk by chunk — which is weaker: a bad prefix can reach the user

@@ -27,6 +27,10 @@
     "message": "Evaluation",
     "description": "The label for category 'Evaluation' in sidebar 'handbookSidebar'"
   },
+  "sidebar.handbookSidebar.category.Guardrails": {
+    "message": "Guardrails",
+    "description": "The label for category 'Guardrails' in sidebar 'handbookSidebar'"
+  },
   "sidebar.handbookSidebar.category.Cross-cutting.link.generated-index.description": {
     "message": "Три вещи проходят через все стадии пайплайна и не сводятся к одному шагу: как узнать, что система работает (Evaluation), как удержать её безопасной (Guardrails) и как видеть, что она делает в проде (Observability). Начинаем с оценки — без неё остальное настраивать нечем.",
     "description": "The generated-index page description for category 'Cross-cutting' in sidebar 'handbookSidebar'"

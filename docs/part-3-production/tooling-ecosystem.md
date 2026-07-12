@@ -8,7 +8,7 @@ sidebar_position: 3
 
 Three lessons in Part I ended on the same promissory note.
 [Evaluation](../part-1-rag/cross-cutting/evaluation/index.md),
-[guardrails](../part-1-rag/cross-cutting/guardrails.md), and
+[guardrails](../part-1-rag/cross-cutting/guardrails/index.md), and
 [observability](../part-1-rag/cross-cutting/observability.md) each taught a principle and then deferred the
 products: "the tools are a separate tooling layer, coming later; here we're on the principle." This is
 later. Part I gave you the concepts — the golden set, the trace, attack success rate. This lesson maps

@@ -1,7 +1,6 @@
 ---
-id: guardrails
-title: "Guardrails — ограничители безопасности"
-sidebar_position: 2
+title: "Guardrails"
+slug: /part-1-rag/cross-cutting/guardrails/
 ---
 
 # Защитный слой на входе и на выходе
@@ -43,7 +42,7 @@ sidebar_position: 2
 
 ## Безопасность контента — на обеих поверхностях
 
-Отказывать во вредных или недопустимых запросах и фильтровать токсичный или не соответствующий политике вывод. Всегда две поверхности: скан входа (блокировать вредное/не по теме) и выхода (блокировать небезопасный ответ). А в RAG добавляется третья точка — ingestion: отравленный документ лучше ловить при индексации, а не только на запросе. (Инструменты — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — отдельный слой: см. [урок про экосистему инструментов](../../part-3-production/tooling-ecosystem.md); здесь мы про принцип.)
+Отказывать во вредных или недопустимых запросах и фильтровать токсичный или не соответствующий политике вывод. Всегда две поверхности: скан входа (блокировать вредное/не по теме) и выхода (блокировать небезопасный ответ). А в RAG добавляется третья точка — ingestion: отравленный документ лучше ловить при индексации, а не только на запросе. (Инструменты — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — отдельный слой: см. [урок про экосистему инструментов](../../../part-3-production/tooling-ecosystem.md); здесь мы про принцип.)
 
 ## Guardrails — не серебряная пуля
 
@@ -58,13 +57,20 @@ sidebar_position: 2
 - Безопасность контента на обеих поверхностях + ingestion в RAG.
 - Defense-in-depth, не панацея; мерь долю успешных атак (ASR); помни про баланс со строгостью.
 
-**Новые термины** → [Глоссарий](../../glossary.md): guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defense-in-depth.
+**Новые термины** → [Глоссарий](../../../glossary.md): guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defense-in-depth.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Дальше — вторая часть урока]
 
-🚧 Второй проход: механика spotlighting, таксономии инъекций, red-teaming, пайплайны обнаружения и
-маскирования PII.
+**[Защита от инъекций и red-teaming](./deep-dive.md)** — второй проход слоя ограничителей: как spotlighting
+на самом деле помечает недоверенный текст (разделители, маркировка данных, кодирование) и чем за каждый
+приём платишь; таксономия атак prompt injection (прямые и косвенные) и классы jailbreak; red-teaming
+как систематическое наступательное тестирование, измеряемое долей успешных атак; и пайплайны обнаружения и
+маскирования PII (где стоят, компромисс точности и полноты, обратимое и необратимое маскирование).
+
+См. также: соседние сквозные аспекты — [Evaluation](../evaluation/index.md) (ограничители тоже измеряют —
+доля успешных атак) и [Observability](../observability.md); а про дисциплину недоверенного ввода на стороне
+агента — [углубление MCP](../../../part-2-agents/mcp/deep-dive.md).
 
 :::

@@ -105,6 +105,6 @@ relevance, correctness, LLM-as-a-judge, judge bias, offline vs online eval, regr
 
 См. также: слои, которые оценка измеряет, — [Retrieval](../../retrieval/index.md) и
 [Generation](../../generation/index.md); и соседние сквозные аспекты —
-[Guardrails](../guardrails.md) и [Observability](../observability.md).
+[Guardrails](../guardrails/index.md) и [Observability](../observability.md).
 
 :::

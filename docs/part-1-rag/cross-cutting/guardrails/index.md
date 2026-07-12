@@ -1,7 +1,6 @@
 ---
-id: guardrails
 title: "Guardrails"
-sidebar_position: 2
+slug: /part-1-rag/cross-cutting/guardrails/
 ---
 
 # A protective layer on input and output
@@ -43,7 +42,7 @@ Detect and mask personal data (names, emails, numbers) on the input (before logg
 
 ## Content safety — on both surfaces
 
-Refuse harmful or disallowed requests, and filter toxic or off-policy output. Always two surfaces: scan the input (block what's harmful or off-topic) and the output (block an unsafe answer). RAG adds a third point — ingestion: a poisoned document is better caught at indexing time than only at query time. (The tools — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — are a separate layer: see [the tooling ecosystem lesson](../../part-3-production/tooling-ecosystem.md); here we're on the principle.)
+Refuse harmful or disallowed requests, and filter toxic or off-policy output. Always two surfaces: scan the input (block what's harmful or off-topic) and the output (block an unsafe answer). RAG adds a third point — ingestion: a poisoned document is better caught at indexing time than only at query time. (The tools — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — are a separate layer: see [the tooling ecosystem lesson](../../../part-3-production/tooling-ecosystem.md); here we're on the principle.)
 
 ## Guardrails aren't a silver bullet
 
@@ -58,13 +57,20 @@ Complete protection doesn't exist: this is **defense-in-depth**, in layers. And 
 - Content safety on both surfaces + ingestion in RAG.
 - Defense-in-depth, not a cure-all; measure attack success rate; keep the balance against over-strictness.
 
-**New terms** → [Glossary](../../glossary.md): guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defense-in-depth.
+**New terms** → [Glossary](../../../glossary.md): guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defense-in-depth.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: spotlighting internals, injection taxonomies, red-teaming, PII detection and masking
-pipelines.
+**[Injection defense & red-teaming](./deep-dive.md)** — the guardrails layer's second pass: how spotlighting
+actually marks untrusted text (delimiting, datamarking, encoding) and what each buys and costs; a taxonomy of
+prompt-injection attacks (direct vs indirect) and jailbreak classes; red-teaming as systematic adversarial
+testing measured by attack success rate; and PII detection and masking pipelines (where they sit, the
+precision/recall tradeoff, reversible vs irreversible).
+
+See also: the sibling cross-cutting concerns — [Evaluation](../evaluation/index.md) (guardrails get measured
+too — attack success rate) and [Observability](../observability.md); and, for the agent-side untrusted-input
+discipline, the MCP [deep dive](../../../part-2-agents/mcp/deep-dive.md).
 
 :::
