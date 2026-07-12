@@ -72,6 +72,23 @@ Dhuliawala и др. (2023). «factored»-вариант — «факторизо
 decoding / lost-in-the-middle / faithfulness / parametric knowledge** — уже в реестре из прошлых уроков
 (§1.1–1.2, глоссарий), переиспользовать, не пере-чеканивать.
 
+**Термины углубления Evaluation (Часть 2).** **context precision / context recall** — kept-EN имена метрик в
+обоих языках; русский глосс первого упоминания «(точность контекста)» / «(полнота контекста)». НЕ изобретать
+голую кириллическую форму — зеркалит faithfulness / answer relevance. Отличать от Precision@K / Recall@K (с
+заглавной, §3): это разные величины. **position bias / verbosity bias / self-preference** — виды
+предвзятости судьи (§1.2), kept-EN + русский глосс первого упоминания, как на базовой странице: «position
+bias (предпочитает первый ответ)», «verbosity bias (длиннее — значит лучше)», «self-preference (свой стиль
+выше)». **self-enhancement** — имя того же приёма из статьи (Zheng и др., 2306.05685); синоним отмечается
+один раз («self-preference, он же self-enhancement»). Групповое имя категории — «предвзятость (судьи)»;
+«искажения»/«перекос» допустимы как прозаическая вариация («систематические перекосы»), но НЕ на точках входа
+(заголовок, «Что забрать») — там канон «предвзятость». **pointwise / pairwise** — латиницей в обоих языках
+(зеркалит pointwise / pairwise / listwise LLM-реранкера, §1.2); русский глосс первого упоминания: pointwise
+«(по одному ответу за раз)», pairwise «(попарное сравнение)». **reference-guided grading → «оценка с
+эталоном»**. **reference-free / reference-based** — kept-EN, русский глосс «(без эталона)» / «(с эталоном)».
+Метрики — сами по себе LLM-конвейеры (декомпозиция ответа на утверждения → проверка по контексту → доля):
+образ «метрика и есть судья» / «переодетые LLM-судьи» подтверждён холодным прогоном RU этого PR. Источники
+метрик и предвзятостей — глоссарий (↗ arXiv 2309.15217 / 2306.05685).
+
 **plan-and-execute** — имя стратегии, остаётся латиницей; русский глосс первого упоминания —
 «plan-and-execute (планирование-и-исполнение)». Не изобретать голую кириллическую форму.
 
@@ -323,6 +340,13 @@ LoopAgent, AgentTool, Moderation API**.
 | бюджет поиска | retrieval budget | (зеркалит «бюджет шагов»/«бюджет токенов»; мост `(retrieval budget)` один раз) |
 | избыточный поиск; перебор с поиском | over-retrieval | — |
 | цикл повторного поиска | re-retrieval loop | (незавершение цикла поиска — «сбой», не «отказ», §2) |
+| калибровка (судьи) | (judge) calibration | голая «калибровка» там, где двоится с калибровкой модели; «сверить с людьми» = «калибровать по человеческим меткам» |
+| согласие между разметчиками (inter-annotator agreement, IAA) | inter-annotator agreement (IAA) | «межаннотаторное согласие»; «согласованность разметчиков» как имя термина |
+| каппа Коэна; каппа Флейсса | Cohen's kappa; Fleiss' kappa | «Коэн»/«Флейсс» — как есть; «каппа» — сама статистика; в глоссарии ↗ Wikipedia |
+| активный сэмплинг; активное обучение | active sampling; active learning | «активная выборка» как имя термина |
+| отбор по неопределённости | uncertainty sampling | «сэмплинг по неопределённости» как имя термина |
+| эталонный ответ; эталон | reference answer / ground-truth answer | «эталон истины» (калька, §1.3); «референсный ответ»; не путать с «отсылка» ← reference (другой смысл) |
+| без эталона; с эталоном | reference-free; reference-based | «безреференсный» / «референсный» |
 
 «Enterprise» остаётся латиницей только в собственных именах (название книги, «enterprise RAG» как
 устойчивый ярлык темы).
@@ -798,7 +822,8 @@ milestone-проход.
 | part-1-rag/retrieval (Часть 1 = index) | #58 | milestone-проход #81, milestone-проход #83, этот PR (гнездование в папку + замена 🚧-пометки на живой указатель «Дальше — вторая часть урока» → «Слияние, ранжирование и метрики») |
 | part-1-rag/retrieval/deep-dive (Часть 2; sidebar «Слияние, ранжирование и метрики») | этот PR (авторский гейт + редакционный гейт + холодный прогон RU+EN: RU — «предполагается known»→«известным», «схватывает узор релевантности»→«улавливает структуру релевантности», «Хранилище взрывается»→«раздувается», «познанной по каждому запросу нормализации»→«подобранной под каждый запрос», «Мастерская мысль»→«Ключевая мысль», «мешок повекторных представлений»→«множество потокенных векторов», «ужать след»→«сократить занимаемое место», «против ретриверов»→«по сравнению с» (versus-калька §1.3), «контекст запечён»→«встроен», «воюет с ANN»→«конфликтует», «класс ~100M»→«порядка», «z-оценка»→«z-score» (резервация «оценка» §2), «Из ingestion»→«Из загрузки (ingestion)», zero-shot заглоссирован; bold-максимы «ACL никогда не идёт post-filter»/«меряй ту стадию» → plain/курсив (§8); HyDE-цитата «Gao, Ma, Callan»→«Gao и др.». EN: 6 из 7 colon-шаблонных H2 переписаны в глагольные/вопросные формы (listicle-uniformity tell), bold-эмфаза static/ACL снята, цитата → «Gao et al.») | — |
 | part-1-rag/generation | #58 | milestone-проход #81 |
-| cross-cutting/evaluation | #58 | milestone-проход #81, milestone-проход #83 |
+| cross-cutting/evaluation (Часть 1 = index) | #58 | milestone-проход #81, milestone-проход #83, этот PR (гнездование в папку + замена 🚧-пометки на живой указатель «Дальше — вторая часть урока» → «Устройство метрик и калибровка судьи») |
+| cross-cutting/evaluation/deep-dive (Часть 2; sidebar «Устройство метрик и калибровка судьи» / EN "Metric internals & judge calibration") | этот PR (авторский гейт + редакционный гейт + холодный прогон RU+EN) | RU: «в поле»→«в отрасли» (калька in the field), «слежка за признаком»→«внимание к признаку» (слежка=surveillance), «без переоценки»→«не преувеличивая» (двусмысл.), «подставлен под position bias»→«уязвимее к» (подставить=framing), «перебивает контекст памятью»→«подменяет», «эмбеддятся»→«считают эмбеддинг», «распространяй судью»→«применяй судью к», «семя; размножает»→«семя, из которого выращивает», «протухнуть»→«устареть», «тихо искажает»→«незаметно» (калька fails silently, прецедент ingestion), «механику мастерства»→«внутреннее устройство»; heading «Именованные искажения»→«У предвзятостей судьи есть имена» + takeaway «Искажения»→«Предвзятости» (точка входа = канон «предвзятость»); «не X, а Y» сведена к 2; bold «слабость…»/«критерии оценки» сняты (§8); Mermaid-подпись-дубль удалена ради парности локалей; «мысль:»/«мост в след. раздел» over-signpost проредён. EN: «X, not Y»-антитеза сведена с ~15 до 2 (грузонесущие «grounding, not correctness» + «you never automate the human away — you amortise them»), «These four»→«three biases» (счёт + reasoning-предел вынесен как потолок компетентности), double-bold reference-based/self-enhancement сняты, «why this matters» meta-каркас проредён, «Don't×3» → связная проза. Видео — честное «нет» (база Часть 1 несёт два IBM-видео). |
 | cross-cutting/guardrails | #58 | #71, milestone-проход #81, #82 |
 | cross-cutting/observability | #58 | milestone-проход #81, #82, milestone-проход #83 |
 | part-2-agents/overview | #58 | #59, #63, #67, #72, milestone-проход #81 |
@@ -815,7 +840,7 @@ milestone-проход.
 | part-2-agents/mcp (Часть 1 = index) | #80 | milestone-проход #81, этот PR (гнездование в папку + замена 🚧-пометки на живой указатель «Дальше — вторая часть урока» → «Серверы, транспорт и доверие»; «stdio против streamable HTTP» → «stdio и streamable HTTP» в указателе, versus-калька §1.3) |
 | part-2-agents/mcp/deep-dive (Часть 2; sidebar «Серверы, транспорт и доверие») | этот PR (авторский гейт + редакционный гейт + холодный прогон RU+EN) | RU: «MCP против A2A» → «между MCP и A2A» (versus-калька в прозе), «коннектор» (MCP-клиент) → «подключение» (§1.2 резервация), bare «поток» → «направление» (§2 control flow), «обзор сервера над промптом» → «видимость промпта для сервера», «источник истины» → «достоверный источник» (§1.3), «заботами первого порядка» → «выходят на первый план», «задача высокоставочная» → «высокая цена ошибки», sentence-initial капитализация Sampling/Elicitation/Roots/Stdio/Streamable HTTP/Rug pull, «суб-реестры» → «субреестры», axis-максима bold → курсив (§8), Mermaid-подписи локализованы (tools/resources/prompts → инструменты/ресурсы/промпты), confused deputy/rug pull переглоссированы в «Что забрать»; «не X, а Y» проредена. EN: 7-глагольный вступительный run-on разбит, «durable/dated» рефрен проредён + внутренний повтор снят, catalogue→catalog / signalled→signaled (US), data/instructions bold → курсив, «Treat all…» bold-предложение → ярлык, repeat-bold anchors сняты, trust boundary введён в тело, EN-подписи схем добавлены для парности |
 | part-2-agents/real-agents | #105 (авторский гейт, холодный прогон пропущен — обрыв по лимиту) | этот PR (холодный прогон постфактум) |
-| glossary | #58 | #59, #67, #69, #72, #78, milestone-проход #81, #82, milestone-проход #83, этот PR (retrieval-углубление: score fusion / normalization, LLM reranker, late interaction / ColBERT, multi-vector, contextual retrieval, query routing, pre-/post-filter), этот PR (ingestion-углубление: document parsing / layout-aware extraction, OCR, late chunking, embedding fine-tuning, Matryoshka Representation Learning (MRL)) |
+| glossary | #58 | #59, #67, #69, #72, #78, milestone-проход #81, #82, milestone-проход #83, этот PR (retrieval-углубление: score fusion / normalization, LLM reranker, late interaction / ColBERT, multi-vector, contextual retrieval, query routing, pre-/post-filter), этот PR (ingestion-углубление: document parsing / layout-aware extraction, OCR, late chunking, embedding fine-tuning, Matryoshka Representation Learning (MRL)), этот PR (evaluation-углубление: faithfulness, context precision, context recall, reference-free/reference-based, LLM-judge calibration, pointwise/pairwise, inter-annotator agreement, Cohen's kappa, Fleiss' kappa, active sampling / active learning; enhanced answer relevance + judge bias) |
 | part-3-production/overview | холодный прогон #85 | — |
 | part-3-production/serving | холодный прогон #85 | — |
 | part-3-production/cloud-platforms | холодный прогон #85 | — |

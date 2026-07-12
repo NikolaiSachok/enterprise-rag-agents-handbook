@@ -7,7 +7,7 @@ sidebar_position: 3
 # Paying Part I's debt
 
 Three lessons in Part I ended on the same promissory note.
-[Evaluation](../part-1-rag/cross-cutting/evaluation.md),
+[Evaluation](../part-1-rag/cross-cutting/evaluation/index.md),
 [guardrails](../part-1-rag/cross-cutting/guardrails.md), and
 [observability](../part-1-rag/cross-cutting/observability.md) each taught a principle and then deferred the
 products: "the tools are a separate tooling layer, coming later; here we're on the principle." This is

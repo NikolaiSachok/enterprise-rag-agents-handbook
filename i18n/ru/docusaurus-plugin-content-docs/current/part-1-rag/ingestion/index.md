@@ -85,7 +85,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
 Он зависит от типа документа (плотный юридический текст ≠ болтливая переписка) и типа запросов
 (точечный факт ≠ «объясни политику»). Поэтому размер чанка **подбирают измерением** — прогоняют
 варианты через оценку поиска и смотрят на метрики. Отсюда мостик к слою
-[Evaluation](../cross-cutting/evaluation.md): чанкинг — не «настроил и забыл», а параметр, который тюнят по метрикам.
+[Evaluation](../cross-cutting/evaluation/index.md): чанкинг — не «настроил и забыл», а параметр, который тюнят по метрикам.
 
 :::
 
@@ -223,6 +223,6 @@ self-hosted vs API embeddings.
 модели).
 
 См. также: что происходит с чанками дальше — [Retrieval](../retrieval/index.md); как собирается ответ —
-[Generation](../generation/index.md); как измеряют весь слой — [Evaluation](../cross-cutting/evaluation.md).
+[Generation](../generation/index.md); как измеряют весь слой — [Evaluation](../cross-cutting/evaluation/index.md).
 
 :::

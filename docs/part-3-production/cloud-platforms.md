@@ -145,7 +145,7 @@ expiration dates assumed.
 The tradeoff is the one to internalize. Managed RAG buys speed — a working pipeline in days, no
 infrastructure of your own — and pays for it with the knobs Part I taught you to turn. Chunking strategy,
 hybrid weighting, reranker choice, and eval hooks vary by product and may be fixed or opaque. Teams that
-need to tune quality through the eval loop from [evaluation](../part-1-rag/cross-cutting/evaluation.md)
+need to tune quality through the eval loop from [evaluation](../part-1-rag/cross-cutting/evaluation/index.md)
 often outgrow the managed tier, or keep it only for ingestion and storage while owning retrieval themselves.
 A fair default reading: managed for standard corpora, custom when eval says the defaults fail.
 

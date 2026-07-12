@@ -208,15 +208,20 @@ which one you're looking at.
 **Golden set / golden dataset / ground truth** — examples of "question + relevant chunks / correct answer" that metrics
 are computed against. Quality beats size.
 
-**Answer relevance** — a generation metric: does the answer address the question asked.
+**Answer relevance** — a reference-free generation metric: does the answer address the question asked?
+Computed by having an LLM regenerate N questions from the answer and averaging their embedding cosine
+similarity to the original question — *(1/N) Σ cos(E_gen_i, E_orig)*. Measures intent-match, not factual
+accuracy. ↗ [arXiv](https://arxiv.org/abs/2309.15217)
 
 **Correctness** — whether the answer matches a reference answer in substance.
 
 **LLM-as-a-judge** — scoring free-text output with another LLM against a rubric or reference; it scales
 human-like judgment to thousands of examples.
 
-**Judge bias** — systematic skews of an LLM judge: position bias (favors the first option), verbosity bias
-(longer = better), self-preference (its own style).
+**Judge bias** — systematic (not random) skews of an LLM judge, so they don't average out over more examples:
+position bias (favors the first option — mitigate by swapping order and requiring consistency), verbosity
+bias (longer = better), self-preference / self-enhancement (its own style).
+↗ [arXiv](https://arxiv.org/abs/2306.05685)
 
 **Offline vs online eval** — evaluating on a golden set before deploy (regression in CI) versus measuring
 in production (user feedback, A/B).
@@ -224,6 +229,46 @@ in production (user feedback, A/B).
 **Regression eval** — running the golden set in CI so an improvement in one place doesn't break another.
 
 **A/B testing** — comparing two versions of the system on live traffic by their metrics.
+
+**Faithfulness** — a reference-free generation metric: decompose the answer into atomic claims, verify each
+against the retrieved context, and score the supported fraction — *faithfulness = supported claims / total
+claims* (0–1). Measures grounding, not correctness — a claim grounded in a wrong context still scores 1.0.
+↗ [arXiv](https://arxiv.org/abs/2309.15217)
+
+**Context precision** — a ranking-aware retrieval metric: are the relevant chunks ranked at the top of the
+results? A rank-weighted mean of Precision@k — moving one irrelevant chunk from rank 2 to rank 1 can drop it
+from ~1.0 to ~0.5. ↗ [arXiv](https://arxiv.org/abs/2309.15217)
+
+**Context recall** — a reference-based retrieval metric: did retrieval bring back everything the reference
+answer needs? Break the reference answer into claims and score the fraction supported by the retrieved
+context. The most direct measure of a retrieval failure. ↗ [arXiv](https://arxiv.org/abs/2309.15217)
+
+**Reference-free vs reference-based evaluation** — whether a metric needs a human-written correct answer.
+Reference-free (faithfulness, answer relevance) runs on the question, context, and answer alone — usable on
+live traffic; reference-based (context recall, correctness) needs a golden answer.
+
+**LLM-judge calibration** — measuring a judge's agreement with human labels on a held-out sample before
+trusting it at scale; strong judges reach roughly human-level agreement (over 80%), not oracle. Re-calibrate
+when the model, corpus, or question distribution drifts. ↗ [arXiv](https://arxiv.org/abs/2306.05685)
+
+**Pointwise vs pairwise evaluation** — two judge protocols: pointwise grades one answer against a rubric on an
+absolute scale (cheap, scales, drifts across runs); pairwise picks the better of two (more reliable for
+ranking, but O(n²) and the most exposed to position bias). Reference-guided pointwise puts the golden answer
+in the judge's prompt. ↗ [arXiv](https://arxiv.org/abs/2306.05685)
+
+**Inter-annotator agreement (IAA)** — the degree to which independent annotators assign the same labels; low
+agreement is a signal to sharpen the rubric, not to overrule a dissenter.
+
+**Cohen's kappa** — inter-annotator agreement between two annotators, corrected for chance:
+*κ = (p_o − p_e) / (1 − p_e)*, with p_o the observed and p_e the chance-expected agreement.
+↗ [Wikipedia](https://en.wikipedia.org/wiki/Cohen%27s_kappa)
+
+**Fleiss' kappa** — the generalization of Cohen's kappa to agreement among more than two annotators.
+↗ [Wikipedia](https://en.wikipedia.org/wiki/Fleiss%27_kappa)
+
+**Active sampling / active learning** — spending the scarce human-labeling budget where it is most
+informative (where the judge is least confident, where judges disagree, or where production surfaced a
+failure) instead of labeling at random.
 
 ## Guardrails
 

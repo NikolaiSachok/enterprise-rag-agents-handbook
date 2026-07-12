@@ -113,7 +113,7 @@ flowchart LR
 
 ## Which metric watches which stage
 
-Part 1 promised the metrics get formalized in the Evaluation layer, and the full treatment does live in [Evaluation](../cross-cutting/evaluation.md). What a retrieval engineer needs at hand is which metric watches which stage. Recall@K — did the needed chunk land in the top-K — is the first stage's metric, the direct measure of the retrieval failure. Precision@K is the fraction of the top-K that's relevant. Two more grade the *ordering* the reranker produces.
+Part 1 promised the metrics get formalized in the Evaluation layer, and the full treatment does live in [Evaluation](../cross-cutting/evaluation/index.md). What a retrieval engineer needs at hand is which metric watches which stage. Recall@K — did the needed chunk land in the top-K — is the first stage's metric, the direct measure of the retrieval failure. Precision@K is the fraction of the top-K that's relevant. Two more grade the *ordering* the reranker produces.
 
 **MRR** (mean reciprocal rank) takes `1 / rank` of the *first* relevant result and averages it over queries. It rewards putting one right answer high and is blind to everything after that first hit, which makes it the right metric when there is essentially one right answer — a known-item or navigational lookup where the second-best result is irrelevant by definition.
 
