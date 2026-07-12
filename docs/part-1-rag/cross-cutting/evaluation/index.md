@@ -1,7 +1,6 @@
 ---
-id: evaluation
 title: "Evaluation"
-sidebar_position: 1
+slug: /part-1-rag/cross-cutting/evaluation/
 ---
 
 # Measuring quality instead of guessing
@@ -93,13 +92,21 @@ The main practical power of eval: it shows you which stage the failure is in.
 - Offline (regressions in CI) + online (feedback, A/B).
 - Metrics tell you which stage to fix.
 
-**New terms** → [Glossary](../../glossary.md): evaluation, golden set / golden dataset / ground truth, answer relevance,
+**New terms** → [Glossary](../../../glossary.md): evaluation, golden set / golden dataset / ground truth, answer relevance,
 correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval, A/B testing.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: Ragas-style metric internals, LLM-judge calibration, human-in-the-loop labeling.
+**[Metric internals & judge calibration](./deep-dive.md)** — the evaluation layer's second pass: how the
+Ragas-style metrics are actually computed (faithfulness, answer relevance, context precision and recall), how
+an LLM judge is calibrated against human labels and where its biases come from (position, verbosity,
+self-preference; pairwise vs pointwise), and how a golden set is built by hand — inter-annotator agreement and
+active sampling.
+
+See also: the layers evaluation measures — [Retrieval](../../retrieval/index.md) and
+[Generation](../../generation/index.md); and the sibling cross-cutting concerns —
+[Guardrails](../guardrails.md) and [Observability](../observability.md).
 
 :::

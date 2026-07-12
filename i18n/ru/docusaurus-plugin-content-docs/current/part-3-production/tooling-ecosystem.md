@@ -10,7 +10,7 @@ sidebar_position: 3
 [Guardrails AI](https://www.guardrailsai.com) и прочие — отдельный слой, о нём позже, а здесь мы про принцип. Так закрывались уроки про
 [наблюдаемость](../part-1-rag/cross-cutting/observability.md) и
 [guardrails](../part-1-rag/cross-cutting/guardrails.md), а урок про
-[оценку](../part-1-rag/cross-cutting/evaluation.md) отложил разбор устройства метрик на второй проход.
+[оценку](../part-1-rag/cross-cutting/evaluation/index.md) отложил разбор устройства метрик на второй проход.
 «Позже» наступило. Часть I дала тебе понятия — golden set (эталонный набор примеров), трейс (trace), долю
 успешных атак (attack success rate, ASR); этот урок раскладывает по ним рынок готовых инструментов 2026 года и
 отвечает на приземлённый вопрос: что именно ставить и когда.

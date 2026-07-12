@@ -82,7 +82,7 @@ You have levers beyond the base grounding instruction, though none of them is a 
 
 - **Instruct the conflict explicitly.** Tell the model the context is authoritative, and that when it contradicts prior knowledge it should defer to the context *and surface the discrepancy* rather than silently reconcile the two. Silent reconciliation is the exact mechanism by which a wrong answer hides — it papers over the seam you needed to see.
 - **Make the sources legible.** Clear delimiting plus per-claim citations (the previous section) raise the cost of quietly substituting a prior, because every claim now has to point at a source, and a prior has none.
-- **Measure it.** Whether the answer actually rested on the sources is the **faithfulness** metric, formalized in [Evaluation](../cross-cutting/evaluation.md). Faithfulness is the instrument that catches a parametric override a human reader would nod straight past.
+- **Measure it.** Whether the answer actually rested on the sources is the **faithfulness** metric, formalized in [Evaluation](../cross-cutting/evaluation/index.md). Faithfulness is the instrument that catches a parametric override a human reader would nod straight past.
 
 One honest limit remains. No prompt makes grounding absolute — you *reduce and measure* parametric override, you do not eliminate it. That is exactly why faithfulness is a monitored number and not a solved problem.
 

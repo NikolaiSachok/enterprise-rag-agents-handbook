@@ -42,7 +42,7 @@ A change to any one of them is a deploy. And any one of them can regress quality
 
 Testing changed along with the artifact. Outputs are nondeterministic and quality comes in degrees, whereas
 a unit test wants a clean pass or fail — so the regression instrument is
-[eval](../part-1-rag/cross-cutting/evaluation.md), not unit tests alone. Everything below is that one
+[eval](../part-1-rag/cross-cutting/evaluation/index.md), not unit tests alone. Everything below is that one
 sentence, unpacked into a working operation.
 
 ## Deploy — CI/CD when the artifact isn't just code

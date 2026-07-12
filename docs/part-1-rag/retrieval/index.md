@@ -94,7 +94,7 @@ query → [transform] → [hybrid: dense + BM25, metadata filter + ACL]
 ```
 
 Every stage drives retrieval failure down. By exactly how much is something you **measure**: Recall@K,
-Precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](../cross-cutting/evaluation.md) layer.
+Precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](../cross-cutting/evaluation/index.md) layer.
 
 ## What to take away
 
@@ -120,6 +120,6 @@ vs LLM), parent-document and late-interaction (ColBERT) retrieval, query routing
 the ranking metrics (nDCG, MRR) spelled out.
 
 See also: where the chunks come from — [Ingestion](../ingestion/index.md); what happens to what you retrieve —
-[Generation](../generation/index.md); and how the whole layer is measured — [Evaluation](../cross-cutting/evaluation.md).
+[Generation](../generation/index.md); and how the whole layer is measured — [Evaluation](../cross-cutting/evaluation/index.md).
 
 :::

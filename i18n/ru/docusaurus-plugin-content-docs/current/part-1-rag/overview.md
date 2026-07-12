@@ -24,7 +24,7 @@ RAG (retrieval-augmented generation) — это способ заставить 
   трансформация запроса, гибридный поиск, реранкинг, фильтры и права доступа.
 - **[Generation](./generation/index.md)** — как опереть ответ на найденный контекст: grounding, цитирование,
   честный отказ вместо выдумки.
-- **Сквозные аспекты** — то, что не сводится к одному шагу: [eval](./cross-cutting/evaluation.md) (узнать,
+- **Сквозные аспекты** — то, что не сводится к одному шагу: [eval](./cross-cutting/evaluation/index.md) (узнать,
   что система работает), [guardrails](./cross-cutting/guardrails.md) (удержать её в безопасных рамках),
   [observability](./cross-cutting/observability.md) (видеть, что она делает в проде).
 

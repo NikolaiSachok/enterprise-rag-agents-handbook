@@ -87,7 +87,7 @@ That's why the "just cut every N characters" approach fails — and why smarter 
 It depends on the document type (dense legal text ≠ chatty message threads) and the query type (a
 pinpoint fact ≠ "explain the policy"). So you don't guess the chunk size — you **measure** it: run the
 variants through retrieval evaluation and look at the metrics. That's the bridge to the
-[Evaluation](../cross-cutting/evaluation.md) layer: chunking isn't "set it and forget it," it's a parameter you tune
+[Evaluation](../cross-cutting/evaluation/index.md) layer: chunking isn't "set it and forget it," it's a parameter you tune
 against metrics.
 
 :::
@@ -233,6 +233,6 @@ neighbors quickly.
 embeddings), and embedding depth (fine-tuning, Matryoshka dimensionality truncation, multilingual models).
 
 See also: what happens to the chunks next — [Retrieval](../retrieval/index.md); how the answer is composed —
-[Generation](../generation/index.md); and how the whole layer is measured — [Evaluation](../cross-cutting/evaluation.md).
+[Generation](../generation/index.md); and how the whole layer is measured — [Evaluation](../cross-cutting/evaluation/index.md).
 
 :::

@@ -71,7 +71,7 @@ Retrieval отдал хороший, разрешённый контекст. Т
 
 Даже с инструкциями модель иногда перебивает контекст своими знаниями или спотыкается, когда контекст
 противоречит тому, во что она «верит». Насколько ответ действительно опирается на источники — это
-**измеряют** метрикой faithfulness / groundedness. Формализуем её в слое [Evaluation](../cross-cutting/evaluation.md);
+**измеряют** метрикой faithfulness / groundedness. Формализуем её в слое [Evaluation](../cross-cutting/evaluation/index.md);
 пока держи в голове, что за «модель ведёт себя хорошо» должно стоять число.
 
 ## Как generation failure чинится по классам
@@ -106,6 +106,6 @@ knowledge, hallucination.
 модели, упаковка длинного контекста за пределами lost-in-the-middle и форма ответа (формат, тон, длина).
 
 См. также: что подаёт этот слой на вход — [Retrieval](../retrieval/index.md); откуда берутся чанки —
-[Ingestion](../ingestion/index.md); как измеряют faithfulness — [Evaluation](../cross-cutting/evaluation.md).
+[Ingestion](../ingestion/index.md); как измеряют faithfulness — [Evaluation](../cross-cutting/evaluation/index.md).
 
 :::
