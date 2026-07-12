@@ -1,7 +1,6 @@
 ---
-id: agentic-rag
 title: Agentic RAG
-sidebar_position: 1
+slug: /part-2-agents/agentic-rag/
 ---
 
 # Retrieval becomes a decision, not a step
@@ -134,19 +133,19 @@ agent makes its decisions.
 - You pay in latency, cost, unpredictability, and debugging difficulty — which is why observability
   and eval from Part I become mandatory.
 
-**New terms** → [Glossary](../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting),
+**New terms** → [Glossary](../../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting),
 routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection, iterative
 retrieval.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: the ReAct pattern in detail and its alternatives (plan-and-execute, reflection), fighting
-non-termination and step limits, passing history correctly between iterations, evaluating an agent's
-trajectory.
+**[Iterative retrieval & eval](./deep-dive.md)** — a deeper pass on the retrieval loop: the named
+agentic-RAG patterns (Self-RAG, corrective RAG, adaptive RAG), keeping the loop from spinning on itself,
+handing retrieved context between hops, and judging the whole retrieval trajectory.
 
-How those same actions — web search, fetch, grounding — are built into Claude, OpenAI, and Gemini is what
-the part's capstone works through: [Real agents](./real-agents.md).
+See also: steering and bounding an agent loop in general — [Planning & loops](../planning-loops.md); how
+these actions ship inside Claude, OpenAI, and Gemini — [the part's capstone](../real-agents.md).
 
 :::

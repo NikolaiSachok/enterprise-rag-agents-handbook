@@ -1,0 +1,8 @@
+{
+  "label": "Agentic RAG",
+  "position": 1,
+  "link": {
+    "type": "doc",
+    "id": "part-2-agents/agentic-rag/index"
+  }
+}

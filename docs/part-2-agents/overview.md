@@ -18,7 +18,7 @@ latency, cost, and debugging difficulty. The engineering job isn't to "make it m
 
 ## What's inside
 
-- **[Agentic RAG](./agentic-rag.md)** — retrieval turns from a step into an action inside a loop; the
+- **[Agentic RAG](./agentic-rag/index.md)** — retrieval turns from a step into an action inside a loop; the
   spectrum from router to full loop.
 - **[Tool use](./tool-use/index.md)** — how the model calls external functions: search, SQL, APIs, a calculator.
 - **[Planning & loops](./planning-loops.md)** — ReAct and plan-and-execute, task decomposition, termination
