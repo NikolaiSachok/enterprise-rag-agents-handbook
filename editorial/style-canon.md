@@ -1538,3 +1538,50 @@ obyčajný text** — presne ako razenú kalku. Až najbližší studený precho
 potvrdí (naivný jednojazyčný slovenský čitateľ ju dekóduje pri prvom kontakte bez anglickej stránky) alebo
 vyškrtne (vtedy sa zapisuje medzi odmietnuté varianty, ako sa v ruštine vyškrtli „batériky“). Slovenská
 figúra sa **nepotvrdzuje** tým, že funguje v ruštine — každý jazyk sa overuje sám.
+
+### Fáza 2 — pilot „tool use“ (#64): rozhodnutia kánonu
+
+Studený prechod **dvakrát** (bez ľudskej poistky) potvrdil nasledovné. Zapisuje sa sem, aby ďalšie vlny
+dedili už rozhodnuté.
+
+**Typografia — pomlčka vsuvky.** Locale používa **dlhú pomlčku (em-dash „—“) pre vsuvky**, nie krátku (en-dash
+„–“); en-dash ostáva vyhradený iba pre číselné rozsahy (§Typografia). Rozhodnuté konzistenciou s existujúcim
+slovenským korpusom (glosár, intro) a s ruskou paralelou; slovenský typografický zvyk uprednostňuje en-dash,
+ale jednota locale má prednosť. (Studený literárny prechod to označil ako otvorenú otázku — týmto je zavretá.)
+
+**Kalky z angličtiny — nové pasce (over kolokáciu, ✗ = kalk → ✓ = slovensky).** Náprotivok bohemizmov (§1.3),
+lenže zdrojom je angličtina EN-skeletu:
+
+- brať argumenty ✗ → **prijímať argumenty** („take arguments“)
+- prísna deliaca čiara ✗ → **ostrá deliaca čiara** („strict line“ — „prísny“ patrí pravidlu/režimu, nie čiare)
+- čo ti X kupuje / X kupuje argumenty ✗ → **čo X zaručuje / X dáva** („what X buys you“ — sloveso „kúpiť“ nenesie prenesený význam „získať“)
+- doviesť okruh do majstrovstva ✗ → **rozobrať do posledného detailu / dotiahnuť do hĺbky** („bring to mastery“; „majstrovstvo“ číta ako šampionát)
+- výstup jedného kŕmi ďalšie ✗ → **výstup jedného je vstupom pre ďalšie** („feeds“ — „kŕmiť“ je o zvierati)
+- plocha zlyhania ✗ → **riziko zlyhania** (natívne je „plocha útoku“; „bod zlyhania“; „plocha zlyhania“ nie je úzus)
+- vyhľadávanie **do** znalostnej báze ✗ → **vyhľadávanie v znalostnej báze** (predložka „do“ je kalk „into“)
+- Ovládače (konfiguračné) ✗ → **Prepínače / ovládacie prvky** („controls/knobs“; „ovládač“ = driver/diaľkové)
+- limit rýchlosti ✗ → **rate limit (strop na počet požiadaviek)** alebo „obmedzenie počtu požiadaviek“ („rate limit“; „limit rýchlosti“ = dopravný)
+- škála (vo význame „scale = škálovanie“) ✗ → **škálovanie / škálovateľnosť** (falošný priateľ; „škála“ = stupnica/spektrum)
+- odsúdené volanie (holé) ✗ → **volanie odsúdené na neúspech** („odsúdený“ vyžaduje doplnenie „na …“)
+- domýšľať si **nad** výsledkom ✗ → **domyslieť si, čo vo výsledku nie je** (sporná väzba „nad + inštr.“; preformuluj)
+
+**Figúry — výsledok skúšobnej doby (studený prechod ×2, naivný čitateľ dekódoval bez angličtiny).**
+- POTVRDENÉ (dekódované pri prvom kontakte): **chyba ako prompt**; **fan-out / fan-in** v tvare „jeden ťah sa
+  rozvetví na N … N výsledkov sa zloží späť“; **stála daň**; **cena kompilácie / kompilačná daň**;
+  **bezpečnostná hranica**; **kruh sa uzatvára**; **súbeh (race condition)** — pod podmienkou, že glos v tele
+  význam **rozvinie** („dve súbežné volania siahnu na to isté a výsledok závisí od náhodného časovania“), nie
+  holé „(race)“.
+- ODMIETNUTÉ (→ odmietnuté varianty): **„zápisy, ktoré zanechajú stopu“** (naivný čitateľ číta „stopu“ ako
+  log/trace, nie nevratnosť) → nahradené **„zápisy s trvalým následkom“**; **„AI-delta“** ako holá menovka
+  (nedekódovateľná bez angličtiny; „delta“ nie je slovenské slovo pre „rozdiel“) → v tele píš **„rozdiel,
+  ktorý vnáša AI“**; obraz **fan-outu „pukne na N“** → nahradený „rozvetví sa na N“ (kontrolované vetvenie, nie
+  prasknutie pod tlakom).
+
+**Kept-EN doplnky.** **rate limit** vstupuje ako kept-EN termín s glosom pri prvom výskyte. **defence-in-depth**
+(§1.1 kept-EN) smie v **opisnej próze** vystupovať aj natívne ako „obrana do hĺbky“, keď nie je pomenovaným
+termínom stránky. Sloveso **„vydať“** (vydá text/zámer/volanie/výstup) je ustálený autorský tvar korpusu pre
+„emit/issue“ — ponecháva sa; ak sa niekedy zjednocuje, náhrada je „urobiť/vygenerovať volanie“.
+
+**Anglická veta v tele (systémový prompt) dostáva slovenský preklad v zátvorke.** Literálny reťazec, ktorý
+čitateľ vkladá do promptu, ostáva doslovne po anglicky, ale hneď za ním nasleduje „(v preklade: …)“, aby ho
+jednojazyčný slovenský čitateľ vedel prečítať.
