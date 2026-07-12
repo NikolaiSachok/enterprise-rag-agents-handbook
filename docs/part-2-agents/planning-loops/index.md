@@ -1,13 +1,12 @@
 ---
-id: planning-loops
 title: Planning & loops
-sidebar_position: 3
+slug: /part-2-agents/planning-loops/
 ---
 
 # Steering the loop toward the goal, and making it stop
 
-In [agentic-rag](./agentic-rag/index.md) you got the loop: `reason → decide → act → observe`, spinning until the
-model decides it's ready. In [tool-use](./tool-use/index.md) you saw that every action in that loop is a tool call —
+In [agentic-rag](../agentic-rag/index.md) you got the loop: `reason → decide → act → observe`, spinning until the
+model decides it's ready. In [tool-use](../tool-use/index.md) you saw that every action in that loop is a tool call —
 the model emits the intent, your code does the calling. So the agent has freedom of movement and a set of
 actions. What we never asked: on a task that takes *many* steps, how does the agent decide the sequence of
 steps — and what makes the loop **stop**? That control layer is this lesson.
@@ -177,17 +176,17 @@ an agent that gets the right answer in forty steps when six would do is not a go
 - Downstream, **observability becomes mandatory** (trace the whole trajectory to debug it) and **eval measures
   the trajectory** — whether it reached the goal, and in how many steps.
 
-**New terms** → [Glossary](../glossary.md): planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
+**New terms** → [Glossary](../../glossary.md): planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: tree/graph search over plans (ToT-style), concrete reflection frameworks, budget and cost
-policies in production, memory architectures for long trajectories (episodic vs working memory), and
-trajectory-level eval metrics.
+**[Plan search & memory](./deep-dive.md)** — a deeper pass on steering and bounding the loop: tree/graph
+search over plans, named reflection frameworks, budget and cost policies in production, memory architectures
+for long trajectories (episodic vs working memory), and trajectory-level eval metrics.
 
-How the loop, its step caps, and recovery from failure look across Claude, OpenAI, and Gemini is covered in
-the part's capstone: [Real agents](./real-agents.md).
+See also: the retrieval-specific twist on the same loop — [Agentic RAG](../agentic-rag/index.md); how the
+loop, its caps, and recovery look across Claude, OpenAI, and Gemini — [the part's capstone](../real-agents.md).
 
 :::

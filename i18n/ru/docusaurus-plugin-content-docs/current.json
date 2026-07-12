@@ -27,6 +27,10 @@
     "message": "Agentic RAG",
     "description": "The label for category 'Agentic RAG' in sidebar 'handbookSidebar'"
   },
+  "sidebar.handbookSidebar.category.Planning & loops": {
+    "message": "Планирование и циклы",
+    "description": "The label for category 'Planning & loops' in sidebar 'handbookSidebar'"
+  },
   "sidebar.handbookSidebar.category.Part III — Production & LLMOps": {
     "message": "Часть III — Production и LLMOps",
     "description": "The label for category 'Part III — Production & LLMOps' in sidebar 'handbookSidebar'"

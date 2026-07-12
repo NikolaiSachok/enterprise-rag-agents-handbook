@@ -337,6 +337,47 @@ trajectory (intermediate notes, a list of what's done), so the context doesn't b
 **Non-termination** — the signature failure of the agent loop: it never stops, gets stuck repeating an
 action, or drifts from the goal.
 
+**Plan search (tree / graph search over plans)** — searching a space of candidate plans and reasoning paths
+instead of committing to one: generate several next-steps, score each with a value function, expand the
+promising branches with lookahead, and backtrack out of dead ends.
+
+**Tree of Thoughts (ToT)** — deliberate search over intermediate reasoning steps ("thoughts"): the model
+proposes candidate thoughts, self-evaluates each state, and searches the tree breadth- or depth-first with
+lookahead and backtracking, unlike the single linear path of chain-of-thought.
+↗ [arXiv](https://arxiv.org/abs/2305.10601)
+
+**Graph of Thoughts (GoT)** — generalizes ToT from a tree to an arbitrary graph, so thoughts can be
+aggregated and merged, not only branched. ↗ [arXiv](https://arxiv.org/abs/2308.09687)
+
+**LATS (Language Agent Tree Search)** — Monte Carlo Tree Search over an agent's actions rather than just its
+reasoning, with a language-model value function, self-reflection, and environment feedback; unifies
+reasoning, acting, and planning. ↗ [arXiv](https://arxiv.org/abs/2310.04406)
+
+**Self-Refine** — single-model iterative refinement: the same model generates an output, critiques it, and
+revises in a loop, with no training. ↗ [arXiv](https://arxiv.org/abs/2303.17651)
+
+**Reflexion** — verbal reinforcement: after a failed attempt the agent writes a natural-language reflection,
+stores it in an episodic memory buffer, and reads it back on the next attempt — learning across trials with
+no weight update. The framework (capital R), distinct from reflection the concept.
+↗ [arXiv](https://arxiv.org/abs/2303.11366)
+
+**Episodic memory** — a store of the agent's past experiences (what happened, when, the outcome) that
+outlives the current context and is retrieved when relevant; distinct from working memory, the current
+task's in-context scratchpad.
+
+**Semantic memory** — durable facts the agent knows or has learned, typically in a knowledge base / vector
+store; long-term, unlike the ephemeral scratchpad.
+
+**Virtual context management (MemGPT)** — an OS-inspired memory hierarchy: the model treats the context
+window as "main context" (like RAM) and an external store as "external context" (like disk), paging data in
+and out with tool calls to work beyond the window. ↗ [arXiv](https://arxiv.org/abs/2310.08560)
+
+**Trajectory evaluation** — grading the whole path the agent took, not just its final answer: outcome (task
+success) versus process (was each step and tool call sound), plus step efficiency and termination.
+
+**pass^k** — the fraction of tasks an agent solves on all k independent attempts; a reliability metric that
+exposes the run-to-run variance a single pass@1 hides. ↗ [arXiv](https://arxiv.org/abs/2406.12045)
+
 ## Agents — multi-agent systems
 
 **Multi-agent system** — several specialized agents collaborating instead of one agent; motivated by

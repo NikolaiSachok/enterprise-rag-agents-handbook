@@ -145,7 +145,7 @@ retrieval.
 agentic-RAG patterns (Self-RAG, corrective RAG, adaptive RAG), keeping the loop from spinning on itself,
 handing retrieved context between hops, and judging the whole retrieval trajectory.
 
-See also: steering and bounding an agent loop in general — [Planning & loops](../planning-loops.md); how
+See also: steering and bounding an agent loop in general — [Planning & loops](../planning-loops/index.md); how
 these actions ship inside Claude, OpenAI, and Gemini — [the part's capstone](../real-agents.md).
 
 :::

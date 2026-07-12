@@ -21,7 +21,7 @@ latency, cost, and debugging difficulty. The engineering job isn't to "make it m
 - **[Agentic RAG](./agentic-rag/index.md)** — retrieval turns from a step into an action inside a loop; the
   spectrum from router to full loop.
 - **[Tool use](./tool-use/index.md)** — how the model calls external functions: search, SQL, APIs, a calculator.
-- **[Planning & loops](./planning-loops.md)** — ReAct and plan-and-execute, task decomposition, termination
+- **[Planning & loops](./planning-loops/index.md)** — ReAct and plan-and-execute, task decomposition, termination
   criteria, and breaking out of loops.
 - **[Multi-agent systems](./multi-agent.md)** — several specialized agents, roles, handoff; the topologies
   and when NOT to split one agent.

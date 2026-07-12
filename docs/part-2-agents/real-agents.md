@@ -8,7 +8,7 @@ sidebar_position: 7
 
 Part II built the agent one capability at a time: the loop that decides for itself in
 [agentic-rag](./agentic-rag/index.md), the tools it acts with in [tool-use](./tool-use/index.md), a way to plan and
-actually stop in [planning-loops](./planning-loops.md), teammates to divide the work in
+actually stop in [planning-loops](./planning-loops/index.md), teammates to divide the work in
 [multi-agent](./multi-agent.md), the frameworks that package all of it in
 [orchestration-frameworks](./orchestration-frameworks.md), and the protocol that wires it to the world in
 [mcp](./mcp.md). This lesson teaches nothing new. It takes that whole toolkit to the three agents you meet
@@ -110,7 +110,7 @@ telling those two apart ([agentic-rag](./agentic-rag/index.md)).
 
 The agent loop is reason → decide → act → observe, repeated until a stop condition fires. Explicit
 reasoning before acting makes the decide step sharper; a turn or step cap is the guard against a loop that
-never ends. Both are vendor-independent ([planning-loops](./planning-loops.md)).
+never ends. Both are vendor-independent ([planning-loops](./planning-loops/index.md)).
 
 Claude runs the loop until `stop_reason:"end_turn"`; the Claude Agent SDK's `query()` runs the same loop —
 "turns continue until Claude produces output with no tool calls" — bounded by `max_turns` and
@@ -134,7 +134,7 @@ reasoning *visible* and interleaved; OpenAI keeps it *opaque* behind an effort s
 
 More thinking is not a termination guarantee. The loop that never stops, or that drifts off the goal, is the
 failure planning-loops warned about, and the step budget is the backstop that catches it regardless of how
-much reasoning you bought ([planning-loops](./planning-loops.md)).
+much reasoning you bought ([planning-loops](./planning-loops/index.md)).
 
 ## Self-recovery — feed the error back, and make the run resumable
 
@@ -162,7 +162,7 @@ One move, three storage models — each with its own failure and portability tra
 The catch is the obvious one, and it splits in two. State you never persisted is state you cannot resume —
 and even when you did persist it, "resume" is only safe if you can tell *what actually completed*. That
 second half is not an API feature; it's a discipline, and it leads straight into the war-story on judging
-progress by real state rather than a timestamp ([planning-loops](./planning-loops.md)).
+progress by real state rather than a timestamp ([planning-loops](./planning-loops/index.md)).
 
 ## Hooks and guardrails — interpose checks, don't trust the loop
 

@@ -7,7 +7,7 @@ sidebar_position: 4
 # Several specialized agents instead of one
 
 Every lesson so far built *one* agent. [agentic-rag](./agentic-rag/index.md) gave you the loop; [tool-use](./tool-use/index.md)
-gave it tools to call; [planning-loops](./planning-loops.md) taught it to plan over that loop and to stop.
+gave it tools to call; [planning-loops](./planning-loops/index.md) taught it to plan over that loop and to stop.
 This lesson asks a different question: what if, instead of one agent, you use several specialized agents
 that collaborate?
 
