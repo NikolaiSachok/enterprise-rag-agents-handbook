@@ -38,7 +38,10 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build website (all locales)
+      - name: Build website (released locales only)
+        # Plain build: HANDBOOK_INCLUDE_UNRELEASED is unset, so LOCALES is only the
+        # released locales (en, ru). Unreleased locales (e.g. sk) are validated in CI
+        # but deliberately excluded from the public deploy until they're launch-ready.
         run: npm run build
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

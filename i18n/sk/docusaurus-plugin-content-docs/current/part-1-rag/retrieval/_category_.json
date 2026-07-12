@@ -1,0 +1,8 @@
+{
+  "label": "Retrieval",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "part-1-rag/retrieval/index"
+  }
+}

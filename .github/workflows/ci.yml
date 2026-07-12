@@ -37,8 +37,11 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build website (all locales)
-        run: npm run build
+      - name: Build website (all locales, including unreleased)
+        # HANDBOOK_INCLUDE_UNRELEASED=1 pulls the unreleased locales (e.g. sk) into
+        # LOCALES so their i18n tree is built and broken-link/i18n-validated here —
+        # the deploy workflow leaves this unset, so the public site never serves them.
+        run: HANDBOOK_INCLUDE_UNRELEASED=1 npm run build
 
   lint:
     name: Markdown lint

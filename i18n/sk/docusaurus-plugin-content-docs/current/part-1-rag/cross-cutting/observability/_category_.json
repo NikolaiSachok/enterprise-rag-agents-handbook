@@ -1,0 +1,8 @@
+{
+  "label": "Observability",
+  "position": 3,
+  "link": {
+    "type": "doc",
+    "id": "part-1-rag/cross-cutting/observability/index"
+  }
+}

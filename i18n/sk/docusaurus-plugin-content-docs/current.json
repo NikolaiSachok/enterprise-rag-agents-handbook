@@ -1,0 +1,90 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.handbookSidebar.category.Part I — RAG": {
+    "message": "Časť I — RAG",
+    "description": "The label for category 'Part I — RAG' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Ingestion": {
+    "message": "Ingestion",
+    "description": "The label for category 'Ingestion' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Retrieval": {
+    "message": "Retrieval",
+    "description": "The label for category 'Retrieval' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Generation": {
+    "message": "Generation",
+    "description": "The label for category 'Generation' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Cross-cutting": {
+    "message": "Prierezové aspekty",
+    "description": "The label for category 'Cross-cutting' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Cross-cutting.link.generated-index.description": {
+    "message": "Tri veci prechádzajú všetkými fázami pipeline a nedajú sa zredukovať na jediný krok: ako zistíš, že systém funguje (Evaluation), ako ho udržíš bezpečný (Guardrails) a ako uvidíš, čo robí v produkcii (Observability). Začíname hodnotením — bez neho nie je podľa čoho ladiť zvyšok.",
+    "description": "The generated-index page description for category 'Cross-cutting' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Evaluation": {
+    "message": "Evaluation",
+    "description": "The label for category 'Evaluation' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Guardrails": {
+    "message": "Guardrails",
+    "description": "The label for category 'Guardrails' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Observability": {
+    "message": "Observability",
+    "description": "The label for category 'Observability' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Part II — Agents": {
+    "message": "Časť II — Agenti",
+    "description": "The label for category 'Part II — Agents' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Agentic RAG": {
+    "message": "Agentic RAG",
+    "description": "The label for category 'Agentic RAG' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Tool use": {
+    "message": "Používanie nástrojov",
+    "description": "The label for category 'Tool use' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Planning & loops": {
+    "message": "Plánovanie a slučky",
+    "description": "The label for category 'Planning & loops' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Multi-agent systems": {
+    "message": "Multiagentové systémy",
+    "description": "The label for category 'Multi-agent systems' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Orchestration frameworks": {
+    "message": "Orchestračné frameworky",
+    "description": "The label for category 'Orchestration frameworks' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.MCP and agent protocols": {
+    "message": "MCP a protokoly agentov",
+    "description": "The label for category 'MCP and agent protocols' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Part III — Production & LLMOps": {
+    "message": "Časť III — Production a LLMOps",
+    "description": "The label for category 'Part III — Production & LLMOps' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Serving — FastAPI + Docker": {
+    "message": "Serving — FastAPI a Docker",
+    "description": "The label for category 'Serving — FastAPI + Docker' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Cloud AI platforms": {
+    "message": "Cloudové AI platformy",
+    "description": "The label for category 'Cloud AI platforms' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.The tooling ecosystem": {
+    "message": "Ekosystém nástrojov",
+    "description": "The label for category 'The tooling ecosystem' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.LLMOps — deploy, monitor, cost": {
+    "message": "LLMOps — nasadenie, monitoring, náklady",
+    "description": "The label for category 'LLMOps — deploy, monitor, cost' in sidebar 'handbookSidebar'"
+  }
+}

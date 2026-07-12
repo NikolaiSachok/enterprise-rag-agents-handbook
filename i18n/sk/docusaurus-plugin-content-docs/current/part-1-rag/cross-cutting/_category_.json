@@ -1,0 +1,8 @@
+{
+  "label": "Prierezové aspekty",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Tri veci prechádzajú všetkými fázami pipeline a nedajú sa zredukovať na jediný krok: ako zistíš, že systém funguje (Evaluation), ako ho udržíš bezpečný (Guardrails) a ako uvidíš, čo robí v produkcii (Observability). Začíname hodnotením — bez neho nie je podľa čoho ladiť zvyšok."
+  }
+}

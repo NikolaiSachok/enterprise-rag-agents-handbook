@@ -7,13 +7,46 @@ import type * as Preset from '@docusaurus/preset-classic';
 // --- i18n single source of truth -------------------------------------------
 // The whole locale mechanism (config below, the browser-language detection in
 // `localeDetectionScript`, the search index, the locale dropdown) is driven off
-// these three constants. Adding a language later = add it to `LOCALES` and give
+// these constants. Adding a language later = add it to the locale lists and give
 // it a `localeConfigs` label — detection and switching pick it up with NO other
 // code change. `DEFAULT_LOCALE` serves at the site root; every other locale
 // serves under `/<locale>/`.
+//
+// Released vs unreleased locales (gated visibility). RELEASED_LOCALES ship on the
+// public site. UNRELEASED_LOCALES are still being translated: they are built and
+// broken-link/i18n-validated in CI (so their tree can't silently rot), but stay
+// OUT of the deployed locale dropdown until they're launch-ready — a public
+// dropdown pointing at a half-translated locale falls back to EN per missing page
+// and undermines the showcase. The gate is one env var:
+//   - CI (`.github/workflows/ci.yml`) sets HANDBOOK_INCLUDE_UNRELEASED=1, so the
+//     build includes + validates the unreleased locales.
+//   - Deploy (`.github/workflows/deploy.yml`) leaves it unset, so the public build
+//     serves only RELEASED_LOCALES.
+// Launching a locale = move it from UNRELEASED_LOCALES to RELEASED_LOCALES (one
+// line); its `localeConfigs` label is already set below, so nothing else changes.
 const DEFAULT_LOCALE = 'en';
-const LOCALES = ['en', 'ru'];
+const RELEASED_LOCALES = ['en', 'ru'];
+const UNRELEASED_LOCALES = ['sk']; // Slovak — built + validated in CI, hidden on deploy until launch
+const INCLUDE_UNRELEASED = process.env.HANDBOOK_INCLUDE_UNRELEASED === '1';
+const LOCALES = [...RELEASED_LOCALES, ...(INCLUDE_UNRELEASED ? UNRELEASED_LOCALES : [])];
 const BASE_URL = '/enterprise-rag-agents-handbook/';
+
+// Search-index languages. The local search plugin loads a lunr stemmer per language
+// via `require.resolve('lunr-languages/lunr.<code>')`; lunr-languages ships stemmers
+// for many languages but NOT Slovak (nor Czech), so passing 'sk' straight through
+// hard-crashes the build (MODULE_NOT_FOUND on lunr.sk). We therefore feed the plugin
+// LOCALES filtered to the codes lunr actually supports: a locale lunr can't stem (sk)
+// is still built and served, its content still indexed, just tokenized with the
+// default analyzer instead of a Slovak-specific stemmer — acceptable until/unless a
+// Slovak stemmer exists. This stays LOCALES-driven: add a lunr-supported locale and it
+// joins the search set automatically. (`en` needs no stemmer module.) Keep the set in
+// sync with lunr-languages' shipped `lunr.*.js`.
+const LUNR_SUPPORTED_LANGUAGES = new Set([
+  'en', 'ar', 'da', 'de', 'nl', 'el', 'es', 'fi', 'fr', 'he', 'hi', 'hu', 'hy',
+  'it', 'ja', 'jp', 'kn', 'ko', 'no', 'pl', 'pt', 'ro', 'ru', 'sa', 'sv', 'ta',
+  'te', 'th', 'tr', 'vi', 'zh',
+]);
+const SEARCH_LANGUAGES = LOCALES.filter((l) => LUNR_SUPPORTED_LANGUAGES.has(l));
 
 // Blocking <head> script: on a first visit with no preference cookie, match the
 // visitor's `navigator.languages` against LOCALES (English fallback) and redirect
@@ -132,8 +165,10 @@ const config: Config = {
         indexDocs: true,
         indexBlog: true,
         docsRouteBasePath: '/',
-        // Build a search index per locale.
-        language: LOCALES,
+        // Build a search index per locale. `language` is the set of lunr STEMMERS to
+        // load — LOCALES minus codes lunr can't stem (see SEARCH_LANGUAGES above); an
+        // unstemmed locale is still indexed with the default analyzer.
+        language: SEARCH_LANGUAGES,
       },
     ],
   ],
@@ -141,12 +176,16 @@ const config: Config = {
   // i18n: English is the default/canonical locale (served at the site root);
   // Russian serves under /ru/. RU stays audience-primary in authoring (written
   // natively, never machine-translated) — this only sets URL/serving structure.
+  // `localeConfigs` labels every locale we might build (released or not) — it is
+  // harmless for a locale that isn't in `LOCALES`, so the Slovak label is set here
+  // permanently; only `LOCALES` decides what actually builds/serves.
   i18n: {
     defaultLocale: DEFAULT_LOCALE,
     locales: LOCALES,
     localeConfigs: {
       en: {label: 'English'},
       ru: {label: 'Русский'},
+      sk: {label: 'Slovenčina'},
     },
   },
 
