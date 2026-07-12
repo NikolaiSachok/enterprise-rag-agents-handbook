@@ -6,7 +6,7 @@ sidebar_position: 4
 
 # The LLM system's life after release
 
-[Serving](./serving/index.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms.md) decided
+[Serving](./serving/index.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms/index.md) decided
 where the model runs. [The tooling ecosystem](./tooling-ecosystem.md) gave you eval, guardrails, and
 observability as products. One question remains, and it's the one that fills the rest of the system's
 life: what does it mean to *operate* this thing — to change it safely, watch it, and pay for it, week
@@ -195,7 +195,7 @@ and parallelising pipeline stages that don't depend on each other.
 ### The batch tier
 
 Work that can wait shouldn't pay the interactive price. Nightly corpus enrichment, backfills, synthetic
-data generation for eval — the batch tier from the [cloud platforms](./cloud-platforms.md) lesson runs
+data generation for eval — the batch tier from the [cloud platforms](./cloud-platforms/index.md) lesson runs
 them at roughly half price, in exchange for an hours-scale SLA. As levers go it's the simplest one here:
 classify the workload as offline and collect the discount.
 
@@ -222,7 +222,7 @@ flowchart LR
 
 That closes Part III, and with it the handbook's base course. Part III's own arc was short and practical:
 we wrapped the pipeline as a [service](./serving/index.md), chose
-[where the model runs](./cloud-platforms.md), assembled the [tooling](./tooling-ecosystem.md) around the
+[where the model runs](./cloud-platforms/index.md), assembled the [tooling](./tooling-ecosystem.md) around the
 loop, and — in this lesson — learned to operate what we built. The longer arc is the book's. Part I built
 the pipeline: chunks, embeddings, retrieval, generation, and the cross-cutting disciplines that make it
 measurable and safe. Part II gave it agency: the loop, the tools, the plans, the teammates, the protocols.

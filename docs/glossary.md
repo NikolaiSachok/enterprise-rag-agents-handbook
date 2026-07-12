@@ -833,6 +833,61 @@ Foundry IQ on AI Search, Vertex RAG Engine); it trades knobs for speed.
 **Vendor lock-in** — dependence created by platform-specific batteries (managed RAG, SDKs) rather than by
 the endpoint itself, which is often OpenAI-compatible.
 
+**Fine-tuning** — continuing a base model's training on your data to change its behaviour; on the platforms
+it spans supervised fine-tuning (SFT), preference and reinforcement methods (DPO, RFT), distillation, and
+continued pre-training. Tune for form — style, schema, format — not for facts that change, which is RAG's job.
+
+**LoRA / PEFT** — parameter-efficient fine-tuning: train a small adapter over frozen base weights rather than
+all of them, for a fraction of the compute and storage.
+
+**DPO (Direct Preference Optimization)** — fine-tuning on pairs of preferred and rejected answers to align a
+model's outputs, without a separate reward model.
+
+**Reinforcement fine-tuning (RFT)** — fine-tuning against a reward function or a model-grader that scores
+each answer, rewarding the behaviour you want.
+
+**Model distillation** — training a smaller student model to imitate a larger teacher's outputs, trading a
+little quality for much lower serving cost.
+
+**Continued pre-training** — extending a base model's pre-training on large unlabelled domain data, before
+any task-specific tuning.
+
+**Managed agent runtime** — a platform service that hosts the agent loop itself and adds session and memory
+persistence, a tool-and-identity gateway, observability, and scale-to-zero (Bedrock AgentCore, Foundry Agent
+Service, Vertex Agent Engine) — the deltas over running your own agent container.
+
+**FinOps** — the discipline of tying engineering decisions to cloud cost, driving spend to a defensible
+unit-economics number.
+
+**Cost modelling** — estimating a workload's spend from its token shape and the platform's pricing levers
+before committing to it.
+
+**Unit economics** — the cost of one unit of value — a request, an active user, a feature — the number FinOps
+optimises.
+
+**Committed-use discount** — a lower effective price in exchange for reserving dedicated capacity or
+committing to a usage term (Azure PTU reservations, Bedrock Reserved).
+
+**Context caching** — provider-side caching of a large reused prompt context (the counterpart to prompt
+caching), billed at a fraction of fresh input plus a storage fee.
+
+**Cross-region egress** — the charge for moving data between regions or clouds; a cost axis of the
+residency-versus-capacity dial.
+
+**Multi-cloud gateway** — a router in front of several providers or clouds, speaking one OpenAI-compatible
+wire, for portability, failover, cost routing, and central governance (LiteLLM, Portkey).
+
+**Digital sovereignty** — control over who can access, operate, and legally compel your data and workloads,
+and under whose jurisdiction — operational, data, and software sovereignty. Distinct from residency, which is
+only where data sits.
+
+**Sovereign cloud** — a cloud built to guarantee digital sovereignty, through EU- or nationally-operated
+regions, partner "trusted clouds", or air-gapped deployment (AWS European Sovereign Cloud, Microsoft
+Sovereign Cloud, Google Distributed Cloud).
+
+**Air-gapped** — an environment fully disconnected from the public internet, for regulated or defence
+workloads; frontier models often lag or are absent there.
+
 ## Production — the tooling ecosystem
 
 **Instrumentation** — adding the code or SDK hooks that emit traces, spans, and metrics from the pipeline;

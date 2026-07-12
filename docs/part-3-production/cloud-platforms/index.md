@@ -1,12 +1,11 @@
 ---
-id: cloud-platforms
 title: Cloud AI platforms
-sidebar_position: 2
+slug: /part-3-production/cloud-platforms/
 ---
 
 # Where your tokens get computed
 
-[Serving](./serving/index.md) ended at a fork. The application layer — auth, the RAG pipeline, guardrails,
+[Serving](../serving/index.md) ended at a fork. The application layer — auth, the RAG pipeline, guardrails,
 streaming — is yours either way; the open question was the second box in the diagram: do you run the model
 on your own GPUs, or rent it? This lesson walks the rent branch properly, because renting turns out to have
 a fork of its own.
@@ -72,7 +71,7 @@ within about a year. Product names and bundle boundaries get reshuffled constant
 survives the renames are the capability categories — the model catalogue, the privacy and residency
 guarantees, the managed RAG tier, the platform guardrails, the throughput and pricing model. The rest of
 this lesson is organised by those categories, and that is deliberate: learn the categories, and treat any
-product name — including every name on this page — as a snapshot. The [MCP lesson](../part-2-agents/mcp/index.md)
+product name — including every name on this page — as a snapshot. The [MCP lesson](../../part-2-agents/mcp/index.md)
 made the same move for agent protocols, and it holds here just as well.
 
 ## Model catalogues — who serves whose models
@@ -124,7 +123,7 @@ Why enterprises care is not abstract. Regulatory regimes — GDPR, sector rules 
 bind where personal and regulated data may be processed. Residency plus the no-training commitment plus
 private networking form the compliance triad that lets a legal team sign off, and in practice this triad is
 often the deciding argument for a platform over a direct vendor API. You have met this fork before:
-[ingestion](../part-1-rag/ingestion/index.md) posed the self-hosted-versus-API choice for embedding models. This
+[ingestion](../../part-1-rag/ingestion/index.md) posed the self-hosted-versus-API choice for embedding models. This
 is the same fork, now at the level of the model itself.
 
 The third leg deserves one concrete sentence. All three platforms support private connectivity, so prompts
@@ -145,7 +144,7 @@ expiration dates assumed.
 The tradeoff is the one to internalize. Managed RAG buys speed — a working pipeline in days, no
 infrastructure of your own — and pays for it with the knobs Part I taught you to turn. Chunking strategy,
 hybrid weighting, reranker choice, and eval hooks vary by product and may be fixed or opaque. Teams that
-need to tune quality through the eval loop from [evaluation](../part-1-rag/cross-cutting/evaluation/index.md)
+need to tune quality through the eval loop from [evaluation](../../part-1-rag/cross-cutting/evaluation/index.md)
 often outgrow the managed tier, or keep it only for ingestion and storage while owning retrieval themselves.
 A fair default reading: managed for standard corpora, custom when eval says the defaults fail.
 
@@ -155,8 +154,8 @@ context and enforce a threshold. Azure ships AI Content Safety, including Prompt
 prompt-injection detection, surfaced in Foundry as "Guardrails + controls" — and yes, Azure renamed its
 content filters to "Guardrails," a bonus data point for the names-are-snapshots rule. Google ships Model
 Armor. All of these implement the concepts from the
-[guardrails lesson](../part-1-rag/cross-cutting/guardrails/index.md) as managed services — which sets up the
-make-or-buy question that the [tooling ecosystem](./tooling-ecosystem.md) lesson takes on directly.
+[guardrails lesson](../../part-1-rag/cross-cutting/guardrails/index.md) as managed services — which sets up the
+make-or-buy question that the [tooling ecosystem](../tooling-ecosystem.md) lesson takes on directly.
 
 ## Throughput and pricing models
 
@@ -173,12 +172,12 @@ There is a third tier worth knowing: batch. All three platforms document discoun
 processing for non-interactive workloads — roughly half the on-demand price, for supported models (Azure
 Batch, Bedrock batch inference, Vertex batch predictions). If a workload doesn't need an answer in seconds —
 nightly document processing, bulk classification, offline eval runs — batch mode is the cheapest tokens the
-platform will sell you. Don't confuse it with continuous batching from the [serving](./serving/index.md) lesson:
+platform will sell you. Don't confuse it with continuous batching from the [serving](../serving/index.md) lesson:
 that lives in the inference server's GPU scheduler, while batch mode is a pricing tier at the API level.
 
 One operational constant ties the section together: quotas are per-region and per-model, and a production
 design must handle 429s no matter which platform serves it. That is the retry-and-rate-cap checklist from
-[serving](./serving/index.md), and it is the opening problem of [LLMOps](./llmops.md), where routing and fallbacks
+[serving](../serving/index.md), and it is the opening problem of [LLMOps](../llmops.md), where routing and fallbacks
 pick up what a single endpoint can't guarantee.
 
 ## How to choose
@@ -192,7 +191,7 @@ regulator; does the managed RAG tier fit, or will you run your own pipeline; and
 provisioned-capacity economics look like at your load.
 
 Whichever platform wins, keep one architectural hedge: leave the application layer provider-agnostic.
-OpenAI-compatible clients and a gateway or router layer — the pattern [LLMOps](./llmops.md) develops with
+OpenAI-compatible clients and a gateway or router layer — the pattern [LLMOps](../llmops.md) develops with
 [LiteLLM](https://www.litellm.ai) and friends — preserve the option to move. Note where the **vendor lock-in** actually lives: the
 endpoints are increasingly interchangeable, while the platform SDKs and managed tiers are the sticky parts.
 Lock-in lives in the batteries, not in the endpoint.
@@ -218,15 +217,22 @@ Lock-in lives in the batteries, not in the endpoint.
   managed-RAG fit, capacity economics.
 - Keep the app layer provider-agnostic — lock-in lives in the batteries, not the endpoint.
 
-**New terms** → [Glossary](../glossary.md): managed endpoint, model catalogue, data residency, provisioned
+**New terms** → [Glossary](../../glossary.md): managed endpoint, model catalogue, data residency, provisioned
 throughput, batch mode, managed RAG, vendor lock-in.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: fine-tuning offerings on the platforms, the agent platforms (Bedrock AgentCore, Foundry
-Agent Service, Vertex Agent Engine), cost modelling and FinOps for LLM workloads, multi-cloud gateway
-patterns, and sovereign-cloud offerings.
+**[Cost, agents & sovereignty](./deep-dive.md)** — the mastery pass over the same platforms: the fine-tuning
+offerings and where they fit, the managed agent runtimes (Bedrock AgentCore, Foundry Agent Service, Vertex
+Agent Engine), platform cost modelling and FinOps (per-platform pricing shapes, committed-use discounts,
+cross-region egress), multi-cloud gateway patterns, and sovereign-cloud offerings.
+
+See also, in Part III: [serving](../serving/index.md) for the rent-versus-own fork this lesson answers,
+[LLMOps](../llmops.md) for org-level spend governance and cross-model routing, and the
+[tooling ecosystem](../tooling-ecosystem.md) for the make-versus-buy calls around the platform. The serving
+[deep dive](../serving/deep-dive.md) covers serverless GPU and the always-warm-versus-scale-to-zero economics
+from the self-hosting side.
 
 :::

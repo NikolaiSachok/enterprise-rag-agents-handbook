@@ -11,7 +11,7 @@ assumption — it runs on your machine, for you. You start it, you feed it a que
 and when it breaks you are sitting right there. Production removes every part of that: the system runs as
 a service, for other people, many at once, under load, with nobody watching. Part III is about that jump,
 and it unfolds in order — this lesson wraps what you built as a service; the lessons after it ask
-[where the model itself should run](../cloud-platforms.md), [what tooling to put around the running
+[where the model itself should run](../cloud-platforms/index.md), [what tooling to put around the running
 system](../tooling-ecosystem.md), and [how to operate it once it's live](../llmops.md).
 
 ## One word, two jobs
@@ -190,7 +190,7 @@ product: auth, RAG orchestration, guardrails, streaming to the user, accounting.
 the GPU: batching, KV cache, model loading. Chaining them — app service in front, inference server behind —
 is the standard self-hosted architecture; and if you use a provider API instead, nothing structural
 changes — you've simply rented the second box. Whether to rent it or own it is exactly the question of the
-[cloud-platforms](../cloud-platforms.md) lesson.
+[cloud-platforms](../cloud-platforms/index.md) lesson.
 
 ```mermaid
 flowchart LR
@@ -228,7 +228,7 @@ tuning, request queueing and backpressure, vLLM internals (continuous-batching s
 quantisation), multi-GPU and multi-node parallelism, Kubernetes GPU scheduling and autoscaling on token
 throughput, and serverless GPU.
 
-See also, in Part III: [cloud platforms](../cloud-platforms.md) for rent-vs-own and where the model runs,
+See also, in Part III: [cloud platforms](../cloud-platforms/index.md) for rent-vs-own and where the model runs,
 [LLMOps](../llmops.md) for operating it once it's live, and the [tooling ecosystem](../tooling-ecosystem.md)
 for what to wrap around it. For the SLOs and latency budgets that these scaling choices answer to, the
 [observability deep dive](../../part-1-rag/cross-cutting/observability/deep-dive.md).

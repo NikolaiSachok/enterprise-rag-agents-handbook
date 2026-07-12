@@ -74,5 +74,9 @@
   "sidebar.handbookSidebar.category.Serving — FastAPI + Docker": {
     "message": "Serving — сервинг на FastAPI и Docker",
     "description": "The label for category 'Serving — FastAPI + Docker' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.Cloud AI platforms": {
+    "message": "Облачные AI-платформы",
+    "description": "The label for category 'Cloud AI platforms' in sidebar 'handbookSidebar'"
   }
 }

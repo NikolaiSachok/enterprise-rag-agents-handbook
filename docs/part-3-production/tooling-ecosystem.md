@@ -100,7 +100,7 @@ rail can call a classifier model as one of its checks.
 
 The make-or-buy fork runs through here as well — the same fork as everywhere in Part III. The identical
 concepts ship as managed platform services: Bedrock Guardrails, Azure AI Content Safety, Vertex's safety
-filters and Model Armor, all familiar from [the cloud platforms lesson](./cloud-platforms.md).
+filters and Model Armor, all familiar from [the cloud platforms lesson](./cloud-platforms/index.md).
 Platform-managed means less control, zero maintenance, one vendor; open source means full control and your
 own ops.
 
