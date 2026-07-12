@@ -8,7 +8,7 @@ sidebar_position: 5
 
 The lessons so far built agents up from primitives: the loop in [agentic-rag](./agentic-rag/index.md), the tools it
 calls in [tool-use](./tool-use/index.md), planning and termination over that loop in
-[planning-loops](./planning-loops/index.md), and teams of agents in [multi-agent](./multi-agent.md). In practice
+[planning-loops](./planning-loops/index.md), and teams of agents in [multi-agent](./multi-agent/index.md). In practice
 you don't hand-roll all of that. You reach for an **orchestration framework** — [LangChain](https://www.langchain.com), [LangGraph](https://www.langchain.com/langgraph),
 [LlamaIndex](https://www.llamaindex.ai), and their neighbors. This lesson is about what a framework actually adds on top of the bare loop,
 so you can choose one and use it well: not reimplement what it already gives you, and not hide behind it when

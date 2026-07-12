@@ -1,0 +1,8 @@
+{
+  "label": "Мультиагентные системы",
+  "position": 4,
+  "link": {
+    "type": "doc",
+    "id": "part-2-agents/multi-agent/index"
+  }
+}

@@ -113,7 +113,7 @@ an agent" is a habit of authorship, not a property of the protocol.
 ## MCP vs A2A — agent-to-tools versus agent-to-agent
 
 MCP standardizes one axis: agent to tool, agent to data. There is a second axis it says nothing about — agent
-to *agent*, the communication you needed the moment you built [multi-agent](./multi-agent.md) systems. When
+to *agent*, the communication you needed the moment you built [multi-agent](./multi-agent/index.md) systems. When
 one agent hands off to another, what protocol carries that? MCP is the wrong tool; it connects an agent to
 its tools, not an agent to a peer.
 
@@ -146,7 +146,7 @@ even when it's phrased like one.
 That closes the lesson — and the core toolkit of Part II. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag/index.md) —
 retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use/index.md)), a way to
 plan over many steps and actually stop ([planning-loops](./planning-loops/index.md)), teammates to divide the work
-([multi-agent](./multi-agent.md)), and frameworks to package all of it
+([multi-agent](./multi-agent/index.md)), and frameworks to package all of it
 ([orchestration-frameworks](./orchestration-frameworks.md)). This lesson supplied the last piece: the
 standard protocols that wire agents to tools, and to each other, in production. One loop, grown into a system
 that connects to the world through a common plug. What all of it looks like on live Claude, OpenAI, and

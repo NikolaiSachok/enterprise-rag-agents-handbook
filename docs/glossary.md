@@ -397,6 +397,28 @@ writer → editor → fact-checker).
 **Critic / debate** — a topology where a critic agent (or several independent agents) challenges or compares
 solutions, raising quality through independent perspectives.
 
+**FIPA ACL** — the Agent Communication Language standardized by FIPA (2002): a message is a *performative*
+(a speech-act — inform, request, propose, cfp…) wrapping fields (sender, receiver, content, ontology,
+protocol, conversation-id). The decades-old ancestor of today's inter-agent message schemas.
+↗ [Wikipedia](https://en.wikipedia.org/wiki/Foundation_for_Intelligent_Physical_Agents)
+
+**Contract net protocol** — task allocation by negotiation: a manager announces a task, idle contractors
+bid, the manager awards the best bid, the contractor returns the result (Reid G. Smith, 1980). Dynamic role
+assignment expressed as a message exchange. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Contract_Net_Protocol)
+
+**Blackboard** — a shared-memory coordination architecture: independent specialists (knowledge sources)
+read and write one global data structure while a control component schedules who writes next; agents
+coordinate through the board rather than by addressing each other. The alternative to point-to-point
+handoff. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Blackboard_system)
+
+**Multi-agent debate** — several model instances independently propose an answer, then critique and revise
+across a few rounds, converging on a more accurate and consistent result than a single pass; a protocol
+form of the critic/debate topology. ↗ [arXiv](https://arxiv.org/abs/2305.14325)
+
+**Trajectory stitching** — threading a shared correlation (conversation/task) id through every inter-agent
+message so the per-agent traces reassemble into one parent–child trace you can grade end-to-end; the
+precondition for evaluating a team.
+
 ## Agents — orchestration frameworks
 
 **Orchestration framework** — a library that packages the agent loop, tool-calling glue, state, control
@@ -431,9 +453,10 @@ N+M. ↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
 **M×N integration problem** — M apps × N tools = M×N bespoke connectors; a standard collapses it to N+M.
 
-**A2A (Agent-to-Agent)** — an emerging standard (created by Google, a Linux Foundation project since
-June 2025) for agent-to-agent communication; MCP is agent-to-tools, A2A is agent-to-agent.
-↗ [a2a-protocol.org](https://a2a-protocol.org)
+**A2A (Agent2Agent)** — an open standard (created by Google, announced April 2025, a Linux Foundation
+project since mid-2025) for agent-to-agent communication: agents publish an Agent Card for discovery and
+exchange work as Tasks carrying Messages and Artifacts over JSON-RPC. MCP is agent-to-tools, A2A is
+agent-to-agent. ↗ [a2a-protocol.org](https://a2a-protocol.org)
 
 ## Agents — real agents (capstone)
 

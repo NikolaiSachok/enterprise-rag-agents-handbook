@@ -1,13 +1,12 @@
 ---
-id: multi-agent
 title: Multi-agent systems
-sidebar_position: 4
+slug: /part-2-agents/multi-agent/
 ---
 
 # Several specialized agents instead of one
 
-Every lesson so far built *one* agent. [agentic-rag](./agentic-rag/index.md) gave you the loop; [tool-use](./tool-use/index.md)
-gave it tools to call; [planning-loops](./planning-loops/index.md) taught it to plan over that loop and to stop.
+Every lesson so far built *one* agent. [agentic-rag](../agentic-rag/index.md) gave you the loop; [tool-use](../tool-use/index.md)
+gave it tools to call; [planning-loops](../planning-loops/index.md) taught it to plan over that loop and to stop.
 This lesson asks a different question: what if, instead of one agent, you use several specialized agents
 that collaborate?
 
@@ -140,15 +139,19 @@ synthesizer combines what they each found into one answer. Same topology, differ
 - You've already seen one: the editorial/authoring team behind a handbook, and deep-research systems, are
   orchestrator–worker teams — a lead that decomposes, routes to blind specialists, and synthesizes.
 
-**New terms** → [Glossary](../glossary.md): multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
+**New terms** → [Glossary](../../glossary.md): multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: concrete inter-agent protocols and message schemas, shared-memory (blackboard) architectures, role-assignment and negotiation patterns, multi-agent eval (stitching the trajectory across agents), and cost-control policies for agent teams.
+**[Protocols & coordination](./deep-dive.md)** — a deeper pass on how a team of agents actually coordinates
+and how you keep it working and affordable: concrete inter-agent protocols and message schemas, shared-memory
+(blackboard) architectures, role-assignment and negotiation patterns, multi-agent eval that stitches the
+trajectory across agents, and cost-control policies for agent teams.
 
-How the orchestrator and isolated workers are built in Claude (subagents), OpenAI (handoffs), and Gemini
-(ADK) is what the part's capstone shows: [Real agents](./real-agents.md).
+See also: how the orchestrator and isolated workers are built across Claude, OpenAI, and Gemini —
+[the part's capstone](../real-agents.md); the general loop-control and budget layer these teams build on —
+[planning & loops](../planning-loops/index.md).
 
 :::

@@ -31,6 +31,10 @@
     "message": "Планирование и циклы",
     "description": "The label for category 'Planning & loops' in sidebar 'handbookSidebar'"
   },
+  "sidebar.handbookSidebar.category.Multi-agent systems": {
+    "message": "Мультиагентные системы",
+    "description": "The label for category 'Multi-agent systems' in sidebar 'handbookSidebar'"
+  },
   "sidebar.handbookSidebar.category.Part III — Production & LLMOps": {
     "message": "Часть III — Production и LLMOps",
     "description": "The label for category 'Part III — Production & LLMOps' in sidebar 'handbookSidebar'"

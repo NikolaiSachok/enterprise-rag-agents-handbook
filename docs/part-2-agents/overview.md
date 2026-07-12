@@ -23,7 +23,7 @@ latency, cost, and debugging difficulty. The engineering job isn't to "make it m
 - **[Tool use](./tool-use/index.md)** — how the model calls external functions: search, SQL, APIs, a calculator.
 - **[Planning & loops](./planning-loops/index.md)** — ReAct and plan-and-execute, task decomposition, termination
   criteria, and breaking out of loops.
-- **[Multi-agent systems](./multi-agent.md)** — several specialized agents, roles, handoff; the topologies
+- **[Multi-agent systems](./multi-agent/index.md)** — several specialized agents, roles, handoff; the topologies
   and when NOT to split one agent.
 - **[Orchestration frameworks](./orchestration-frameworks.md)** — [LangGraph](https://www.langchain.com/langgraph), [LangChain](https://www.langchain.com), Microsoft Agent
   Framework, [CrewAI](https://www.crewai.com): what they add on top of a bare loop, and when to skip them.

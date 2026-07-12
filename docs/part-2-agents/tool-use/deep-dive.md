@@ -106,7 +106,7 @@ The fix at scale is to stop shipping every tool every time. **Dynamic tool loado
 
 **Namespacing** works the same problem from the other side. Give tools structured names and group them — by domain, by server — so the model and your retrieval step can both reason about them; it cuts name collisions and overlap once the catalog is large.
 
-Past some point the answer is not a longer list at all. When one agent is hauling dozens of tools, the fix is to split into **specialized agents**, each with a small, orthogonal toolset — the specialization argument from the [multi-agent](../multi-agent.md) lesson. A tool list that keeps growing is itself the signal that you have outgrown a single agent.
+Past some point the answer is not a longer list at all. When one agent is hauling dozens of tools, the fix is to split into **specialized agents**, each with a small, orthogonal toolset — the specialization argument from the [multi-agent](../multi-agent/index.md) lesson. A tool list that keeps growing is itself the signal that you have outgrown a single agent.
 
 The restraint runs the other way too. Do not reach for tool-RAG prematurely. For a handful of tools it is needless machinery with its own failure surface — a retrieval step that can now misfire and hide a tool the model needed. The simplest thing that works is the full static set; dynamic loadout earns its complexity only when the catalog is genuinely large. Same discipline as everywhere in Part 2: take the simplest level that solves the task.
 

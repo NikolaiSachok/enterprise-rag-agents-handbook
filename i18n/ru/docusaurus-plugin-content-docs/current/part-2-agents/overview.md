@@ -24,7 +24,7 @@ sidebar_label: Обзор части
   SQL, API, калькулятор.
 - **[Планирование и циклы (planning & loops)](./planning-loops/index.md)** — ReAct и plan-and-execute, декомпозиция
   задачи, критерий остановки и борьба с зацикливанием.
-- **[Мультиагентные системы (multi-agent)](./multi-agent.md)** — несколько специализированных агентов,
+- **[Мультиагентные системы (multi-agent)](./multi-agent/index.md)** — несколько специализированных агентов,
   роли, передача управления; топологии и когда НЕ дробить одного агента.
 - **[Фреймворки оркестрации](./orchestration-frameworks.md)** — [LangGraph](https://www.langchain.com/langgraph), [LangChain](https://www.langchain.com), Microsoft Agent
   Framework, [CrewAI](https://www.crewai.com): что они дают поверх голого цикла и когда лучше без них.

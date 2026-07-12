@@ -9,7 +9,7 @@ sidebar_position: 7
 Part II built the agent one capability at a time: the loop that decides for itself in
 [agentic-rag](./agentic-rag/index.md), the tools it acts with in [tool-use](./tool-use/index.md), a way to plan and
 actually stop in [planning-loops](./planning-loops/index.md), teammates to divide the work in
-[multi-agent](./multi-agent.md), the frameworks that package all of it in
+[multi-agent](./multi-agent/index.md), the frameworks that package all of it in
 [orchestration-frameworks](./orchestration-frameworks.md), and the protocol that wires it to the world in
 [mcp](./mcp.md). This lesson teaches nothing new. It takes that whole toolkit to the three agents you meet
 first — Claude, OpenAI, and Gemini — and shows that each technique is the same durable move under a
@@ -199,7 +199,7 @@ the real backstop. A hook that only logs stops nothing ([tool-use](./tool-use/in
 
 When one loop takes on too much, split it: an orchestrator plus isolated workers, each worker with its own
 context, doing one job and returning a result the orchestrator composes. Isolation is the whole point — a
-worker's intermediate mess never pollutes the others ([multi-agent](./multi-agent.md)).
+worker's intermediate mess never pollutes the others ([multi-agent](./multi-agent/index.md)).
 
 :::tip[▶ Video]
 
@@ -230,7 +230,7 @@ packages the loop, and the topology is a design choice you make deliberately
 The failure is over-eager division. Don't split when one agent would do — every worker adds latency, cost,
 and coordination bugs, and parallel workers sharing a mutable workspace collide. That's multi-agent's "when
 NOT to divide," and it leads to the war-story on giving each worker its own worktree
-([multi-agent](./multi-agent.md)).
+([multi-agent](./multi-agent/index.md)).
 
 ## MCP — one protocol so any agent talks to any tool
 
