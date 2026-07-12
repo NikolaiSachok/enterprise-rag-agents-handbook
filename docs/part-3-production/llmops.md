@@ -7,7 +7,7 @@ sidebar_position: 4
 # The LLM system's life after release
 
 [Serving](./serving/index.md) wrapped the pipeline in a service. [Cloud platforms](./cloud-platforms/index.md) decided
-where the model runs. [The tooling ecosystem](./tooling-ecosystem.md) gave you eval, guardrails, and
+where the model runs. [The tooling ecosystem](./tooling-ecosystem/index.md) gave you eval, guardrails, and
 observability as products. One question remains, and it's the one that fills the rest of the system's
 life: what does it mean to *operate* this thing — to change it safely, watch it, and pay for it, week
 after week?
@@ -63,7 +63,7 @@ flowchart LR
 The gate at the front is **eval in CI**. Every change to a prompt, model, index, or config runs the golden
 set; if the metrics fall below threshold, the merge is blocked. This is Part I's regression eval promoted
 to a pipeline stage — the same [promptfoo](https://www.promptfoo.dev) / [DeepEval](https://deepeval.com) / [Ragas](https://ragas.io) stack you met in
-[the tooling ecosystem](./tooling-ecosystem.md), now wired into CI with a red-green verdict. A prompt tweak
+[the tooling ecosystem](./tooling-ecosystem/index.md), now wired into CI with a red-green verdict. A prompt tweak
 that quietly drops faithfulness by ten points gets caught the same way a broken build does.
 
 ### Prompts are code — and config
@@ -130,7 +130,7 @@ The through-line this handbook has drawn since Part I closes here, at production
 trace comes in → you decompose it — retrieval failure or generation failure, Part I's decomposition → the
 query becomes a new golden-set case → you fix → eval confirms → you deploy. "Observability feeds eval" was
 a principle back in Part I; in production it's a runbook — a fixed sequence a teammate can execute on a
-Tuesday afternoon. The platforms from [the tooling ecosystem](./tooling-ecosystem.md) shorten the middle
+Tuesday afternoon. The platforms from [the tooling ecosystem](./tooling-ecosystem/index.md) shorten the middle
 step to one click: promote a trace to an eval case.
 
 ## Cost and latency — the levers
@@ -222,7 +222,7 @@ flowchart LR
 
 That closes Part III, and with it the handbook's base course. Part III's own arc was short and practical:
 we wrapped the pipeline as a [service](./serving/index.md), chose
-[where the model runs](./cloud-platforms/index.md), assembled the [tooling](./tooling-ecosystem.md) around the
+[where the model runs](./cloud-platforms/index.md), assembled the [tooling](./tooling-ecosystem/index.md) around the
 loop, and — in this lesson — learned to operate what we built. The longer arc is the book's. Part I built
 the pipeline: chunks, embeddings, retrieval, generation, and the cross-cutting disciplines that make it
 measurable and safe. Part II gave it agency: the loop, the tools, the plans, the teammates, the protocols.

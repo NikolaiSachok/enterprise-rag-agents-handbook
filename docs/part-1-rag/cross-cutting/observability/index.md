@@ -51,7 +51,7 @@ eval measures, guardrails protect, observability sees and feeds what it finds ba
 cross-cutting layer is one loop.
 
 *(The tools — [LangSmith](https://www.langchain.com/langsmith), [Langfuse](https://langfuse.com), [Arize Phoenix](https://arize.com/phoenix), [OpenTelemetry](https://opentelemetry.io) — are a separate layer: see [the tooling
-ecosystem lesson](../../../part-3-production/tooling-ecosystem.md); here we're on the principle.)*
+ecosystem lesson](../../../part-3-production/tooling-ecosystem/index.md); here we're on the principle.)*
 
 ---
 

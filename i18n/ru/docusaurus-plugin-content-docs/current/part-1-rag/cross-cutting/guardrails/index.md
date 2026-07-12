@@ -42,7 +42,7 @@ slug: /part-1-rag/cross-cutting/guardrails/
 
 ## Безопасность контента — на обеих поверхностях
 
-Отказывать во вредных или недопустимых запросах и фильтровать токсичный или не соответствующий политике вывод. Всегда две поверхности: скан входа (блокировать вредное/не по теме) и выхода (блокировать небезопасный ответ). А в RAG добавляется третья точка — ingestion: отравленный документ лучше ловить при индексации, а не только на запросе. (Инструменты — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — отдельный слой: см. [урок про экосистему инструментов](../../../part-3-production/tooling-ecosystem.md); здесь мы про принцип.)
+Отказывать во вредных или недопустимых запросах и фильтровать токсичный или не соответствующий политике вывод. Всегда две поверхности: скан входа (блокировать вредное/не по теме) и выхода (блокировать небезопасный ответ). А в RAG добавляется третья точка — ingestion: отравленный документ лучше ловить при индексации, а не только на запросе. (Инструменты — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — отдельный слой: см. [урок про экосистему инструментов](../../../part-3-production/tooling-ecosystem/index.md); здесь мы про принцип.)
 
 ## Guardrails — не серебряная пуля
 

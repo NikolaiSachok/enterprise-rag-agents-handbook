@@ -155,7 +155,7 @@ prompt-injection detection, surfaced in Foundry as "Guardrails + controls" — a
 content filters to "Guardrails," a bonus data point for the names-are-snapshots rule. Google ships Model
 Armor. All of these implement the concepts from the
 [guardrails lesson](../../part-1-rag/cross-cutting/guardrails/index.md) as managed services — which sets up the
-make-or-buy question that the [tooling ecosystem](../tooling-ecosystem.md) lesson takes on directly.
+make-or-buy question that the [tooling ecosystem](../tooling-ecosystem/index.md) lesson takes on directly.
 
 ## Throughput and pricing models
 
@@ -231,7 +231,7 @@ cross-region egress), multi-cloud gateway patterns, and sovereign-cloud offering
 
 See also, in Part III: [serving](../serving/index.md) for the rent-versus-own fork this lesson answers,
 [LLMOps](../llmops.md) for org-level spend governance and cross-model routing, and the
-[tooling ecosystem](../tooling-ecosystem.md) for the make-versus-buy calls around the platform. The serving
+[tooling ecosystem](../tooling-ecosystem/index.md) for the make-versus-buy calls around the platform. The serving
 [deep dive](../serving/deep-dive.md) covers serverless GPU and the always-warm-versus-scale-to-zero economics
 from the self-hosting side.
 

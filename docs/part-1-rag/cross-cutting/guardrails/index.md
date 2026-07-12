@@ -42,7 +42,7 @@ Detect and mask personal data (names, emails, numbers) on the input (before logg
 
 ## Content safety — on both surfaces
 
-Refuse harmful or disallowed requests, and filter toxic or off-policy output. Always two surfaces: scan the input (block what's harmful or off-topic) and the output (block an unsafe answer). RAG adds a third point — ingestion: a poisoned document is better caught at indexing time than only at query time. (The tools — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — are a separate layer: see [the tooling ecosystem lesson](../../../part-3-production/tooling-ecosystem.md); here we're on the principle.)
+Refuse harmful or disallowed requests, and filter toxic or off-policy output. Always two surfaces: scan the input (block what's harmful or off-topic) and the output (block an unsafe answer). RAG adds a third point — ingestion: a poisoned document is better caught at indexing time than only at query time. (The tools — [Guardrails AI](https://www.guardrailsai.com), [NeMo Guardrails](https://developer.nvidia.com/nemo-guardrails), [Llama Guard](https://www.llama.com/llama-protections/), Granite Guardian — are a separate layer: see [the tooling ecosystem lesson](../../../part-3-production/tooling-ecosystem/index.md); here we're on the principle.)
 
 ## Guardrails aren't a silver bullet
 

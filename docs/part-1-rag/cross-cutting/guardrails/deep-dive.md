@@ -8,7 +8,7 @@ sidebar_position: 2
 
 [Part 1](./index.md) set the frame: the model can't reliably separate instructions from data, so prompt injection — direct and indirect — is threat #1, and the defences come in layers. Separation and spotlighting mark which text is untrusted; an instruction hierarchy ranks who the model should obey; input scanning and output validation bracket the model; least privilege limits what a compromised agent can reach; PII masking keeps personal data out of your logs and out of the provider's API. None of it is a cure — it's defence-in-depth, and the whole stack gets measured by attack success rate.
 
-That page named the defences. This one opens their machinery. You'll see how spotlighting actually marks text and what each variant costs, the full injection catalogue and which defence meets which class, how red-teaming produces the attack success rate you're tracking, and how a PII pipeline detects and masks in practice. One boundary stays drawn: running these mechanisms at organisation scale — gateways, allowlists, centralised policy — is the operations layer, and this page leaves it to [Part III](../../../part-3-production/tooling-ecosystem.md).
+That page named the defences. This one opens their machinery. You'll see how spotlighting actually marks text and what each variant costs, the full injection catalogue and which defence meets which class, how red-teaming produces the attack success rate you're tracking, and how a PII pipeline detects and masks in practice. One boundary stays drawn: running these mechanisms at organisation scale — gateways, allowlists, centralised policy — is the operations layer, and this page leaves it to [Part III](../../../part-3-production/tooling-ecosystem/index.md).
 
 ## How spotlighting marks untrusted text
 
@@ -106,7 +106,7 @@ How you mask is a real design axis you decide deliberately, and Presidio's opera
 
 The trap is that the choice is a liability decision in disguise. Picking hash when you actually needed the value back is unrecoverable, and it's a common mistake. Picking encrypt for what should have been true anonymization is worse: the decryption key becomes a stored secret and a target, and you've quietly converted "anonymized" into "reversibly pseudonymized" — the key is now the crown jewel an attacker or a subpoena goes after. Reversible masking is pseudonymization, not anonymization, and the two answer to different compliance requirements. Know which one yours actually demands before you choose the operator.
 
-That's the pipeline as a principle — the recognizers, the thresholds, the operators. Running it as a managed service with centralised policy across an organisation is the operations layer, and that's [Part III](../../../part-3-production/tooling-ecosystem.md), the same boundary this page drew at the start. For watching any of these guards behave in production, the instrument is [Observability](../observability/index.md).
+That's the pipeline as a principle — the recognizers, the thresholds, the operators. Running it as a managed service with centralised policy across an organisation is the operations layer, and that's [Part III](../../../part-3-production/tooling-ecosystem/index.md), the same boundary this page drew at the start. For watching any of these guards behave in production, the instrument is [Observability](../observability/index.md).
 
 ## What to take away
 

@@ -1,15 +1,14 @@
 ---
-id: tooling-ecosystem
 title: The tooling ecosystem
-sidebar_position: 3
+slug: /part-3-production/tooling-ecosystem/
 ---
 
 # Paying Part I's debt
 
 Three lessons in Part I ended on the same promissory note.
-[Evaluation](../part-1-rag/cross-cutting/evaluation/index.md),
-[guardrails](../part-1-rag/cross-cutting/guardrails/index.md), and
-[observability](../part-1-rag/cross-cutting/observability/index.md) each taught a principle and then deferred the
+[Evaluation](../../part-1-rag/cross-cutting/evaluation/index.md),
+[guardrails](../../part-1-rag/cross-cutting/guardrails/index.md), and
+[observability](../../part-1-rag/cross-cutting/observability/index.md) each taught a principle and then deferred the
 products: "the tools are a separate tooling layer, coming later; here we're on the principle." This is
 later. Part I gave you the concepts — the golden set, the trace, attack success rate. This lesson maps
 those concepts onto the 2026 tool landscape and answers the question the earlier lessons left open: what do
@@ -67,7 +66,7 @@ tool calls — so your **instrumentation**, the code hooks that emit traces and 
 can outlive any one vendor: instrument once, point the exporter wherever you like. One caveat, because it
 matters: as of mid-2026 these conventions are still in Development status — experimental and moving. They
 now live in a dedicated repository, `open-telemetry/semantic-conventions-genai`, which also covers
-conventions for [MCP](https://modelcontextprotocol.io) — the protocol from [MCP and agent protocols](../part-2-agents/mcp/index.md) getting its
+conventions for [MCP](https://modelcontextprotocol.io) — the protocol from [MCP and agent protocols](../../part-2-agents/mcp/index.md) getting its
 observability vocabulary.
 
 Strip the branding and all three platforms implement exactly one thing: the primitive from the
@@ -100,7 +99,7 @@ rail can call a classifier model as one of its checks.
 
 The make-or-buy fork runs through here as well — the same fork as everywhere in Part III. The identical
 concepts ship as managed platform services: Bedrock Guardrails, Azure AI Content Safety, Vertex's safety
-filters and Model Armor, all familiar from [the cloud platforms lesson](./cloud-platforms/index.md).
+filters and Model Armor, all familiar from [the cloud platforms lesson](../cloud-platforms/index.md).
 Platform-managed means less control, zero maintenance, one vendor; open source means full control and your
 own ops.
 
@@ -136,7 +135,7 @@ flowchart LR
     E -- "red-teaming (ASR)" --> GR
 ```
 
-How this loop lives after release is the subject of the [LLMOps lesson](./llmops.md).
+How this loop lives after release is the subject of the [LLMOps lesson](../llmops.md).
 
 One anti-pattern can make that whole diagram lie to you: adopting an eval tool is not the same as having
 eval. A tool pointed at a shallow, noisy dataset produces confident-looking dashboards over garbage —
@@ -161,14 +160,25 @@ top. Tools amplify discipline; they don't replace it.
   make-or-buy fork. Measure them with ASR via red-teaming.
 - Default adoption order: tracing → eval in CI → guardrails.
 
-**New terms** → [Glossary](../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
+**New terms** → [Glossary](../../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: Ragas metric internals (the deepening promised back in the evaluation lesson), the OTel
-GenAI conventions in practice, self-hosting Langfuse, writing your own Guardrails AI validators,
-red-teaming playbooks, and agent-specific evals (trajectory scoring).
+**[Self-hosting & wiring](./deep-dive.md)** takes the same stack to the operations layer: deploying
+Langfuse on your own infrastructure (topology, storage, scaling), writing your own Guardrails AI
+validators, and how the eval, guardrails and observability tools — managed and open-source — wire together
+into one stack.
+
+The theory each tool implements lives elsewhere and is cross-linked, not repeated there: Ragas metric
+internals in [evaluation](../../part-1-rag/cross-cutting/evaluation/deep-dive.md), the OpenTelemetry GenAI
+conventions in [observability](../../part-1-rag/cross-cutting/observability/deep-dive.md), red-teaming and
+injection defences in [guardrails](../../part-1-rag/cross-cutting/guardrails/deep-dive.md), and
+agent-trajectory evaluation in [planning & loops](../../part-2-agents/planning-loops/deep-dive.md) and
+[multi-agent](../../part-2-agents/multi-agent/deep-dive.md).
+
+See also the neighbouring Part III lessons: [serving](../serving/index.md),
+[cloud platforms](../cloud-platforms/index.md) and [LLMOps](../llmops.md).
 
 :::

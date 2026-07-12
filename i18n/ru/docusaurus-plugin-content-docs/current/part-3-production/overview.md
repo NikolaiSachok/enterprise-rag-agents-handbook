@@ -17,7 +17,7 @@ sidebar_label: Обзор части
   API, стриминг, контейнер, инференс-серверы.
 - **[Облачные AI-платформы](./cloud-platforms/index.md)** — [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service), [Amazon Bedrock](https://aws.amazon.com/bedrock/), Google Cloud Gemini
   Enterprise Agent Platform (экс-Vertex AI): что они дают и чем отличаются.
-- **[Экосистема инструментов](./tooling-ecosystem.md)** — eval, guardrails, observability в проде: чем
+- **[Экосистема инструментов](./tooling-ecosystem/index.md)** — eval, guardrails, observability в проде: чем
   мерить, чем смотреть, чем защищать.
 - **[LLMOps — деплой, мониторинг, стоимость](./llmops.md)** — жизнь LLM-системы после релиза.
 

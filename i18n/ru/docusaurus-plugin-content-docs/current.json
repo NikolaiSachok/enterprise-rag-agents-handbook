@@ -78,5 +78,9 @@
   "sidebar.handbookSidebar.category.Cloud AI platforms": {
     "message": "Облачные AI-платформы",
     "description": "The label for category 'Cloud AI platforms' in sidebar 'handbookSidebar'"
+  },
+  "sidebar.handbookSidebar.category.The tooling ecosystem": {
+    "message": "Экосистема инструментов",
+    "description": "The label for category 'The tooling ecosystem' in sidebar 'handbookSidebar'"
   }
 }

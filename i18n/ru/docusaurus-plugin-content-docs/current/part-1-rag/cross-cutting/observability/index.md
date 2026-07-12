@@ -50,7 +50,7 @@ Observability обязана считать cost-per-request и латентно
 eval. Весь сквозной слой — это одна связка.
 
 *(Инструменты — [LangSmith](https://www.langchain.com/langsmith), [Langfuse](https://langfuse.com), [Arize Phoenix](https://arize.com/phoenix), [OpenTelemetry](https://opentelemetry.io) — отдельный слой: см. [урок про
-экосистему инструментов](../../../part-3-production/tooling-ecosystem.md); здесь мы про принцип.)*
+экосистему инструментов](../../../part-3-production/tooling-ecosystem/index.md); здесь мы про принцип.)*
 
 ---
 

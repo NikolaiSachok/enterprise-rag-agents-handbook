@@ -12,7 +12,7 @@ and when it breaks you are sitting right there. Production removes every part of
 a service, for other people, many at once, under load, with nobody watching. Part III is about that jump,
 and it unfolds in order — this lesson wraps what you built as a service; the lessons after it ask
 [where the model itself should run](../cloud-platforms/index.md), [what tooling to put around the running
-system](../tooling-ecosystem.md), and [how to operate it once it's live](../llmops.md).
+system](../tooling-ecosystem/index.md), and [how to operate it once it's live](../llmops.md).
 
 ## One word, two jobs
 
@@ -121,7 +121,7 @@ limits on your own users are how you protect them from each other.
 Last, accounting hooks: log tokens in and tokens out, which model, latency per stage — on every request.
 This is where the [observability](../../part-1-rag/cross-cutting/observability/index.md) discipline from Part I
 physically lives — the trace starts in your service — and the production tooling in
-[tooling-ecosystem](../tooling-ecosystem.md) will assume those hooks exist.
+[tooling-ecosystem](../tooling-ecosystem/index.md) will assume those hooks exist.
 
 ## Docker — where the AI delta actually is
 
@@ -229,7 +229,7 @@ quantisation), multi-GPU and multi-node parallelism, Kubernetes GPU scheduling a
 throughput, and serverless GPU.
 
 See also, in Part III: [cloud platforms](../cloud-platforms/index.md) for rent-vs-own and where the model runs,
-[LLMOps](../llmops.md) for operating it once it's live, and the [tooling ecosystem](../tooling-ecosystem.md)
+[LLMOps](../llmops.md) for operating it once it's live, and the [tooling ecosystem](../tooling-ecosystem/index.md)
 for what to wrap around it. For the SLOs and latency budgets that these scaling choices answer to, the
 [observability deep dive](../../part-1-rag/cross-cutting/observability/deep-dive.md).
 
