@@ -70,7 +70,7 @@ testing measured by attack success rate; and PII detection and masking pipelines
 precision/recall tradeoff, reversible vs irreversible).
 
 See also: the sibling cross-cutting concerns — [Evaluation](../evaluation/index.md) (guardrails get measured
-too — attack success rate) and [Observability](../observability.md); and, for the agent-side untrusted-input
+too — attack success rate) and [Observability](../observability/index.md); and, for the agent-side untrusted-input
 discipline, the MCP [deep dive](../../../part-2-agents/mcp/deep-dive.md).
 
 :::

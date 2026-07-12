@@ -318,6 +318,59 @@ key one.
 **Feedback loop (observability → eval)** — production failures and user feedback become new golden-set
 cases.
 
+**Head-based sampling** — deciding to keep or drop a trace at its start, on the root span, by a ratio on
+the trace id; cheap and stateless, but blind to how the request ended, so it cannot preferentially keep
+failures.
+
+**Tail-based sampling** — buffering all of a trace's spans until it completes, then deciding on the whole
+trace (latency, errors, attributes); catches the interesting traces at a stateful memory and trace-id
+load-balancing cost. The OpenTelemetry Collector Contrib ships it as the `tail_sampling` processor.
+↗ [OpenTelemetry](https://opentelemetry.io/docs/concepts/sampling/)
+
+**Priority / hybrid sampling** — keep 100% of the must-not-lose traces (errors, latency breaches, flagged
+bad answers) and sample the routine successes at a low baseline; often a head sampler first, then tail.
+
+**Message-content capture (opt-in)** — capturing the prompt and output text in a trace; off by default in
+the OpenTelemetry GenAI conventions for privacy and payload size, while metadata (model, token counts,
+duration) stays on.
+
+**Retention tiers** — a short TTL on the content-bearing spans (raw text expires fast) and a longer one on
+the cheap metadata; one lever for limiting how long sensitive trace data lives.
+
+**Golden signals** — the four signals of the Google SRE tradition — latency, traffic, errors, saturation —
+that an LLM-system dashboard charts alongside a first-class quality pillar.
+↗ [Google SRE](https://sre.google/sre-book/monitoring-distributed-systems/)
+
+**SLI / SLO** — a service level indicator is a measured quantity (availability, p95 latency, a quality
+pass-rate); a service level objective is a target on it over a window. For an LLM system at least one SLI
+should be a quality SLI computed by online eval, not just uptime.
+↗ [Google SRE](https://sre.google/sre-book/service-level-objectives/)
+
+**Error budget** — the gap between an SLO and a perfect 100%: the amount of failure you're allowed to spend
+before the objective is breached.
+
+**Burn-rate alerting** — paging on how fast the error budget is being spent (a fast burn pages now, a slow
+drift warns), a symptom-based alternative to a threshold on every metric.
+
+**Alert fatigue** — the failure mode where alerting on every metric buries the real regression in noise, so
+a genuine incident goes unread.
+
+**Regression triage** — detecting a statistically real drop in a quality, latency, or cost time series, then
+attributing it across trace spans to a stage and a change event (a deploy, a moved model version, a
+re-ingest, input drift).
+
+**Cost attribution** — tagging spans with feature / tenant / route / model so the bill shows which of them
+burns the budget, not just the aggregate spend.
+
+**Token accounting** — counting input plus output tokens per request, each priced per model, via the
+OpenTelemetry GenAI usage attributes and metrics; the basis of a cost budget.
+
+**Latency budget** — a p50 / p95 target, with latency decomposed by span (retrieval, rerank, generation;
+TTFT vs total) so a breach points at the slow stage.
+
+**Soft cap / hard cap** — a budget policy: a soft cap warns (alert, red dashboard) and lets the request
+through; a hard cap enforces at runtime (reject, downgrade to a cheaper model, truncate context).
+
 ## Agents — agentic RAG
 
 **Agentic RAG** — RAG in which retrieval becomes an action the model chooses inside a loop, rather than a

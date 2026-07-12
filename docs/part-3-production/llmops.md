@@ -105,7 +105,7 @@ reshapes what the system knows.
 
 ## Monitoring in production
 
-Monitoring is [observability](../part-1-rag/cross-cutting/observability.md) running continuously, plus
+Monitoring is [observability](../part-1-rag/cross-cutting/observability/index.md) running continuously, plus
 alerting on movement. The classic panel carries over: latency percentiles (p50/p95), error and timeout
 rates, token cost per request. The LLM-specific panel holds quality proxies — indirect signals that
 quality moved: refusal rate, guardrail-trigger rate, the rate of user feedback, and — common practice by

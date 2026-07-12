@@ -120,7 +120,7 @@ exhausts the shared quota and everyone else gets errors that aren't their fault.
 limits on your own users are how you protect them from each other.
 
 Last, accounting hooks: log tokens in and tokens out, which model, latency per stage — on every request.
-This is where the [observability](../part-1-rag/cross-cutting/observability.md) discipline from Part I
+This is where the [observability](../part-1-rag/cross-cutting/observability/index.md) discipline from Part I
 physically lives — the trace starts in your service — and the production tooling in
 [tooling-ecosystem](./tooling-ecosystem.md) will assume those hooks exist.
 

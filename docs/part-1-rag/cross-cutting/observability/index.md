@@ -1,7 +1,6 @@
 ---
-id: observability
 title: Observability
-sidebar_position: 3
+slug: /part-1-rag/cross-cutting/observability/
 ---
 
 # Seeing what the system does in production
@@ -52,14 +51,14 @@ eval measures, guardrails protect, observability sees and feeds what it finds ba
 cross-cutting layer is one loop.
 
 *(The tools — [LangSmith](https://www.langchain.com/langsmith), [Langfuse](https://langfuse.com), [Arize Phoenix](https://arize.com/phoenix), [OpenTelemetry](https://opentelemetry.io) — are a separate layer: see [the tooling
-ecosystem lesson](../../part-3-production/tooling-ecosystem.md); here we're on the principle.)*
+ecosystem lesson](../../../part-3-production/tooling-ecosystem.md); here we're on the principle.)*
 
 ---
 
 This closes more than the lesson — it closes Part I. You now hold its backbone: a bad answer decomposes
 into a retrieval failure or a generation failure, the pipeline is built layer by layer — ingestion,
 retrieval, generation — and the cross-cutting practices keep it measurable, safe, and visible. In
-[Part II](../../part-2-agents/overview.md) this static pipeline comes alive: the model starts making the
+[Part II](../../../part-2-agents/overview.md) this static pipeline comes alive: the model starts making the
 control-flow decisions — and all the discipline you've built here travels with you.
 
 ## What to take away
@@ -74,15 +73,21 @@ control-flow decisions — and all the discipline you've built here travels with
 - Cost and latency come first (tokens = money, calls are slow).
 - Observability feeds eval: production failures → new golden-set cases → eval-driven development.
 
-**New terms** → [Glossary](../../glossary.md): observability, trace / span, RAG tracing, cost per request /
+**New terms** → [Glossary](../../../glossary.md): observability, trace / span, RAG tracing, cost per request /
 token accounting, latency (p50 / p95), three pillars (metrics / logs / traces), feedback loop
 (observability → eval).
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: trace sampling and privacy in logs, dashboards and quality alerts, automatic regression
-triage, cost and latency budgets.
+**[Sampling, SLOs & budgets](./deep-dive.md)** — the observability layer's second pass: trace sampling
+strategies (head, tail, priority) and privacy in logs (PII, retention); quality dashboards, alert thresholds
+and SLOs for an LLM system; attributing a regression back to its cause from traces; and per-request token
+accounting with p50/p95 latency and cost budgets.
+
+See also: the sibling cross-cutting concerns — [Evaluation](../evaluation/index.md) (observability's traces
+become new eval cases) and [Guardrails](../guardrails/index.md); and, for observability running continuously
+in production, [LLMOps](../../../part-3-production/llmops.md).
 
 :::
