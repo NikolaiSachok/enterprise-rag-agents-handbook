@@ -66,7 +66,7 @@ missed alone.
 The first stage — dense or hybrid search — is tuned for **recall**: drag the chunk you need somewhere into
 the top-K, where K is 50–100. But the ordering inside that hundred is crude, and only a few chunks fit
 into the model's context. So the second stage works on **precision**: a cross-encoder from the [previous
-lesson](../ingestion.md) re-scores every candidate against the query and re-sorts the list, floating the
+lesson](../ingestion/index.md) re-scores every candidate against the query and re-sorts the list, floating the
 best to the top. Only the top few reach generation.
 
 This is the canonical two-stage scheme: cheap and wide (a bi-encoder or hybrid — recall), then expensive
@@ -119,7 +119,7 @@ it backfires, hybrid-fusion internals (RRF weighting and score normalization), r
 vs LLM), parent-document and late-interaction (ColBERT) retrieval, query routing, pre- vs post-filter, and
 the ranking metrics (nDCG, MRR) spelled out.
 
-See also: where the chunks come from — [Ingestion](../ingestion.md); what happens to what you retrieve —
+See also: where the chunks come from — [Ingestion](../ingestion/index.md); what happens to what you retrieve —
 [Generation](../generation.md); and how the whole layer is measured — [Evaluation](../cross-cutting/evaluation.md).
 
 :::

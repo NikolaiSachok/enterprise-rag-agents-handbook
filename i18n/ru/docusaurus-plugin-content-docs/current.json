@@ -11,6 +11,10 @@
     "message": "Retrieval",
     "description": "The label for category 'Retrieval' in sidebar 'handbookSidebar'"
   },
+  "sidebar.handbookSidebar.category.Ingestion": {
+    "message": "Ingestion",
+    "description": "The label for category 'Ingestion' in sidebar 'handbookSidebar'"
+  },
   "sidebar.handbookSidebar.category.Cross-cutting": {
     "message": "Сквозные аспекты",
     "description": "The label for category 'Cross-cutting' in sidebar 'handbookSidebar'"

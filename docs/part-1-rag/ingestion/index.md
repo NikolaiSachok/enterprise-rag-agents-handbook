@@ -1,7 +1,6 @@
 ---
-id: ingestion
 title: Ingestion
-sidebar_position: 1
+slug: /part-1-rag/ingestion/
 ---
 
 # From documents to a searchable index
@@ -88,7 +87,7 @@ That's why the "just cut every N characters" approach fails — and why smarter 
 It depends on the document type (dense legal text ≠ chatty message threads) and the query type (a
 pinpoint fact ≠ "explain the policy"). So you don't guess the chunk size — you **measure** it: run the
 variants through retrieval evaluation and look at the metrics. That's the bridge to the
-[Evaluation](./cross-cutting/evaluation.md) layer: chunking isn't "set it and forget it," it's a parameter you tune
+[Evaluation](../cross-cutting/evaluation.md) layer: chunking isn't "set it and forget it," it's a parameter you tune
 against metrics.
 
 :::
@@ -113,7 +112,7 @@ to get it from later.
 ### Looking ahead: a chunk has two roles — you can split them apart
 
 Back to the fact that a chunk is both searched over and fed to the LLM. An advanced idea (in detail — in
-the [retrieval](./retrieval/index.md) layer): it doesn't have to be the same piece of text. You can *search*
+the [retrieval](../retrieval/index.md) layer): it doesn't have to be the same piece of text. You can *search*
 over small, sharp chunks (a good embedding) and *feed the LLM* a larger parent fragment around the match
 (full context). This family of techniques is *parent-document / small-to-big retrieval*. For now it's
 enough to remember that splitting a chunk's two roles apart is possible.
@@ -128,7 +127,7 @@ enough to remember that splitting a chunk's two roles apart is possible.
   and access control.
 - You **measure** chunk size with metrics — you don't guess it.
 
-**New terms** → [Glossary](../glossary.md): chunk, chunk overlap, recursive / structural chunking, semantic
+**New terms** → [Glossary](../../glossary.md): chunk, chunk overlap, recursive / structural chunking, semantic
 chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 ---
@@ -172,7 +171,7 @@ The key distinction that both vector search and reranking grow out of.
 
 The "accuracy vs. speed" conflict is resolved by combining the two: the bi-encoder quickly pulls the
 top-K out of millions (recall), the cross-encoder re-scores those K (precision). That re-scoring step is
-exactly what **reranking** is. More in the [retrieval](./retrieval/index.md) layer.
+exactly what **reranking** is. More in the [retrieval](../retrieval/index.md) layer.
 
 ### How you pick an embedding model
 
@@ -212,7 +211,7 @@ metric the model was trained for (stated on its model card) — a mismatch hurts
   vs. self-hosted (privacy)**.
 - One model for both query and document; watch the metric and the prefixes.
 
-**New terms** → [Glossary](../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
+**New terms** → [Glossary](../../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
 dimensionality, cosine similarity, retrieval-optimized (asymmetric) embeddings, multilingual embeddings,
 self-hosted vs API embeddings.
 
@@ -227,9 +226,13 @@ neighbors quickly.
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: document parsing (PDF, tables, HTML, OCR), advanced chunking (late chunking, contextual
-chunk embeddings), embedding fine-tuning.
+**[Parsing & advanced embeddings](./deep-dive.md)** — the ingestion layer's second pass: document parsing
+(PDF, tables, HTML, OCR, layout-aware extraction), advanced chunking (late chunking, contextual chunk
+embeddings), and embedding depth (fine-tuning, Matryoshka dimensionality truncation, multilingual models).
+
+See also: what happens to the chunks next — [Retrieval](../retrieval/index.md); how the answer is composed —
+[Generation](../generation.md); and how the whole layer is measured — [Evaluation](../cross-cutting/evaluation.md).
 
 :::

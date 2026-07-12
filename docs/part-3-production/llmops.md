@@ -99,7 +99,7 @@ answers fast, cheap, and slightly wrong is a failing canary — and only quality
 
 The index is behavior. Re-ingest with a new chunking config and retrieval shifts across the entire corpus;
 switch the embedding model and you owe a full re-index — Part I's
-[ingestion](../part-1-rag/ingestion.md) rule. So put corpus updates through the same gate as everything
+[ingestion](../part-1-rag/ingestion/index.md) rule. So put corpus updates through the same gate as everything
 else: a versioned release that passes eval, rather than a background job that runs overnight and quietly
 reshapes what the system knows.
 

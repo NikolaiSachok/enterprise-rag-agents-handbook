@@ -124,7 +124,7 @@ Why enterprises care is not abstract. Regulatory regimes — GDPR, sector rules 
 bind where personal and regulated data may be processed. Residency plus the no-training commitment plus
 private networking form the compliance triad that lets a legal team sign off, and in practice this triad is
 often the deciding argument for a platform over a direct vendor API. You have met this fork before:
-[ingestion](../part-1-rag/ingestion.md) posed the self-hosted-versus-API choice for embedding models. This
+[ingestion](../part-1-rag/ingestion/index.md) posed the self-hosted-versus-API choice for embedding models. This
 is the same fork, now at the level of the model itself.
 
 The third leg deserves one concrete sentence. All three platforms support private connectivity, so prompts
