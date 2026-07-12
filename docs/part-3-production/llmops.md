@@ -188,7 +188,7 @@ answer.
 The cheapest token is the one you never send. Retrieve fewer chunks — Part I's context packing: the best
 ones rather than all of them. Tighten the system prompt. Cap output length. Summarize agent scratchpads
 instead of letting them grow with every step
-([planning and loops](../part-2-agents/planning-loops.md)). The diet has latency siblings: streaming for
+([planning and loops](../part-2-agents/planning-loops/index.md)). The diet has latency siblings: streaming for
 perceived latency (the [serving](./serving.md) lesson), smaller and faster models where routing allows,
 and parallelizing pipeline stages that don't depend on each other.
 
