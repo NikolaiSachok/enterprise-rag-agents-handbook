@@ -88,8 +88,9 @@ SK's counterpart of RU's anglicism problem: a named, always-on check.
 
 ## Unit of work and sequencing
 
-Not the whole book in one batch (one bad convention replicates ×21 before anyone reads it), and not
-isolated single articles either (the canon must accrete). **Waves, part by part, 2–3 lessons per PR:**
+Not the whole book in one batch (one bad convention replicates across ~38 pages before anyone reads it), and
+not isolated single articles either (the canon must accrete). **Waves, part by part, batched by page — a
+deepened lesson is now TWO pages (Часть 1 `index.md` + Часть 2 `deep-dive.md`), so ≈2–4 pages per PR:**
 
 - **Phase 0 — Infrastructure.** Locale scaffolding, theme-string audit, CI matrix, gated visibility
   mechanism. No content beyond a smoke-test page. One PR.
@@ -98,11 +99,14 @@ isolated single articles either (the canon must accrete). **Waves, part by part,
   (= all term decisions, materialized). One PR. Everything later cites this.
 - **Phase 2 — Pilot.** ONE mid-complexity lesson (recommended: *Tool use* or *Agentic RAG* — long enough
   to exercise every gate, central enough that its terminology feeds everything after) through the FULL
-  pipeline including double cold read and (if available) the human calibration. Then a retro: update canon
-  and persona instructions with what leaked. Do not start waves until the retro lands.
-- **Phases 3–5 — Waves: Part I → Part II → Part III**, reading order, 2–3 lessons per PR, each PR through
-  the full pipeline. Each wave closes with a **wave milestone pass** (consistency + managing editor over
-  the wave + cold-read spot checks).
+  pipeline including double cold read and (if available) the human calibration. **Do BOTH of its pages —
+  Часть 1 (`index.md`) + Часть 2 (`deep-dive.md`) — so the gates are calibrated on the dense deep-dive
+  too**, since every wave lesson now carries one. Then a retro: update canon and persona instructions with
+  what leaked. Do not start waves until the retro lands.
+- **Phases 3–5 — Waves: Part I → Part II → Part III**, reading order, ≈2–4 pages per PR (each deepened
+  lesson = Часть 1 + Часть 2; the deep-dive is a dense mastery page — lean to the smaller end of the batch
+  for those), each PR through the full pipeline. Each wave closes with a **wave milestone pass**
+  (consistency + managing editor over the wave + cold-read spot checks).
 - **Phase 6 — Front matter + launch.** intro, part overviews, any remaining chrome; corpus-wide SK
   milestone pass (delta-driven, plus fact-rot re-verification if months passed); flip `sk` into the
   deployed locales; add the **locale-parity rule** to CLAUDE.md: from launch on, every content PR either
@@ -130,5 +134,11 @@ section; mandatory cold-read ×2; deliver via PR with canon updates in the same 
 
 ## Effort shape (for planning, not billing)
 
-21 pages (intro + glossary + 7 + 7 + 5). Per lesson ≈ 1 skeleton extractor + 1 writer + ~6 gate personas +
-2×2 cold-read personas. Plus Phase 0/1 infra and three wave passes. Roughly 10–12 PRs end to end.
+**~38 pages** (intro + glossary + Part I 13 + Part II 14 + Part III 9), as of 2026-07-12 **after the
+Parts I–III deepening** — every lesson now carries a Часть 2 deep-dive, so the surface roughly doubled from
+the original 21-page estimate (intro + glossary + 7 + 7 + 5). Per **page** ≈ 1 skeleton extractor + 1 writer
++ ~6 gate personas + 2×2 cold-read personas. Plus Phase 0/1 infra and three wave passes. Roughly **16–20 PRs**
+end to end. (Per-part page counts: Part I = overview + ingestion/retrieval/generation ×2 + cross-cutting
+evaluation/guardrails/observability ×2 = 13; Part II = overview + 6 deepened lessons ×2 + real-agents capstone
+= 14; Part III = overview + serving/cloud-platforms/tooling-ecosystem/llmops ×2 = 9. Part overviews + intro are
+Phase 6.)
