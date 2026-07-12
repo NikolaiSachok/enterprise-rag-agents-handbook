@@ -29,7 +29,9 @@ probe, SLA, IAM, PTU (provisioned throughput units), SSE (Server-Sent Events), P
 KV-кэш (латинское KV + кириллическое «кэш» через дефис), few-shot, Self-RAG, corrective RAG (CRAG),
 adaptive RAG, Tree of Thoughts (ToT), Graph of Thoughts (GoT), LATS, Monte Carlo Tree Search (MCTS),
 Self-Refine, Reflexion, MemGPT, chain-of-thought, τ-bench, pass^k / pass@1, ColBERT, MaxSim,
-contextual retrieval, zero-shot, ANN / HNSW (approximate nearest neighbor / его граф-индекс).*
+contextual retrieval, zero-shot, ANN / HNSW (approximate nearest neighbor / его граф-индекс),
+late chunking, Matryoshka / MRL, OCR, layout-aware, vision-language, MTEB, contrastive learning,
+hard negatives, TableFormer.*
 
 **ColBERT / MaxSim / late interaction / multi-vector** — имена приёма позднего взаимодействия (Retrieval,
 углубление). ColBERT и MaxSim — латиницей в обоих языках, не транслитерируются. «late interaction» —
@@ -42,6 +44,19 @@ contextual retrieval, zero-shot, ANN / HNSW (approximate nearest neighbor / ег
 
 **zero-shot** — латиницей, русский глосс первого упоминания «(без обучающих примеров)»; зеркалит kept-EN
 few-shot. Не «зиро-шот», не «с нулём примеров» как имя термина.
+
+**Термины углубления Ingestion (Часть 2).** **late chunking** — kept-EN в обоих языках, русский глосс
+первого упоминания «(поздняя нарезка: эмбеддинг всего документа до разбиения на чанки)»; НЕ изобретать
+«позднее чанкование»/«поздний чанкинг» как имя. Приём Jina AI (сентябрь 2024). **Matryoshka Representation
+Learning (MRL)** — имя приёма (Kusupati и др., 2022), латиницей; «матрёшка» может появиться как мнемоника в
+прозе, но термин — «Matryoshka (MRL)»; усечение вектора — «усечение размерности». **document parsing —
+«парсинг документов»** (принятый dev-термин, как «чанкинг»); **layout-aware** — kept-EN + глосс «(с учётом
+разметки)». **OCR** — kept-EN аббревиатура, русский глосс первого упоминания «(оптическое распознавание
+символов)». **vision-language** — kept-EN («vision-language-модель/парсер») + глосс «(читает изображение
+страницы напрямую)»; ОТВЕРГНУТО «зрительно-языковая модель» (холодный прогон: «зрительный» уводит в анатомию
+глаза, калька *vision-language* не декодируется наивным читателем). **contrastive learning / hard negatives**
+— kept-EN + русский глосс «(контрастное обучение)» / «(трудные негативы)». **MTEB** — kept-EN + глосс
+«(сводный бенчмарк эмбеддинг-моделей)».
 
 **plan-and-execute** — имя стратегии, остаётся латиницей; русский глосс первого упоминания —
 «plan-and-execute (планирование-и-исполнение)». Не изобретать голую кириллическую форму.
@@ -764,7 +779,8 @@ milestone-проход.
 |---|---|---|
 | intro | #58 | #77, #78, milestone-проход #81, #82 |
 | part-1-rag/overview | #58 | milestone-проход #81, milestone-проход #83 |
-| part-1-rag/ingestion | #58 | #71, milestone-проход #81 |
+| part-1-rag/ingestion (Часть 1 = index) | #58 | #71, milestone-проход #81, этот PR (гнездование в папку + замена 🚧-пометки на живой указатель «Дальше — вторая часть урока» → «Парсинг и продвинутые эмбеддинги») |
+| part-1-rag/ingestion/deep-dive (Часть 2; sidebar «Парсинг и продвинутые эмбеддинги») | этот PR (авторский гейт + редакционный гейт + холодный прогон RU+EN) | RU: «умирает тихо / ломается тихо» → «незаметно» (калька fails silently), «зрительно-языковая модель/парсеры» → «vision-language» (калька vision-language; «зрительный» = анатомия глаза, не декодируется наивным читателем), «верхний потолок» → «потолок» (плеоназм), рефрен «честн-» ×5 проредён, «прежде чего-либо ещё» → «прежде всего» (калька before anything else), «после факта» → «потом, когда модель обучена» (калька after the fact), «связывающее решение» → «связывает руки» (калька binding), «управляемый обмен» → «управляемый компромисс» (trade-off), «в изоляции» → «сам по себе», «против цены / полной размерности» → «между… / по сравнению с» (versus-калька §1.3), «Несущее противоречие» → «Ключевое», bold-максимы и топик-предложения → plain/курсив (§8), рамка «две двери» против трёх разделов → сведена к трём, «позднее чанкование» → «поздняя нарезка» (глосс, «чанкинг» в реестре). EN: рамка «both ends» против трёх разделов → сведена к трём (структурная парность). Видео — честное «нет» (прецедент retrieval/deep-dive; в базе Часть 1 уже два IBM-видео) |
 | part-1-rag/retrieval (Часть 1 = index) | #58 | milestone-проход #81, milestone-проход #83, этот PR (гнездование в папку + замена 🚧-пометки на живой указатель «Дальше — вторая часть урока» → «Слияние, ранжирование и метрики») |
 | part-1-rag/retrieval/deep-dive (Часть 2; sidebar «Слияние, ранжирование и метрики») | этот PR (авторский гейт + редакционный гейт + холодный прогон RU+EN: RU — «предполагается known»→«известным», «схватывает узор релевантности»→«улавливает структуру релевантности», «Хранилище взрывается»→«раздувается», «познанной по каждому запросу нормализации»→«подобранной под каждый запрос», «Мастерская мысль»→«Ключевая мысль», «мешок повекторных представлений»→«множество потокенных векторов», «ужать след»→«сократить занимаемое место», «против ретриверов»→«по сравнению с» (versus-калька §1.3), «контекст запечён»→«встроен», «воюет с ANN»→«конфликтует», «класс ~100M»→«порядка», «z-оценка»→«z-score» (резервация «оценка» §2), «Из ingestion»→«Из загрузки (ingestion)», zero-shot заглоссирован; bold-максимы «ACL никогда не идёт post-filter»/«меряй ту стадию» → plain/курсив (§8); HyDE-цитата «Gao, Ma, Callan»→«Gao и др.». EN: 6 из 7 colon-шаблонных H2 переписаны в глагольные/вопросные формы (listicle-uniformity tell), bold-эмфаза static/ACL снята, цитата → «Gao et al.») | — |
 | part-1-rag/generation | #58 | milestone-проход #81 |
@@ -785,7 +801,7 @@ milestone-проход.
 | part-2-agents/mcp (Часть 1 = index) | #80 | milestone-проход #81, этот PR (гнездование в папку + замена 🚧-пометки на живой указатель «Дальше — вторая часть урока» → «Серверы, транспорт и доверие»; «stdio против streamable HTTP» → «stdio и streamable HTTP» в указателе, versus-калька §1.3) |
 | part-2-agents/mcp/deep-dive (Часть 2; sidebar «Серверы, транспорт и доверие») | этот PR (авторский гейт + редакционный гейт + холодный прогон RU+EN) | RU: «MCP против A2A» → «между MCP и A2A» (versus-калька в прозе), «коннектор» (MCP-клиент) → «подключение» (§1.2 резервация), bare «поток» → «направление» (§2 control flow), «обзор сервера над промптом» → «видимость промпта для сервера», «источник истины» → «достоверный источник» (§1.3), «заботами первого порядка» → «выходят на первый план», «задача высокоставочная» → «высокая цена ошибки», sentence-initial капитализация Sampling/Elicitation/Roots/Stdio/Streamable HTTP/Rug pull, «суб-реестры» → «субреестры», axis-максима bold → курсив (§8), Mermaid-подписи локализованы (tools/resources/prompts → инструменты/ресурсы/промпты), confused deputy/rug pull переглоссированы в «Что забрать»; «не X, а Y» проредена. EN: 7-глагольный вступительный run-on разбит, «durable/dated» рефрен проредён + внутренний повтор снят, catalogue→catalog / signalled→signaled (US), data/instructions bold → курсив, «Treat all…» bold-предложение → ярлык, repeat-bold anchors сняты, trust boundary введён в тело, EN-подписи схем добавлены для парности |
 | part-2-agents/real-agents | #105 (авторский гейт, холодный прогон пропущен — обрыв по лимиту) | этот PR (холодный прогон постфактум) |
-| glossary | #58 | #59, #67, #69, #72, #78, milestone-проход #81, #82, milestone-проход #83, этот PR (retrieval-углубление: score fusion / normalization, LLM reranker, late interaction / ColBERT, multi-vector, contextual retrieval, query routing, pre-/post-filter) |
+| glossary | #58 | #59, #67, #69, #72, #78, milestone-проход #81, #82, milestone-проход #83, этот PR (retrieval-углубление: score fusion / normalization, LLM reranker, late interaction / ColBERT, multi-vector, contextual retrieval, query routing, pre-/post-filter), этот PR (ingestion-углубление: document parsing / layout-aware extraction, OCR, late chunking, embedding fine-tuning, Matryoshka Representation Learning (MRL)) |
 | part-3-production/overview | холодный прогон #85 | — |
 | part-3-production/serving | холодный прогон #85 | — |
 | part-3-production/cloud-platforms | холодный прогон #85 | — |

@@ -31,6 +31,17 @@ filtering, citation, and access control.
 **Parent-document (small-to-big) retrieval** — search over small, precise chunks, but pass the model the
 larger parent fragment around the match. It pulls apart a chunk's two roles: search and context.
 
+**Document parsing / layout-aware extraction** — turning a raw document (PDF, scan, HTML) into structured
+text that preserves reading order, tables, and heading hierarchy. A layout-aware parser detects page
+regions and reading order before pulling text, unlike a flat `extract_text` dump.
+
+**OCR (optical character recognition)** — recovering machine-readable text from an image or scanned page
+that has no text layer. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Optical_character_recognition)
+
+**Late chunking** — run the whole long document through the embedding model first, then apply chunk
+boundaries and pool the token vectors per chunk, so each chunk vector carries context from the full
+document. Needs a long-context embedding model. ↗ [arXiv](https://arxiv.org/abs/2409.04701)
+
 ## Ingestion — embeddings
 
 **Embedding** — a vector representing text in a space where geometric closeness means closeness in meaning.
@@ -59,6 +70,14 @@ multilingual enterprise content.
 
 **Self-hosted vs. API embeddings** — the choice between an open model on your own infrastructure (data
 stays inside the perimeter) and a proprietary API (simpler, but data leaves and each call is billed).
+
+**Embedding fine-tuning** — adapting a pretrained embedding model to a domain by contrastive learning on
+(query, positive passage, negative passage) triples, powered by hard negatives. It forces a full re-index
+of the corpus, since query and document must share one model version.
+
+**Matryoshka Representation Learning (MRL)** — training embeddings so information is packed coarse-to-fine
+into nested prefixes, so a vector can be truncated to fewer dimensions and stay usable — a size/accuracy
+dial with no re-embedding. ↗ [arXiv](https://arxiv.org/abs/2205.13147)
 
 ## Retrieval
 

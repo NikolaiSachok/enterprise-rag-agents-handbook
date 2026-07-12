@@ -1,7 +1,6 @@
 ---
-id: ingestion
 title: Ingestion — индексация
-sidebar_position: 1
+slug: /part-1-rag/ingestion/
 ---
 
 # Из документов — в поисковый индекс
@@ -86,7 +85,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
 Он зависит от типа документа (плотный юридический текст ≠ болтливая переписка) и типа запросов
 (точечный факт ≠ «объясни политику»). Поэтому размер чанка **подбирают измерением** — прогоняют
 варианты через оценку поиска и смотрят на метрики. Отсюда мостик к слою
-[Evaluation](./cross-cutting/evaluation.md): чанкинг — не «настроил и забыл», а параметр, который тюнят по метрикам.
+[Evaluation](../cross-cutting/evaluation.md): чанкинг — не «настроил и забыл», а параметр, который тюнят по метрикам.
 
 :::
 
@@ -108,7 +107,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
 ### Забегая вперёд: у чанка две роли — их можно развести
 
 Вернёмся к тому, что чанк одновременно ищется и скармливается LLM. Продвинутая идея (подробно — в слое
-[retrieval](./retrieval/index.md)): это не обязательно один и тот же кусок текста. Можно *искать* по мелким
+[retrieval](../retrieval/index.md)): это не обязательно один и тот же кусок текста. Можно *искать* по мелким
 точным чанкам (хороший эмбеддинг), а *в LLM подавать* более крупный родительский фрагмент вокруг
 найденного (полный контекст). Это семейство приёмов — *parent-document / small-to-big retrieval*. Пока
 достаточно запомнить, что развести две роли чанка возможно.
@@ -122,7 +121,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
   контроль доступа.
 - Размер чанка **измеряют метриками**, а не угадывают.
 
-**Новые термины** → [Глоссарий](../glossary.md): chunk, chunk overlap, recursive / structural chunking,
+**Новые термины** → [Глоссарий](../../glossary.md): chunk, chunk overlap, recursive / structural chunking,
 semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 ---
@@ -165,7 +164,7 @@ semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 Конфликт «точность против скорости» разрешают комбинацией: bi-encoder быстро достаёт top-K из миллионов
 (полнота), cross-encoder переоценивает эти K (точность). Шаг переоценки — это и есть **реранкинг**.
-Подробнее в слое [retrieval](./retrieval/index.md).
+Подробнее в слое [retrieval](../retrieval/index.md).
 
 ### Как выбирают эмбеддинг-модель
 
@@ -202,7 +201,7 @@ semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
   (приватность)**.
 - Одна модель для запроса и документа; следи за метрикой и префиксами.
 
-**Новые термины** → [Глоссарий](../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
+**Новые термины** → [Глоссарий](../../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
 dimensionality, cosine similarity, retrieval-optimized (asymmetric) embeddings, multilingual embeddings,
 self-hosted vs API embeddings.
 
@@ -216,9 +215,14 @@ self-hosted vs API embeddings.
 
 ---
 
-:::note[Дальше — углубление слоя]
+:::note[Дальше — вторая часть урока]
 
-🚧 Второй проход: парсинг документов (PDF, таблицы, HTML, OCR), продвинутый чанкинг (late chunking,
-контекстные эмбеддинги чанков), тонкая настройка эмбеддингов.
+**[Парсинг и продвинутые эмбеддинги](./deep-dive.md)** — второй проход слоя индексации: парсинг документов
+(PDF, таблицы, HTML, OCR, layout-aware извлечение), продвинутый чанкинг (late chunking, контекстные
+эмбеддинги чанков) и эмбеддинги вглубь (тонкая настройка, matryoshka-усечение размерности, мультиязычные
+модели).
+
+См. также: что происходит с чанками дальше — [Retrieval](../retrieval/index.md); как собирается ответ —
+[Generation](../generation.md); как измеряют весь слой — [Evaluation](../cross-cutting/evaluation.md).
 
 :::

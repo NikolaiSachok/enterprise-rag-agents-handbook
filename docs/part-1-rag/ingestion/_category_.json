@@ -1,0 +1,8 @@
+{
+  "label": "Ingestion",
+  "position": 1,
+  "link": {
+    "type": "doc",
+    "id": "part-1-rag/ingestion/index"
+  }
+}

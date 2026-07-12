@@ -19,7 +19,7 @@ looking at.
 
 ## What's inside
 
-- **[Ingestion](./ingestion.md)** — the offline preparation of documents: chunking and embeddings,
+- **[Ingestion](./ingestion/index.md)** — the offline preparation of documents: chunking and embeddings,
   metadata. This is where the ceiling on all of search quality gets set.
 - **[Retrieval](./retrieval/index.md)** — how to turn "nearest vectors" into genuinely relevant results: query
   transformation, hybrid search, reranking, filters and access control.
