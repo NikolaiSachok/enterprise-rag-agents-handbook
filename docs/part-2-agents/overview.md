@@ -27,7 +27,7 @@ latency, cost, and debugging difficulty. The engineering job isn't to "make it m
   and when NOT to split one agent.
 - **[Orchestration frameworks](./orchestration-frameworks/index.md)** — [LangGraph](https://www.langchain.com/langgraph), [LangChain](https://www.langchain.com), Microsoft Agent
   Framework, [CrewAI](https://www.crewai.com): what they add on top of a bare loop, and when to skip them.
-- **[MCP and agent protocols](./mcp.md)** — a standardized way for an agent to reach tools and data; [MCP](https://modelcontextprotocol.io)
+- **[MCP and agent protocols](./mcp/index.md)** — a standardized way for an agent to reach tools and data; [MCP](https://modelcontextprotocol.io)
   versus [A2A](https://a2a-protocol.org).
 - **[Real agents — Claude, OpenAI, Gemini](./real-agents.md)** — the capstone: every Part II technique run
   across all three vendors, showing the same durable move under a dozen incompatible APIs.

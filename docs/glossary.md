@@ -481,6 +481,43 @@ project since mid-2025) for agent-to-agent communication: agents publish an Agen
 exchange work as Tasks carrying Messages and Artifacts over JSON-RPC. MCP is agent-to-tools, A2A is
 agent-to-agent. ↗ [a2a-protocol.org](https://a2a-protocol.org)
 
+**MCP host** — the LLM application (an IDE, chat app, or agent runtime) that initiates MCP connections and
+hosts one or more clients; each client holds a 1:1 connection to a server. Host, clients, servers are three
+roles, not two.
+
+**Capability negotiation** — the initialize handshake in which client and server exchange protocol version
+and declare which features each supports before any work begins.
+
+**Roots** — a client capability that tells a server the filesystem and URI boundaries it may operate within;
+a least-privilege scope set by the client rather than left to convention.
+
+**Sampling** — a client capability by which a server asks the client's model to generate text (the server has
+no model of its own); requires explicit user consent and limits the server's visibility into the prompt.
+
+**Elicitation** — a client capability by which a server requests missing data or a confirmation from the user
+mid-operation, through a structured schema the client renders.
+
+**Streamable HTTP** — the remote MCP transport (it replaced HTTP+SSE in revision 2025-03-26); supports
+multiple clients and server-push streaming, and forces authentication and network exposure into the design.
+↗ [modelcontextprotocol.io](https://modelcontextprotocol.io)
+
+**MCP registry** — a metaregistry hosting server metadata (not code or binaries) so clients can discover which
+servers exist; the official one launched in preview on 2025-09-08. Being listed is not vetting.
+↗ [registry.modelcontextprotocol.io](https://registry.modelcontextprotocol.io)
+
+**Server discovery** — how a client finds servers to connect to: at the ecosystem level through a registry
+(which servers exist), and at connect time through the capability handshake (what a given server offers).
+
+**Tool poisoning** — indirect prompt injection carried in a tool's description, which the model reads as a
+prompt; the highest-impact client-side MCP vulnerability class.
+
+**Rug pull** — a server that redefines a tool's behavior or description after you approved it, so the trust
+granted at connect time no longer matches what the tool does. The counter is pinning servers and re-reviewing
+on change.
+
+**Confused deputy** — a privileged component tricked into misusing its authority on an attacker's behalf; a
+classic risk in remote-MCP OAuth token handling. Least privilege and tight token scoping are the counter.
+
 ## Agents — real agents (capstone)
 
 **Extended thinking** — the visible reasoning blocks a model emits before answering; in Claude they surface

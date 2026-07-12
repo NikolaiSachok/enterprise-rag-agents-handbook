@@ -126,7 +126,7 @@ result, tool selection, JSON Schema, structured output.
 **[Reliability & scale](./deep-dive.md)** — taking tool calls to production: parallel calls, schema formats
 and constrained decoding, error-and-retry handling, and the context cost of dozens of tools.
 
-See also: connecting tools through a shared standard — [MCP and agent protocols](../mcp.md); how it looks
+See also: connecting tools through a shared standard — [MCP and agent protocols](../mcp/index.md); how it looks
 across Claude, OpenAI, and Gemini — [the part's capstone](../real-agents.md).
 
 :::

@@ -28,7 +28,7 @@ sidebar_label: Обзор части
   роли, передача управления; топологии и когда НЕ дробить одного агента.
 - **[Фреймворки оркестрации](./orchestration-frameworks/index.md)** — [LangGraph](https://www.langchain.com/langgraph), [LangChain](https://www.langchain.com), Microsoft Agent
   Framework, [CrewAI](https://www.crewai.com): что они дают поверх голого цикла и когда лучше без них.
-- **[MCP и протоколы агентов](./mcp.md)** — стандартизованный доступ агента к инструментам и данным; [MCP](https://modelcontextprotocol.io)
+- **[MCP и протоколы агентов](./mcp/index.md)** — стандартизованный доступ агента к инструментам и данным; [MCP](https://modelcontextprotocol.io)
   против [A2A](https://a2a-protocol.org).
 - **[Реальные агенты — Claude, OpenAI, Gemini](./real-agents.md)** — финал части: каждый приём Части II,
   прогнанный по Claude, OpenAI и Gemini; за дюжиной несовместимых API — один и тот же долговечный приём.

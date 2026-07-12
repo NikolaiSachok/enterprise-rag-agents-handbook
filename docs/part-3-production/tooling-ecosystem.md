@@ -67,7 +67,7 @@ tool calls — so your **instrumentation**, the code hooks that emit traces and 
 can outlive any one vendor: instrument once, point the exporter wherever you like. One caveat, because it
 matters: as of mid-2026 these conventions are still in Development status — experimental and moving. They
 now live in a dedicated repository, `open-telemetry/semantic-conventions-genai`, which also covers
-conventions for [MCP](https://modelcontextprotocol.io) — the protocol from [MCP and agent protocols](../part-2-agents/mcp.md) getting its
+conventions for [MCP](https://modelcontextprotocol.io) — the protocol from [MCP and agent protocols](../part-2-agents/mcp/index.md) getting its
 observability vocabulary.
 
 Strip the branding and all three platforms implement exactly one thing: the primitive from the

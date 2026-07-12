@@ -1,12 +1,11 @@
 ---
-id: mcp
 title: MCP and agent protocols
-sidebar_position: 6
+slug: /part-2-agents/mcp/
 ---
 
 # The standard that wires agents to the world
 
-In [tool-use](./tool-use/index.md) the agent learned to call tools, but every integration was its own bespoke job:
+In [tool-use](../tool-use/index.md) the agent learned to call tools, but every integration was its own bespoke job:
 each agent wired to each tool by hand-written glue. That works for one agent and three tools. It stops
 working the moment you have many of each. With M apps that each need N tools, you are on the hook for M × N
 custom connectors — the same database wrapper rebuilt for every agent, the same agent re-taught for every
@@ -113,7 +112,7 @@ an agent" is a habit of authorship, not a property of the protocol.
 ## MCP vs A2A — agent-to-tools versus agent-to-agent
 
 MCP standardizes one axis: agent to tool, agent to data. There is a second axis it says nothing about — agent
-to *agent*, the communication you needed the moment you built [multi-agent](./multi-agent/index.md) systems. When
+to *agent*, the communication you needed the moment you built [multi-agent](../multi-agent/index.md) systems. When
 one agent hands off to another, what protocol carries that? MCP is the wrong tool; it connects an agent to
 its tools, not an agent to a peer.
 
@@ -143,14 +142,14 @@ even when it's phrased like one.
 
 ---
 
-That closes the lesson — and the core toolkit of Part II. We started Part II with a single agentic loop in [agentic-rag](./agentic-rag/index.md) —
-retrieval as an action the model chooses. We gave it tools to act with ([tool-use](./tool-use/index.md)), a way to
-plan over many steps and actually stop ([planning-loops](./planning-loops/index.md)), teammates to divide the work
-([multi-agent](./multi-agent/index.md)), and frameworks to package all of it
-([orchestration-frameworks](./orchestration-frameworks/index.md)). This lesson supplied the last piece: the
+That closes the lesson — and the core toolkit of Part II. We started Part II with a single agentic loop in [agentic-rag](../agentic-rag/index.md) —
+retrieval as an action the model chooses. We gave it tools to act with ([tool-use](../tool-use/index.md)), a way to
+plan over many steps and actually stop ([planning-loops](../planning-loops/index.md)), teammates to divide the work
+([multi-agent](../multi-agent/index.md)), and frameworks to package all of it
+([orchestration-frameworks](../orchestration-frameworks/index.md)). This lesson supplied the last piece: the
 standard protocols that wire agents to tools, and to each other, in production. One loop, grown into a system
 that connects to the world through a common plug. What all of it looks like on live Claude, OpenAI, and
-Gemini is the [closing capstone on real agents](./real-agents.md).
+Gemini is the [closing capstone on real agents](../real-agents.md).
 
 ## What to take away
 
@@ -174,12 +173,14 @@ Gemini is the [closing capstone on real agents](./real-agents.md).
   over-reach. Defend with **least privilege**, vetted-only servers, and human approval for sensitive actions;
   treat all server-supplied content as untrusted input, never as instructions.
 
-**New terms** → [Glossary](../glossary.md): MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
+**New terms** → [Glossary](../../glossary.md): MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
 
 ---
 
-:::note[Next — going deeper]
+:::note[Next — part 2 of the lesson]
 
-🚧 Second pass: building an MCP server hands-on, the sampling/elicitation capabilities in depth, MCP registries and discovery, transport tradeoffs (stdio vs streamable HTTP), the evolving agent-protocol landscape (A2A and peers), and hardened deployment patterns for untrusted servers.
+**[Servers, transport & trust](./deep-dive.md)** — building an MCP server hands-on, sampling and elicitation in depth, MCP registries and server discovery, the transport tradeoff (stdio versus streamable HTTP), the evolving agent-protocol landscape (A2A and its peers), and hardened deployment patterns for untrusted servers.
+
+See also: the [capstone on real agents](../real-agents.md), which puts MCP to work across live Claude, OpenAI, and Gemini; [multi-agent](../multi-agent/index.md) for the agent-to-agent axis MCP leaves open; and [orchestration frameworks](../orchestration-frameworks/index.md) for packaging these connections into a library.
 
 :::

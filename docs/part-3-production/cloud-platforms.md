@@ -72,7 +72,7 @@ within about a year. Product names and bundle boundaries get reshuffled constant
 survives the renames are the capability categories — the model catalog, the privacy and residency
 guarantees, the managed RAG tier, the platform guardrails, the throughput and pricing model. The rest of
 this lesson is organized by those categories, and that is deliberate: learn the categories, and treat any
-product name — including every name on this page — as a snapshot. The [MCP lesson](../part-2-agents/mcp.md)
+product name — including every name on this page — as a snapshot. The [MCP lesson](../part-2-agents/mcp/index.md)
 made the same move for agent protocols, and it holds here just as well.
 
 ## Model catalogs — who serves whose models

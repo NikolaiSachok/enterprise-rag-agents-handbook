@@ -39,6 +39,10 @@
     "message": "Фреймворки оркестрации",
     "description": "The label for category 'Orchestration frameworks' in sidebar 'handbookSidebar'"
   },
+  "sidebar.handbookSidebar.category.MCP and agent protocols": {
+    "message": "MCP и протоколы агентов",
+    "description": "The label for category 'MCP and agent protocols' in sidebar 'handbookSidebar'"
+  },
   "sidebar.handbookSidebar.category.Part III — Production & LLMOps": {
     "message": "Часть III — Production и LLMOps",
     "description": "The label for category 'Part III — Production & LLMOps' in sidebar 'handbookSidebar'"

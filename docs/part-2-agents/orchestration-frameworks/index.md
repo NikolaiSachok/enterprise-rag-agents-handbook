@@ -164,6 +164,6 @@ declarative versus imperative agent definitions, and framework-level tracing and
 See also: how these constructs map across Claude, OpenAI, and Gemini —
 [the part's capstone](../real-agents.md); the general loop-control and budget layer a framework packages —
 [planning & loops](../planning-loops/index.md); the standard protocols underneath the transport —
-[MCP](../mcp.md).
+[MCP](../mcp/index.md).
 
 :::

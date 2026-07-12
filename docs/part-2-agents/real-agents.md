@@ -11,7 +11,7 @@ Part II built the agent one capability at a time: the loop that decides for itse
 actually stop in [planning-loops](./planning-loops/index.md), teammates to divide the work in
 [multi-agent](./multi-agent/index.md), the frameworks that package all of it in
 [orchestration-frameworks](./orchestration-frameworks/index.md), and the protocol that wires it to the world in
-[mcp](./mcp.md). This lesson teaches nothing new. It takes that whole toolkit to the three agents you meet
+[mcp](./mcp/index.md). This lesson teaches nothing new. It takes that whole toolkit to the three agents you meet
 first — Claude, OpenAI, and Gemini — and shows that each technique is the same durable move under a
 different name and a different wire shape.
 
@@ -237,7 +237,7 @@ NOT to divide," and it leads to the war-story on giving each worker its own work
 The last technique is the standard that stops you re-gluing every tool to every agent. Wrap a tool once as
 an MCP server and implement the client once, and any agent talks to any tool: M × N pairwise connectors
 collapse to N + M. The standard's own phrasing is "build once and integrate everywhere," and its metaphor is
-**a USB-C port for AI applications** ([mcp](./mcp.md)).
+**a USB-C port for AI applications** ([mcp](./mcp/index.md)).
 
 The governance is worth dating precisely, because it shows how fast this moved. Anthropic introduced [MCP](https://modelcontextprotocol.io) on
 25 November 2024 and, on 9 December 2025, donated it to the Agentic AI Foundation — a directed fund under
@@ -260,7 +260,7 @@ agent ↔ agent* ([A2A](https://a2a-protocol.org): Google-originated, now under 
 
 The durable failure comes bundled with it. Every MCP server is a new attack surface — a malicious one can inject
 instructions through tool poisoning, exfiltrate data, or over-reach its grant. The defense is unchanged from
-[mcp](./mcp.md): least privilege, only servers you trust, and human approval on sensitive actions.
+[mcp](./mcp/index.md): least privilege, only servers you trust, and human approval on sensitive actions.
 
 ## The seven techniques, three agents
 
