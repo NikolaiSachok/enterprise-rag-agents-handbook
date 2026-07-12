@@ -135,7 +135,19 @@ const config: Config = {
   organizationName: 'NikolaiSachok', // GitHub user/org
   projectName: 'enterprise-rag-agents-handbook',
 
-  onBrokenLinks: 'throw',
+  // Released (deployed) builds throw on any dead internal link — the hard gate for
+  // shipped EN/RU content. The unreleased-inclusive validation build (CI, sets
+  // HANDBOOK_INCLUDE_UNRELEASED=1) instead warns, because gated partial translation
+  // produces one class of unavoidable, non-shipping "broken" link: an untranslated
+  // fallback lesson (served from `docs/`) links to the glossary via a relative `.md`
+  // path, and once the glossary alone is translated (Phase 1) Docusaurus can't
+  // path-match that link across the `docs/` (fallback) and `i18n/<locale>/`
+  // (translated) trees — nor would the EN slug even match the localized one — until
+  // the lesson itself is translated. Those links resolve correctly in every deployed
+  // (released) build. CI still hard-fails on real breakage: scripts/i18n-link-check.sh
+  // greps this build's output and fails on any broken link whose source is NOT an
+  // untranslated fallback page (i.e. EN, RU, or a genuinely-translated locale page).
+  onBrokenLinks: INCLUDE_UNRELEASED ? 'warn' : 'throw',
 
   // Browser-language auto-detect + cookie, injected as a blocking <head> script so
   // it runs before paint (no flash-of-wrong-language). See `localeDetectionScript`.

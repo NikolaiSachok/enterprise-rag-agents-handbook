@@ -958,4 +958,3 @@ producent zaradí úlohu a okamžite dostane ID, a fond workerov asynchrónne vy
 
 **Dead-letter queue (DLQ) (fronta nedoručených úloh)** — bočná fronta pre úlohy, ktoré vyčerpali svoje
 opakovania; bráni otrávenej úlohe zaseknúť hlavnú frontu a jej rast je signál hodný upozornenia.
-
