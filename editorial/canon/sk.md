@@ -708,3 +708,35 @@ zakázaných šablón ako write-filter) žije v `editorial-team` skille; tento k
 - **zakázané vetné šablóny** → §1.4 (grep-brána: finálny text = nula výskytov);
 - **„behové prostredie“ — referent podľa vety** → Fáza 2b odrážka vyššie (environment vs orchestrátor /
   riadiaca vrstva vs „tvoja aplikácia“).
+
+**Rozhodnutia rekonštrukčného prechodu (v3, pilot „tool use“ — obe stránky prepísané z propozícií):**
+
+- **Slučka agenta = „slučka“** v celom korpuse. **„okruh“ ✗ zamietnuté** (číta sa ako elektrický obvod /
+  pretekárske kolo); **„cyklus“** iba vo viazanom termíne „nezastavenie cyklu“ (§1.2). Nadpis prehĺbenia
+  znie „…ako sa slučka zotaví“.
+- **Domýšľanie (si)** = korpusový názov pre konfabuláciu nad výsledkom nástroja: „domýšľanie si toho, čo
+  vo výsledku nie je“ (P1 odrážka aj P2 spätný odkaz zosúladené). **„dopĺňanie“ ✗ zamietnuté** (číta sa ako
+  vedomé doplnenie).
+- **Figúra fan-out/fan-in preformulovaná:** „jeden krok sa rozvetví na N paralelných volaní“ ostáva;
+  „N výsledkov **sa zloží späť**“ **ZRUŠENÉ** (kalk *fold back*, §1.4) → „N výsledkov sa spojí do jednej
+  správy“; aplikácia volania „rozošle (fan-out)… pozbiera (fan-in)“ *(tvar „rozošle“ na skúšobnej dobe —
+  prišiel až po studenom prechode)*.
+- **Figúra „vzorkuje len z toho, čo prežije“ ZRUŠENÁ** (importovaná metafora prežitia) → „vyberá už len
+  spomedzi tokenov, ktoré ostali povolené“.
+- **dry-run — glos v próze usadený: „(skúšobné spustenie)“** (ruší ad-hoc „(nanečisto)“).
+- **dynamic tool loadout — glos = natívny tvar §1.2:** „**Dynamic tool loadout** (dynamicky vybraná sada
+  nástrojov)“; opisné „dynamický výber nástrojov“ smie žiť v bežnej vete, nie ako glos termínu.
+- **signatúra funkcie** (function signature) — namiesto „podpis funkcie“ ✗ (číta sa ako podpisovanie /
+  code signing); webom doložené v slovenských VŠ-materiáloch (TUKE FP, UK FMFI) *(na skúšobnej dobe do
+  kontroly rodeným Slovákom)*.
+- **prompt engineering** — kept-EN (§1.1), glos „(práca s promptom)“. **tool use** — kept-EN, glos
+  „(používanie nástrojov)“; **function calling** — kept-EN, glos „(volanie funkcií)“ — dvojica sa glosuje
+  oddelene, nie spoločnou zátvorkou.
+- **„Časť II príručky“** — odkaz na časť KNIHY vždy rozpísať („v celej Časti II príručky“), nikdy holé
+  „druhá časť“ — koliduje s „prvá/druhá časť“ tejto lekcie (index vs prehĺbenie).
+- **Vernosť spätných odkazov:** citát z prvej časti v úvodzovkách musí na prvej časti existovať doslovne
+  (zosúladené: „málo nástrojov, bez prekryvov“, „nesprávny nástroj — alebo žiadny“); spätný odkaz na obraz,
+  ktorý prvá časť nepoužila, sa prepisuje na autorské „my“ („Zatiaľ sme so schémou zaobchádzali ako…“).
+- **Pätička „Nové pojmy“ ↔ glosár:** trojtriedne flipy (prísny režim, obmedzené dekódovanie, idempotencia,
+  kľúč idempotencie, validácia argumentov) sa premietnu do hesiel glosára a AŽ POTOM do pätičiek — v jednej
+  neskoršej vlne; dovtedy pätičky ostávajú zrkadlom anglických hesiel glosára.
