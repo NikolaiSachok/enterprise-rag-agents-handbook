@@ -74,9 +74,14 @@ layer isn't closed.
 The editorial **rules** live in the `editorial-team` skill — that is the single source of truth. This section
 holds only what's specific to THIS project, which the skill consumes:
 - Primary language **RU**; translation target **EN**. Voice: second-person «ты».
-- **Style canon: `editorial/style-canon.md`** — the corpus-wide term ledger (incl. rejected variants),
-  semantic reservations, casing rules, recurring-block strings, and voice rules. It is normative for every
-  page; canon updates ship **in the same PR** as the page that motivates them.
+- **Style canon — per-language, behind a router.** `editorial/style-canon.md` is a thin **router**: the
+  cross-language spine (what a canon is; bridge-rule principle; bold & metaphor budgets; figure-probation;
+  sense-card + book-unit concepts; ledger-binds-sense-not-string) + a pointer table. The actual term ledger
+  (rejected variants, semantic reservations, casing, recurring-block strings, voice) lives **per language**:
+  **`editorial/canon/ru.md`** (RU audience-primary + EN canonical source) and **`editorial/canon/sk.md`**
+  (Slovak). An editor loads the router **plus its target language's file only**. All of it is normative for
+  every page; canon updates ship **in the same PR** as the page that motivates them. (Add a language → add
+  `editorial/canon/<lang>.md` + a router row.)
 - **Terms this project keeps in English** (no crisp RU equivalent): *grounding*, *bi-encoder*,
   *cross-encoder*, *prompt injection*, *spotlighting*, *HyDE*, *BM25*, *ReAct*, *faithfulness*, *top-K*.
   (*Chunking* is NOT on this list: «чанкинг» is an established Cyrillic term — write «чанкинг», bridged as
@@ -175,7 +180,7 @@ Deep dive"** page. The convention (piloted on Tool use, #64):
   tool-use's Часть 2 is labelled «Надёжность и масштаб» / "Reliability & scale" (precedent). The page still
   identifies itself as the deep second pass in its own H1/intro and the Часть 1 backlink; the sidebar label is
   just the descriptor a reader scans in the tree. (`title:` frontmatter is unchanged — it keeps the lesson's
-  short name for breadcrumbs/tab per style-canon §4.)
+  short name for breadcrumbs/tab per `canon/ru.md` §4.)
 - **A lesson becomes a group ONLY once its Часть 2 exists.** Un-deepened lessons stay flat single `.md`
   files; do not pre-create empty folders.
 - **Inbound links follow the move.** Every `.md` link to the base becomes `./<lesson>/index.md` (or
@@ -191,8 +196,8 @@ Deep dive"** page. The convention (piloted on Tool use, #64):
   «показывает капстоун» sales phrasing), linking `./deep-dive.md`; Часть 2 **backlinks to Часть 1**
   (`./index.md`) in its first lines. Gate 4 (managing editor) enforces both on every future deepening.
 - **Same standard as a base lesson**, authored the same way (authoring-team → editorial-team, RU-primary),
-  with the house skeleton (takeaways, glossary footer), Mermaid, `.md`-only links, and glossary + style-canon
-  updates shipped in the same PR.
+  with the house skeleton (takeaways, glossary footer), Mermaid, `.md`-only links, and glossary + per-language
+  canon (`editorial/canon/<lang>.md`) updates shipped in the same PR.
 
 ## Engineering workflow (SDLC)
 The handbook is itself a demonstration of engineering maturity, so it follows a real workflow — kept

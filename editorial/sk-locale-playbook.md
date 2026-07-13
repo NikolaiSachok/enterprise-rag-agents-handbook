@@ -25,7 +25,7 @@ SK's counterpart of RU's anglicism problem: a named, always-on check.
    EN→analysis best and EN is the terminology anchor), the fact editor may cross-check the RU page when a
    claim is ambiguous, and then a **Slovak writer composes native prose from the skeleton alone** — the
    writer never sees the EN or RU prose.
-2. **RU authorial figures do not port.** The style canon's protected figures (§6) are language-bound
+2. **RU authorial figures do not port.** The RU/EN canon's protected figures (`canon/ru.md` §6) are language-bound
    Russian coinages. The SK writer composes its own plain prose or its own figures (which enter the SK
    canon section on probation, per the figure-probation rule). Never translate a figure.
 3. **The glossary is the term ledger — translate it FIRST.** Deciding all ~130 term renderings up front
@@ -51,7 +51,7 @@ SK's counterpart of RU's anglicism problem: a named, always-on check.
     form, Czech collocation, or CZ–SK false friend), print bar;
   - *proofreader* — Slovak grammar/diacritics/typography + count lint + sentence-initial caps;
   - *fact editor* — diff against the extracted skeleton (and EN page for coverage);
-  - *consistency editor* — against the SK section of the style canon;
+  - *consistency editor* — against the SK canon (`editorial/canon/sk.md`) + the shared router;
   - jump-in surfaces (checklists, takeaways, headings, glossary lines, captions) read in isolation.
 - **Cold-read pass is mandatory per page** (fresh literary + naive personas, one page each, blind to the
   batch) — for SK run it **twice**, in separate sessions, since no human backstop exists.
@@ -94,7 +94,7 @@ deepened lesson is now TWO pages (Часть 1 `index.md` + Часть 2 `deep-d
 
 - **Phase 0 — Infrastructure.** Locale scaffolding, theme-string audit, CI matrix, gated visibility
   mechanism. No content beyond a smoke-test page. One PR.
-- **Phase 1 — Canon bootstrap + glossary.** SK section in `editorial/style-canon.md` (voice, typography,
+- **Phase 1 — Canon bootstrap + glossary.** SK canon in `editorial/canon/sk.md` (voice, typography,
   recurring block strings, bridge policy, anti-bohemism rule, kept-EN defaults) + the full SK glossary
   (= all term decisions, materialized). One PR. Everything later cites this.
 - **Phase 2 — Pilot.** ONE mid-complexity lesson (recommended: *Tool use* or *Agentic RAG* — long enough
