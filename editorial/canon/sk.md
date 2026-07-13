@@ -76,6 +76,34 @@ redaktor pri každej stránke.
   písmená ř ě ů v slovenčine neexistujú** a sú okamžitým signálom bohemizmu (§1.3) — „ř“ nikdy, „ě“ nikdy,
   „ů“ nikdy.
 
+### §1.0 Trojtriedna politika termínov (smer termínu — jedno rozhodnutie, celý korpus)
+
+Každý odborný termín patrí do jednej z troch tried a **smer** (anglicky vedený vs slovensky vedený) sa
+rozhoduje raz a platí pre celý korpus. **Kolísanie smeru v rámci stránky je defekt** rovnako ako porušená
+sémantická rezervácia (§2) — tá istá stránka nesmie raz písať „prísny režim“ a inokedy „strict mode“ ako
+názov termínu.
+
+- **Trieda 1 — presné identifikátory a branded fičúry:** anglicky, kódovým písmom alebo ako vlastné meno,
+  nikdy sa neprekladajú: `parallel_tool_calls`, `tool_choice`, `strict: true`, `additionalProperties`,
+  **Structured Outputs** (názov fičúry OpenAI), názvy produktov a modelov (§1.1 záver).
+- **Trieda 2 — všeobecné koncepty s prirodzeným slovenským ekvivalentom:** **slovensky vedené**, anglický
+  originál raz v zátvorke pri prvom výskyte, ďalej už len slovensky: **prísny režim (strict mode)**,
+  **obmedzené dekódovanie (constrained decoding)**, **idempotencia (idempotency)**, **kľúč idempotencie
+  (idempotency key)**, **validácia argumentov (argument validation)**. *(Toto VRACIA skoršie rozhodnutie
+  Fázy 2b, ktoré tieto termíny držalo kept-EN — recenzia v2 potvrdila, že vývojárska slovenčina tu domáci
+  tvar má a kept-EN pôsobil ako nedôvera k vlastnému jazyku. Jedno rozhodnutie, celý korpus.)*
+- **Trieda 3 — vedome ponechané anglické dev-termíny (kept-EN, §1.1):** neskloňovaný anglický tvar
+  pripojený k slovenskej hlave („nástroj v strict mode“ ✗ → po novom Trieda 2; „krok fan-out“, „blok
+  `tool_use`“ ✓), slovenský glos raz pri prvom výskyte. Sem patrí aj **race condition** — pozri poznámku
+  pod §1.2.
+
+**Čistota glosu (gloss purity).** Anglický originál v zátvorke pri slovensky vedenom termíne musí byť
+**skutočná angličtina**, nikdy hybrid: „chyba počas behu **(runtime error)**“ ✓ — „(runtime chyba)“ ✗.
+Rovnako slovenský glos pri kept-EN termíne je čistá slovenčina. **Poradie prvého výskytu:** most sa stavia
+pri **prvom** výskyte termínu na stránke — termín nesmie stáť holý skôr, než ho stránka zavedie (video-popis
+sa nepočíta za zavedenie, §7, ale ani v ňom nesmie stáť tvar, ktorý čitateľ ešte nevie dekódovať bez
+anglickej stránky).
+
 ### §1.1 Termíny, ktoré ostávajú anglické (kept-EN)
 
 Bez ustáleného slovenského ekvivalentu; píšu sa latinkou, pri **prvom výskyte na stránke** dostanú krátky
@@ -103,7 +131,7 @@ context precision, context recall, reference-free, reference-based, pointwise, p
 sampling, prompt injection, jailbreak, spotlighting, delimiting, datamarking, encoding (technika spotlightingu),
 instruction hierarchy, PII, red-teaming, defence-in-depth, least privilege, ASR, tool poisoning, rug pull,
 confused deputy, roots, sampling (MCP), elicitation, stdio, streamable HTTP, JSON Schema, structured output,
-strict mode / Structured Outputs, constrained decoding, idempotency, tool-RAG, dynamic tool loadout,
+Structured Outputs (branded fičúra OpenAI — Trieda 1), race condition, tool-RAG, dynamic tool loadout,
 lost-in-the-middle, HITL (human-in-the-loop), checkpointing, checkpointer, checkpoint, StateGraph, store,
 durable execution, super-step, thread (thread_id), A2A, FIPA ACL, blackboard, Agent Card, TTFT, SSE,
 PagedAttention, continuous batching, prefill, decode, chunked prefill, prefix caching, KV-cache, FP8/INT8/INT4,
@@ -126,7 +154,9 @@ budget, hooks, callbacks, permission modes.*
 „(doladenie modelu)“, guardrails „(bezpečnostné mantinely)“, grounding „(opretie odpovede o kontext)“, store
 „(dlhodobá pamäť frameworku)“, OCR „(optické rozpoznávanie znakov)“, scale-to-zero „(škálovanie na nulu)“,
 on-demand „(platba za tokeny)“, zero-shot „(bez trénovacích príkladov)“, backpressure „(ochrana pred
-zahltením)“, load shedding „(zhadzovanie záťaže)“. V glosári smie kept-EN heslo niesť aj ustálený domáci
+zahltením)“, load shedding „(zhadzovanie záťaže)“, race condition „(súbehová chyba)“ — glos smie byť aj
+rozvitý vetou („dve súbežné volania siahnu na to isté a výsledok závisí od náhodného časovania“), nikdy však
+holé „(súbeh)“. V glosári smie kept-EN heslo niesť aj ustálený domáci
 ekvivalent pred funkčným glosom: „**Backpressure (protitlak — ochrana pred zahltením)**“. Kvantizácia (quantisation) má ustálený **slovenský** tvar
 **kvantizácia** — píše sa slovensky, nie kept-EN.
 
@@ -203,9 +233,14 @@ Stĺpec „Odmietnuté“ drží konkrétne varianty, ktoré sa razili a zamietl
 | limit opakovaní; maximálny počet pokusov | retry budget | (zrkadlí „rozpočet krokov“; most `(retry budget)` raz; kept-EN len pre presne pomenovaný koncept) |
 | vedľajší účinok | side effect | „sajd-efekt“ ✗ |
 | viacvrstvová ochrana | defence-in-depth | (most; termín ostáva kept-EN, §1.1; „obrana do hĺbky“ v opisnej próze, §Fáza 2) |
-| chyba počas behu; runtime chyba | runtime error | **„defekt v behu“ ✗; „chyba behu“ ✗** |
+| chyba počas behu | runtime error | **„defekt v behu“ ✗; „chyba behu“ ✗**; glos vždy čistá angličtina „(runtime error)“, hybrid „(runtime chyba)“ ✗ (§1.0) |
+| prísny režim | strict mode | „striktný režim“ ✗; „striktný / neštriktný nástroj“ ✗ → „nástroj v prísnom režime / bez prísneho režimu“; branded **Structured Outputs** ostáva EN (Trieda 1) |
+| obmedzené dekódovanie | constrained decoding | „striktné dekódovanie“ ✗ (mieša fičúru a mechanizmus) |
+| idempotencia | idempotency | (Trieda 2, §1.0 — predtým kept-EN, zvrátené) |
+| kľúč idempotencie | idempotency key | („kľúč“ aj „idempotencia“ natívne) |
+| validácia argumentov | argument validation | |
 | kľúč idempotencie | idempotency key | (idempotency ostáva kept-EN, §1.1; „kľúč“ je natívny) |
-| súbehová chyba | race condition | bare **„súbeh“ = concurrency, NIE chyba** (§1.3, blocklist). *(navrhované, čaká na kontrolu rodeným Slovákom — pozri poznámku pod tabuľkou)* |
+| race condition (súbehová chyba) | race condition | **kept-EN primárny tvar** (Trieda 3, §1.0); bare **„súbeh“ = concurrency, NIE chyba** — sémanticky nesprávny názov chyby (§1.3, blocklist); v1 záložný tvar „súbeh (race condition)“ **zrušený** — pozri poznámku pod tabuľkou |
 
 Ustálené prijaté prevzatia, ktoré ostávajú (dev-úzus, ako „chunking“): **dashboard** (nie „nástenka“ ako
 termín), **alert / alerting** (nie „upozornenie“ ako termín), **framework** (skloňovaný: frameworku,
@@ -218,11 +253,12 @@ mimo takého spojenia mu radšej vyhni („mať spoločnú verziu“, nie „zdi
 **Konvencie a zosúladenie s kept-EN (pilot „tool use“, #64 — reconciliácia so §1.1).** Kde sa pilotné
 odporúčanie prekrýva s ustáleným kept-EN termínom, drží sa **kept-EN termín, natívny tvar je most/glos**:
 
-- **strict mode** — projekt drží **jeden** tvar: **kept-EN „strict mode“** (už v §1.1 kept-EN; je to aj názov
-  fičúry OpenAI „Structured Outputs“). „prísny režim“ smie stáť iba ako **jednorazový glos** pri prvom výskyte;
-  **nemiešaj** „prísny/striktný/striktné“ ako názov termínu.
-- **constrained decoding** — kept-EN (§1.1), glos prvého výskytu „(obmedzené dekódovanie)“; „obmedzené
-  dekódovanie“ nie je samostatný názov termínu.
+- **strict mode → ZVRÁTENÉ v3 (trojtriedna politika, §1.0): slovensky vedený „prísny režim (strict mode)“.**
+  Most raz pri prvom výskyte, ďalej „prísny režim“; presné API-tvary (`strict: true`) a branded **Structured
+  Outputs** ostávajú anglické (Trieda 1). Stále platí: **nemiešaj** „striktný/striktné“ ako názov termínu.
+- **constrained decoding → ZVRÁTENÉ v3 (§1.0): slovensky vedený „obmedzené dekódovanie (constrained
+  decoding)“.** Most raz, ďalej „obmedzené dekódovanie“; „striktné dekódovanie“ ostáva ✗ (mieša fičúru a
+  mechanizmus).
 - **retry budget** — kept-EN len ako presne pomenovaný koncept; v tele natívne „limit opakovaní / maximálny
   počet pokusov“ (§1.2).
 - **backoff** — kept-EN termín; glos „(postupné predlžovanie intervalu medzi pokusmi)“.
@@ -236,11 +272,13 @@ odporúčanie prekrýva s ustáleným kept-EN termínom, drží sa **kept-EN ter
 > **Navrhované, čaká na kontrolu rodeným Slovákom (nie ešte usadený kánon).** Tieto tvary sú **re-derivované
 > z AI-recenzií s poškodeným kódovaním**, preto ich vedieme s výslovnou výhradou, kým ich neschváli rodený
 > Slovák (rodená naturálnosť je ground truth):
-> - **„súbehová chyba“** (race condition) — kolokačné overenie nevrátilo jasné slovenské doklady (dominuje
->   české „souběh“), takže je to **coinage na skúšobnej dobe**. Kým ho rodený Slovák nepotvrdí, ostáva ako
->   **usadený záložný tvar** už potvrdená figúra **„súbeh (race condition)“ s rozvíjajúcim glosom** („dve
->   súbežné volania siahnu na to isté a výsledok závisí od náhodného časovania“, §Fáza 2 — Figúry). Cieľ oboch
->   je rovnaký: bare „súbeh“ (= concurrency) sa **nesmie** použiť ako názov chyby.
+> - **race condition — rozhodnuté (v3): kept-EN primárny tvar „race condition (súbehová chyba)“.** Recenzia
+>   v2 potvrdila, že bare „súbeh“ je **sémanticky nesprávny** — *súbeh* znamená súbežné vykonávanie
+>   (concurrency), nie chybu z časovania; v1 záložný tvar „súbeh (race condition)“ preto **prestáva platiť**
+>   (žiadny glos nezachráni nesprávne slovo ako názov chyby). Slovenskí vývojári hovoria anglický termín,
+>   preto je primárny tvar kept-EN; „súbehová chyba“ žije ako slovenský glos. Ako **samostatný** názov termínu
+>   je „súbehová chyba“ stále novotvar bez jasných webových dokladov (dominuje české „souběh“) — **čaká na
+>   kontrolu rodeným Slovákom**; dovtedy sa nepíše samostatne, iba ako glos pri kept-EN termíne.
 > - **„postupné predlžovanie intervalu (medzi pokusmi)“** (backoff) je opisný glos, prirodzený, ale dlhý —
 >   znenie tiež overí rodený Slovák. Všetky ostatné tvary vyššie (definícia/volanie/výsledok/výber nástroja,
 >   sada nástrojov, vedľajší účinok, chyba počas behu, skúšobné spustenie, schválenie človekom, viacvrstvová
@@ -307,8 +345,8 @@ alebo skalkované** tvary, ktoré recenzie pilotu opakovane vytiahli. Odmietni i
 výslovne neschváli:
 
 - **„ťah“** pre odpoveď modelu / krok agenta — herné, nedefinované → „krok“, „volanie“, „odpoveď modelu“
-- bare **„súbeh“** pre race condition → **„súbehová chyba“** / „súbeh (race condition)“ s rozvíjajúcim glosom
-  (§1.2, §Fáza 2)
+- bare **„súbeh“** pre race condition → **„race condition (súbehová chyba)“** — kept-EN primárny tvar (§1.0,
+  §1.2); „súbeh“ = concurrency, nie chyba; aj tvar „súbeh (race condition)“ je zrušený (v3)
 - **„striktný / neštriktný nástroj“** → drž kept-EN „strict mode“ (§1.2 konvencie)
 - **„tool definition stojí tokeny“** — kalk „costs tokens“ + cudzia fráza ako podmet → „každá definícia nástroja
   zaberá tokeny“
@@ -348,6 +386,41 @@ oprava nie je náhrada slova, ale **prepísanie z významu**. Zoznam rastie s ko
 | „the property you want is…“ | „vlastnosť, ktorú chceš, je…“ | „ide o to, aby…“, „potrebná vlastnosť je…“ |
 | „sharp boundary“ | „deliaca čiara je ostrá“ | „ostrá hranica“, „jasné rozhranie“ |
 | „costs tokens“ | „stojí tokeny“ | „zaberá/spotrebuje tokeny“ (§1.3 blocklist) |
+
+**Zakázané vetné šablóny (v2 recenzia — write-filter + grep-zoznam).** Kalkové KOSTRY viet, ktoré prežili
+v2 substitučný prechod; pred publikovaním sa finálny text greppe proti tomuto zoznamu a **žiadny výskyt
+neprejde**. Oprava nikdy nie je náhrada slov vo vnútri šablóny — veta sa **prestavia z propozície**
+(kto — čo robí — za akej podmienky — s akým výsledkom):
+
+- `X je to, čo…` (EN cleft „X is what…“) — povedz priamo: „X mení / X vyberá…“
+- `miesto, kde X, je medzi…`
+- `za istou hranicou odpoveď nie je…`
+- `Náprava vo veľkom je…`
+- `A nasaď (tomu/mu) strop.`
+- `Toto poradie sa neobracia.`
+- `X sa stretáva s Y.` (aj „téma X sa prepája s Y“ ako vetná os)
+- `pravidlo, ktoré viaže X späť k Y`
+- `X má tvar, s ktorým si sa už stretol`
+- `zdržanlivosť/opatrnosť platí aj opačne` (aj „rovnaká opatrnosť platí aj v opačnom smere“)
+- `držať sadu malú a pri téme`
+- `minúť cieľ a skryť nástroj`
+
+### §1.5 Sloveso podľa predmetu (verb-by-object — koniec univerzálneho „vydať“)
+
+Univerzálne **„vydať“** (model vydá text / zámer / volanie / výstup) bolo najsilnejším prežívajúcim
+signálom prekladu — jedno EN sloveso *emit/issue* natreté na všetky predmety. **Sloveso sa vyberá podľa
+PREDMETU**, nie podľa anglického originálu; opakované `model vydá…` sa flaguje automaticky:
+
+| Predmet | Slovesá |
+|---|---|
+| text | generovať, vytvoriť, (vrátiť) |
+| štruktúrovaný výstup | vygenerovať, vrátiť |
+| volanie nástroja | vytvoriť, vygenerovať, odoslať |
+| požiadavka | odoslať, vytvoriť |
+| zámer / rozhodnutie | vyjadriť, určiť, zvoliť |
+| výsledok | vrátiť, poskytnúť |
+
+*(Ruší ustanovenie Fázy 2 „«vydať» je ustálený autorský tvar korpusu — ponecháva sa“.)*
 
 ### §2 Sémantické rezervácie (sense cards)
 
@@ -552,9 +625,8 @@ lenže zdrojom je angličtina EN-skeletu:
 **Figúry — výsledok skúšobnej doby (studený prechod ×2, naivný čitateľ dekódoval bez angličtiny).**
 - POTVRDENÉ (dekódované pri prvom kontakte): **chyba ako prompt**; **fan-out / fan-in** v tvare „jeden ťah sa
   rozvetví na N … N výsledkov sa zloží späť“; **stála daň**; **cena kompilácie / kompilačná daň**;
-  **bezpečnostná hranica**; **kruh sa uzatvára**; **súbeh (race condition)** — pod podmienkou, že glos v tele
-  význam **rozvinie** („dve súbežné volania siahnu na to isté a výsledok závisí od náhodného časovania“), nie
-  holé „(race)“.
+  **bezpečnostná hranica**; **kruh sa uzatvára**; ~~**súbeh (race condition)**~~ — *ZRUŠENÉ v3: „súbeh“ je
+  sémanticky nesprávny názov chyby (= concurrency); platí kept-EN „race condition (súbehová chyba)“, §1.0/§1.2.*
 - ODMIETNUTÉ (→ odmietnuté varianty): **„zápisy, ktoré zanechajú stopu“** (naivný čitateľ číta „stopu“ ako
   log/trace, nie nevratnosť) → nahradené **„zápisy s trvalým následkom“**; **„AI-delta“** ako holá menovka
   (nedekódovateľná bez angličtiny; „delta“ nie je slovenské slovo pre „rozdiel“) → v tele píš **„rozdiel,
@@ -563,8 +635,9 @@ lenže zdrojom je angličtina EN-skeletu:
 
 **Kept-EN doplnky.** **rate limit** vstupuje ako kept-EN termín s glosom pri prvom výskyte. **defence-in-depth**
 (§1.1 kept-EN) smie v **opisnej próze** vystupovať aj natívne ako „obrana do hĺbky“, keď nie je pomenovaným
-termínom stránky. Sloveso **„vydať“** (vydá text/zámer/volanie/výstup) je ustálený autorský tvar korpusu pre
-„emit/issue“ — ponecháva sa; ak sa niekedy zjednocuje, náhrada je „urobiť/vygenerovať volanie“.
+termínom stránky. ~~Sloveso **„vydať“** (vydá text/zámer/volanie/výstup) je ustálený autorský tvar korpusu pre
+„emit/issue“ — ponecháva sa.~~ *ZRUŠENÉ v3: univerzálne „vydať“ je prekladový signál — sloveso sa vyberá
+podľa predmetu (§1.5).*
 
 **Anglická veta v tele (systémový prompt) dostáva slovenský preklad v zátvorke.** Literálny reťazec, ktorý
 čitateľ vkladá do promptu, ostáva doslovne po anglicky, ale hneď za ním nasleduje „(v preklade: …)“, aby ho
@@ -582,24 +655,29 @@ Publikačný re-edit oboch stránok (plný redakčný tím + studený prechod ×
   pätičky „Nové pojmy“ (opakujú heslá glosára) a v moste. Bare anglická fráza v tele ako podmet/predmet
   („Tool definition stojí tokeny“) je **gramatická kotva** — prepíš ju na natívnu hlavu („každá definícia
   nástroja zaberá tokeny“). Ad-hoc skloňovanie (`tool callu`, `tool cally`, „úspešná injection“) ostáva ✗ (§1.3).
-- **strict mode / constrained decoding — jeden tvar každý.** Fičúra = kept-EN **strict mode** (glos „(prísny
-  režim)“ raz; nikdy „striktný režim“). Mechanizmus = kept-EN **constrained decoding** (glos „(obmedzené
-  dekódovanie)“ raz; **„obmedzené dekódovanie“ nie je samostatný názov termínu** — v opakovaných výskytoch
-  píš „constrained decoding“). Zamietnuté: „striktné dekódovanie“ (mieša fičúru a mechanizmus), „striktný /
-  neštriktný nástroj“ → **„nástroj v strict mode / bez strict mode“**.
+- ~~**strict mode / constrained decoding — jeden tvar každý,** kept-EN.~~ *ZVRÁTENÉ v3 trojtriednou
+  politikou (§1.0): obidva sú Trieda 2 — slovensky vedené **„prísny režim (strict mode)“** a **„obmedzené
+  dekódovanie (constrained decoding)“**, most raz, ďalej slovensky. Naďalej platí: „striktné dekódovanie“ ✗,
+  „striktný / neštriktný nástroj“ ✗ → „nástroj v prísnom režime / bez prísneho režimu“; `strict: true` a
+  branded **Structured Outputs** ostávajú anglické (Trieda 1).*
 - **router → most „router (smerovač)“ pri prvom výskyte** (Konvencie §1.2 majú prednosť pred riadkom tabuľky
   „router ✗ v tele“; „smerovač“ môže evokovať sieťový hardvér). V cykle ide o **výber nástroja**, nie
   smerovanie (Karta 8).
 - **retry budget → v tele natívne „limit opakovaní (retry budget)“** (most raz), nie kept-EN ako názov v tele.
 - **backoff — glos usadený:** „(postupné predlžovanie intervalu medzi pokusmi)“ (predtým na kontrolu; studený
   prechod ×2 ho potvrdil). Ruší predchádzajúce „(odstup medzi pokusmi; exponenciálny odstup)“.
-- **runtime chyba:** v tele „**chyba počas behu** (runtime chyba)“; „defekt v behu“ aj „chyba behu“ ostávajú ✗
-  (§1.2/§1.3). **„behové prostredie“** (runtime, prostredie) sa **ponecháva** — je to usadený termín korpusu
-  (glosár); studené čítania ho síce vnímajú ako razený (vývojár povie „runtime“), ale zmena je rozhodnutie pre
-  **celý korpus**, nie pre jednu stránku — kandidát na budúcu korpusovú revíziu, nie na lokálny flip.
-- **súbehová chyba ostáva PENDING (nič sa nepromovalo).** Drží sa usadený záložný tvar **„súbeh (race
-  condition)“ s rozvíjajúcim glosom** (§1.2 poznámka, §Fáza 2 Figúry); pri novom výskyte v ďalšej veľkej sekcii
-  sa most osvieži (urobené na stránke deep-dive). Bare „súbeh“ ako názov chyby mimo rámca sa preformuluje.
+- **runtime error:** v tele „**chyba počas behu** (runtime error)“ — glos je čistá angličtina, hybrid
+  „(runtime chyba)“ ✗ (§1.0 čistota glosu; spresňuje staršie znenie tejto odrážky); „defekt v behu“ aj „chyba
+  behu“ ostávajú ✗ (§1.2/§1.3).
+- **„behové prostredie“ — kontroluj REFERENT, nie len termín (v3).** „Behové prostredie (runtime
+  environment)“ je legitímny slovenský termín, ale iba pre **samotné prostredie behu**. To, čo v lekcii
+  volania **prijíma, spúšťa a vracia výsledky**, je zvyčajne hostiteľská aplikácia či koordinačná vrstva —
+  vtedy píš **„orchestrátor“ / „riadiaca vrstva“**, a kde netreba žiadne osobitné podstatné meno, jednoducho
+  **„tvoja aplikácia“ / „tvoj kód“**. Rozhoduje sa **podľa významu v konkrétnej vete**, nie plošne.
+- ~~**súbehová chyba ostáva PENDING** — drží sa záložný tvar „súbeh (race condition)“.~~ *ZRUŠENÉ v3: bare
+  „súbeh“ je sémanticky nesprávny (= concurrency, nie chyba) — žiadny záložný tvar; platí kept-EN primárny
+  **„race condition (súbehová chyba)“** (§1.0/§1.2). Samostatná „súbehová chyba“ ako názov termínu naďalej
+  čaká na kontrolu rodeným Slovákom.*
 
 **Nové kalkové pasce (do §1.4 / Fáza 2 — over kolokáciu, ✗ = kalk → ✓ = slovensky).** Vytiahol ich studený
 prechod ×2:
@@ -612,3 +690,21 @@ prechod ×2:
 - vnášať rozdiel oproti ✗ → **líšiť sa od / rozdiel, ktorý vnáša AI** („vnáša … oproti“ je švíkovité)
 - uniesť výstup (hijack) ✗ → **zneužiť / prevziať výstup** („uniesť“ evokuje únos osoby)
 - zaplatiť (vyššou) latenciou ✗ → **za cenu vyššej latencie** (§1.4 „pay in latency“; potvrdené aj v tele)
+
+### Fáza 3 — v3 rekonštrukčný prechod pilotu „tool use“: rozhodnutia kánonu
+
+Druhá externá recenzia re-editovaného pilotu ukázala, že substitučný prechod (výmena slov) mení kalky na
+**zmäkčené kalky** — anglická kostra vety prežije. Metóda opravy preto už nie je náhrada slov, ale
+**rekonštrukcia vety z propozície** (kto — čo robí — za akej podmienky — s akým výsledkom, prostou
+slovenčinou; presný EN termín sa vracia iba tam, kde slúži identifikácii/API-presnosti). Samotná metóda
+(pravidlo dvoch previnení, kontrola slovesa podľa predmetu, poradie prvého výskytu a čistota glosu, zoznam
+zakázaných šablón ako write-filter) žije v `editorial-team` skille; tento kánon nesie jej slovenský obsah:
+
+- **trojtriedna politika termínov + čistota glosu** → §1.0 (zvracia kept-EN rozhodnutia Fázy 2b pre
+  „prísny režim“, „obmedzené dekódovanie“, „idempotenciu“);
+- **race condition (súbehová chyba)** — kept-EN primárny tvar; v1 záložný tvar „súbeh (race condition)“
+  zrušený ako sémanticky nesprávny → §1.0/§1.2 poznámka, §1.3 blocklist;
+- **sloveso podľa predmetu** → §1.5 (ruší „vydať je ustálený autorský tvar“ z Fázy 2);
+- **zakázané vetné šablóny** → §1.4 (grep-brána: finálny text = nula výskytov);
+- **„behové prostredie“ — referent podľa vety** → Fáza 2b odrážka vyššie (environment vs orchestrátor /
+  riadiaca vrstva vs „tvoja aplikácia“).
