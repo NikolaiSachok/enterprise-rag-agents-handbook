@@ -569,3 +569,46 @@ termínom stránky. Sloveso **„vydať“** (vydá text/zámer/volanie/výstup)
 **Anglická veta v tele (systémový prompt) dostáva slovenský preklad v zátvorke.** Literálny reťazec, ktorý
 čitateľ vkladá do promptu, ostáva doslovne po anglicky, ale hneď za ním nasleduje „(v preklade: …)“, aby ho
 jednojazyčný slovenský čitateľ vedel prečítať.
+
+### Fáza 2b — re-edit pilotu „tool use“ (#64): usadené rozhodnutia
+
+Publikačný re-edit oboch stránok (plný redakčný tím + studený prechod ×2) potvrdil a **usadil** nasledovné.
+Ďalšie vlny to dedia; kde to spresňuje §1.2, má prednosť táto novšia formulácia.
+
+- **Rodina `tool_*` termínov ide v tele NATÍVNE (potvrdenie §1.2).** V próze sa píše **definícia nástroja**,
+  **volanie nástroja**, **výsledok nástroja / výsledok volania**, **výber nástroja** a **paralelné volania
+  nástrojov**; anglický originál je most v zátvorke pri prvom výskyte na stránke (§7). Anglické tvary ostávajú
+  **iba** v kóde a v Mermaid-artefaktoch protokolu (`tool call: …`, `tool_result`, `tool_use_id`), v heslách
+  pätičky „Nové pojmy“ (opakujú heslá glosára) a v moste. Bare anglická fráza v tele ako podmet/predmet
+  („Tool definition stojí tokeny“) je **gramatická kotva** — prepíš ju na natívnu hlavu („každá definícia
+  nástroja zaberá tokeny“). Ad-hoc skloňovanie (`tool callu`, `tool cally`, „úspešná injection“) ostáva ✗ (§1.3).
+- **strict mode / constrained decoding — jeden tvar každý.** Fičúra = kept-EN **strict mode** (glos „(prísny
+  režim)“ raz; nikdy „striktný režim“). Mechanizmus = kept-EN **constrained decoding** (glos „(obmedzené
+  dekódovanie)“ raz; **„obmedzené dekódovanie“ nie je samostatný názov termínu** — v opakovaných výskytoch
+  píš „constrained decoding“). Zamietnuté: „striktné dekódovanie“ (mieša fičúru a mechanizmus), „striktný /
+  neštriktný nástroj“ → **„nástroj v strict mode / bez strict mode“**.
+- **router → most „router (smerovač)“ pri prvom výskyte** (Konvencie §1.2 majú prednosť pred riadkom tabuľky
+  „router ✗ v tele“; „smerovač“ môže evokovať sieťový hardvér). V cykle ide o **výber nástroja**, nie
+  smerovanie (Karta 8).
+- **retry budget → v tele natívne „limit opakovaní (retry budget)“** (most raz), nie kept-EN ako názov v tele.
+- **backoff — glos usadený:** „(postupné predlžovanie intervalu medzi pokusmi)“ (predtým na kontrolu; studený
+  prechod ×2 ho potvrdil). Ruší predchádzajúce „(odstup medzi pokusmi; exponenciálny odstup)“.
+- **runtime chyba:** v tele „**chyba počas behu** (runtime chyba)“; „defekt v behu“ aj „chyba behu“ ostávajú ✗
+  (§1.2/§1.3). **„behové prostredie“** (runtime, prostredie) sa **ponecháva** — je to usadený termín korpusu
+  (glosár); studené čítania ho síce vnímajú ako razený (vývojár povie „runtime“), ale zmena je rozhodnutie pre
+  **celý korpus**, nie pre jednu stránku — kandidát na budúcu korpusovú revíziu, nie na lokálny flip.
+- **súbehová chyba ostáva PENDING (nič sa nepromovalo).** Drží sa usadený záložný tvar **„súbeh (race
+  condition)“ s rozvíjajúcim glosom** (§1.2 poznámka, §Fáza 2 Figúry); pri novom výskyte v ďalšej veľkej sekcii
+  sa most osvieži (urobené na stránke deep-dive). Bare „súbeh“ ako názov chyby mimo rámca sa preformuluje.
+
+**Nové kalkové pasce (do §1.4 / Fáza 2 — over kolokáciu, ✗ = kalk → ✓ = slovensky).** Vytiahol ich studený
+prechod ×2:
+
+- pokrýva prípad „…“ ✗ → **rieši situáciu, v ktorej…** („covers the case of“; „pokryť prípad“ je testovacia väzba)
+- výrazové črty ✗ → **konštrukcie / možnosti schémy** („expressive features“)
+- (črty) sa musia pretvarovať ✗ → **sa musia upraviť / preformulovať** („pretvarovať sa“ = predstierať)
+- zamedziť + akuz./gen. ✗ → **zabrániť + datív** („zamedzí ich“ ✗ → „zabráni im“; rekcia)
+- pokusy rozostri ✗ → **pokusy rozlož v čase** („rozostrieť“ je dvojznačné — rozmazať/roztiahnuť)
+- vnášať rozdiel oproti ✗ → **líšiť sa od / rozdiel, ktorý vnáša AI** („vnáša … oproti“ je švíkovité)
+- uniesť výstup (hijack) ✗ → **zneužiť / prevziať výstup** („uniesť“ evokuje únos osoby)
+- zaplatiť (vyššou) latenciou ✗ → **za cenu vyššej latencie** (§1.4 „pay in latency“; potvrdené aj v tele)
