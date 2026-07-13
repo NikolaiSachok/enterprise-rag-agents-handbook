@@ -94,7 +94,7 @@ And cap it. A **retry budget** — a hard ceiling on attempts, per call and per 
 
 Which points at the real distinction. Retrying earns its keep only when the input to the retry is *different* — a corrected argument, or a transient fault that has since settled. Retry the identical call after a deterministic failure and it fails identically; you have burned budget and money to relearn what you already knew. Recognise the non-progressing case and stop: surface the failure, hand it to a human, or try a different tool. And name it correctly — a loop that won't stop is a failure, a bug in the run, never a "refusal."
 
-That leaves two things not to retry. Do not retry a deterministic failure unchanged; nothing has changed, so the outcome won't either. And do not retry a side-effectful write that might have partially succeeded without an idempotency guarantee behind it — the retry can double-apply what the first attempt already did. Retries are for transient faults and self-corrected arguments; they are not a way to avoid fixing the call. The next section makes that concrete for writes.
+That leaves two things not to retry. Do not retry a deterministic failure unchanged; nothing has changed, so the outcome won't either. And do not retry a side-effectful write that might have partially succeeded without an idempotency guarantee behind it — the retry can double-apply what the first attempt already did. Retries are for transient faults and self-corrected arguments; they are not a way to avoid fixing the call. The idempotency section below makes that concrete for writes.
 
 ## The context cost of dozens of tools
 
