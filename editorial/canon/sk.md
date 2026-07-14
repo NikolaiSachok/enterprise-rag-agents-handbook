@@ -2132,3 +2132,177 @@ glosára **HITL** nesie „(človek v slučke)" — telo lekcie ho **nikdy nepou
 pätička zrkadlí len anglické heslo. Žiadny nový hand-off.
 
 **Stav:** Wave 2 lekcia 4 (Orchestračné frameworky) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu).
+
+### Fáza 16 — vlna 2, lekcia MCP a protokoly agentov: rozhodnutia kánonu
+
+Piata lekcia vlny 2 (Part II), stránky `index` („Štandard, ktorý prepája agentov so svetom“) + prehĺbenie
+„Servery, prenos a dôvera“. Plný redakčný tím (literárny, naivný jednojazyčný čitateľ, technický/fakt,
+korektor, konzistenčný, riadiaci) v synchrónnych paralelných dávkach, adjudikácia (fidelita > štýl; kánon >
+novinka jednej stránky), oprava, čerstvý korektorský prechod a **studený prechod ×2** na KAŽDEJ stránke
+(zdroj skrytý, čítané nahlas, literárny + naivný čitateľ na stránku). Prezentačná lokalita bez ľudskej
+poistky — brány niesli plnú váhu. **Fakty nehýbané** — faktová brána proti EN-skeletu (C1–C21, D1–D42, T/TD)
+čistá na oboch stránkach: MCP koncom 2024 / dar dec. 2025 Agentic AI Foundation pod Linux Foundation; revízie
+2025-03-26 (streamable HTTP nahradil HTTP+SSE, autorizačný rámec na báze OAuth 2.1) / 8. sept. 2025 (náhľad
+registra) / 25. nov. 2025 (elicitation URL-režim, sampling `tools`/`toolChoice`, stderr, OpenID Connect /
+`WWW-Authenticate` / OAuth Client-ID Metadata Documents / RFC 9728, experimentálne `tasks`); SDK Tier 1
+TS/Python/C#/Go, Tier 2 Java/Rust, pod nimi Swift/Ruby/PHP/Kotlin (k nov. 2025); A2A ohlásený 9. apr. 2025,
+dar Linux Foundation 23. jún 2025, v1.0, TSC AWS/Cisco/Google/IBM/Microsoft/Salesforce/SAP/ServiceNow;
+register podopretý Anthropic/GitHub/PulseMCP/Microsoft; trieda CVE 2025 na podvrhnutých metadátach OAuth;
+momentka k júlu 2026. Dvestoendpointový Swagger, JSON-RPC 2.0, tri primitíva/tri roly/dve osi — všetko
+sedí, žiadny atóm pridaný ani vypustený.
+
+**Nové Trieda-2 / SK-vedené termíny (most raz „(anglický originál)“ na stránku, ďalej slovensky):**
+- **hostiteľ (host)** — MCP host rola (tretia rola nad rámec klient/server z prvej časti); „MCP“ kept-EN,
+  hlava natívna; glos raz (prehĺbenie L15).
+- **relácia (session)** — stavová = „stavová relácia“. Most na index (L57) aj prehĺbenie (L19 doplnené v tejto fáze).
+- **prenos (transport)** — natívna hlava, most raz (index L38; prehĺbenie L73 doplnené).
+- **zdroje (resources)**, **prompty (prompts)** — MCP primitíva („prompt“ v kept-EN rodine §1.1).
+- **register (MCP registry)** — SK-vedená hlava „register“ (čistá SK = katalóg); „register MCP (MCP registry)“
+  raz, ďalej „register“. **§2 bez kolízie — „register“ tu = katalóg, nie CPU/audit register.**
+- **objavovanie serverov (server discovery)** — **Karta 3 rozšírená** (nižšie). OAuth „discovery“ tiež
+  „objavovanie“.
+- **vyjednanie schopností (capability negotiation)** — lemma glosára EN, akt natívny (prehĺbenie L23).
+- **inicializačné podanie rúk (initialize handshake)** — handshake = „podanie rúk“ (prehĺbenie L19).
+- **vynesenie dát (data exfiltration)** (Fáza 9 glos), **prekročenie oprávnení (permission over-reach)**,
+  **plocha útoku (new attack surface)**, **metaregister**, **preverený / preverenie (vetting)**,
+  **pripnúť / zafixovať verziu (pinning)** — natívne.
+
+**Kept-EN glosy potvrdené a použité (§1.1, latinkou, slovenský glos raz pri prvom výskyte):**
+- **sampling (MCP)** → „(server si požičia model klienta na generovanie)“; **elicitation** → „(server si cez
+  klienta vyžiada údaj od človeka)“; **roots** → „(hranice, v ktorých server smie pracovať)“; **sandbox** →
+  „(izolované prostredie s obmedzenými právami)“, sloveso „izolovať v sandboxe“; **tasks** (MCP experimentálne)
+  → „(trvácne, dopytovateľné požiadavky)“ — **odlíšené od A2A „Tasks“**. tool poisoning / rug pull /
+  confused deputy / prompt injection / spotlighting / instruction hierarchy — Fáza 9 glosy dodržané.
+- **elicitation na index — doplnený glos v teaseri „Ďalej“.** Studený naivný čitateľ ho v zozname deep-dive
+  tém (index L92) NEDEKÓDOVAL (jediný výskyt na index bol holý); doplnené „elicitation (vyžiadanie vstupu od
+  používateľa)“ — §1.0 most pri prvom výskyte na stránke (zrkadlí deadlock-glos doplnok, Fáza 14).
+
+**Smer termínu — dve rozhodnutia (§1.0, kolísanie smeru = defekt):**
+- **primitíva — glos LEN funkčný „(základné stavebné bloky)“ (Fáza 15 drží; skeletonov dvojglos zrušený).**
+  Skelet navrhoval „primitíva (primitives)“ + funkčný glos; index tak aj razil („primitíva (primitives), teda
+  základné stavebné bloky“) — dvojglos. Kánon Fázy 15 (L2059) fixuje **iba** „(základné stavebné bloky)“
+  (falošný priateľ *primitív* = hrubý človek). Index zladený s prehĺbením: **„primitíva (základné stavebné
+  bloky)“** na oboch stránkach; „(primitives)“ vypustené. Kánon > novinka jednej stránky.
+- **A2A gloss — vedomé ZRKADLENIE EN, nie zjednotené (flag, nie tichý prepis).** index (aj pätička/lemma
+  glosára) razí „A2A (Agent-to-Agent)“, prehĺbenie „A2A (Agent2Agent)“. Toto **zrkadlí anglický zdroj**
+  (docs/index „Agent-to-Agent“, docs/deep-dive „Agent2Agent“ = oficiálny produktový názov Google) a pätička
+  je **byte-fixná** na „Agent-to-Agent“ (lemma glosára). Literárny + korektor to flagli ako medzistránkovú
+  nezhodu; adjudikované **ponechať** (fidelita k EN + fixná pätička). Zaznamenané ako vedomá výnimka, nie defekt.
+
+**Karty (potvrdené na tejto lekcii).**
+- **Karta 1:** jediný výskyt „zlyhanie“ = „katalóg spôsobov zlyhania“ (prehĺbenie L101, *failure modes* =
+  názov kategórie, povolené). Bezpečnostné udalosti = „útok“ / „prienik“ / „nepriama prompt injection“ /
+  „úspešný útok server ľahko zapojí“ — **nikdy „zlyhanie“** pre jednotlivý incident/úspešný útok. Grep oboch
+  stránok: ZERO mis-use.
+- **Karta 2:** žiadny sudca/bid nevydá holé číslo — „skóre“ ani „hodnotenie“ (číslo) sa nevyskytuje; správne,
+  nie medzera. Krížový odkaz „ako sa tím **hodnotí**“ (prehĺbenie L11) = akt hodnotenia tímu (Karta 2 disciplína),
+  **nahradil** pôvodné vivid „oznámkuje“ (Fáza 14 term) — studený prechod ×2 ho v tomto stručnom krížovom
+  odkaze NEDEKÓDOVAL (bez evaluačného rámca multiagentovej lekcie). Karta 2 povoľuje koexistenciu
+  „hodnotenie“/„známkovanie“; tu jasnosť > vivid.
+- **Karta 3 — ROZŠÍRENÁ o discovery.** „server discovery“ = **„objavovanie serverov“**, „objavovanie v malom /
+  vo veľkom“, OAuth „objavovanie metadát“; **NIE „vyhľadávanie“** (rezervované pre retrieval). Jediné
+  „vyhľadávanie“ (index L75) = agentic-RAG retrieval recap — správne rezervované.
+- **Karta 9:** „strop“ = 0× na oboch stránkach; žiadny rozpočtový strop na téme. „plocha útoku / plocha súhlasu“
+  nie sú „strop“.
+
+**Verb-by-object (§1.5):** žiadne univerzálne „vydať“ (grep 0). Server **vráti** výsledok nástroja / **pošle**
+notifikáciu / **ohlási/deklaruje** schopnosti; model **generuje/vytvorí** text; klient **zavolá/vyvolá**
+nástroj; schopnosť si **vyžiada/požičia** generovanie. „vydavateľ“ / „vydaním GA“ / „FIPA vydala“ mimo zákazu.
+Aktér-oprava: „injection vchádza kanálom“ → „**tento útok** vchádza kanálom“ (holý sklonený EN podmet, §1.3
+blocklist); „(schopnosť) obracia spojenie“ potvrdené.
+
+**Figúry — studený prechod ×2 (naivný čitateľ na oboch stránkach).**
+- **„plocha súhlasu“ (consent surface) — PROBATION (potvrdené oboma naivnými čitateľmi, Batch 1 aj studený).**
+  Holé dve slová nedekódujú cold (plocha = plochý fyzický útvar; súhlas = akt). Nesú ju DVE opory: (1) rým s
+  **„plocha útoku“** (na tej istej stránke, L9/L101) a (2) definícia hneď vedľa (L69). **Náprava zo studeného
+  prechodu:** glos „bod“ → **„miesto“** (L69) — „plocha … bod“ bol sebaprotirečivý (plocha definovaná ako bod);
+  „miesto“ rieši rozpor aj lepšie zrkadlí EN „a place“. Slabina, ktorá drží probáciu: v takeaway (L152) sa
+  vracia holá („Obe sú plochy súhlasu“) bez definície — jump-in čitateľ obraz nedostane. Ponechané pre rým
+  s „plocha útoku“; skúšobná doba trvá.
+- **„výmena“ (the trade M×N→N+M) — usadená figúra korpusu, drží; kolokácia opravená.** Recap prehĺbenia
+  „výmena, ktorú MCP zhŕňa obrazom USB-C portu“ + index. Studený prechod flagol nejasný referent „tá výmena“;
+  index-kolokácia „protokol, ktorý ju **uzaviera**“ → „ktorý ju **umožňuje**“ (uzavrieť sa viaže na dohodu/obchod,
+  nie výmenu) + „tá“ → „táto“ (pevnejšia deixa). Figúra ostáva (deep-dive ju nesie); reziduál — sledovať.
+- **„USB-C port pre AI aplikácie“** — vlastný obraz štandardu, ponechaný verbatim (≤1 metafora/odsek). „Vlastný
+  obraz štandardu to hovorí“ (personifikácia obrazu) → „**Najstručnejšie to vystihuje obraz, ktorý si volí sám
+  štandard**“ (index L14).
+- **POTVRDENÉ → usadené (dekódovali cold):** „obal / obaliť“ (wrapper), „mantinely (guardrails)“, „zásuvka“,
+  „otrávený opis nástroja“, „zmätený zástupca“, „vizitka agenta“ (Agent Card), „metaregister“, „Klient postaví
+  plot, server pracuje vnútri neho — hranica je deklarovaná, nie vyprosená“, „Kým sampling si požičiava model,
+  elicitation si požičiava pozornosť používateľa“, „Pohodlie a vystavenie sú tá istá vec z dvoch strán“,
+  „najbezpečnejší server je ten, ktorý si nikdy nepripojil“, „objavovanie v malom / vo veľkom“.
+- **„vlastní os“ (stránka/protokol vlastní os)** — NIE kalk, usadený korpusový obrat (Fáza 14/15). Ponechané.
+- **Ponechané s výhradou (dev-register, kept):** „fičúra“ (nie feature; ustálený neformálny SK IT-register,
+  zrkadlí hlas „ty“), „lepiaci kód“ (glue — ústredná figúra knihy), „réžia“ (overhead, §1.2), „viacnájomný“
+  (multi-tenant, priehľadný novotvar), „posvätená šablóna“ (zrkadlí EN „blessed“).
+
+**Nové kalkové pasce a slabé kolokácie (žatva MCP — studený prechod ×2 — do grep-zoznamov §1.3/§1.4):**
+- „rastie zle“ ✗ (scales badly) → **„rastie neúnosne“** (nie „škáluje sa zle“ — anglicizmus)
+- „obaliť raz za server“ ✗ (wrap behind a server; rekcia) → **„obaliť raz do servera / ako server“**
+- „obraz to hovorí“ ✗ (the image says it; personifikácia) → **„obraz vystihuje / obraz, ktorý si volí štandard“**
+- „uzavrieť výmenu“ ✗ (uzavrieť sa viaže na dohodu/obchod) → **„umožniť výmenu“**
+- „spotrebúvať (API / to, čo server ponúka)“ ✗ (consume — jedlo/palivo) → **„využívať“**
+- „naozaj zastať“ ✗ (dvojznačné: stop vs stand-in-for) → **„naozaj sa zastaviť“**
+- „odbor“ (the field/discipline) ✗ (číta sa ako oddelenie/odbory) → **„(táto) oblasť“** (zladené s „oblasť sa
+  mení/formuje“ na oboch stránkach; „odbor“ = 0)
+- „ťažisko venovať (čomu)“ ✗ (devote the centre of gravity) → **„ťažisko klásť na (čo) / sústrediť sa na“**
+- „držať pôdu vedľa“ ✗ (hold the ground next door; idiómový kalk) → **„pokrývať územie hneď vedľa“**
+- „oznámkovať sa“ (ako sa tím oznámkuje) ✗ v stručnom krížovom odkaze bez evaluačného rámca → **„ako sa tím
+  hodnotí“** (Karta 2)
+- „prevádzkový uhol“ ✗ (operations angle; „uhol“ = geometrický) → **„prevádzkové hľadisko“**
+- „Pracovný detail (pridáva…)“ ✗ (the working detail; abstraktný podmet-kalk) → **„V praxi (však) pribúda…“**
+- „napevno naviazaný na pevný zoznam“ ✗ (počuteľná redundancia napevno+pevný) → **„naviazaný na pevný zoznam“**
+- „rozsahovať / rozsahuj tokeny“ ✗ (novotvorené sloveso zo „scope“) → **„vymedzovať rozsah / úzko vymedzuj
+  rozsah tokenov“**
+- „si nemá čo požičať“ ✗ (zvratné „si“ mätie podmet) → **„sa nedá požičať“**
+- „detaily sa budú priťahovať“ ✗ (keep tightening; „priťahovať“ = magnet) → **„sa budú spresňovať“**
+- „SDK obslúži drôt“ ✗ (the wire; „drôt“ = kovový drôt) → **„SDK obslúži prenos“** (zladené s telom)
+- „obaja (server a klient) hovoria“ ✗ (životné maskulínum pre neživotné) → **„oba hovoria“** (animácia je
+  lexikálna, personifikačné sloveso ju nemení)
+- „priveľa oprávnený“ ✗ (priveľa kvantifikuje meno/sloveso, nie prídavné meno) → **„má priveľa oprávnení“**
+- „Prekročenie = server, ktorý…“ ✗ (rovnítko v próze) → **„Prekročenie znamená server, ktorý…“**
+- „Prečo (X) obrátenie záleží“ ✗ (rekcia: záležať žiada **na**) → **„Prečo na obrátení záleží“**; „Najviac
+  záleží pri…“ → „**Najviac na ňom záleží** pri…“ (zrkadlí Fázu 15 rekciu *záležať na*)
+
+**§8 polotučné + em-dash + straight-quote.** Polotučné bez inflácie: index 1,25 párov/100 slov (7 jump-in),
+prehĺbenie 1,05/100 slov (1 jump-in) — na/pod mediánom sesterského pásma (0,87–2,07), žiadne celovetné
+zvýraznenie. **Em-dash metronóm po oprave:** index **1,98/100 slov** (38 pomlčiek), prehĺbenie **1,96/100 slov**
+(67) — obe v sesterskom pásme (~2,0–2,5), prehĺbenie mierne stíšené. Zákaz „— ,“ = **0** na oboch. **Straight-quote
+checkpoint:** prozaických rovných `"` (U+0022) mimo markupu = **0** (párovanie „…“ 8/8 index, 12/12 prehĺbenie);
+ASCII `"` len vo frontmatteri, YouTube `title`, Mermaid `["…"]`. **ř / ě / ů = 0** na oboch stránkach.
+
+**Mermaid — náprava (per-page konzistencia).** Prvý diagram prehĺbenia mal anglické „tools/resources/prompts“
+(SL/SR node labely), kým druhý diagram razil SK „zdroje / výsledky nástrojov / opisy nástrojov“ — studený
+naivný čitateľ nezladenie flagol. Labely SL/SR preložené na **„nástroje/zdroje/prompty“** (node IDs nedotknuté).
+Oba diagramy teraz SK-konzistentné s telom.
+
+**Odkazy + retrofit.** Všetky odkaze prešli i18n-link-check konvenciou bez opravy: SK súrodenci s `.md`
+(tool-use, multi-agent, orchestration-frameworks — index aj prehĺbenia; agentic-rag, planning-loops, guardrails;
+glosár; `./index.md` / `./deep-dive.md`); nepreložené holou zložkovou cestou bez `.md`: **`../real-agents/`**,
+**`../../part-3-production/tooling-ecosystem/`** (EN používal `../real-agents.md` a `.../tooling-ecosystem/index.md`
+— SK vedome diverguje na holú zložku, keďže ciele ešte nie sú preložené). Externé absolútne EN: modelcontextprotocol.io,
+a2a-protocol.org, registry.modelcontextprotocol.io, modelcontextprotocol.io/docs/sdk. **Pätičky „Nové pojmy“
+byte-exaktné** (index: MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N
+integration problem, A2A (Agent-to-Agent); prehĺbenie: MCP host, capability negotiation, roots, sampling,
+elicitation, streamable HTTP, MCP registry, server discovery, tool poisoning, rug pull, confused deputy).
+**Index-note text „Servery, prenos a dôvera“ == prehĺbenie `sidebar_label` byte-for-byte.** Žiadny nový retrofit
+susedných stránok (mcp bol dosiaľ cieľom holých EN-fallback ciest zo sesterských lekcií; keď sa spustí SK build,
+retrofit `../mcp/` → `../mcp/index.md` v tool-use/multi-agent/orchestration-frameworks patrí do ich milestone-passu).
+
+**Backlog — stav a hand-off.**
+- **Do §1.1/§1.2 pri najbližšej úprave kánonu:** zaznamenať per-page glosy sampling/elicitation/roots/sandbox/tasks;
+  Trieda-2 hlavy hostiteľ/relácia/prenos/register/objavovanie serverov/vyjednanie schopností/inicializačné
+  podanie rúk sú SK-vedené (most raz na stránku).
+- **Sesterský retrofit `../mcp/` → `../mcp/index.md`** v tool-use/multi-agent/orchestration-frameworks — čaká na
+  spustenie SK buildu (Fáza 11 konvencia), mimo tejto lekcie.
+- **Otvorený glossary-flip backlog z Fázy 11** (HITL „(človek v slučke)“ vs telové „schválenie človekom“;
+  kosínus; viacjazyčné embeddingy) — nezmenený, samostatná neskoršia vlna.
+- **Hand-off pre záverečnú lekciu „real-agents“ (capstone):** MCP je pojmový základ, o ktorý sa capstone opiera —
+  (1) tri roly hostiteľ/klient/server + väzba 1:1, (2) tri primitíva „nástroje/zdroje/prompty“ (glos „(základné
+  stavebné bloky)“), (3) dve osi „os agent↔nástroj“ (MCP) / „os agent↔agent“ (A2A) so symbolom ↔, (4) bezpečnostný
+  slovník po mene (nepriama prompt injection, tool poisoning, vynesenie dát, prekročenie oprávnení / confused
+  deputy, rug pull; obrany: princíp najnižších oprávnení, preverené a pripnuté servery, schválenie človekom,
+  spotlighting, sandbox; „plocha súhlasu“ ako spojka na bezpečnosť — PROBATION, capstone ju nech nesie so
+  scaffoldom, nie holú). Capstone „MCP naživo na Claude/OpenAI/Gemini“ zdedí kept-EN termíny a Karta-3 „objavovanie“.
+
+**Stav:** Wave 2 lekcia 5 (MCP a protokoly agentov) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu).
