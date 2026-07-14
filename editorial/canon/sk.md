@@ -54,7 +54,7 @@ redaktor pri každej stránke.
 
 ### Hlas a register
 
-- Lekcie sú v **neformálnom jednotnom čísle „ty“**: „drž v hlave“, „keď nasadíš“, „dostaneš“, „zaembeduješ —
+- Lekcie sú v **neformálnom jednotnom čísle „ty“**: „drž v hlave“, „keď nasadíš“, „dostaneš“, „zaembedduješ —
   dostaneš“. Nikdy „vy“. Zrkadlí to ruské «ты» a slovenský register vývojárskych tutoriálov (pozri `intro.md`).
 - Autorské **„my“** iba dávkovane a iba pre rámec spoločnej cesty („postupne uvoľňujeme modelu ruky“, „už
   neraz sme narazili“) a pre výhrady o rozsahu materiálu; **nikdy v pokynoch čitateľovi**.
@@ -993,3 +993,95 @@ poznámka na stránku sa nepíše (precedens pilot + Ingestion).
 
 **Backlog glosára (nie defekt stránok):** heslá pre vektorovú databázu a adaptive retrieval (na stránke
 je tučná kotva bez hesla — doplniť heslo, alebo kotvu odtučniť vo vlne flipov).
+
+### Fáza 6 — vlna 1, lekcia Retrieval: rozhodnutia kánonu
+
+Druhá lekcia vlny 1 (Retrieval index + prehĺbenie „Fúzia, radenie a metriky“), plný redakčný tím + studený
+prechod ×2. Zapisuje sa, aby ďalšie lekcie vlny (Generation a ďalej) dedili už rozhodnuté.
+
+**Vyriešených 5 konfliktov, ktoré Ingestion flagol (Fáza 5, „Konflikty s usadenými riadkami“) — rozhodnuté,
+odôvodnené, aplikované na celý korpus vrátane už publikovaných stránok:**
+
+1. **Slovesná rodina „(za)embeddovať“ — dvojité d, celý korpus.** Korpus 14× dvojité d (obe lekcie, glosár)
+   proti jedinému „zaembeduješ“ v príklade hlasu tohto kánonu; dôkazy jasne favorizujú **dd** (odvodené od
+   „embedding“). Príklad hlasu v §Hlas a register opravený na **„zaembedduješ“**. Kanonické tvary:
+   **zaembedduj / zaembedduješ / zaembeddovať / zaembeddovaný**.
+2. **contrastive learning / hard negatives — kept-EN (Trieda 3), EN vedie, slovenský glos raz.** Lekcia
+   Ingestion (prehĺbenie) už tak píše: „contrastive learning (kontrastné učenie)“, „hard negatives (tvrdé
+   negatívy)“ — zosúladené so §1.1. Glosár (heslo „Embedding fine-tuning“) viedol slovensky
+   („kontrastným učením… tvrdými negatívmi“); **zosúladený na EN-vedený tvar** („pomocou contrastive
+   learning (kontrastné učenie)… s hard negatives (tvrdými negatívmi)“). Jedno rozhodnutie, celý korpus.
+3. **fine-tuning glos — dva tvary sú ZÁMERNE odlíšené podľa predmetu, nie konflikt.** Všeobecný
+   termín-podstatné meno = **fine-tuning (doladenie modelu)** (§1.1, Fáza 5); **embedding-špecifický** =
+   heslo glosára **„Embedding fine-tuning (doladenie embeddingov)“** — predmetom doladenia je embeddingový
+   model, preto „embeddingov“. Rozdiel je vecný (predmet doladenia), zapisuje sa sem; žiadna oprava textu.
+4. **least privilege — „princíp najnižších oprávnení“, celý korpus.** Fáza 4 už rozhodla „najnižších“
+   (webom overené: sk.wikipedia „princíp najnižšieho privilégia“, smernice NBÚ/SAAVS; „najmenších“ slabo
+   doložené). Glosár mal na dvoch miestach „najmenších“ — **zosúladený na „najnižších“** (heslo „Least
+   privilege / tool allow-listing“ + definícia hesla „Roots“).
+5. **Inštrumentál plurálu chunku — „chunkami“ ostáva, celý korpus.** Pravidelná paradigma mužských
+   neživotných dáva „-mi“ („vlakmi“ → teoreticky „chunkmi“), no pri prevzatom slove so spoluhláskovým
+   zhlukom volí slovenčina eufonické **„-ami“**; korpus je 14× konzistentný na „chunkami“ (glosár + obe
+   lekcie). Riskantný flip na „chunkmi“ pri neistej morfológii sa **zamieta**; „chunkami“ potvrdené ako
+   kanonický tvar (paradigmatická poznámka „-mi“ ponechaná pre úplnosť, tvar sa nemení).
+
+**Smer termínu podľa glosára (spresňuje §1.0 pre vrstvu Retrieval).** Retrievalové technické termíny, ktoré
+glosár VEDIE ANGLICKY, sú kept-EN mená (§1.1): v tele sa zavedú raz s **slovenským glosom v zátvorke** pri
+prvom výskyte a ďalej sa na ne odkazuje buď holým EN menom, alebo čisto opisnou slovenskou frázou — **nikdy
+súperiacim slovenským termín-menom** (inak kolísanie smeru, §1.0). Sem patria: **dense retrieval (husté
+vyhľadávanie), query transformation (transformácia dopytu), multi-query (viac dopytov), hybrid search
+(hybridné vyhľadávanie), BM25 / sparse retrieval (riedke lexikálne vyhľadávanie), reranking (preusporiadanie),
+two-stage retrieval (dvojfázové vyhľadávanie), score fusion / score normalisation (fúzia skóre / normalizácia
+skóre), LLM reranker, late interaction / ColBERT (neskorá interakcia), multi-vector retrieval (multivektorová
+reprezentácia), contextual retrieval (kontextové vyhľadávanie), pre-filter / post-filter (filter pred /
+po vyhľadávaní).** Slovensky VEDENÉ (slovenský tvar + EN originál v zátvorke, zrkadlí glosár): **smerovanie
+dopytov (query routing), filtrovanie podľa metadát (metadata filtering), riadenie prístupu (access control,
+ACL).** Holé mená bez glosu: **HyDE, BM25, RRF, ColBERT, MaxSim, nDCG, MRR, top-K, Recall@K, Precision@K.**
+
+**Nové rozhodnutia a rendery (Retrieval):**
+
+- **„vyhľadávať v korpuse“, NIE „prehľadať korpus“ (rozširuje Kartu 3 na sloveso).** Prehľadanie celého
+  korpusu JE retrieval → sloveso „vyhľadávať (v korpuse)“; „prehľadať / prehľadávať“ ostáva vyhradené pre
+  algoritmický prechod stromom/grafom (ToT/GoT). Flagované studeným prechodom.
+- **„encoder“ samostatne → slovenské „enkodér“**; zložené mená **bi-encoder / cross-encoder** ostávajú EN
+  (§1.1). Kept-EN modifikátor + slovenská hlava: **„dense enkodér“, „contrastive enkodér“** (dense/contrastive
+  sú §1.1 kept-EN).
+- **úplnosť (recall) / presnosť (precision)** — dvojica zdedená z Ingestion, drží sa; v prehĺbení sa
+  neosviežuje mostom (rekapitulácia, Fáza 5), plný most žije na index-stránke.
+- **dot product → „skalárny súčin (dot product)“** (potvrdenie riadku Fázy 5).
+- **Metriky:** vzorce v inline kóde / textovom fence (nepreklad): `1 / rank`, `DCG = Σ rel_i / log2(i + 1)`,
+  RRF `score(d) = Σ_i 1 / (k + rank_i(d))`. **IDCG, MRR, nDCG, Recall@K, Precision@K** — pevné písanie (§3).
+  „mean reciprocal rank“, „normalized discounted cumulative gain“ sa raz rozpíšu v zátvorke pri skratke.
+- **„known-item“ / navigačný dopyt** — „vyhľadanie konkrétnej známej položky (known-item)“; kept-EN v moste.
+- **Verb-by-object (§1.5) potvrdený:** „model **vráti** deterministické skóre“ (nie „vydá skóre“ — skóre je
+  výsledok/číslo).
+- **Anglická pomlčka (em-dash) — vedomé stíšenie metronómu.** Studené čítania celého korpusu označili
+  „klauza — spresnenie“ za najsilnejší prežívajúci signál; konštrukcia **„— , “ (pomlčka tesne pred čiarkou)
+  je zakázaná** (prekladový tvar) → prepíš na zátvorku, dvojbodku alebo samostatnú vetu. Rozpočet: vsuvkové
+  páry pomlčiek drž riedko, striedaj rytmus (zátvorka / dvojbodka / „a/no/lenže“).
+
+**Figúry — skúšobná doba (potvrdí najbližší studený prechod / milestone-prechod):**
+- **„vrchol lievika“** (top of the funnel — smerovanie a filtre ako vrchol) — na skúšobnej dobe.
+- **„rovnaká choroba, dve miesta zásahu“** (same disease, two treatment points — parent-document vs
+  contextual retrieval) — obraz „choroba/liek“; ≤1×/odsek dodržané; na skúšobnej dobe.
+- **„odhalucinovať (ťa mimo cieľa)“** (HyDE hallucinates off-target) — priehľadná odvodenina od „halucinácia“;
+  na skúšobnej dobe.
+- **„stratové úzke hrdlo“** (lossy bottleneck) — „úzke hrdlo“ je usadené (Ingestion); prívlastok „stratové“
+  na skúšobnej dobe.
+
+**Contextual-retrieval čísla dodané (sľub Ingestion splnený).** Prehĺbenie Retrieval nesie čísla, na ktoré
+Ingestion odkazovala: zlyhanie vyhľadávania pri top-20 oproti východiskovým 5,7 % → kontextové embeddingy
+−35 % (5,7 % → 3,7 %), + kontextové BM25 −49 % (→ 2,9 %), + reranking −67 % (→ 1,9 %); náklad ~1,02 USD za
+milión tokenov dokumentu. Desatinná čiarka + nedeliteľná medzera pred „%“ (zrkadlí Ingestion).
+
+**Pre lekciu Generation (odovzdanie):**
+- Zdedený rámec zlyhaní: **zlyhanie generovania** je názov kategórie (Karta 1); jednotlivá zlá odpoveď je
+  „chyba“, nie „zlyhanie“. **faithfulness, grounding** sú §1.1 kept-EN (grounding glos „(opretie odpovede
+  o kontext)“). **skóre vs hodnotenie** (Karta 2) bude v Generation biť často (self-check, sudca) — číslo je
+  vždy **skóre**.
+- Smer termínu podľa glosára platí aj pre Generation: over heslo v glosári a drž jeho smer (EN-vedené vs
+  slovensky vedené) — nekolíš v rámci stránky.
+- Em-dash metronóm a zákaz „— ,“ platia ďalej; striedaj rytmus vedome.
+- Odkazy: SK existuje pre Ingestion a Retrieval (index aj prehĺbenie) → mieri na SK cez „../retrieval/“,
+  „../ingestion/“; na zatiaľ nepreloženú Generation/Evaluation mieri holou cestou (EN-fallback route), glosár
+  „../../glossary.md“.
