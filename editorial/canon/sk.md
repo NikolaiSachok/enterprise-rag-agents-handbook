@@ -1267,3 +1267,170 @@ aspekty holou slug-cestou **„../guardrails/“, „../observability/“**; v r
 - Guardrails je tiež **vnorená** pod cross-cutting → +1 hĺbka odkazov ako pri Evaluation. SK existuje pre
   Ingestion/Retrieval/Generation/**Evaluation** → mieri naň cez „../../{ingestion,retrieval,generation}/“ a
   „../evaluation/“; na nepreloženú Observability holou „../observability/“, glosár „../../../glossary.md“.
+
+### Fáza 9 — vlna 1, lekcia Guardrails: rozhodnutia kánonu
+
+Piata lekcia vlny 1 (Guardrails index + prehĺbenie „Obrana proti injection a red-teaming"), plný redakčný
+tím + studený prechod ×2. Druhá **vnorená** lekcia (pod prierezovou kategóriou), odkazy +1 hĺbka ako pri
+Evaluation. Zapisuje sa, aby posledná lekcia vlny (Observability) dedila už rozhodnuté.
+
+**Bezpečnostné termíny — smer a glosy (potvrdenie §1.1 kept-EN; smer jednotný celý korpus, §1.0).** kept-EN,
+EN-vedené, slovenský glos raz pri prvom výskyte NA STRÁNKE (obe stránky glosujú samostatne, §7):
+
+- **prompt injection** „(útok, ktorý modelu podstrčí cudzie inštrukcie)"
+- **jailbreak** „(obídenie vlastných bezpečnostných pravidiel modelu)"
+- **spotlighting** „(označkovanie nedôveryhodného textu)" — pomenúva RODINU troch techník
+- **delimiting** „(ohraničenie značkami)", **datamarking** „(značka v každej medzere)", **encoding**
+  „(zakódovanie)" — techniky spotlightingu, každá glosovaná raz
+- **instruction hierarchy** „(hierarchia inštrukcií podľa oprávnení)"
+- **PII** „(osobné údaje)" — kód. akronym; **SMER kept-EN-vedený celý korpus** („PII (osobné údaje)"),
+  NIE „osobné údaje (PII)". Flip na prehĺbení opravený (§1.0 — kolísanie smeru v rámci stránky/korpusu je defekt).
+- **red-teaming** „(útočné testovanie)" — presný glos podľa odovzdania Fázy 8
+- **defence-in-depth** „(viacvrstvová ochrana)" — kept-EN termín; v opisnej próze smie „obrana do hĺbky" (§1.2 riadok)
+- **attack success rate (ASR)** „(miera úspešnosti útokov)"; ASR holé po zavedení. **ASR je skóre/miera
+  (Karta 2)** — „číslo, ktoré ti meranie vráti" (verb-by-object §1.5: meranie/model VRÁTI skóre).
+- **data exfiltration** „(vynesenie dát)"
+- **tool poisoning** „(otrávený opis nástroja)", **confused deputy** „(zmätený zástupca)", **rug pull**
+  „(podvrhnutie po schválení)" — agent-side (§1.1); menované iba v odkaze na prehĺbenie o MCP, glosy ľahké.
+- **guardrails** „(bezpečnostné mantinely)" — glos NA KAŽDEJ STRÁNKE pri prvom výskyte (prehĺbenie ho
+  pôvodne vynechalo — doplnené; §7 viaže telo každej stránky, nie len index).
+- **golden set** „(etalónová sada)" — kept-EN (Fáza 8), glos raz aj pri krížovom odkaze z inej lekcie.
+
+**Trieda 2 (slovensky vedené, EN originál raz v zátvorke) — potvrdené / doplnené §1.2:**
+
+- **princíp najnižších oprávnení (least privilege)** — potvrdenie Fázy 4/6 („najnižších", nie „najmenších").
+  Studený čitateľ navrhol „najmenšie oprávnenia" — **zamietnuté**, rozhodnuté web-dokladmi vo Fáze 4
+  (sk.wikipedia, NBÚ/SAAVS). Konflikt s usadeným riadkom → neprepisuje sa.
+- **kontrola vstupu (input scanning/validation) / validácia výstupu (output validation)** — slovensky
+  vedené; „validácia" prijaté.
+- **bezpečnosť obsahu (content safety)** — slovensky vedené, EN raz v zátvorke; „moderovanie obsahu" v próze.
+- **vzorové rozpoznávače (pattern recognizers) / modelové (NER) rozpoznávače** — slovensky vedené hlavy;
+  „rozpoznávanie pomenovaných entít (NER)" rozvedené v próze.
+- **de-identifikácia (de-identification)** — prirodzene naturalizované latinské slovo, slovenský pravopis
+  (ako „evaluácia"); „Presidio je SDK na rozpoznávanie a de-identifikáciu".
+- **vratné verzus nevratné (reversible vs irreversible)** — slovensky vedená os maskovania.
+- **jednokolové / viackolové útoky (single-turn / multi-turn)** — slovensky vedené.
+- **pseudonymizácia / anonymizácia (pseudonymization vs anonymization)** — prirodzene naturalizované,
+  slovenský pravopis, slovensky vedené; most = **čistá angličtina** „(pseudonymization vs anonymization)",
+  NIE opakovanie slovenských slov v zátvorke (§1.0 čistota glosu; oprava studeného prechodu). Pätička drží EN heslo.
+
+**Presidio komponenty a operátory (Trieda 1, kept-EN):** **Analyzer / Anonymizer** (branded komponenty,
+veľké začiatočné). Operátory **redact, replace, mask, hash, encrypt** — kept-EN identifikátory, ľahký opisný
+glos v próze. Entity typy **PERSON, PHONE_NUMBER, EMAIL_ADDRESS** — kódové identifikátory, neprekladajú sa.
+
+**Ďalšie rendery a glosy:**
+
+- **allowlisty** — kept-EN, glos „(zoznamy povoleného)" raz pri prvom výskyte na prehĺbení; index má opisné
+  „obmedz, ktoré nástroje a akcie smie použiť (tool allow-listing)".
+- **Luhnova kontrola (Luhn check)** — privlastňovacie príd. meno + „kontrola"; „Luhn" je vlastné meno.
+- **ingestion** — kanonický názov etapy (§1.1); na tejto lekcii dostal pri prvom výskyte na KAŽDEJ stránke
+  ľahký glos **„(príjem obsahu do indexu)"**. Studený prechod ×2 (naivní čitatelia) ho opakovane hlásil ako
+  nedekódovateľný na jump-in povrchoch (takeaway, tučná odrážka). Kanonické názvy etáp síce ostávajú anglické,
+  ale glos pri prvom výskyte je v súlade so §1.1 a slúži audience-primary cieľu.
+- **Observability** — kept-EN názov vrstvy/lekcie; v **see-also zoznamoch** ostáva holé vlastné meno
+  (precedens Evaluation), v **próze** (prehĺbenie „prístrojom je Observability") dostáva glos „(pozorovateľnosť)".
+- **verzus** — prijaté ako spojka v pároch termínov („priama verzus nepriama", „vratné verzus nevratné");
+  studený prechod navrhol „oproti/a", ponechané ako register korpusu.
+
+**Karta 1 potvrdená (kritická pre túto lekciu).** Grep oboch stránok: **žiadny výskyt „zlyhanie"** — úspešný
+útok je „úspešný útok" / „obrana povolí" / „útok prejde", NIKDY „zlyhanie"; jednotlivá chyba (odkódovania,
+voľby operátora) = „chyba". „spôsob zlyhania" (failure mode, Fáza 8) sa v tejto lekcii nevyskytol, rodina drží.
+
+**Karta 2 potvrdená.** ASR aj každé číslo = **skóre/miera**; sudca = **sudca**, jeho zaujatosti =
+**zaujatosti sudcu** (nie „predpojatosť"); disciplína/akt = **evaluácia/hodnotenie**. Zosúladené s Evaluation
+(krížový odkaz „kalibrácia sudcu, pozor na zaujatosti").
+
+**Modálna vernosť negácie (nová pasca do §1.4) — „nedokáže spoľahlivo VERB", NIE „spoľahlivo neVERB".** Nosná
+téza lekcie („an LLM can't reliably tell instructions from data") sa renderuje **„model nedokáže spoľahlivo
+rozlíšiť / oddeliť inštrukcie od dát"**. Tvar „model spoľahlivo neoddelí/nerozlíši" ✗ — slovenské „spoľahlivo
+ne-VERB" číta ako „spoľahlivo zlyháva / vždy zlyhá", čo je vecný posun oproti „je nespoľahlivý pri". Studený
+prechod ×2 odhalil; opravené na oboch stránkach aj v takeawayi. Pravidlo: „X spoľahlivo neVERB" ✗ pre „X can't
+reliably VERB" → **„X nedokáže spoľahlivo VERB"**.
+
+**Figúry — výsledok skúšobnej doby (studený prechod ×2; obaja naivní čitatelia dekódovali pri PRVOM kontakte
+v oboch pasážach, plus naivný čitateľ v autorskej dávke — 3× nezávisle):**
+
+- **„plot drží presne dovtedy, dokým je token, čo ho drží, tajný"** (delimiting — oddeľovač ako plot, ktorý
+  drží len dokým je token tajný) — **POTVRDENÁ**. „plot" = slovenské slovo pre ohradu, viazané na
+  „ohraničenie / hranica" vyššie.
+- **„kľúč je odteraz klenot, po ktorom ide útočník aj súdny príkaz"** (encrypt-pasca — dešifrovací kľúč ako
+  klenot/terč pre útočníka aj súdny príkaz) — **POTVRDENÁ**. „klenot" + idióm „ísť po niečom" + „súdny príkaz"
+  čisto slovenské.
+- **„zapečený / zapečené"** (baked-in — príkaz/PII „zapečené") — **ZAMIETNUTÁ** (studený prechod ×3 hlásil
+  kalk „baked into" + kulinárske čítanie) → index „príkaz **ukrytý**", prehĺbenie „PII **zabudované** v korpuse".
+  Do §1.4 ako kalková pasca.
+
+**Nové kalkové pasce a slabé kolokácie (žatva Guardrails — do grep-zoznamov §1.3/§1.4):**
+
+- „X je to, ako…" ✗ (cleft-rodina „X je to, čo…", §1.4) → povedz priamo („X je postup, ktorým…")
+- „Čo … , je …" ✗ (inverzný pseudo-cleft „what X does is Y") → „funguje to vďaka…"
+- „Ako maskuješ, je …" ✗ (wh-cleft „how you X is Y") → „spôsob maskovania je…"
+- „žiť / žije" pre umiestnenie („obrana žije na strane tréningu", „podoba žije v prehĺbení") ✗ → „pracuje s
+  tréningom", „rozoberá / nájdeš" (zrkadlí Fáza 8 „metriky žijú vo vrstvách")
+- „sedieť na + akuz." ako mapovacie sloveso ✗ („which defence fits which class") → „zodpovedá + datív",
+  „mieri na"; nadužité „sedí / sadá na" = metronóm, striedaj
+- „zapečený / zapečené" ✗ (baked into) → „ukrytý / zabudovaný / vložený"
+- „odvádzať … nanovo" ✗ (re-derive; odvádzať = odviesť / platiť) → „rozvádzať / odvodzovať nanovo"
+- „sledovať [stránku / prehĺbenie]" ✗ pre „see / refer" (sledovať = monitorovať) → „pozri [stránku]"
+- „šumnejšie" ✗ (šumný = pekný, dial.) → „vnášať viac šumu / zašumenejší"
+- „koreňová príčina" ✗ (root cause) → „základná / hlavná príčina"
+- „v mierke celej organizácie" ✗ (at the scale of) → „v rozsahu celej organizácie"
+- „nakresliť hranicu" ✗ (draw a boundary) → „vytýčiť / vymedziť hranicu"
+- „drž (rozdiel) ostrý" ✗ (keep sharp) → „drž jasne / maj jasný"
+- „je v prestrojení rozhodnutie" ✗ (is in disguise) → „je v skutočnosti zamaskované rozhodnutie"
+- „ticho" pre silently ✗ → „nenápadne / potichu" (zrkadlí Fáza 4 „ticho zahodiť")
+- „Menovaný … príklad" ✗ (the named example) → „konkrétny … príklad"
+- „zdieľať jeden kanál" (holé sloveso) ✗ → „ísť jedným kanálom" (§1.2 — „zdieľať" len v ustálených spojeniach)
+- „útočná plocha" → natívne **„plocha útoku"** (potvrdenie Fázy 2)
+- „nasadená do obsahu" ✗ (payload deployed into) → „vložená do obsahu"
+- „drží dve strany" ✗ (holds two sides) → „stráži obe strany / pôsobí na oboch stranách"
+- „než to odíde do API poskytovateľa" ✗ (leaves into) → „odíde k poskytovateľovi API"
+- „vyvažovať X oproti Y" ✗ (balance against) → „vyvažovať X a Y"
+- „nájdený korpus" ✗ (retrieved corpus — korpus sa neretrievuje, vyhľadávaš V ňom) → „korpus, z ktorého vyhľadávaš"
+- „keď má model agenta" ✗ (model JE agent, nemá ho) → „keď model vystupuje ako agent s nástrojmi"
+- „robiť rozdiel medzi (jedným)" ✗ (make a difference; visí bez druhého člena) → „nerozlišovať, odkiaľ…"
+- gramatika: „text medzi značkami **sú**" (zhoda podmet–prísudok) → „všetko medzi značkami sú"; imperatív
+  „obal" (podst. meno) → „obaľ"; run-on jump-in teaser rozdeliť na dve vety
+
+**Termíny na skúšobnej dobe (čakajú na kontrolu rodeným Slovákom / najbližší studený prechod):**
+
+- **Skórer** (agent-noun od „skóre" — „Skórer býva sudca") — dekódované ×3, webové doklady nulové; drží ako
+  priehľadná odvodenina (rodina „skórovať / preskórovať"), pending.
+- **allowlisty** (skloňovaný kept-EN) — úzus dev-komunity, glos raz; pending kontrola.
+
+**§8 rozpočet polotučného — nápravy:** odtučnené rečnícke zvýraznenia (index „nerozlíši inštrukcie od dát";
+prehĺbenie „priebežne", „žiadny stupeň zraniteľnosť neodstráni", „trénuje") — polotučné je navigácia (kotva
+termínu), nie intonácia (§8). Kotva termínu „zladené a nezladené (aligned vs misaligned)" ponechaná tučná
+(prvý definujúci výskyt).
+
+**Konflikty s usadenými riadkami — FLAGNUTÉ, NEPREPÍSANÉ (čakajú na rozhodnutie autora):**
+
+1. **„a spol." vs „a kol." pri „et al."** — studený prechod ×2 nezávisle hlásil, že „a spol." číta ako
+   „a spoločnosť / & Co." (obchodná entita) a citačná norma je **„a kol."** (a kolektív). Fáza 5 však
+   „a spol." **usadila** ako webom overený tvar a používa ho celý korpus (Evaluation: „Es a spol.",
+   „Zheng a spol."). Guardrails drží „a spol." kvôli konzistencii; **kandidát na korpusový flip na „a kol."
+   vo vlne opráv** — nemení sa touto vlnou (canon > lone-page novelty; flag, neprepisuj).
+2. **„kvalita úlohy" (task quality)** — literárny čitateľ hlási miernu translationese (kvalita sa pripisuje
+   úlohe, nie výsledku); tvar je konzistentný celý text (index / prehĺbenie / Mermaid) a naivní čitatelia ho
+   nehlásili. Kandidát na „kvalita riešenia úlohy / kvalita výstupu" — jedno rozhodnutie celý korpus, mimo
+   rozsah tejto vlny.
+
+**Odkazy (vnorená lekcia, +1 hĺbka) — overené managing editorom:** glosár **„../../../glossary.md"**;
+súrodenec **„../evaluation/"**; nepreložené súrodenecké **„../observability/"**,
+**„../../../part-3-production/tooling-ecosystem/"** (folder-slash); MCP prehĺbenie
+**„../../../part-2-agents/mcp/deep-dive"** (bez .md, bez lomky); v rámci lekcie „./index.md", „./deep-dive.md".
+Zhoda `sidebar_label` ↔ text odkazu v index-poznámke overená byte-for-byte („Obrana proti injection a
+red-teaming"); existujúce `_category_.json` + `current.json` (label „Guardrails", kept-EN) overené, nerekreované.
+
+**Pre lekciu Observability (odovzdanie):**
+
+- **failure mode = „spôsob zlyhania"** (celý korpus, Fáza 8). Karta 1 drží: jednotlivý incident = „chyba",
+  kategória-etapa = „zlyhanie"; „chybový režim" ✗.
+- Karta 2 (skóre vs hodnotenie), zaujatosť sudcu / hodnotiace kritériá platia ďalej.
+- **Em-dash metronóm + zákaz „— ,"** platia ďalej; sentence-final „— twist" a opener „Časť 1 + sloveso"
+  striedaj vedome (obidva hlásené ako AI-tell aj v Guardrails).
+- **Modálna vernosť negácie (§1.4):** „can't reliably VERB" → „nedokáže spoľahlivo VERB", nie „spoľahlivo neVERB".
+- **Observability je POSLEDNÁ vnorená prierezová lekcia** → glosár **„../../../glossary.md"**; SK súrodenci
+  **„../../{ingestion,retrieval,generation}/"** + **„../evaluation/"** + **„../guardrails/"** (SK teraz existuje);
+  v rámci lekcie „./index.md", „./deep-dive.md". „Observability" ako názov lekcie ostáva kept-EN; v próze glos
+  „(pozorovateľnosť)".
