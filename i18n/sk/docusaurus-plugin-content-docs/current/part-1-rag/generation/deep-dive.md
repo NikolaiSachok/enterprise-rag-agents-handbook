@@ -51,7 +51,7 @@ Postav si tie dve techniky vedľa seba a deľba práce je čistá: self-consiste
 
 Časť 1 model prosila, nech cituje zdroje a nech odpovie čisto. Na pokročilej úrovni prestaneš prosiť a začneš vynucovať — tvar výstupu sa stane tvrdou zárukou namiesto nádeje.
 
-Dôvod: „len poprosiť“ je v lepšom prípade iba pokus — a ten sa pod záťažou láme. Prompt, ktorý povie „vráť JSON“ alebo „cituj zdroje“, ti prinesie čiarku navyše na konci, ukecaný prozaický úvod pred samotným JSON alebo vymyslené `source_id` — a ďalej po prúde parser spadne alebo citácia ukazuje do prázdna. V ukážke to funguje a na okrajových prípadoch zlyhá, čo je najhorší chybový režim, aký môžeš nasadiť, lebo ho neuvidíš, kým naň nenarazí produkčná prevádzka.
+Dôvod: „len poprosiť“ je v lepšom prípade iba pokus — a ten sa pod záťažou láme. Prompt, ktorý povie „vráť JSON“ alebo „cituj zdroje“, ti prinesie čiarku navyše na konci, ukecaný prozaický úvod pred samotným JSON alebo vymyslené `source_id` — a ďalej po prúde parser spadne alebo citácia ukazuje do prázdna. V ukážke to funguje a na okrajových prípadoch zlyhá, čo je najhorší spôsob zlyhania, aký môžeš nasadiť, lebo ho neuvidíš, kým naň nenarazí produkčná prevádzka.
 
 **Obmedzené dekódovanie (constrained decoding)** tú možnosť neodstraňuje znížením pravdepodobnosti, ale úplne. Štruktúru vynucuje počas generovania: v každom kroku dekódovania schéma (skompilovaná do gramatiky) určuje, ktoré ďalšie tokeny sú prípustné, a vzorkovač zamaskuje (vylúči) každý token, ktorý by schému porušil, takže vôbec môžu vyjsť len tokeny platné podľa schémy. Zle sformovaný výstup prestáva byť nepravdepodobný a stáva sa štruktúrne nemožným. (Termín je v glosári už z lekcie o volaní nástrojov; je to ten istý mechanizmus, namierený na formát odpovede.)
 

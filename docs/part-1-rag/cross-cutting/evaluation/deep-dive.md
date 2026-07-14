@@ -31,7 +31,7 @@ The split has teeth. Faithfulness and answer relevance you can run on live produ
 
 *faithfulness = (claims supported by the context) / (total claims in the answer)*, on a 0-to-1 scale.
 
-The Ragas documentation's worked example makes it concrete. Ask "Where and when was Einstein born?" and an answer might assert two claims — the place, and the date "20 March 1879." If the retrieved context supports the place but not the date, one of two claims is grounded, and faithfulness is 1/2 = 0.5.
+The Ragas documentation's worked example makes it concrete. Ask "Where and when was Einstein born?" and an answer might assert two claims — the place, and the date "14 March 1879." If the retrieved context supports the place but not the date, one of two claims is grounded, and faithfulness is 1/2 = 0.5.
 
 ```mermaid
 flowchart TB

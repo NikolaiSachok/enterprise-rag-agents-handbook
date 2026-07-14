@@ -61,11 +61,11 @@ Aj s inštrukciami model občas prebije kontext vlastnou znalosťou alebo zaváh
 
 Nakoľko sa odpoveď naozaj opiera o zdroje, to **meriaš** — metrikou **faithfulness** (vernosť zdrojom), tiež groundedness. Sformalizuje ju vrstva [Evaluation](../cross-cutting/evaluation/); zatiaľ si drž myšlienku, že „model sa správa dobre“ nie je pocit, ale číslo (skóre).
 
-## Zlyhanie generovania po jednotlivých režimoch
+## Zlyhanie generovania po jednotlivých spôsoboch
 
-Ľavý stĺpec vymenúva konkrétne chybové režimy vnútri kategórie „zlyhanie generovania“; každý má svoju nápravu.
+Ľavý stĺpec vymenúva konkrétne spôsoby zlyhania v rámci tejto kategórie; každý má svoju nápravu.
 
-| Zlyhanie (chybový režim) | Náprava |
+| Spôsob zlyhania | Náprava |
 |---|---|
 | Ignoroval chunk, ktorý potreboval | menej šumu (reranking → málo chunkov) + grounding instruction |
 | Vymyslel si fakt | grounding + citácie + dovolené odmietnutie |

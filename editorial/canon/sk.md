@@ -1170,3 +1170,100 @@ konflikt znalostí je chybový *režim vnútri* kategórie, nie jednotlivý inci
 - Odkazy: SK existuje pre Ingestion, Retrieval, Generation (index aj prehĺbenie) → mieri naň cez „../ingestion/“,
   „../retrieval/“, „../generation/“; na zatiaľ nepreloženú Evaluation/Guardrails mieri holou slug-cestou
   (napr. „../cross-cutting/evaluation/“, „../../part-2-agents/agentic-rag/deep-dive“), glosár „../../glossary.md“.
+
+### Fáza 8 — vlna 1, lekcia Evaluation: rozhodnutia kánonu
+
+Štvrtá lekcia vlny 1 (Evaluation index + prehĺbenie „Vnútro metrík a kalibrácia sudcu“), plný redakčný tím
++ studený prechod ×2. Prvá **vnorená** lekcia (pod prierezovou kategóriou), takže odkazy majú +1 hĺbku.
+Zapisuje sa, aby ďalšie lekcie vlny (Guardrails, Observability) dedili už rozhodnuté.
+
+**Vyriešený konflikt Fázy 7 č. 1 — „failure mode“ = „spôsob zlyhania“, celý korpus.** Generation renderoval
+„chybový režim“, Ingestion (a tool-use) „spôsob zlyhania“. **Rozhodnuté pre „spôsob zlyhania“** a aplikované
+na celý korpus. Dôvody: (1) „spôsob zlyhania“ je **ustálený slovenský spoľahlivostno-inžiniersky termín** pre
+FMEA „failure mode“ (webom overené: sixsigma.sk, cems.sk, TUKE, kaizentracker vedú „spôsob/režim zlyhania“);
+(2) drží súdržnú rodinu „zlyhanie“ (Karta 1) — kategória je *zlyhanie*, jej konkrétne prejavy sú *spôsoby
+zlyhania*; (3) „chybový režim“ v živom slovenskom úze znamená **debug/prevádzkový režim softvéru** — mylne
+rámcuje spôsob zlyhania ako *prevádzkový stav*, navyše vnáša „chyba“ (Karta 1 ju rezervuje pre jednotlivý
+incident) aj „režim“ (číta sa ako operačný mód). **Retrofit v tomto PR:** Generation `index.md` (H2 „Zlyhanie
+generovania po jednotlivých spôsoboch“, úvodná veta, hlavička tabuľky „Spôsob zlyhania“) a `deep-dive.md`
+(„najhorší spôsob zlyhania“). „chybový režim“ → **odmietnuté** (kalk/mylný referent).
+
+**Karta 2 potvrdená ako nosná (skóre vs hodnotenie).** Cez celú lekciu drží: číslo, ktoré vydá model/sudca/
+metrika, je vždy **skóre** (verb-by-object: „model **vráti** skóre“); disciplína, proces a akt = **evaluácia/
+hodnotenie**. „hodnotenie“ pre číslo ✗. Studený prechod overil, že každý výskyt „hodnotenie“ je disciplína/akt.
+
+**Ragasova štvorica metrík — kept-EN mená (EN-vedené), slovenský glos raz pri prvom výskyte na stránke, ďalej
+holé EN meno alebo čisto opisná fráza (nikdy súperiaci slovenský termín-meno, §1.0):** **faithfulness (vernosť
+zdrojom)**, **answer relevance (relevancia odpovede)**, **context precision (presnosť kontextu)**, **context
+recall (úplnosť kontextu)**. Context precision/recall sú **iné veličiny** než Recall@K/Precision@K (§3) —
+glos dekóduje, výpočet rozvádza próza. Vzorce ostávajú v EN kódovom/textovom fence (nepreklad); glosár nesie
+`faithfulness = supported claims / total claims` (0–1) a `κ = (p_o − p_e) / (1 − p_e)`.
+
+**Nové rozhodnutia termínov (→ dopĺňajú §1.1/§1.2):**
+
+| Kánon | Originál | Trieda / poznámka |
+|---|---|---|
+| golden set (etalónová sada) | golden set | kept-EN (§1.1), glos raz; „etalónová sada“ ako opisná fráza |
+| referenčná odpoveď; etalón | reference / ground-truth answer | §1.2; „etalón pravdy“ ✗ (kalk); „referenčná“ len v tejto dvojici |
+| reference-free (bez etalónu) | reference-free | kept-EN, glos raz; zrkadlí glosár |
+| reference-based (s etalónom) | reference-based | kept-EN, glos raz |
+| správnosť | correctness | slovensky vedené (§1.2) |
+| zaujatosť sudcu | judge bias | „predpojatosť“ ✗ (§1.2) |
+| zaujatosť podľa poradia | position bias | slovensky vedené; EN originál v zátvorke raz |
+| zaujatosť voči dĺžke | verbosity bias | slovensky vedené; EN originál v zátvorke raz |
+| self-preference (uprednostňovanie vlastného štýlu) | self-preference / self-enhancement bias | kept-EN; formálny názov self-enhancement bias |
+| hodnotiace kritériá | rubric | „rubrika“ ✗ (falošný priateľ, §1.2) |
+| pointwise (hodnotenie jednej odpovede) | pointwise | kept-EN (§1.1) |
+| pairwise (párové porovnanie) | pairwise | kept-EN (§1.1) |
+| inter-annotator agreement (IAA) | IAA | kept-EN, glos „(zhoda medzi anotátormi)“ |
+| Cohenova / Fleissova kappa | Cohen's / Fleiss' kappa | privlastňovacie príd. meno + „kappa“ kept |
+| active sampling (aktívne vzorkovanie) | active sampling | kept-EN (§1.1); active learning „(aktívne učenie)“ |
+| značka; značkovanie; anotátor | label; labelling; annotator | „značky/značkovanie“ zosúladené s glosárom (heslá IAA/kalibrácia/active sampling); „označenie“ (skeleton) ustúpilo glosáru |
+| regresné hodnotenie | regression eval | slovensky vedené; A/B testovanie; offline „(pred nasadením, v CI)“ / online „(v produkcii)“ |
+| kalibrácia (sudcu) | judge calibration | slovensky; „kalibrovať“ |
+
+**HITL** ostáva kept-EN so schváleným glosom **„(schválenie človekom / človek v rozhodovacom procese)“** —
+**nikdy „človek v slučke“** (§1.2/§1.3). *Flag (nie defekt tejto stránky):* heslo glosára „Human-in-the-loop
+(HITL) (človek v slučke)“ porušuje tento zákaz — **do vlny flipov glosára**, nemení sa v tomto PR.
+
+**Figúry — skúšobná doba (potvrdené studeným prechodom ×2, naivný čitateľ dekódoval pri prvom kontakte):**
+- **meradlo** (golden set ako „meradlo, o ktoré sa opiera každé ostatné číslo“, D50) — na skúšobnej dobe.
+- **čierne skrinky** (metric black boxes) — priehľadné, usadené.
+- **slepé miesto** (documented blind spot) — natívny idióm, usadené (odtučnené na prostú prózu).
+- **metrika je sudca** (the metric IS a judge) — vecná, nie figúra; drží.
+- **jeho prácu rozprestrieš** (amortise the human) — „človeka nikdy neautomatizuješ preč — jeho prácu
+  rozprestrieš cez tisíce príkladov“; POTVRDENÉ. Skeletonov obraz „automatizuješ preč“ ako **samostatná**
+  figúra ZAMIETNUTÝ (studený prechod zlyhal) → prepísané na prózu.
+- **kalibrácia hnije** (calibration rots) — POTVRDENÉ.
+- ~~**má zuby**~~ (the split has teeth) — ZAMIETNUTÉ (naivný čitateľ nedekódoval) → „to rozdelenie má reálne
+  dôsledky“.
+
+**Nové kalkové pasce a slabé kolokácie (žatva Evaluation — do grep-zoznamov §1.3/§1.4):**
+- „X je to, ako meriaš“ / „X je to, čo Y skóruje“ ✗ (cleft-rodina) → povedz priamo („X je spôsob merania…“)
+- „zaslúži si svoju škálu“ ✗ (earn its scale) → „škála sa oplatí, až keď…“
+- „voľba ide za otázkou“ ✗ (choice follows the question) → „voľba závisí od otázky“
+- „cez pozície“ ✗ (across ranks/positions) → „naprieč pozíciami“ / „po poradiach“
+- „metriky žijú vo vrstvách“ ✗ (levers live in the layer pages) → „páky nájdeš na stránkach vrstiev“
+- „zhoda prejde latkou“ ✗ → „zhoda prekročí tvoju latku“
+- „ukotvené o / podložené o“ ✗ (anchored/grounded on) → **„opreté o“** (zrkadlí glos grounding „opretie o kontext“)
+- „poslepy“ ✗ → **„naslepo“** (anti-bohemizmus; ladenie naslepo)
+- wrong-actor „zlyhanie, ktoré golden set nevidel prichádzať“ ✗ → „zlyhanie, na ktoré golden set nemyslel“
+
+**EN/RU vecná chyba nájdená a opravená (sankcionovaná výnimka — samostatný `docs:` commit).** EN aj RU
+prehĺbenie Evaluation uvádzalo Einsteinov dátum narodenia „20 March 1879 / 20 марта 1879“; správne je
+**14. marca 1879** (a presne tak znie aj príklad v dokumentácii Ragas). Opravené v `docs/…/evaluation/deep-dive.md`
+a `i18n/ru/…/evaluation/deep-dive.md`; matematika faithfulness 1/2 = 0,5 ostáva. SK nesie správny dátum.
+
+**Odkazy (vnorená lekcia, +1 hĺbka):** glosár **„../../../glossary.md“**; SK existuje pre Ingestion, Retrieval,
+Generation → **„../../ingestion/“, „../../retrieval/“, „../../generation/“**; súrodenecké nepreložené prierezové
+aspekty holou slug-cestou **„../guardrails/“, „../observability/“**; v rámci lekcie **„./index.md“, „./deep-dive.md“**.
+
+**Pre lekciu Guardrails (odovzdanie):**
+- „failure mode“ = **„spôsob zlyhania“** (celý korpus, Fáza 8). Karta 1 drží: úspešný útok/prienik je
+  **„úspešný útok“ / „prienik“**, nikdy „zlyhanie“ — jednotlivý incident je „chyba“.
+- Karta 2 (skóre vs hodnotenie) a zaujatosť sudcu/hodnotiace kritériá platia ďalej; „zaujatosť“ je slovenský
+  koreň pre „bias“ (position/verbosity vedené slovensky, self-preference kept-EN).
+- Em-dash metronóm + zákaz „— ,“ platia ďalej; striedaj rytmus vedome.
+- Guardrails je tiež **vnorená** pod cross-cutting → +1 hĺbka odkazov ako pri Evaluation. SK existuje pre
+  Ingestion/Retrieval/Generation/**Evaluation** → mieri naň cez „../../{ingestion,retrieval,generation}/“ a
+  „../evaluation/“; na nepreloženú Observability holou „../observability/“, glosár „../../../glossary.md“.
