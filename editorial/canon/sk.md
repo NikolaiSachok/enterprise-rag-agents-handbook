@@ -2306,3 +2306,147 @@ retrofit `../mcp/` → `../mcp/index.md` v tool-use/multi-agent/orchestration-fr
   scaffoldom, nie holú). Capstone „MCP naživo na Claude/OpenAI/Gemini“ zdedí kept-EN termíny a Karta-3 „objavovanie“.
 
 **Stav:** Wave 2 lekcia 5 (MCP a protokoly agentov) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu).
+
+### Fáza 17 — vlna 2, záverečná lekcia „real-agents" (capstone): rozhodnutia kánonu
+
+Šiesta, záverečná lekcia vlny 2 (Part II) — **plochá stránka** (bez zložky, bez prehĺbenia):
+`part-2-agents/real-agents.md` („Claude, OpenAI a Gemini nosia tie isté techniky pod inými menami").
+Berie celú výbavu Časti II (nástroje, získavanie dát, plánovanie a slučky, sebazotavenie, hooky/guardrails,
+multiagentové systémy, MCP) k trom reálnym dodávateľom. Plný redakčný tím (literárny, naivný jednojazyčný
+čitateľ, korektor, technický/fakt, konzistenčný) v synchrónnych paralelných dávkach, adjudikácia (fidelita >
+štýl; kánon > novinka jednej stránky), oprava, čerstvý korektorský prechod a **studený prechod ×2** (dve
+čerstvé dvojice literárny + naivný čitateľ, zdroj skrytý, čítané nahlas, slepé voči skeletonu aj sebe).
+Prezentačná lokalita bez ľudskej poistky — brány niesli plnú váhu.
+
+**Fakty nehýbané** — faktová brána proti EN-skeletu (C1–C69, súhrnná tabuľka, war-stories, závery, pätičky,
+video-why-line, teaser) **ZERO pohyb**: ceny/verzie `web_search_20260318`, ~$10/1 000 vyhľadávaní; dátumy
+2026-07-07 / 2026-06-01 / 2026-07-10, MCP 25. nov. 2024 / dar 9. dec. 2025 Agentic AI Foundation (Block +
+OpenAI) pod Linux Foundation, revízie špecifikácie 2025-03-26 / 2025-11-25; `max_retries = 3`, 48 h, 20 URL,
+13 kategórií, bez 30-dňového TTL; `reasoning.effort` none/minimal/low/medium/high/xhigh (GPT-5.x),
+`thinking_level` minimal/low/medium/high; poradie oprávnení Hooks → Deny → Ask → režim → Allow → `canUseTool`;
+A2A v1.0. Priradenia Claude/OpenAI/Gemini a citované „…nevykoná" / „…záverečná správa subagenta" /
+„…bez konzultácie s modelom AI" / „…vzdialené MCP čoskoro" nezoslabené. **Žiadny atóm pridaný ani vypustený.**
+
+**Figúry — studený prechod ×2 (naivný čitateľ dekódoval pri prvom kontakte = podmienka „confirmed"):**
+- **„spiatočná cesta" (round-trip) — CONFIRMED, usadená.** Oba studené naivní čitatelia dekódovali okamžite
+  (rodené `spiatočný lístok`); L23 slučku pred pomenovaním rozpíše. Prijatá do korpusu.
+- **„historka z praxe" (war-story) — CONFIRMED, usadená.** Priehľadné rodené spojenie; de-militarizovaný
+  ekvivalent „war-story". Prijatá.
+- **„tvar prenosu" (wire shape) — CONFIRMED s podmienkou in-line glosu.** Studený naivný čitateľ ju **v H1
+  NEDEKÓDOVAL** (opaque pri prvom kontakte, sebaglosovala až o sekciu ďalej). **Náprava:** vyňatá z H1 (titul
+  nemusí niesť wire-shape — skeleton to dovoľuje) a **glosovaná pri prvom výskyte v tele** (L9:
+  „…v inom tvare prenosu (v inej podobe, v akej volanie cestuje cez API)"). Po glose **oba** studené naivní
+  čitatelia dekódovali pri prvom kontakte. Motív ostáva v tele (nadpis L21, recap L164, tabuľka). Skúšobná
+  doba uzavretá — confirmed **výhradne s glosom pri prvom výskyte**.
+- **„zásuvka pre nástroje" (MCP plug) — CONFIRMED marginálne.** Cold dekóduje len cez USB-C priming (L125,
+  „USB-C port pre AI aplikácie"). Holá „zásuvka" (zásuvka vs zásuvka-šuplík) je v izolácii dvojznačná →
+  **kotvené** „zásuvku" → **„zásuvku pre nástroje"** (viaže na rolu agent↔nástroj). Nesie so scaffoldom, nie
+  holá — rovnaká politika ako „plocha súhlasu" (Fáza 16).
+- **„os agent↔nástroj" / „os agent↔agent" — CONFIRMED.** Notácia Fázy 16 drží; ↔ + kontrast robia zmysel
+  transparentný. Kánon > jednorazový návrh „prepojenie".
+- **„nosný princíp" (L113, „Nosným princípom je silná izolácia kontextu") — CONFIRMED.** `nosný múr/pilier`
+  → prenesene „ústredný/nesúci"; číta sa čisto. Nahradil dvojznačný inštrumentál „Modelom je…".
+- **STRUCK → plná próza / iný tvar (nedekódovali cold alebo štýlový defekt potvrdený ≥2 ušami):**
+  - **„zhynúť" (agent zhynul / „Zotav sa, nezhyň") → „spadnúť" („aby spadol" / „Zotav sa, nespadni").**
+    3 zo 4 studených agentov flagli „zhynúť" ako patetické (perish — o živých tvoroch). Rodená softvérová
+    smrť je **„pád" (crash, Karta 1)** — sloveso „spadnúť". Prijaté.
+  - **„šošovka" (analytická optika, kalk *lens*) → „optika".** Obaja literárni studení čitatelia nezávisle
+    navrhli „optika"; „šošovka" = fyzická/očná šošovka, nie rámec. V korpuse nezavedená (grep siblings = 0),
+    preto bez kolízie.
+
+**Smer termínu — dve rozhodnutia (§1.0) + jeden override skeletonu:**
+- **permission modes → SK-vedené „režimy oprávnení (permission modes)"** (skeletonom predpísané, čistá SK,
+  logika Triedy 2). **Zmiešaný smer v sekcii je PRINCIPIÁLNY, nie defekt:** súrodenci v tej istej vete
+  **„Claude Code hooks (hooky)"** a **„ADK callbacks (callbacky)"** sú EN-vedené, lebo *hooky/callbacky*
+  nemajú čistý domáci tvar; *režimy oprávnení* ho má. Pätička §4 „Nové pojmy" nesie všetky tri ako kept-EN
+  **lemmy glosára** — **žiadny rozpor** (pätička = lemma; telo = §1.0 smer). *Konzistenčný redaktor flagol
+  narušenú paralelu; adjudikované PONECHAŤ.* (Ak korpus neskôr chce jednotu, oprava patrí do §1.1/glosára,
+  nie na túto stránku.)
+- **Mermaid labely `tool call` / `tool result` → PONECHANÉ ANGLICKÉ (§3 + precedens súrodenca tool-use).**
+  Redakčný prechod ich najprv preložil na „volanie nástroja" / „výsledok volania" (argument: medzerová fráza
+  nie je kódový artefakt `tool_use`), no **producent to vrátil na EN** pri zosúladení s korpusom: §3 menuje
+  práve „tool call: …" / „tool result: …" ako protokolové artefakty, ktoré v Mermaid ostávajú anglické, a
+  **tá istá spiatočná-cesta schéma v `tool-use/index.md` ich drží EN** (`TC["tool call: …"]`,
+  `TR["tool result: …"]`); RU paralela tiež. Precedens Fázy 16 (preklad „nástroje/zdroje/prompty") sa týkal
+  **MCP primitív**, nie artefaktu round-tripu — nekoliduje. Ostatné labely (Definície nástrojov, Model, Tvoj
+  kód ho vykoná, Odpoveď) sú SK (§3 plné slová). **Node IDs TC/TR frozen.**
+- **prompt injection — poradie prvého výskytu opravené.** Prvý (holý) výskyt bol na L95 (Model Armor) pred
+  glosom na L99. Glos presunutý na L95 („prompt injection (útok, ktorý modelu podstrčí cudzie inštrukcie)"),
+  L99 odglosovaný. §1.0 poradie prvého výskytu.
+
+**Ponechané (vedomé, aby budúca fáza nezvrátila):**
+- **„účelový fond" (L127) — NIE kalk, fakt-verné.** EN skeleton hovorí **„a directed fund"**, nie foundation
+  → „nadácia" by bola faktová chyba. Literárny flag odmietnutý fidelitou.
+- **„fičúra" — kept (dev-register, Fáza 16 precedens).**
+- **„ruky" (agent „dostáva ruky" = nástroje) — kept.** Korpusová figúra („uvoľniť modelu ruky", §Hlas);
+  naivní čitatelia dekódovali. Literárny flag o abruptnom otvorení sekcie zaznamenaný, obraz ponechaný.
+- **„minúť výpočet" (spend compute) — PONECHANÉ, sledovať.** Jeden literárny cold flag („výpočet" sg. =
+  „calculation"), navrhol „výpočtový výkon"; jednorazový signál, zrozumiteľné, opakuje sa v nadpise +
+  tabuľke → nechané, na skúšobnej dobe.
+
+**Nové kalkové pasce a slabé kolokácie (žatva capstone → grep-zoznamy §1.3/§1.4):**
+- **„stáť latenciu / zložitosť"** ✗ (costs latency — rodina „costs X", §1.4) → **„prinášať latenciu a
+  zložitosť navyše"**
+- **„agencia"** ✗ (falošný priateľ: *agency* = samostatnosť/autonómia, NIE *agentúra*) → **„samostatnosť
+  (autonómia)"**
+- **„functionCally"** ✗ (ad-hoc skloňovanie kódového id; §1.3 blocklist, ako `tool cally`) → **„prvky
+  `functionCall`"** (EN nesklonený v kóde)
+- **„stavať na (file search)"** ✗ (build on, §1.4) → **„opierať sa o / spoliehať sa na"**
+- **„tok, ktorý beží framework"** ✗ (transitívne *bežať* + dvojznačný podmet) → **„tok riadenia, ktorý
+  neurčuje model, ale framework"**
+- **„ten bod, ktorý spravili (orchestračné frameworky)"** ✗ (make the point) → **„to, na čo poukázali"**
+- **„kresliť ostrú čiaru medzi X a Y"** ✗ (draw a sharp line, §1.4 sharp-boundary) → **„ostro oddeliť X od Y"**
+- **„po fakte"** ✗ (after the fact) → **„dodatočne"**
+- **„prichádza v balíku s tým"** ✗ (comes bundled with) → **„k tomu neodmysliteľne patrí"**
+- **„prevlečené správou"** ✗ (inštrumentál číta „obliekol správu"; threaded *through* a message) →
+  **„prevlečené cez správu"**
+- **„má väčšiu cenu"** ✗ (worth = hodnota; „cena" číta ako *price*) → **„má väčšiu hodnotu"**
+- **„kadencia (kontroly faktov)"** ✗ (review cadence; SK *kadencia* = hudobná/paľby) → **„rytmus / frekvencia"**
+- **„prakticky v rukách"** ✗ (hands-on, doslovný kalk) → **„prakticky vyskúšané / s SDK v ruke"**
+- **„zhynúť"** ✗ (agent perishes) → **„spadnúť"** (pád = crash, Karta 1)
+- **„šošovka"** ✗ (analytická *lens*) → **„optika"**
+- Aktér-oprava: **„lekcia, ktorá tú chybu učila"** ✗ (*učiť čo* = učiť páchať) → **„ktorá o tej chybe učila"**;
+  **„príkaz … môže potichu odmietnuť"** (visiaci predmet) → **„môže vykonanie potichu odmietnuť"**.
+- Register/homograf: **„Nedeľ" (imperatív *deliť*, koliduje s *nedeľa*)** → **„Nerozdeľuj"**;
+  **„Modelom je X"** (dvojznačný inštrumentál) → **„Nosným princípom je X"**.
+
+**Verb-by-object (§1.5):** univerzálne „vydať" **grep = 0**. Model **vyjadrí** zámer / **vytvorí** volanie
+(`function_call`) / **vráti**/**poskytne** výsledok; „evals" → **„evaluácie"** (Karta 2, číslo/disciplína).
+
+**Karty (potvrdené na tejto lekcii).**
+- **Karta 1:** „zlyhanie" iba ako kategória („zlyhanie vyhľadávania/generovania", „Spôsoby zlyhania",
+  „Trvácne zlyhanie"); jednotlivý incident = „chyba"; crash-sloveso „spadnúť" (§ vyššie). **Mäkká poznámka:**
+  L11/L71 „(tá) chyba, ktorú lekcia učila / pred ktorou varovala" = pedagogická „chyba/nástraha", nie názov
+  etapy — vnútrostránkovo konzistentné, adjudikované defensible (vlastník Karty OK).
+- **Karta 3:** „vyhľadávanie" = retrieval / webové vyhľadávanie; žiadne „objavovanie/discovery" ako
+  „vyhľadávanie". Bez mis-use.
+- **Karta 9:** step-budget = „strop na počet krokov" / „rozpočet krokov"; žiadny holý rozpočtový „strop"
+  inak; „ťah" **nepoužité** (krok), §1.3.
+
+**§8 polotučné + em-dash + straight-quote + typografia.** Em-dash metronóm **61 pomlčiek / 3683 slov =
+1,66/100 slov — POD sesterským pásmom (~2,0–2,5; Fáza 16 index 1,98)**: dampované, **nie defekt** (pravidlo
+stráži nadmernosť nad 2,5). Zákaz **„— ," = 0**. **Straight-quote checkpoint:** prozaických rovných `"`
+(U+0022) mimo markupu = **0** (34 celkovo — všetky v kóde / `<YouTube title>` / Mermaid `["…"]`); „…"
+párovanie **16/16**. **ř / ě / ů = 0.** **nbsp U+00A0 = 0** (korpus plain spaces — nezavádzať). Desatinná
+čiarka N/A; dátumy „25. novembra 2024" / „9. decembra 2025" OK.
+
+**Odkazy (plochý capstone).** Súrodenci `./tool-use/index.md` … `./mcp/index.md` (s `.md`, zhoda s EN),
+glosár `../glossary.md`, MCP/A2A externé absolútne (modelcontextprotocol.io, a2a-protocol.org). i18n-link-check
+konvencia bez zmeny; **frontmatter (id/title/sidebar_position), kódové fence, Mermaid node IDs, `<YouTube>`,
+protokolové artefakty a §4 reťazce nedotknuté.**
+
+**Konflikty flagnuté (na reconciliáciu neskôr, mimo tejto stránky):**
+1. **permission modes** — zmiešaný smer voči súrodencom (adjudikované ponechať SK-led ako principiálne); ak
+   sa zjednocuje, oprava do §1.1/glosára.
+2. **Mermaid label** — round-trip artefakty `tool call`/`tool result` ponechané EN (§3 + precedens tool-use);
+   redakčný návrh na preklad zamietnutý producentom kvôli korpusovej konzistencii.
+3. **guardrails smer:** táto stránka EN-vedené „guardrails (bezpečnostné mantinely)" = kánonicky správne
+   (§1.1); **sesterská `mcp/index.md` L71 to obracia** („Bezpečnostné mantinely … (guardrails)") — **mcp je
+   strana na opravu**, nie táto lekcia.
+4. Karta 1 „chyba" pre učenú nástrahu (L11/L71) — defensible register, zaznamenané.
+
+**Backlog (nezmenený z Fázy 16):** sesterský retrofit `../mcp/` → `../mcp/index.md` (čaká na SK build);
+guardrails-smer reconciliácia v `mcp/`; glossary-flip backlog z Fázy 11.
+
+**Stav:** Wave 2 capstone (real-agents) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu). Part II
+(vlna 2) kompletná.
