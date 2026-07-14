@@ -1639,3 +1639,118 @@ kompromisu" (free-lunch kalk, §Fáza 2/5).
 
 **Stav locale:** SK ostáva **gated** (mimo plain buildu; launch až podľa roadmapy). Táto vlna uzatvára **#95**
 (Part I SK). Ďalej: Wave 2 — Part II (#96).
+
+### Fáza 12 — vlna 2, lekcia Agentic RAG: rozhodnutia kánonu
+
+Prvá lekcia vlny 2 (Part II), stránky `index` + prehĺbenie „Iteratívne vyhľadávanie a hodnotenie". Plný
+redakčný tím (literárny, naivný jednojazyčný čitateľ, technický/fakt, korektor, konzistenčný), adjudikácia,
+oprava, čerstvý korektorský prechod a **studený prechod ×2** (literárny + naivný na KAŽDEJ stránke, zdroj
+skrytý). Prezentačná lokalita bez ľudskej poistky — brány niesli plnú váhu. Fakt-integrita proti SKELETON.md
+(C1–C69): **nula pohybu tvrdenia** (technický redaktor prešiel všetkých 69 claimov, žiadny dropped/added/
+weakened). Zapisuje termíny, ktoré táto lekcia usadzuje.
+
+**Typografia — systémový nález a náprava (kritické).** Prvá verzia oboch stránok zatvárala PROZAICKÉ úvodzovky
+**rovným ASCII `"` (U+0022)** namiesto slovenského horného `"` (U+201C) — presne zakázaný „anglický rovný"
+tvar (§Typografia). Otváracie `„` (U+201E) boli správne. Opravené programovo (párovanie s `„`): index 11
+párov, prehĺbenie 9 párov na `„…"`; ASCII `"` PONECHANÉ v markupe (YouTube `title="…"`, Mermaid `["…"]`,
+frontmatter `sidebar_label`). **Kontrolný bod pre ďalšie stránky:** grep prozaických `"` (U+0022) = 0 mimo
+markupu; každé `„` má pár `"` (U+201C).
+
+**Pomenované architektúry — kept-EN-vedené (§1.1), slovenský glos raz pri prvom výskyte.**
+- **Self-RAG (sebareflexívny RAG)** — kept-EN názov + glos; sentence-initial „Self-RAG" je už veľké (bez
+  pasce). **Sloveso §1.5:** model reflexné tokeny **vkladá / produkuje** (výstup generovania), **NIE „vydáva"**
+  (univerzálne „vydať" je prekladový signál) — opravené na L17. *Flag (glossary-flip backlog): heslo glosára
+  Self-RAG stále znie „vydával špeciálne reflexné tokeny" — do vlny glosárových flipov.*
+- **Corrective RAG (CRAG, korektívny RAG)** — kept-EN názov + glos v jednej zátvorke (zdvojená zátvorka
+  „(CRAG) (korektívny RAG)" zúžená). **Casing (§3/§Typografia): na začiatku vety „Corrective RAG", inak malé
+  „corrective RAG"** (zrkadlí glosárové heslo „Corrective RAG, CRAG") — L19 opravené z malého na začiatku vety.
+- **Adaptive RAG (adaptívny RAG)** — kept-EN názov + glos. **Casing: na začiatku vety „Adaptive RAG"** (L41
+  opravené), inak malé „adaptive RAG"; slovenský render „adaptívny RAG" žije v tele po moste.
+
+**Trieda 2 / SK-vedené termíny (most raz `(anglický originál)`, ďalej slovensky):**
+- **hodnotiteľ vyhľadávania (retrieval evaluator)** — SK-vedené; aktor, ktorý ohodnotí nájdené a **vráti skóre**
+  (§1.5, výsledok → vrátiť). Zrkadlí glosár.
+- **skóre dôvery (confidence score)** — SK-vedené; je to **číslo**, ktoré hodnotiteľ vydá → **skóre** (Karta 2),
+  nikdy „hodnotenie".
+- **reflexné tokeny (reflection tokens)** — SK-vedené (glos = čistá angličtina).
+- **slučka opakovaného vyhľadávania (re-retrieval loop)** — SK-vedené. **Karta 1: nezastavujúca sa slučka =
+  „chyba" (nezastavenie cyklu), NIKDY „odmietnutie".** Explicitný rámec „je to **chyba** v behu, nie
+  „odmietnutie"" je kánonický vzor — dedia ho ďalšie lekcie so slučkami. (POZOR: „chyba v behu" tu = bug za
+  behu; je odlíšené od kept-EN termínu „chyba počas behu / runtime error", §1.2 — ponechané podľa skeletonu.)
+- **nadmerné vyhľadávanie (over-retrieval)** — SK-vedené; pár k „nedostatočné vyhľadanie (under-retrieve)".
+- **rozklad dopytu na podotázky (query decomposition)** — SK-vedené.
+- **metriky vyhľadávania** — natívna hlava pre „retrieval metrics"; **hybrid „retrievalové metriky" ✗**
+  (EN koreň + SK koncovka) → opravené na „metriky vyhľadávania" (L96/L100), ladí so „zlyhanie vyhľadávania".
+- **Agentne zamerané metriky (Ragas) — SK-vedené, most raz:** **presnosť dosiahnutia cieľa (agent goal
+  accuracy)**, **dodržanie témy (topic adherence)**, **správnosť volaní nástrojov (tool call accuracy)**.
+
+**retrieval budget + sufficient context — kept-EN-vedené (per glosár), rodina retrievalu (Fáza 6 vzor).**
+Obidva glosár vedie ANGLICKY: **retrieval budget (rozpočet vyhľadávania)**, **sufficient context (dostatočnosť
+kontextu)** — most raz pri prvom výskyte, ďalej **holé EN meno ALEBO čisto opisná slovenská fráza**
+(„dostatočnosť kontextu", „kontroly dostatočnosti") podľa Fázy 6; opisná fráza NIE je kolísanie smeru (§1.0),
+kým sa nepoužije súperiace slovenské termín-meno. `retrieval budget` ostáva EN aj v tele („tvrdý retrieval
+budget", Karta 9). **Hand-off (nie defekt tejto stránky):** rodina rozpočtov je rozštiepená — `retrieval
+budget` je EN-vedený, sesterské `step budget / token budget` sú SK-vedené („rozpočet krokov / rozpočet
+tokenov", glosár + táto stránka L61). Smer rodiny rozhodni pri lekcii **Plánovanie a slučky**.
+
+**Karty (potvrdené na tejto lekcii).**
+- **Karta 1:** „zlyhanie vyhľadávania / zlyhanie generovania" = kategória-etapa; jednotlivá zlá odpoveď /
+  nezastavujúca sa slučka / lokalizovaný incident = **„chyba"** (L55, L96 „lokalizuje chybu na krok"). L98
+  „najzahmlenejšie **zlyhania**" → „najzahmlenejšie **chyby**" (pripichnuté jednotlivé incidenty, nie kategória).
+- **Karta 2:** skóre dôvery = číslo (hodnotiteľ **vráti**); „hodnotenie/evaluácia" iba disciplína/akt — dodržané.
+- **Karta 8:** adaptívny RAG „nasmeruje dopyt na stratégiu" = úroveň 1 (per-dopyt query router), legitímne;
+  výber akcie v cykle sa NIKDE nevolá „smerovanie".
+- **Karta 9:** `retrieval budget` = **tvrdý strop** (pár „mäkký/tvrdý"); „pevný strop" = 0.
+
+**Figúra — GRADUOVANÁ zo skúšobnej doby (studený prechod ×2, obaja naivní čitatelia dekódovali pri prvom
+kontakte).** **„vydestilovaný nález" / „vydestilovať" (distilled finding)** — nesené medzi krokmi namiesto
+surových chunkov. Oba korene sú natívne (destilovaná voda; lekársky nález) a rámec dekóduje inline pri prvom
+výskyte („nie surové chunky, ale to, čo z kroku vyšlo: odpoveď na podotázku, vytiahnutý fakt"). **POTVRDENÁ →
+usadená.** Poznámka: prenesená kolokácia „vydestilovať fakt" je autorská razba (webové doklady iba literálne,
+väčšinou české) — dekóduje, ale ostáva na voliteľnom native-check tracku.
+
+**Naivný čitateľ (jump-in dekódovateľnosť) — nové per-page glosy doplnené.** Kept-EN termíny bez glosu na
+skok-do stránky (§1.1 „glos raz na stránku"): **retriever „(vyhľadávač)"** (inak číta ako plemeno psa),
+**LLM-as-a-judge „(LLM ako sudca)"** (na jump-in odrážke), **multi-hop agent „(viackrokový)"** (prehĺbenie,
+prvý výskyt na stránke), **chunky „(kúsky)"** (raz na KAŽDEJ stránke — index aj prehĺbenie). **KB v tabuľke →
+„znalostná báza"** (holé „KB" číta ako kilobajty; ladí s telom, kde je „znalostná báza"; SQL/web/API ostávajú).
+`retrieve → generate` ostáva kódový literál (skeleton). ReAct „(Reasoning + Acting)" ostáva (§3, povinný rozpis).
+
+**Em-dash metronóm — stíšený (Fáza 2/6/9/10).** Studené čítania hlásili prehustený intro prehĺbenia
+(„klauza — spresnenie"). Stíšené prevodom na dvojbodku / bodku / zátvorku / „a·no": prehĺbenie **72 → 55**
+em-dash (2,19/100 slov, pod sesterskou lekciou tool-use 2,37); index 26 (2,18/100 slov, v rozpočte). Zákaz
+**„— ,"** = 0. Vedome stíšený aj opakovaný opener „prvá časť / Časť 1 + sloveso" a sentence-final „— twist".
+
+**Trace — Fáza 10 dodržaná:** „nad zaznamenaným **tracom**" (nie „trace"); „trasa" = 0.
+
+**Nové kalkové pasce a slabé kolokácie (žatva Agentic RAG — do grep-zoznamov §1.3/§1.4):**
+- „nedlhovať (z toho nič)" ✗ (owe none of it; `dlhovať` = mať dlh/záväzok voči niekomu) → **„nič z toho
+  nepotrebuješ / nepotrebuje"**
+- „na ôsmich krokoch" ✗ (in N steps — nesprávny pád) → **„za osem krokov"**
+- „siahnuť po X **pre** čerstvý zdroj" ✗ (účelové „pre") → **„…, aby získal čerstvý zdroj"**
+- „výška pohľadu" ✗ (altitude; kalk) → **„rovina pohľadu"**
+- „vynesie von (do…)" ✗ (surface/externalize) → **„prenáša (do…)"**
+- „triviálne odlišné" ✗ (trivially different) → **„nepatrne odlišné"**
+- „na plnej čiare" ✗ (kolokvializmus) → **„na celej čiare"** (zvíťaziť/poraziť)
+- „poraziť **na** nákladoch/latencii" ✗ → **„prekonať **v** nákladoch/latencii"**
+- „držať obraz" ✗ (held a picture) → **„mať pred očami obraz"**
+- „ľahko sa to zmýli" ✗ (impersonálne od `zmýliť sa` = osoba) → **„ľahko sa to popletie"**
+- headless podmet „Pružné oproti štruktúrovanému je…" ✗ (gramatická kotva) → **„Voľba medzi pružným
+  a štruktúrovaným prístupom je…"**
+- verb-final poradie „aký zložitý prichádzajúci dopyt je" ✗ → **„aký zložitý je prichádzajúci dopyt"**
+- stranded object „obsahoval kontext…, odpoveď" ✗ → **„obsahoval odpoveď ten kontext, ktorý…"**
+
+**Odkazy (Part II, nevnorená lekcia).** Glosár **„../../glossary.md"**; v rámci lekcie „./index.md",
+„./deep-dive.md"; nepreložené susedné (EN-fallback, folder-slash) **„../planning-loops/", „../real-agents/"**;
+Ragas externý „https://www.ragas.io". Text odkazu na prehĺbenie == `sidebar_label` „Iteratívne vyhľadávanie
+a hodnotenie" (byte-for-byte). Frontmatter/H1/H2/Mermaid (IDs zachované) nedotknuté; tri Mermaidy verbatim.
+
+**Backlog flagy (hand-off, neprepisujem):**
+1. **Glossary-flip:** heslo glosára **„Agent loop (cyklus agenta)"** (def. „opakujúci sa **cyklus**") koliduje
+   s korpusovým telom **„slučka" / „slučka agenta"** (index L33/L35, SK-vedené) — smer aj glosové slovo
+   (cyklus vs slučka). Do glossary-flip backlogu spolu s HITL/kosínus (Fáza 11 Residual) + Self-RAG heslo
+   „vydával … tokeny" (§1.5).
+2. **Budget-family smer** (retrieval budget EN-led vs step/token budget SK-led) — rozhodnúť pri **Plánovanie
+   a slučky**.
+
+**Stav:** Wave 2 lekcia 1 (Agentic RAG) redakčne uzavretá; SK ostáva **gated**.
