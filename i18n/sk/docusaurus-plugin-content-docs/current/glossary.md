@@ -384,7 +384,7 @@ v šume, takže ozajstný incident zostane neprečítaný.
 latencie alebo ceny a jeho následné pripísanie naprieč spanmi trace ku konkrétnej fáze a udalosti zmeny
 (nasadenie, presun verzie modelu, re-ingest, drift vstupu).
 
-**Cost attribution (pripísanie nákladov)** — označkovanie spanov atribútmi funkcia / nájomník / trasa / model,
+**Cost attribution (priradenie nákladov)** — označkovanie spanov atribútmi funkcia / nájomník / trasa / model,
 aby účet ukázal, ktorý z nich páli rozpočet, nie iba súhrnný výdavok.
 
 **Token accounting** — počítanie vstupných plus výstupných tokenov na požiadavku, každý ocenený podľa svojho
