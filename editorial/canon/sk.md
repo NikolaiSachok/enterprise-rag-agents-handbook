@@ -2593,3 +2593,160 @@ follow-up PR do kánonu + dotknutých strán (spolu s native-check tracku a odlo
 
 **Stav locale:** SK ostáva **gated** (mimo plain buildu; launch podľa roadmapy). Táto vlna uzatvára **#96**
 (Part II SK — 13 strán). Ďalej: Wave 3 — Part III (#97).
+
+### Fáza 19 — vlna 3, lekcia Serving (FastAPI + Docker): rozhodnutia kánonu
+
+Prvá lekcia vlny 3 (Časť III — Produkcia a LLMOps), stránky `index` + prehĺbenie „Priepustnosť a
+škálovanie". Plný redakčný tím (literárny, naivný jednojazyčný čitateľ, technický/fakt, korektor,
+konzistenčný, riadiaci) v synchrónnych dávkach, adjudikácia (fidelita > štýl; glosár/kánon > novinka jednej
+stránky), oprava a **studený prechod ×2** (čerstvá dvojica literárny + naivný čitateľ NA KAŽDEJ stránke,
+zdroj skrytý). Prezentačná lokalita bez ľudskej poistky — brány niesli plnú váhu. **Termíny Časti III už
+usadené v glosári** (sekcia „Production — serving", heslá serving … serverless GPU) — telo lekcie sa
+zosúlaďuje s glosárom, ktorý je pre smer termínu autoritatívny.
+
+**Fakty nehýbané — jeden defekt nájdený a opravený proti skeletonu.** EN-skeleton D2: uvicornov vlastný
+prepínač `--workers` obaľuje `fastapi run` (nie naopak). Prvá SK verzia mala vzťah obrátený („prepínač, ktorý
+obaľuje fastapi run") → opravené na „prepínač `--workers` priamo v uvicorne; príkaz `fastapi run` **ho
+obaľuje**". Ostatné čísla/mená intaktné (Orca Yu a kol. OSDI 2022; engine V1 alfa jan. 2025, predvolený
+k 2026; TGI režim údržby dec. 2025, repozitár archivovaný marec 2026; INT4 cez AWQ/GPTQ ~¾ VRAM, 70B na jedno
+GPU; Littleov zákon 10 × 20 s = 200; 30–60 s → pod 5 s za ~18 mes.; ~40 vlákien threadpoolu; `(2 × jadrá) + 1`;
+tri prepínače max_num_seqs / max_num_batched_tokens / gpu_memory_utilization; DCGM; `nvidia.com/gpu`).
+
+**Smer termínu — glosár katalogizuje EN lemmu, telo vedie SK (zrkadlí vzor `durable execution` / rodina
+rozpočtov, Fáza 13/15/18).** Kde má termín Časti III čistý priehľadný slovenský tvar, telo ho vedie a most
+`(anglický originál)` dáva raz; glosárová lemma aj pätička „Nové pojmy" ostávajú v tvare hesla glosára (§4:
+pätička opakuje heslo glosára, slovenský funkčný glos v zátvorke sa vypúšťa, anglická zátvorka hesla ostáva).
+Konkrétne:
+- **priepustnosť (throughput)**, **latencia (latency)**, **inferencia (inference)**, **dopredný prechod
+  (forward pass)** — SK-vedené (naturalizované / priehľadné), pätička zrkadlí lemmu.
+- **kvantizácia (quantisation)**, **kvantizácia KV-cache (KV-cache quantisation)** — SK-vedené; glosár vedie
+  SK lemmu → pätička „kvantizácia (quantisation)" (anglická zátvorka ostáva).
+- **tenzorový / zreťazený / dátový paralelizmus** (tensor / pipeline / data parallelism) — telo SK-vedené,
+  most raz; **glosár vedie ANGLICKÚ lemmu** → pätička „tensor parallelism" atď. (slovenský glos vypustený).
+  Zmiešaný smer pätička-vs-telo je principiálny (vzor durable execution), NIE kolísanie §1.0.
+- **protitlak (backpressure)** — SK-vedené v tele (glos „(ochrana pred zahltením)"); glosár vedie EN lemmu
+  „Backpressure" → pätička „backpressure". Rovnaký vzor.
+- **kept-EN, EN-vedené (glos raz na stránku):** serving „(prevádzka modelu alebo pipeline ako sieťovej
+  služby)", inference server „(inferenčný server)", cold start „(studený štart)", time-to-first-token
+  „(čas do prvého tokenu)", streaming „(priebežné odosielanie výstupu)", scale-to-zero „(škálovanie na
+  nulu)", on-demand „(na požiadanie)", load shedding „(zhadzovanie záťaže)", admission control „(kontrola
+  prijatia)", iteration-level scheduling „(plánovanie na úrovni iterácie)", chunked prefill „(prefill po
+  častiach)", prefix caching „(cachovanie prefixu)", GPU time-slicing „(delenie GPU v čase)", MIG
+  „(Multi-Instance GPU)", Littleov zákon „(Little's Law)". Holé kept-EN mená (§1.1) použité a potvrdené:
+  continuous batching, PagedAttention, KV-cache, prefill, decode/dekódovanie, uvloop, ASGI worker, KEDA,
+  KServe, Knative, Ray, serverless GPU, SSE, OpenAI-compatible API, SGLang, vLLM, Ollama, TGI.
+- **SK-vedené hlavy (most raz):** slučka udalostí (event loop), worker/pracovný proces (serving-worker,
+  NIE subagent — §1.2), fronta / ohraničená fronta / hĺbka fronty (queue), semafor (semaphore),
+  autoškálovanie / autoscaler, škálovanie (NIE „škála"), rate limit (strop na počet požiadaviek) — kept-EN
+  s glosom, sondy pripravenosti a životnosti (readiness / liveness probes), obslužná funkcia cesty (path
+  operation), teplá rezerva / teplé fondy inštancií (warm pool), snímka pamäte (memory snapshot), vrstvy
+  modelového servingu (model-serving layers).
+
+**Nové kept-EN výnimky (§1.1, glos raz):** **secrets** (Docker) „(secrets)" — nie holé „tajomstvá";
+**GIL** „(globálny zámok interpretera Pythonu)"; **graceful timeout** „(čas na doznenie)"; **rolling deploy**
+„(priebežné nasadenie)"; **image / CUDA image** (Docker) — kept-EN, skloňuj „image" (nie „obraz"); **pod**
+„(nasadzovacia jednotka Kubernetes)"; **interconnect** „(prepojenie)"; **load balancer** „(rozdeľovač
+záťaže)"; **DCGM** „(exportér GPU-telemetrie od NVIDIA)"; **node taints / tolerations / affinity / node
+pools** — kept-EN infra Kubernetes, ľahko opísané v próze. `max_num_seqs`, `max_num_batched_tokens`,
+`gpu_memory_utilization`, `tensor_parallel_size`, `pipeline_parallel_size`, `--gpus`, `HF_HOME` — kódové
+identifikátory, neprekladajú sa.
+
+**Karty (potvrdené / doplnené).**
+- **Karta 1:** „zlyhanie" iba ako kategória / „spôsob zlyhania"; jednotlivý incident = „chyba" / „pád". Vedomé
+  odmietnutie 429/503 pod záťažou = **„odmietni / odmietnutie / zhodenie"**, NIE „zlyhaj/zlyhanie" (load
+  shedding je zámerná ochrana, nie zlyhanie). „keď sa generovanie v polovici pokazí" (jeden beh) — nie
+  „zlyhá". „služba sa roztaví" (melts down) = expresívny obraz stavu, glosár ho nesie.
+- **Karta 5 — piaty viazaný význam „vrstva":** **Docker image layer** („malé vrstvy" v rámci Docker image) —
+  popri (a) krok pipeline/knihy, (b) obranná vrstva, (c) vrstva modelu (neurónovej siete, rozdeľovaná
+  tenzorovým paralelizmom), (d) textová vrstva. Každá veta drží svoj rámec; „vrstvy modelového servingu"
+  (KServe/Knative) je architektonická vrstva, nie vrstva modelu.
+- **Karta 6 (batch):** plánovač inferenčného servera = kept-EN „batch", „continuous batching", „statický
+  batching", „bežiaci batch" (glos „(dávka)" raz); NIKDY „dávkový režim" pre tento význam (ten je vyhradený
+  pre async API vrstvu Časti III — lekcia cloud-platforms). Potvrdené.
+- **Karta 9 (strop):** „strop" iba v rámci ohraničenia — „strop súbežnosti", „strop max_num_seqs", sloveso
+  „stropovať" (webom overené, Fáza 10); „skutočným stropom nie je hrubý výpočet, ale KV-cache" (KV-cache ako
+  strop kapacity — rámec je ohraničenie zdroja). Žiadny holý generický „strop".
+
+**Verb-by-object (§1.5):** univerzálne „vydať" **grep = 0** na oboch stránkach. plánovač **priberá / vyraďuje**
+požiadavky; model **generuje / počíta / vráti**; server **vystaví / vráti**; meranie **odčíta**; semafor
+**stropuje**; vLLM požiadavku **preempuje (vyvlastní)**. Glosárové heslo Prefill/decode „dekódovanie vydáva…"
+je v tele obídené (§1.5) → „dekódovanie generuje po jednom tokene za krok" — *flag na glosárový flip* (heslo
+nesie „vydáva", do glossary-flip backlogu k Self-RAG/HITL/kosínus).
+
+**Figúry — studený prechod ×2 (naivný čitateľ dekódoval pri prvom kontakte = confirmed):**
+- **POTVRDENÉ → usadené:** „dvojitá poistka" (belt and braces — dekódovalo cold), „bublina v zreťazení"
+  (pipeline bubble — mechanika rozpísaná pred nálepkou), „služba sa roztaví" (melts down), „inference server
+  je tá škatuľa / tú druhú škatuľu si prenajal" (the box you need / rented the second box), „spáli vlákno"
+  (burns a thread), „zmrazí slučku" (freezes the loop), „dvestovka" (200 status — hovorový, ale rodený a
+  jednoznačný v kontexte), „zohriaty / stále teplé GPU" (warm), „daň za studený štart" (cold-start tax —
+  glosárom posvätené, drží).
+- **ZAMIETNUTÉ (naivný cold-read zlyhal) → prostá próza:** **„p99 spadne z útesu"** (falls off a cliff) —
+  naivný čitateľ dekódoval nesprávny smer (útes evokuje pád nadol, no p99 latencia *rastie*) → nahradené
+  **„p99 prudko vystrelí"** (správny smer — hore = horšie), cold-read potvrdil. Medzi odmietnuté coinage.
+
+**Nové kalkové pasce a falošní priatelia (žatva Serving — do grep-zoznamov §1.3/§1.4):**
+- **„akonáhle"** ✗ (bohemizmus / nespisovné) → **„len čo / hneď ako"** (do §1.3 lexikálneho zoznamu).
+- **„prekladá / prekladanie"** pre *interleave* ✗ (falošný priateľ: *prekladač* = compiler, *prekladať* =
+  compile/translate) → **„strieda / striedanie"**.
+- **„vnútornosti"** pre *internals* ✗ (= vnútornosti/droby) → **„vnútorné mechanizmy"**.
+- **„notebook"** v H1/próze pre Jupyter-notebook ✗ (v SK = laptop) → **„prototyp / experiment"**; H1 „Z
+  prototypu do produkčnej služby".
+- **„proti"** pre násobenie / „× (krát)" ✗ (= versus; ticho rozbil aritmetiku 10 × 20 = 200) → **„pri"**
+  („desať za sekundu **pri** dvadsaťsekundovej generácii").
+- **„prvotriedny"** pre *first-class* (programátorské) ✗ (= najvyššej kvality) → **„zabudovaný / natívny"**.
+- **„čestná výhrada"** pre *honest caveat* ✗ (*čestný* = honourable) → **„poctivá výhrada"** (zrkadlí
+  „úprimná brzda", Fáza 14 — *čestný* je opakovaný falošný priateľ pre honest/candid).
+- **„pre každý povrch"** (per surface) ✗ → **„pre každý typ výstupu"**.
+- **„rozdiel od AI"** (the AI delta) ✗ (parsuje sa ako rozdiel *voči* AI) → **„v čom je to s AI iné /
+  špecifikum AI / rozdiel, ktorý vnáša AI"** (rodina AI-delta, Fáza 2).
+- **„ťažký používateľ"** (heavy user) ✗ → **„nenásytný / mimoriadne náročný používateľ"**.
+- **„menovka verzie"** / **„pohyblivý cieľ"** (version label / moving target) ✗ → **„označenie verzie" /
+  „sa mení / pohyblivá méta"**.
+- **„AWS má príbeh (X) slabý"** (story) ✗ → **„ponuka (X) je … slabá"**.
+- **„X sa rodí"** (are born) ✗ → **„o X rozhoduje"**; **„na granularite X"** ✗ → **„na úrovni jednotlivých
+  X"**; **„buildí / pushuje / pulluje"** ako próza ✗ → **„zostavuje / nahráva / sťahuje"** (EN len pre
+  literálne `docker build/push/pull`).
+- **„premávka"** (request/workload traffic) — **ponechané / sankcionované** (vedome namiesto „prevádzka",
+  ktorá na týchto stránkach = *serving/prevádzka*; rámce sa nezamieňajú).
+
+**§8 polotučné + em-dash + straight-quote (potvrdenie Fázy 2/6/10/12–18).** Celovetné/celoklauzové
+zvýraznenia (all-caps `worker JE` / `Čo ti NEDÁ`) prevedené na kurzívu (`*je*` / `*nedá*`) — tlačový register,
+nie krik. Em-dash metronóm: index ~2,4/100 slov, prehĺbenie ~2,1/100 slov (v sesterskom pásme). Zákaz
+**„— ," = 0** na oboch. **Straight-quote checkpoint:** prozaická rovná `"` (U+0022) mimo kódu/frontmatteru/
+Mermaid/YouTube = **0** (párovanie „…"). **ř/ě/ů = 0.** nbsp pred „%" a jednotkami (100 %, 30–60 s, 8 GPU).
+
+**Odkazy (PRVÁ lekcia Časti III).** Časť I + II sú SK → plná SK cesta s `.md`: guardrails
+„../../part-1-rag/cross-cutting/guardrails/index.md", observability index/prehĺbenie
+„../../part-1-rag/cross-cutting/observability/index.md" a „…/deep-dive.md", tool-use
+„../../part-2-agents/tool-use/index.md". Nepreložení **súrodenci Časti III** (cloud-platforms,
+tooling-ecosystem, llmops) → **holá EN-fallback zložková cesta bez `.md`** („../cloud-platforms/" atď.) až do
+ich landingu. Glosár „../../glossary.md"; v rámci lekcie „./index.md" / „./deep-dive.md". Index nesie
+poznámku prehĺbenia s textom odkazu **„Priepustnosť a škálovanie" == deep-dive `sidebar_label` bajt-za-bajt**;
+prehĺbenie NEMÁ video (EN ho nemá — čestné „nie") ani poznámku prehĺbenia. Frontmatter: index drží
+`slug` + `title:"Serving — FastAPI + Docker"`; prehĺbenie `sidebar_position:2` + `sidebar_label:"Priepustnosť
+a škálovanie"` + `title:"Serving — prehĺbenie"`. Mermaid: node IDs zachované, labely preložené a **quotované
+`["…"]`/`{"…"}`** kvôli špeciálnym znakom (—, +, /, `<br/>`), edge-labely quotované; kódové identifikátory
+v labeloch nedotknuté (`max_num_seqs`, `nvidia.com/gpu`, NVLink, 429/503, Retry-After). `_category_.json`
++ `current.json` (label „Serving — FastAPI a Docker") existovali z bootstrapu Časti III — nerekreované.
+
+**Backlog — stav.** Glossary-flip backlog (Fáza 11/18) nezmenený + **pridané:** heslo Prefill/decode
+„dekódovanie **vydáva**…" → „**generuje**…" (§1.5). Časť III nie je preložená → sesterský retrofit
+„../cloud-platforms/" atď. na „…/index.md" príde, keď cieľ pristane (Fáza 11 konvencia).
+
+**Pre lekciu Cloud AI platformy (odovzdanie):**
+- Glosár už nesie sekciu „Production — cloudové platformy" (managed endpoint, model catalogue, data
+  residency, provisioned throughput, **batch mode = „dávkový režim"** — Karta 6 význam (2), vendor lock-in,
+  fine-tuning/SFT/DPO/RFT/LoRA/PEFT, model distillation, continued pre-training, managed agent runtime) —
+  drž jeho smer termínu (väčšina kept-EN s glosom; „doladenie modelu", „dávkový režim", „rezervovaná
+  priepustnosť").
+- **Karta 6 význam (2) v cloud-platforms:** async API vrstva = **„dávkový režim"** (nie „batch"); serving
+  scheduler „batch" ostal v Serving. Nezamieňať.
+- „prenajať-či-vlastniť" (rent-vs-own) je most zo Serving do cloud-platforms — Serving ho otvára, cloud
+  rozvádza; „on-demand (na požiadanie)" vs „provisioned throughput (rezervovaná priepustnosť)".
+- Karta 1 (chyba vs zlyhanie), Karta 9 (strop), verb-by-object §1.5, em-dash metronóm + zákaz „— ,"
+  + straight-quote checkpoint platia ďalej.
+- Odkazy: SK existuje pre Serving (index + prehĺbenie) → mieri naň „../serving/index.md" / „…/deep-dive.md";
+  na nepreložené llmops/tooling-ecosystem holou cestou; Časť I/II SK plnou cestou s `.md`.
+
+**Stav:** Wave 3 lekcia 1 (Serving) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu). Ďalej:
+Wave 3 lekcia 2 — Cloud AI platformy.
