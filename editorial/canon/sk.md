@@ -483,7 +483,8 @@ stav viazaný na thread (krátky, checkpoint) vs **store** (dlhý, presahujúci 
 v zoznamoch nákladov. Holá „pamäť“ iba vnútri rámca.
 
 **Karta 5 — vrstva: tri významy.** (1) Krok pipeline/knihy: „vrstva Retrieval“,
-„prehĺbenie vrstvy“, „mostík na vrstvu X“. (2) Architektonická/obranná: „obranná vrstva“, „obranu staviame do
+„mostík na vrstvu X“ (reader-facing tvar pre druhý prechod lekcie je „druhá časť lekcie / prehĺbenie
+<lekcie>“; figúra „prehĺbenie vrstvy“ vyškrtnutá — Fáza 25). (2) Architektonická/obranná: „obranná vrstva“, „obranu staviame do
 vrstiev“, „defence-in-depth“. (3) Vrstva modelu (neurónovej siete): „váhové matice každej vrstvy“, ktoré
 tenzorový a zreťazený paralelizmus rozdeľuje medzi GPU. Všetky môžu žiť na jednej stránke, ale každá veta drží
 svoj rámec; holá „vrstva“ tam, kde súperia čítania, sa nepíše.
@@ -2577,7 +2578,7 @@ trojice) alebo iný, správny nárok (retrieval-optimised embeddingy trénované
 
 **B. ODLOŽENÉ — glossary-headword slug flipy (NIE v tomto PR; samostatný pre-launch prechod).** Menia SLUG
 glosárového hesla → ripple na každú „Nové pojmy" pätičku a anchor v celom korpuse; riskantné mid-projekt a
-Časť III ešte nie je preložená. **Plný zoznam na jeden vedomý prechod (Fáza 6-adjacent):**
+Časť III ešte nie je preložená. **Plný zoznam na jeden vedomý prechod (pred-launch, Fáza 25):**
 - HITL heslo „(človek v slučke)" → zosúladiť s telovým „schválenie človekom / človek v rozhodovacom procese"
   (porušuje §1.2/§1.3).
 - „kosínusová podobnosť", „viacjazyčné embeddingy", **„rozmernosť" → „dimenzia"** (native lean, Fáza 18 E).
@@ -3358,7 +3359,7 @@ llmops/index; naivný + literárny, nahlas) — 4 cielené prepisy, fidelita zac
 
 **Stav backlogu po tejto vlne:** A HOTOVÉ · B doriešené (dva významy) · C HOTOVÉ · D ratifikované · E DOPLNENÉ ·
 I všetkých 17 promovaných. **F/G/H/J prenesené nedotknuté** (nižšie) — jeden vedomý pre-launch prechod pred
-Fázou 6 (#98).
+prehľadmi častí (Fáza 24, #98).
 
 **ODLOŽENÉ — jeden pred-launchový cross-cutting prechod (NIE v tomto PR; celý zoznam nesený ďalej):**
 - **F. Glosár-headword SLUG flipy** (menia slug → ripple na každú „Nové pojmy“ pätičku/anchor korpusovo): HITL
@@ -3377,9 +3378,9 @@ Fázou 6 (#98).
 
 **Stav locale:** SK ostáva **gated** (mimo plain buildu; launch podľa roadmapy). Táto vlna uzatvára **#97**
 (Part III SK — 8 strán) a **telo príručky je kompletne trojjazyčné (EN/RU/SK) pre Časti I–III**. Ďalej:
-jeden pred-launchový prechod (F/G/H/J), potom **Fáza 6 / #98** (prehľady častí + intro + launch-flip).
+jeden pred-launchový prechod (F/G/H/J), potom **Fáza 24 / #98** (prehľady častí + intro + launch-flip).
 
-### Fáza 6 — prehľadové stránky častí (#98, SK overviews Časť I/II/III): rozhodnutia kánonu
+### Fáza 24 — prehľadové stránky častí (#98, SK overviews Časť I/II/III): rozhodnutia kánonu
 
 Editorial gate (6-rolový tím + povinný studený prechod dvoch Gate-2 person na stránku) troch part-opener
 prehľadov. Usadené rozhodnutia:
@@ -3424,3 +3425,83 @@ prehľadov. Usadené rozhodnutia:
 
 **Stav locale:** táto vlna uzatvára **#98** (prehľady Časti I/II/III). Prehľady sú gate-clean; ostáva
 launch-flip podľa roadmapy.
+
+### Fáza 25 — pred-launchový cross-cutting cleanup (F/G/H; J odložené): rozhodnutia kánonu
+
+Jediný vedomý korpusový prechod pred launch-flipom, ktorý dobral odložený cross-wave backlog (Fáza 23 §F/G/H)
+nad všetkými 38 SK stránkami. **Delta editing, NIE re-preklad.** Editoriálny pas: konzistenčný editor viedol
+F/G, naivný jednojazyčný slovenský čitateľ + literárny editor H, korektor mechanickú/kotviacu verifikáciu
+(všetci synchrónne, zdroj skrytý). **J (human-friend naturalness packet) NEDORAZIL — ostáva na samostatný
+následný PR.** Táto vlna je „Part of #98“, launch-flip #98 dokončí až ďalší krok.
+
+**Kľúčový nález — F „slug ripple“ v tomto korpuse NEEXISTUJE.** Fáza 23 §F predpokladala, že zmena
+glosárového headwordu zmení Docusaurus anchor slug a rozvlní každú „Nové pojmy“ pätičku. Kontrola štruktúry to
+vyvrátila: glosárové heslá sú **tučné headwordy** (`**Termín (gloss)**`), NIE nadpisy (`##`/`###`) — Docusaurus
+z nich **žiadny per-term anchor negeneruje** (anchor slug má len `##` kategória sekcie). Pätičky „Nové pojmy“
+navyše **nelinkujú na per-term anchor**, ale na landing `](../…/glossary.md)` a termíny vypisujú ako **anglický
+prozaický zoznam**. Grep `glossary…#` a `.md#` v `i18n/sk` = **0**. Preto zmena headwordu nerozvlnila žiadnu
+kotvu; F sa zredukovalo na čisto editoriálne zosúladenie smeru headword↔telo. Oba buildy potvrdili 0 zlomených
+kotiev.
+
+**F. Glosár-headword zosúladenie (smer + rename + HITL glos) — HOTOVÉ. Všetky heslá `i18n/sk/…/glossary.md`.**
+Telo vedie SK pri všetkých; heslá boli EN-vedené → flipnuté na SK-vedené (Trieda 2, §1.0/§1.2), okrem
+rename/glos:
+- **Dimensionality → rename `rozmernosť` → `dimenzia` + SK-vedené** (native lean, Fáza 18 E). Heslo r. 61
+  `**Dimensionality (rozmernosť)**` → `**Dimenzia (dimensionality)**`. Telo (ledgerovaný zmysel = dimensionality)
+  prepísané: ingestion/deep-dive nadpis §MRL + telo (×3: „podala dimenziu“, „na malej dimenzii“ ×2),
+  ingestion/index os výberu modelu. **Konkrétny „rozmer/rozmery“ (jednotlivé súradnice vektora) PONECHANÝ** —
+  je to iné slovo než abstraktná „rozmernosť“ (napr. „skrátiť na 256 rozmerov“ ostáva). Naivný čitateľ:
+  „dimenzia“ (property) + „rozmery“ (súradnice) číta čisto. Grep `rozmernos` v tele = 0.
+- **Cosine similarity — SK-vedené.** Heslo `**Cosine similarity (kosínusová podobnosť)**` →
+  `**Kosínusová podobnosť (cosine similarity)**`. Telo vedie „kosínusová podobnosť (cosine similarity)“
+  (ingestion/index, evaluation/deep-dive). Trieda 2.
+- **Multilingual embeddings — SK-vedené.** Heslo → `**Viacjazyčné embeddingy (multilingual embeddings)**`.
+  Telo vedie „viacjazyčné embeddingy (multilingual embeddings)“ (SK adjektívum + kept-EN „embeddingy“).
+- **Trojtriedne footer-flipy (Trieda 2, §1.2) — heslá EN-vedené → SK-vedené, zosúladené s telom:**
+  `Constrained decoding (obmedzené dekódovanie)` → `Obmedzené dekódovanie (constrained decoding)`;
+  `Strict mode / Structured Outputs (striktný režim)` → `Prísny režim (strict mode) / Structured Outputs`
+  (opravené aj „striktný“ → kánonický „prísny“, §1.2; branded **Structured Outputs** ostáva EN, Trieda 1);
+  `Idempotency / idempotency key (…)` → `Idempotencia / kľúč idempotencie (idempotency / idempotency key)`;
+  `Argument validation (validácia argumentov)` → `Validácia argumentov (argument validation)`. Telo vedie SK
+  pri všetkých piatich (spot-check potvrdený); smer je teraz konzistentný glosár↔telo. Pätičky sa nemenia
+  (anglické prozaické zoznamy na landing, žiadny per-term anchor).
+- **HITL glos — zosúladený s telom.** Heslo r. 591 `Human-in-the-loop (HITL) (človek v slučke)` →
+  `(schválenie človekom)`. „človek v slučke“ bol mechanický blocklistovaný tvar (§1.2/§1.3); telo VŠADE už
+  vedie „schválenie človekom“ (real-agents, orchestration-frameworks ×2, mcp ×2, planning-loops ×2,
+  evaluation/deep-dive). Grep „človek v slučke“ = 0.
+
+**G. Telové krížové odkazy „prehĺbenie vrstvy X“ — HOTOVÉ (próza, bez slug ripple).** Figúra (naivne číta ako
+fyzické prehlbovanie vrstvy) vyškrtnutá; reader-facing „druhá časť lekcie / prehĺbenie <lekcie>“:
+- ingestion/index r. 12: „druhá časť lekcie — prehĺbenie vrstvy“ → „druhá časť lekcie“.
+- ingestion/deep-dive r. 77: `[prehĺbenie vrstvy Retrieval]` → `[prehĺbenie lekcie Retrieval]`.
+- generation/deep-dive r. 11 (×2): „prehĺbenie vrstvy Retrieval“ → „prehĺbenie lekcie Retrieval“;
+  `[prehĺbenia vrstvy Agentic RAG]` → `[prehĺbenia lekcie Agentic RAG]`.
+- retrieval/deep-dive r. 11: `[prehĺbenia vrstvy Agentic RAG]` → `[prehĺbenia lekcie Agentic RAG]`.
+- **Prehľady častí (SUPERSEDE Fázy 24).** Fáza 24 usadila pre P1/P2 prehľady odkaz na „poznámky «Ďalej —
+  prehĺbenie vrstvy»“. Ground-truth kontrola: **žiadna lekčná stránka taký štítok nenesie** — 16 lekcií nesie
+  `:::note[Ďalej — druhá časť lekcie]`, real-agents `[Ďalej — do hĺbky]`. Odkaz v prehľadoch bol teda vecne
+  zastaraný. Opravené: part-1-rag/overview r. 40 a part-2-agents/overview r. 46 „Ďalej — prehĺbenie vrstvy“ →
+  „Ďalej — druhá časť lekcie“ (zhoda s reálnym štítkom). „prehĺbenie každej vrstvy“ (Karta 5 zmysel 1,
+  nesúvislý reťazec) ponechané. **Rozhodnutie Fázy 24 o „Ďalej — prehĺbenie vrstvy“ sa týmto ruší.**
+- **Karta 5 (§2):** príklad „prehĺbenie vrstvy“ v zmysle (1) vyškrtnutý, doplnená reader-facing forma.
+- Grep `prehĺbenie vrstvy` / `prehĺbeni. vrstvy` v `i18n/sk` = **0**.
+
+**H. Native-check track — doriešené (naivný SK čitateľ + webová kolokačná verifikácia).**
+- **PROMOVANÉ (clean, von z tracku, bez zmeny textu):** **„premávka“** (traffic — webom overená štandardná
+  slovenčina, nie český kalk; cestná/sieťová premávka) a **„chunkami“** (inštrumentál ratifikovaný Fáza 5/18,
+  korpus jednotný, „chunkmi“ = 0).
+- **KEEP-WITH-SCAFFOLD (marginálne, nesú svoj scaffold, nikdy holé):** preskórovať/preskórovanie, Skórer,
+  allowlisty (glos „(zoznamy povoleného)“), vydestilovať (nález/fakt), minúť výpočet, zásuvka pre nástroje,
+  plocha súhlasu (paralela s webom overenou „plocha útoku“), otrávená úloha (potvrdená coinage), tokenová diéta
+  (potvrdená coinage), „…je zombie“ (endpoint). Všetky majú echo/glos/disambiguačnú vetu → bez zmeny.
+- **DEFEKT nájdený a opravený (marginálna figúra bez scaffoldu):** evaluation/deep-dive r. 168
+  **„ansámbel sudcov“** stál holý — „ansámbel“ je slovníkovo doložený len v divadelnom/hudobnom zmysle, pre ML
+  „ensemble of judges“ nie. Doplnený minimálny natívny echo-glos: **„ansámbel (súbor) sudcov“** (figúra
+  zachovaná, disambiguovaná; nie vyškrtnutá — pravidlo H). Pozn.: kánon Fázy 18 ho viedol ako „ansámbel behov“
+  — skutočný korpusový výskyt je „ansámbel sudcov“.
+
+**Mechanické brány.** i18n-link-check PASS; `HANDBOOK_INCLUDE_UNRELEASED=1` build 0 zlomených kotiev; plain
+build stále vylučuje SK (gated); lint:md, typecheck, leak-scan čisté. Zmenených 8 SK súborov + glosár + kánon.
+
+**Stav locale:** SK stále **gated** (mimo plain buildu). Backlog: **F/G/H HOTOVÉ; J (human-friend packet)
+PENDING** — samostatný následný PR pred/pri launch-flipe. Ďalej: launch-flip #98 (odgejtovanie SK).
