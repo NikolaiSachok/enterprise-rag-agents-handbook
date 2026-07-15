@@ -65,7 +65,7 @@ Novinkou je predmet sledovania: nielen chyby a latencia, ale aj proxy kvality a 
 
 ### Korpus je tiež vydanie
 
-Index je správanie. Opätovné načítanie do indexu (re-ingest) s novou konfiguráciou chunkingu posunie vyhľadávanie naprieč celým korpusom; výmena embedding modelu si vyžiada úplné preindexovanie — pravidlo o [ingestione](../../part-1-rag/ingestion/index.md) z Prvej časti príručky. Aktualizácie korpusu preto veď tou istou bránou ako všetko ostatné: ako verziované vydanie, ktoré prejde evaluáciou, nie ako úloha na pozadí, čo prebehne cez noc a potichu prekreslí, čo systém vie.
+Index je správanie. Opätovné načítanie do indexu (re-ingest) s novou konfiguráciou chunkingu posunie vyhľadávanie naprieč celým korpusom; výmena embedding modelu si vyžiada úplné preindexovanie — pravidlo o [ingestione](../../part-1-rag/ingestion/index.md) z Prvej časti príručky. Aktualizácie korpusu preto veď ich tou istou bránou ako všetko ostatné: ako verziované vydanie, ktoré prejde evaluáciou, nie ako úloha na pozadí, čo prebehne cez noc a potichu prekreslí, čo systém vie.
 
 ## Monitorovanie v produkcii
 
@@ -113,7 +113,7 @@ Druhá cache je tvoja. Cachovanie odpovedí vráti uloženú odpoveď na zopakov
 
 ### Tokenová diéta
 
-Najlacnejší token je ten, ktorý vôbec neodošleš. Súhrnu úsporných techník hovoríme **tokenová diéta** — systematické orezávanie počtu tokenov na vstupe aj na výstupe. Vyhľadaj menej fragmentov, teda výber a zostavenie kontextu z Prvej časti príručky: tie najlepšie namiesto všetkých. Skráť systémový prompt. Ohranič dĺžku výstupu. Zhŕňaj pracovné poznámky agenta (scratchpad), namiesto aby narastali s každým krokom ([plánovanie a slučky](../../part-2-agents/planning-loops/index.md)). Diéta má latenčných súrodencov: streaming pre vnímanú latenciu ([lekcia o servingu](../serving/index.md)), menšie a rýchlejšie modely tam, kde to smerovanie dovolí, a paralelizáciu fáz pipeline, ktoré na sebe nezávisia.
+Najlacnejší token je ten, ktorý vôbec neodošleš. Súhrnu úsporných techník hovoríme **tokenová diéta** — systematické orezávanie počtu tokenov na vstupe aj na výstupe. Vyhľadaj menej fragmentov, teda výber a zostavenie kontextu z Prvej časti príručky: tie najlepšie namiesto všetkých. Skráť systémový prompt. Ohranič dĺžku výstupu. Zhŕňaj pracovné poznámky agenta (scratchpad), namiesto toho, aby narastali s každým krokom ([plánovanie a slučky](../../part-2-agents/planning-loops/index.md)). Diéta má latenčných súrodencov: streaming pre vnímanú latenciu ([lekcia o servingu](../serving/index.md)), menšie a rýchlejšie modely tam, kde to smerovanie dovolí, a paralelizáciu fáz pipeline, ktoré na sebe nezávisia.
 
 ### Dávkový režim
 

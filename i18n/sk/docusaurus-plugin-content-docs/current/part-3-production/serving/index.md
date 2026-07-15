@@ -7,7 +7,7 @@ slug: /part-3-production/serving/
 
 Druhá časť príručky uzavrela celý systém: z RAG pipeline vyrástol agent, ktorý sa cez štandardné protokoly prepojil so svojimi nástrojmi aj s ďalšími agentmi. Všetko, čo si doteraz postavil, spája jeden nevyslovený predpoklad: beží to na tvojom počítači a pre teba — ty to spustíš, položíš otázku, prečítaš odpoveď, a keď sa to pokazí, sedíš priamo pri tom.
 
-Produkcia z toho postupne odoberie všetko: systém beží ako služba, pre iných ľudí, mnohých naraz, pod záťažou a bez toho, aby sa niekto pozeral. Presne o tomto skoku je Tretia časť príručky a rozvíja ho v jasnom poradí: táto lekcia zabalí to, čo si postavil, do služby; neskoršie lekcie sa pýtajú, kde má model bežať ([cloudové platformy](../cloud-platforms/)), čím bežiaci systém obaliť ([ekosystém nástrojov](../tooling-ecosystem/)) a ako ho prevádzkovať, keď je nasadený ([LLMOps](../llmops/)).
+Produkcia z toho postupne odoberie všetko: systém beží ako služba, pre iných ľudí, mnohých naraz, pod záťažou a bez toho, aby sa niekto pozeral. Presne o tomto skoku je Tretia časť príručky a rozvíja ho v jasnom poradí: táto lekcia zabalí to, čo si postavil, do služby; neskoršie lekcie sa pýtajú, kde má model bežať ([cloudové platformy](../cloud-platforms/index.md)), čím bežiaci systém obaliť ([ekosystém nástrojov](../tooling-ecosystem/index.md)) a ako ho prevádzkovať, keď je nasadený ([LLMOps](../llmops/index.md)).
 
 ## Jedno slovo, dve úlohy
 
@@ -70,7 +70,7 @@ Nič z toho nie je exotické — časové limity, opakovania, rate limity (strop
 
 **Rate limiting, otočený opačným smerom.** Za tvojou službou je kvóta poskytovateľa — požiadavky za minútu, tokeny za minútu — spoločná pre všetkých. Bez vlastných stropov na používateľa vyčerpá jeden nenásytný používateľ spoločnú kvótu a ostatní dostanú chyby, za ktoré nemôžu. Stropy súbežnosti a rate limity na tvojich vlastných používateľov ich chránia jeden pred druhým.
 
-**Účtovacie napojenia** (hooks). Na každej požiadavke loguj vstupné a výstupné tokeny, ktorý model a latenciu po fázach. Disciplína [observability](../../part-1-rag/cross-cutting/observability/index.md) (pozorovateľnosť) z Prvej časti príručky má tu svoje fyzické miesto — trace (stopa) sa začína v tvojej službe — a produkčné nástroje z [ekosystému nástrojov](../tooling-ecosystem/) budú počítať s tým, že tie napojenia existujú.
+**Účtovacie napojenia** (hooks). Na každej požiadavke loguj vstupné a výstupné tokeny, ktorý model a latenciu po fázach. Disciplína [observability](../../part-1-rag/cross-cutting/observability/index.md) (pozorovateľnosť) z Prvej časti príručky má tu svoje fyzické miesto — trace (stopa) sa začína v tvojej službe — a produkčné nástroje z [ekosystému nástrojov](../tooling-ecosystem/index.md) budú počítať s tým, že tie napojenia existujú.
 
 ## Docker — v čom je to s AI naozaj iné
 
@@ -102,7 +102,7 @@ Ako to vyzerá dnes: **vLLM** je open-source štandard pre serving na GPU; **SGL
 
 Zhodujú sa aj na úrovni protokolu. Inference servery vystavujú **OpenAI-compatible API** (OpenAI-kompatibilné API) a táto kompatibilita sa stala de facto štandardom komunikácie pre LLM-endpointy: tvoja aplikačná vrstva hovorí jedným klientským dialektom, či už je backendom sám OpenAI, vLLM na tvojich vlastných GPU, alebo cloudový endpoint. Výmena backendu má blízko k zmene URL, nie k prepisu — s jednou poctivou výhradou: kompatibilita pokrýva jadro rozhrania chat-completions, nie každý parameter každého backendu.
 
-Zostáva architektonické ponaučenie: čisté rozdelenie práce. Vrstva FastAPI vlastní produkt: autentifikáciu, orchestráciu RAG, guardrails, streaming k používateľovi, účtovanie. Inference server vlastní GPU: batching, KV-cache, načítanie modelu. Ich zreťazenie — app-služba vpredu, inference server vzadu — je štandardná architektúra pri prevádzke u seba; a keď namiesto toho použiješ API poskytovateľa, štrukturálne sa nemení nič, len si tú druhú škatuľu prenajal. Či ju prenajať, alebo vlastniť, je presne otázka lekcie o [cloudových platformách](../cloud-platforms/).
+Zostáva architektonické ponaučenie: čisté rozdelenie práce. Vrstva FastAPI vlastní produkt: autentifikáciu, orchestráciu RAG, guardrails, streaming k používateľovi, účtovanie. Inference server vlastní GPU: batching, KV-cache, načítanie modelu. Ich zreťazenie — app-služba vpredu, inference server vzadu — je štandardná architektúra pri prevádzke u seba; a keď namiesto toho použiješ API poskytovateľa, štrukturálne sa nemení nič, len si tú druhú škatuľu prenajal. Či ju prenajať, alebo vlastniť, je presne otázka lekcie o [cloudových platformách](../cloud-platforms/index.md).
 
 ```mermaid
 flowchart LR
@@ -129,6 +129,6 @@ flowchart LR
 
 **[Priepustnosť a škálovanie](./deep-dive.md)** — tá istá služba pod reálnou záťažou: workery a slučka udalostí, fronty a protitlak, vnútro vLLM, viac-GPU a viacuzlový paralelizmus, plánovanie a autoškálovanie GPU na Kubernetes, serverless GPU.
 
-Pozri aj, v Časti III: [cloudové platformy](../cloud-platforms/) pre rozhodnutie prenajať-či-vlastniť a kde model beží, [LLMOps](../llmops/) na prevádzku po spustení, a [ekosystém nástrojov](../tooling-ecosystem/) na to, čím službu obalíš. Pre SLO a rozpočty latencie, na ktoré tieto rozhodnutia o škálovaní odpovedajú, [prehĺbenie o Observability](../../part-1-rag/cross-cutting/observability/deep-dive.md).
+Pozri aj, v Časti III: [cloudové platformy](../cloud-platforms/index.md) pre rozhodnutie prenajať-či-vlastniť a kde model beží, [LLMOps](../llmops/index.md) na prevádzku po spustení, a [ekosystém nástrojov](../tooling-ecosystem/index.md) na to, čím službu obalíš. Pre SLO a rozpočty latencie, na ktoré tieto rozhodnutia o škálovaní odpovedajú, [prehĺbenie o Observability](../../part-1-rag/cross-cutting/observability/deep-dive.md).
 
 :::

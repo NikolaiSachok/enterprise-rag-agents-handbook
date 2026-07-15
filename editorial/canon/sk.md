@@ -3246,3 +3246,135 @@ do kánonu + dotknutých strán (spolu s F/G/H).
 **Stav:** Wave 3 lekcia 4 (LLMOps) redakčne uzavretá; **Časť III (vlna 3) kompletná** (4 lekcie × index+prehĺbenie
 = 8 strán). SK ostáva **gated** (mimo plain buildu; launch podľa roadmapy). Milestone-prechod vlny 3 (A–J vyššie)
 je jediný PR, ktorý nesie `Closes #97`.
+
+### Fáza 23 — milestone-prechod vlny 3 (uzávierka #97): reconciliácia a rozhodnutia
+
+Delta-driven milestone-prechod nad všetkými 8 SK stránkami Časti III (serving, cloud-platforms,
+tooling-ecosystem, llmops — každá index + prehĺbenie), NIE re-preklad. Dokončil odložené súrodenecké
+retrofity, doriešil smerové/konvenčné konflikty B–E, dal probačným figúram Časti III čerstvý naivný decode,
+prebehol konzistenčný sense-card prechod (Karta 1/2/3/8/9), mechanické brány a studený spätný prechod 4 strán,
+zosúladil kánon s korpusom a preniesol odložený cross-wave backlog (F/G/H/J) nedotknutý. Sub-agenti (naivný
+jednojazyčný slovenský čitateľ + studený literárny čitateľ) bežali synchrónne, zdroj skrytý. Táto vlna uzatvára
+**#97** (Part III SK) — a **telo celej príručky (Časti I–III) je týmto kompletne SK**.
+
+**A. Súrodenecké retrofity Časti III — HOTOVÉ (celá Časť III je SK → žiadna relatívna cesta na preložený cieľ
+Časti III nesmie ostať bez `.md`; zrkadlí Fázu 18 A pre Časť II).** Grep bare `](../<súrodenec>/)` **19 → 0**,
+každý retrofitovaný na `…/index.md` (všetky bare výskyty mierili na landing lekcie = index; prehĺbenia už niesli
+explicitné `/deep-dive.md`):
+- **`](../llmops/)` → `](../llmops/index.md)` — 9 výskytov** (headline: LLMOps teraz SK, Fáza 22 SIBLING-RETROFIT):
+  cloud-platforms/index r. 98/104/126, cloud-platforms/deep-dive r. 61/69, serving/index r. 10/132,
+  tooling-ecosystem/index r. 78/102.
+- **`](../tooling-ecosystem/)` → `](../tooling-ecosystem/index.md)` — 6:** cloud-platforms/index r. 90/126,
+  cloud-platforms/deep-dive r. 45, serving/index r. 10/73/132.
+- **`](../cloud-platforms/)` → `](../cloud-platforms/index.md)` — 4:** serving/index r. 10/105/132,
+  serving/deep-dive r. 110.
+- Grep po retrofite: 0 bare relatívnych ciest na preložený vnútrokorpusový cieľ v celej Časti III;
+  i18n-link-check PASS. Časti I/II krížové odkazy nekontrolované = neregresované (ostávajú plná cesta s `.md`).
+
+**B. `on-demand` glos KONFLIKT (Fáza 20) — DVA VÝZNAMY, rozlíšené (nie silový prepis).** Fáza 20 flag predpokladal
+jeden termín; korpus má dva:
+- **Cenový zmysel = korpusový smer „(platba za tokeny)“** — už bajtovo správne v cloud-platforms (index r. 94
+  definícia, deep-dive r. 23) aj v glosári + §1.1 + odovzdaní LLMOps. **Serving index on-demand v cenovom zmysle
+  NEOBSAHUJE** (predpoklad Fázy 20/worklistu B o „Serving index“ bol nepresný — grep `on-demand`/`platba za
+  tokeny` v serving/index = 0). Cloud-platforms/glosár netreba meniť.
+- **Škálovací (reaktívny) zmysel — serving/deep-dive r. 102:** „škálovať predikatívne, nie čisto on-demand
+  (na požiadanie)“ = reaktívne škálovanie na požiadavku, NIE cena za tokeny. „(platba za tokeny)“ by tu bola
+  vecne nesprávna. **Náprava: vypustený branded headword → „nie čisto na požiadanie“** (čistý SK, presný pre
+  reaktívne škálovanie). Tým je branded headword **„on-demand“ v celom korpuse jednoznačne cenový** (sense-card
+  disambiguácia, NIE §1.0 kolísanie smeru). „na požiadanie“ ako bežná SK fráza (aj glosár r. 419 Self-RAG)
+  ostáva bez konfliktu.
+
+**C. Glosárový flip Prefill/decode (Fáza 19) — HOTOVÉ.** glosár r. 748 heslo „Prefill / decode“: „dekódovanie
+**vydáva** jeden token za krok“ → „dekódovanie **generuje** jeden token za krok“ (§1.5 verb-by-object). Žiaden
+slug/anchor ripple. Backlog položka C UZAVRETÁ.
+
+**D. Mena — konvencia RATIFIKOVANÁ (Fáza 20 vedome zmiešaná → usadené rozhodnutie).** **USD s prefixom `$`,
+EUR so slovenskou príponovou podobou „… €“**, desatinná čiarka a NBSP ako tisícový oddeľovač v oboch. Každá mena
+vo svojej slovensky-konvenčnej pozícii ($-prefix je bežný, €-sufix je SK štandard) → konvencia je vnútorne
+konzistentná, žiadny prepis prózy netreba. Materiálne nesie menu len cloud-platforms ($1 422, $10 000–12 000,
+$5 000, 7,8 mld. €); llmops „dolár“ len v „kvalita za dolár / na dolároch“ (bez číselnej sumy). Skontrolované:
+desatinná čiarka + NBSP dodržané. Backlog D UZAVRETÝ ako usadená konvencia.
+
+**E. `frontier model` glosárové heslo — DOPLNENÉ (Fáza 20 návrh).** glosár, sekcia „Production — cloudové
+platformy“: **„Hraničné (frontier) modely“** (SK-vedené, most `(frontier)` raz), heslo výslovne odlišuje
+frontier (predná hranica poznania) od borderline (naivný číta „hraničný“ nesprávnym smerom) a od modelov s
+otvorenými váhami (schopnosť vs dostupnosť váh). Telo už jednotne vedie „hraničné (frontier) modely“
+(cloud-platforms/index r. 62 definícia + r. 72; deep-dive r. 96/113) — heslo len kodifikuje usadený tvar.
+cost-attribution headword „(priradenie nákladov)“ už opravený (Fáza 22).
+
+**I. Probačné figúry Časti III — čerstvý naivný decode (jednojazyčný SK, zdroj skrytý, prvý kontakt) → VŠETKÝCH
+17 PROMOVANÝCH, 0 vyškrtnutých.** Naivný čitateľ dekódoval každú pri prvom kontakte len z okolitého SK:
+- **F19:** „bublina v zreťazení“ (inline glos „prázdny čas, kým sa reťazec napĺňa/vyprázdňuje“), „služba sa
+  roztaví“ (borderline — drží ju kontrast „lepší koniec než služba, ktorá sa roztaví pre všetkých“ + známy
+  obraz „roztavenie reaktora“), „daň za studený štart“ (idióm „daň za niečo“ + rozpísaný náklad).
+- **F20:** „páčka rezidencia↔kapacita“ (dvojpolohová páčka, rámec „na jednom/druhom konci“), „zombie“ (endpoint —
+  glos „platíš za kapacitu, hoci ju sotva využíva“), „bod zvratu“ (usadený SK účtovný termín + glos „prah, pri
+  ktorom sa to zlomí“), „rebrík prispôsobenia“ (rebrík + „priečky“ + „stúpa sa po ňom“).
+- **F21:** „splácame dlh z Prvej časti“ (idióm „splácať dlh“), „koľajnice“ (v úvodzovkách, viazané na NeMo/Colang;
+  koexistuje s „mantinely“ pre guardrails — iné koncepty, bez kolízie), „podložie“ (rámec „pod všetkými tromi …
+  podložím“), „spojivo“ („spojivo medzi X a Y“), „švy/šev/na dvoch švoch“ (glos „trafíš tie dve integrácie“;
+  lok. pl. „na dvoch švoch“ gramaticky správne), „odovzdanie“ (dátový/etapový handoff — na stránke číta čisto;
+  POZOR §1.2 rezervuje „odovzdanie riadenia“ pre agentový control-handoff — tu vedomá nová sémantika, prvý
+  kontakt kolíziu nevidí).
+- **F22:** „tokenová diéta“ (glos „systematické orezávanie počtu tokenov“), „počasie“ (kontrast „nie sú incidenty,
+  sú to počasie“), „nadmerne prispôsobiť“ (glos „nádherne skóruje na tréningu, horšie inde“), „otrávená úloha“
+  (borderline — falošný priateľ „otrávený = nahnevaný“ blokovaný neživým „úloha“ + glos „(poison job)“ + „zasekne
+  frontu a páli tokeny“).
+
+Najslabšie „služba sa roztaví“ a „otrávená úloha“ držané kontextom/glosom → **ostávajú so scaffoldom, nikdy
+holé** (pravidlo Fáza 16/17). „otrávená úloha“ + „tokenová diéta“ ostávajú aj na H native-check tracku (coinage).
+
+**Konzistenčný sense-card prechod (8 strán) — 0 defektov.**
+- **Karta 1:** každé „zlyhani*“ = kategória / „spôsob zlyhania“ / „bod zlyhania“ (single point of failure,
+  štandardný architektonický termín); žiadny jednotlivý incident mis-labeled (429/503/výpadok = „chyba“ /
+  „počasie“ / „odmietnutie“, Fáza 19/22).
+- **Karta 2:** jediné „hodnotenie“ = akt/disciplína („regresné hodnotenie“, llmops/index r. 48); každé „skóre“ =
+  číslo (prahové skóre, grader priradí skóre, fragmenty so skóre). Číslo-ako-„hodnotenie“ = 0.
+- **Karta 3:** Časť III je retrieval-ľahká; „vyhľadania/vyhľadaj“ = retrieval/nástrojové bez zámeny.
+- **Karta 8:** každé „smerovanie“ v Časti III = **model routing / gateway routing (MEDZI modelmi/poskytovateľmi)**
+  — tretí význam Karty 8 (llmops „Model routing (smerovanie medzi modelmi)“, „smerovanie podľa ceny/naprieč
+  modelmi“, multi-cloud brána). Žiadny query-router ani výber-nástroja mis-label.
+- **Karta 9:** každý „strop/stropuje/stropov“ v rámci ohraničenia s prívlastkom („stropov na počet požiadaviek“,
+  „strop $5 000“, „mäkký/tvrdý strop“); žiadny holý generický strop.
+
+**Mechanické brány (8 strán) — PASS.** `— ,` = **0**; `—,` = **0**; prozaická rovná úvodzovka `"` (U+0022) mimo
+kódu/frontmatteru = **0** (všetkých 28 výskytov = atribúty `<YouTube id="…" title="…" />`); **ř/ě/ů = 0**;
+verb-by-object §1.5 bez univerzálneho emit-„vydať“ (3 tvary „vyd-“ = všetky rodina release: „vydať doladený
+model“, „vydávať verzie promptov“, „OpenAI vydáva časovo označené snímky“). Em-dash metronóm v sesterskom pásme.
+
+**Studený spätný prechod (4 strany: serving/deep-dive, cloud-platforms/deep-dive, tooling-ecosystem/index,
+llmops/index; naivný + literárny, nahlas) — 4 cielené prepisy, fidelita zachovaná:**
+- serving/deep-dive r. 31: trojité „prud-“ (prudkým … prudko … prudko) → „skončí **strmým** zhoršením … za
+  hranicou kapacity **rýchlo** narastie čakanie … a p99 **vystrelí**“ (potvrdený smer figúry „vystrelí“ = hore =
+  horšie, Fáza 19; odstránená metronómová repetícia).
+- serving/deep-dive r. 102: „vrstvy modelového servingu, ktoré to **zľudšťujú**“ (zľudštiť = urobiť humánnym,
+  cudzí obraz) → „ktoré to **sprístupňujú**“.
+- llmops/index r. 116: „**namiesto aby** narastali“ (nespisovná redukcia, CZ-tlak „místo aby“) → „**namiesto
+  toho, aby** narastali“.
+- llmops/index r. 68: „preto **veď** tou istou bránou“ (homograf „veď“ = imperatív *veď!* vs častica *veď*,
+  garden-path pri čítaní nahlas) → „preto **veď ich** tou istou bránou“ (doplnený predmet disambiguuje).
+- cloud-platforms/deep-dive a tooling-ecosystem/index publikačne čisté (žiadne bohemizmy, žiadne kalkové kostry,
+  konzistentný register „ty“).
+
+**Stav backlogu po tejto vlne:** A HOTOVÉ · B doriešené (dva významy) · C HOTOVÉ · D ratifikované · E DOPLNENÉ ·
+I všetkých 17 promovaných. **F/G/H/J prenesené nedotknuté** (nižšie) — jeden vedomý pre-launch prechod pred
+Fázou 6 (#98).
+
+**ODLOŽENÉ — jeden pred-launchový cross-cutting prechod (NIE v tomto PR; celý zoznam nesený ďalej):**
+- **F. Glosár-headword SLUG flipy** (menia slug → ripple na každú „Nové pojmy“ pätičku/anchor korpusovo): HITL
+  heslo „(človek v slučke)“ → „schválenie človekom“; „kosínusová podobnosť“, „viacjazyčné embeddingy“,
+  **„rozmernosť“ → „dimenzia“** (native lean, Fáza 18 E); trojtriedne footer flipy (prísny režim, obmedzené
+  dekódovanie, idempotencia, kľúč idempotencie, validácia argumentov — glosár EN-vedené heslá vs telo SK-vedené).
+- **G. Telové krížové odkazy „prehĺbenie vrstvy X“** (Fáza 18 E) — 4× Časť I in-body + Karta 5 znenie: drop
+  „vrstvy“ / zjednotiť na „druhá časť lekcie / prehĺbenie <lekcie>“ (próza, bez slug ripple; s F v jednom
+  Part-I prechode).
+- **H. Native-check track** (rodený Slovák, marginálne, so scaffoldom v texte): preskórovať/preskórovanie,
+  ansámbel behov, Skórer, allowlisty, vydestilovať fakt, minúť výpočet, zásuvka pre nástroje, „plocha súhlasu“;
+  z vlny 3: „otrávená úloha“, „tokenová diéta“ (POTVRDENÁ coinage), „premávka“ (Fáza 19 sankcionovaná), „zombie
+  endpoint“ (Fáza 20).
+- **J. Human-friend naturalness packet** (`editorial/sk-pilot-naturalness-check.md`) — nálezy pri uzávierke #97
+  NEDORAZILI; vlnu nedržíme, poskladajú sa do F/G/H v pred-launchovom PR.
+
+**Stav locale:** SK ostáva **gated** (mimo plain buildu; launch podľa roadmapy). Táto vlna uzatvára **#97**
+(Part III SK — 8 strán) a **telo príručky je kompletne trojjazyčné (EN/RU/SK) pre Časti I–III**. Ďalej:
+jeden pred-launchový prechod (F/G/H/J), potom **Fáza 6 / #98** (prehľady častí + intro + launch-flip).

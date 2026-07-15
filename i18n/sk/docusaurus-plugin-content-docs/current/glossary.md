@@ -745,7 +745,7 @@ batching), pri ktorom sa nové požiadavky priberajú a dokončené vyraďujú v
 čakania na dokončenie celého statického batchu; predstavené v článku Orca (OSDI 2022).
 
 **Prefill / decode (prefill / dekódovanie)** — dve fázy generovania s opačnými úzkymi miestami: prefill
-spracuje celý prompt v jednom prechode viazanom na výpočet; dekódovanie vydáva jeden token za krok, znovu
+spracuje celý prompt v jednom prechode viazanom na výpočet; dekódovanie generuje jeden token za krok, znovu
 načítava váhy a KV-cache a je viazané na priepustnosť pamäte.
 
 **Chunked prefill (prefill po častiach)** — vpletenie prefillu dlhého promptu do prebiehajúcich dekódovaní v
@@ -803,6 +803,11 @@ dokáže obsluhovať ako spravované endpointy (Foundry Models, katalóg Bedrock
 
 **Data residency (rezidencia dát)** — záruka toho, kde sa požiadavky spracúvajú (región alebo geografia);
 spolu so záväzkami netrénovať na tvojich dátach a súkromným sieťovým pripojením tvorí triádu súladu.
+
+**Hraničné (frontier) modely** — najsilnejšie, najnovšie modely na špičke schopností (GPT, Claude, Gemini
+najvyššej triedy). „Hraničné“ mieni frontier (predná hranica poznania), nie borderline (hraničné v zmysle
+sporné) — v tele sa most `(frontier)` dáva raz pri prvom výskyte. Nesúvisí s modelmi s otvorenými váhami:
+hraničný je o schopnosti, open-weight o dostupnosti váh.
 
 **Provisioned throughput (rezervovaná priepustnosť)** — vyhradená, rezervovaná kapacita modelu s
 predvídateľnou latenciou, kúpená namiesto zdieľaných on-demand tokenov (Azure PTU, Vertex Provisioned
