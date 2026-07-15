@@ -3378,3 +3378,49 @@ Fázou 6 (#98).
 **Stav locale:** SK ostáva **gated** (mimo plain buildu; launch podľa roadmapy). Táto vlna uzatvára **#97**
 (Part III SK — 8 strán) a **telo príručky je kompletne trojjazyčné (EN/RU/SK) pre Časti I–III**. Ďalej:
 jeden pred-launchový prechod (F/G/H/J), potom **Fáza 6 / #98** (prehľady častí + intro + launch-flip).
+
+### Fáza 6 — prehľadové stránky častí (#98, SK overviews Časť I/II/III): rozhodnutia kánonu
+
+Editorial gate (6-rolový tím + povinný studený prechod dvoch Gate-2 person na stránku) troch part-opener
+prehľadov. Usadené rozhodnutia:
+
+- **Polotučné v prehľadoch častí — spresnenie §8 (rámcová téza-hook).** Prehľadová stránka časti smie niesť
+  **jeden až dva zámerné polotučné úseky v úvodnom rámcovaní**, ktoré **zrkadlia EN/RU súrodencov** (napr.
+  „odpovedať podľa **tvojich** dokumentov“; „**slučka, ktorú vedie sám model (LLM)**“; „**minimálne potrebnú
+  mieru samostatnosti**“; „**ako to naozaj dostaneš do produkcie**“). Je to vedomá **téza-maxima stránky**
+  (§8 ju povoľuje), nie rečnícky dôraz v tele lekcie. Zákaz „celé klauzy / rečnícky dôraz“ zo §8 platí naďalej
+  pre **telo lekcií**; prehľady sledujú prezentačnú konvenciu súrodencov. (Skeleton žiada „mirror the EN/RU
+  siblings exactly“.)
+- **Figúry „diagnostický chrbát“ aj „diagnostická os“ — VYŠKRTNUTÉ (odmietnuté varianty).** Naivní
+  jednojazyční čitatelia ich pri prvom kontakte nedekódovali: „chrbát“ = časť tela, nie organizačná os
+  výkladu; „os“ (axis) núti čitateľa hľadať druhý koniec osi a hodnoty na nej, ktoré tu nie sú → reparse.
+  Usadené: **prostá próza „diagnostické pravidlo“** (idiomatické, dekóduje pri prvom kontakte, §6 Fáza-1
+  „uprednostni holé slová pred razenými figúrami“).
+- **Coinage „agentnosť“ — VYŠKRTNUTÁ studeným prechodom (§6), pridáva sa medzi odmietnuté.** Prvý naivný
+  čitateľ ju označil za dekódovateľnú; **studený prechod (potvrdzujúci pas §6) ju NEpotvrdil** — „viditeľný
+  novotvar“, čitateľ význam konštruuje s námahou, nedorazí sám. Usadené: nahradiť **natívnou
+  „samostatnosť / samostatný“** (miera samostatnosti = miera agency/voľnosti agenta), ktorá sa v prehľade
+  prirodzene páruje s „voľnosťou“ a nepotrebuje skúšobnú dobu. „agentic RAG“ ostáva kept-EN (§1.1) ako názov
+  techniky; abstraktnú vlastnosť „agency“ píš **samostatnosť**, nie „agentnosť“.
+- **provider/vendor pre firmy za modelmi (spresnenie §2 čistého páru).** Claude/OpenAI/Gemini ako zdroje
+  modelov = **poskytovateľ** (provider). **dodávateľ** (vendor) sa rezervuje pre obchodnú/lock-in rolu
+  (cloudové platformy, `vendor lock-in`, Časť III). Nezamieňať naprieč prehľadmi (P2 capstone: „cez všetkých
+  troch **poskytovateľov**“).
+- **Názvy častí (H1 + `title:`) — tematické slovo je slovenské, kept-EN len ustálené/branded formy.** „Časť I —
+  RAG“, „Časť II — Agenti“, „Časť III — **Production** a LLMOps“. **„Production“ ostáva latinkou** ako ustálený
+  názov časti — zrkadlí RU súrodenca („Часть III — Production и LLMOps“) aj slovenské intro.md (Štruktúra:
+  „Časť III — Production a LLMOps“); `title:` sa nedotýka (§4, drží navigáciu). Bežné podstatné meno v tele
+  ostáva slovenské: „dostaneš do **produkcie**“, „v **produkcii**“. RAG/LLMOps kept-EN (§1.1); „Agenti“
+  preložené.
+- **Odkaz na prehĺbenie v Stav-poznámke prehľadu = „poznámka“, nie „ukazovateľ“.** SK „ukazovateľ“ číta ako
+  merací prístroj / index, nie ako klikateľný navigačný prvok (traja naivní čitatelia zakopli). Prehľad, kde
+  časť ešte rastie (P1/P2), odkazuje na „**poznámky** «Ďalej — prehĺbenie vrstvy»“; prehľad hotovej časti (P3)
+  na „**poznámku** «Ďalej — druhá časť lekcie»“ — jednotné slovo „poznámka“ naprieč prehľadmi (je to reálne
+  `:::note`). „ukazovateľ“ (kalk RU „указатель“ / EN „pointer“) je odmietnuté.
+- **Done-stav prehľadu časti hovorí „druhá časť“, nie „druhý prechod“.** Keď je časť hotová (P3, bez 🚧),
+  Stav-próza znie „každá lekcia má svoju **prehĺbenú druhú časť**“ (nie „nesie druhý prechod“ — „nesie
+  prechod“ nie je slovenská kolokácia a mieša sa s plánovaným „🚧 Druhý prechod:“ zo §4). Zjednocuje sa so
+  štítkom „druhá časť lekcie“ (§4 done-stav).
+
+**Stav locale:** táto vlna uzatvára **#98** (prehľady Časti I/II/III). Prehľady sú gate-clean; ostáva
+launch-flip podľa roadmapy.
