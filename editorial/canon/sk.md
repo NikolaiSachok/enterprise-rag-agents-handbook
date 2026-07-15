@@ -2750,3 +2750,164 @@ v labeloch nedotknuté (`max_num_seqs`, `nvidia.com/gpu`, NVLink, 429/503, Retry
 
 **Stav:** Wave 3 lekcia 1 (Serving) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu). Ďalej:
 Wave 3 lekcia 2 — Cloud AI platformy.
+
+### Fáza 20 — vlna 3, lekcia Cloud AI platformy: rozhodnutia kánonu
+
+Druhá lekcia vlny 3 (Časť III), stránky `index` + prehĺbenie „Náklady, agenti a suverenita“. Plný
+redakčný tím v synchrónnych dávkach (literárny, naivný jednojazyčný čitateľ, technický/fakt, korektor,
+konzistenčný, riadiaci), adjudikácia (fidelita > štýl; glosár/kánon > novinka jednej stránky), oprava a
+**studený prechod ×2** (čerstvá dvojica literárny + naivný čitateľ na každej stránke, zdroj skrytý).
+Prezentačná lokalita bez ľudskej poistky — brány niesli plnú váhu. **Termíny už usadené v glosári** (sekcia
+„Production — cloudové platformy“, heslá managed endpoint … air-gapped) — telo sa zosúlaďuje s glosárom,
+ktorý je pre smer termínu autoritatívny.
+
+**Fakty nehýbané — 0 pohybu proti skeletonu** (fakt-diff čistý na oboch stránkach). Čísla/mená/dátumy
+intaktné: Azure premenovanie Foundry Ignite nov. 2025; Vertex → Gemini Enterprise Agent Platform apr. 2026
+(migrácia konzoly máj 2026); ~1 900 modelov Foundry; gpt-oss aug. 2025, frontier GPT na Bedrocku GA jún
+2026; RFT strop $5 000; Azure hosting ~$1,70/hod., príklad $1 422 (z toho $1 224 = 1,70 × 24 × 30); Bedrock
+on-demand custom len Nova Lite/Nova 2 Lite/Nova Micro/Nova Pro/Llama 3.3 70B, ≥ 16. 7. 2025, us-east-1/
+us-west-2; AgentCore GA 13. 10. 2025 (8 h okná, microVM, A2A); Foundry Agent Service GA 2025 Build máj,
+1 400+ konektorov; Vertex Agent Engine GA 2024; výstup 3–5× (2–10× naprieč škálou) vstupu; Vertex Priority
+~1,8×, Flex-Batch ~0,5×; Azure bod zvratu ~$10 000–12 000/mes., úspora 30–45 %; batch ~50 %; cache-read ~90 %
+pod vstupom, zápis ~25 % prirážka; Gemini context caching ~10 % vstupu; FinOps Foundation 30–200× rozdiel;
+AWS European Sovereign Cloud GA 15. 1. 2026 (Brandenbursko, > 7,8 mld. €); Microsoft Sovereign Cloud ohlásený
+16. 6. 2025 (Bleu/Capgemini+Orange SecNumCloud, Delos/SAP C5 BSI); Google GDC (S3NS/PREMI3NS Thales
+SecNumCloud, nová Thales-DE 20. 5. 2026 GA koniec 2026, staršie T-Systems 2021 — nezlučovať); US CLOUD Act.
+
+**Smer termínu — glosár katalogizuje lemmu, telo vedie SK, most raz (zrkadlí vzor `durable execution` /
+rodina rozpočtov, Fáza 13/15/18/19).**
+- **SK-vedené (naturalizované/priehľadné), most `(anglický originál)` raz na stránku:** rezervovaná
+  priepustnosť (provisioned throughput), rezidencia dát (data residency), spravovaný RAG (managed RAG),
+  digitálna suverenita (digital sovereignty), suverénny cloud (sovereign cloud), medziregionálny egress
+  (cross-region egress), multi-cloud brána (multi-cloud gateway), jednotková ekonomika (unit economics),
+  modelovanie nákladov (cost modelling), zľava za záväzok využitia (committed-use discount), cachovanie
+  promptu / cachovanie kontextu (prompt/context caching), spravované agentové prostredie (managed agent
+  runtime), destilácia modelu (model distillation), pokračujúce predtrénovanie (continued pre-training).
+- **kept-EN, EN-vedené (glos raz na stránku):** managed endpoint „(spravovaný endpoint)“, model catalogue
+  „(katalóg modelov)“, vendor lock-in „(uviaznutie u dodávateľa)“, on-demand „(platba za tokeny)“, fine-tuning
+  „(doladenie modelu)“ (sloveso „doladiť/dolaďovať“, podst. meno „doladenie“ len v nadpisoch/glose — Fáza 5),
+  air-gapped „(izolované od siete)“. Holé kept-EN (§1.1): PTU, SFT, DPO, RFT, LoRA, PEFT, guardrails (glos
+  „(bezpečnostné mantinely)“), grounding (glos „(opretie odpovede o kontext)“), scale-to-zero (glos
+  „(škálovanie na nulu)“), IAM, SLA, SOC 2, HIPAA, GDPR, continuous batching, prompt injection, reranking,
+  chunking, embedding, RAG pipeline, streaming, failover, proof of concept, checkpoint, open-weight, TTL.
+- **Dávkový režim (Karta 6 význam 2) POTVRDENÝ v cloud-platforms:** async API cenová úroveň = **„dávkový
+  režim“** / „dávka“; NIKDY „batch“ — kept-EN „continuous batching“ ostáva vyhradený pre plánovač
+  inferenčného servera (význam 1, lekcia Serving). Obidve stránky ich držia oddelene (grep čistý).
+
+**Karty (potvrdené).**
+- **Karta 1:** „zlyhanie“ len ako kategória / „spôsob zlyhania“ („tri spôsoby zlyhania“ pri prekročení
+  rozpočtu); jednotlivé prekročenie/incident = nie „zlyhanie“. Vedomé 429/503 pod kvótou = „chyba 429“
+  (produkčný návrh ich zvláda), nie „zlyhanie“ (zrkadlí Fáza 19 load-shedding). Čisté.
+- **Karta 2:** jediné legitímne „skóre“ = index „prahové skóre“ (grounding threshold, eval zmysel); žiadna
+  cena/počet/rozdiel („30–200-násobný rozdiel“, „$1 422“) nie je „skóre“. Toto je CENOVÁ lekcia — čísla sú
+  „cena/náklady/rozdiel/prah“. Čisté.
+- **Karta 6:** dávkový režim vs continuous batching (viď vyššie). Čisté.
+- **Karta 9:** „strop“ len v rámci ohraničenia („strop $5 000“ RFT, „stropuješ, kto koľko spáliť smie“
+  kvóty); sloveso „stropovať“ (webom overené, Fáza 10). Žiadny holý generický „strop“. Čisté.
+
+**Verb-by-object (§1.5):** univerzálne „vydať“ **grep = 0** na oboch stránkach. platforma **obsluhuje /
+predáva / dodáva**; model **stojí / vzniká / počíta**; cache **číta**; poplatok **prevýši / prevalcuje**;
+brána **sa vetví / presadí**; disciplína **premení**.
+
+**Figúry — studený prechod ×2 (naivný dekódoval pri prvom kontakte = confirmed):**
+- **POTVRDENÉ → usadené:** „páčka medzi rezidenciou a kapacitou“ (residency↔capacity dial — vedome odlíšená
+  od „páka“ = diskrétna nákladová páka; distinkcia je sémanticky motivovaná, cross-page konzistentná, NEzjednocuje
+  sa), „zombie“ (nečinný doladený endpoint — rozbalený pri prvom výskyte), „bod zvratu“ (break-even), „dátum
+  spotreby“ aplikovaný na názvy produktov, „spáliť tokeny“, „tá druhá škatuľa z lekcie o servingu“ (serving
+  callback — drží so scaffoldom „z lekcie o servingu“), „rebrík prispôsobenia“ (customisation ladder — „rebrík“,
+  NIE „rebríček“ = leaderboard, Fáza 5), „mená sú momentky“ (v prozaickom tvare, nie ako nálepka).
+- **ZAMIETNUTÉ (naivný cold-read zlyhal) → prostá próza:** „mená-sú-momentky“ (nominálny kompaund) → „to, že
+  názvy sú len momentky“ / „mená sú momentky“ vo vete; „majstrovská vrstva / majstrovský prechod“ (mastery —
+  „majstrovský“ číta ako šampionát) → „pokročilá nadstavba / dôkladný prechod“; „0,5× lacnejšia“ (násobok +
+  komparatív rozbíja aritmetiku) → obe úrovne ako násobok CENY „za 1,8× ceny / za 0,5× ceny“.
+
+**Nové kalkové pasce a falošní priatelia (žatva Cloud platforms — do grep-zoznamov §1.3/§1.4):**
+- **„konzumovať“** pre *consume a model/API* ✗ (= jesť) → **„používať / odoberať model“**.
+- **„prvostranový“** pre *first-party* ✗ (novotvar) → **„vlastný / od prvej strany“** (*third-party* =
+  „tretích strán“ ostáva).
+- **„sproduktované“** pre *productized* ✗ → **„zabalené do produktu“**.
+- **„X kupuje rýchlosť/priepustnosť“** (*X buys you*) ✗ → **„X dá / zaručí…“** (opätovne potvrdzuje zákaz
+  „kúpiť“ = získať, Fáza 2).
+- **„lepkavé časti“** (*the sticky parts* — lock-in) ✗ → **„to, čo ťa priviaže / drží“**.
+- **„nesie nákladovú os / nesie prirážku“** (*carry a cost axis / a surcharge*) ✗ → **„má svoju cenu / má
+  prirážku“**.
+- **„drôtový štandard / drôt“** (*wire protocol / one wire*) ✗ → **„protokol / rozhranie“** („drôt“ len pre
+  doslovný kábel).
+- **„rovesníci v tom istom priestore“** (*peers in the same space*) ✗ → **„patria do tej istej kategórie“**.
+- **„proti hodinám“** (*billed against hours*) ✗ → **„z hodín“** („proti“ = versus, Fáza 19).
+- **„endpoint účtuje kapacitu“** (*the endpoint bills capacity* — nesprávny aktor) ✗ → **„platíš za jeho
+  kapacitu“** (poskytovateľ účtuje TEBE).
+- **„prefix zdieľa mnoho požiadaviek“** (nesprávny aktor) ✗ → **„mnoho požiadaviek zdieľa ten istý prefix“**.
+- **„pristáva v X“** (*lands in X*) ✗ → **„smeruje do / končí v X“**.
+- **„zarovnaný na X“** (*aligned to X*) ✗ → **„zosúladený s X“** („zarovnať“ = text-align).
+- **„pretransformuje von k X“** (*transforms out to X*) ✗ → **„pretransformuje smerom k X“**.
+- **„za investíciou“** (*behind an investment of*) ✗ → **„s investíciou“**.
+- **„pošmykol sa“** (*the target slipped*) ✗ → **„skĺzol / posunul sa“** („pošmyknúť“ = fyzicky).
+- **„navrhuj pre chyby 429“** (*design for 429s*) ✗ → **„navrhuj s ohľadom na chyby 429“**.
+- **„doberajú, čo…“** (*routing picks up what…*) ✗ → **„dodávajú, čo…“** („dobrať“ = vziať si viac).
+- **„záruka o tom, kde“** (*a guarantee about where*) ✗ → **„záruka toho, kde“**.
+- **„konanie v mene niekoho iného“** (*act on behalf of*) ✗ → **„konanie v cudzom mene“**.
+- **„reťaz kontroly“** (*chain of control*) ✗ → **„reťaz ovládania“** („kontrola“ = inšpekcia; „reťaz
+  agentov“ ostáva vyhradená, §1.2 — táto je iná).
+- **„ukecaná / mnohovravná záťaž“** (*chatty workload*) — **„mnohovravná záťaž“** (register; „ukecaná“ ✗
+  hovorové).
+- **„cenové tvary“** (*pricing shapes*) ✗ → **„cenové štruktúry / modely“**.
+- **„app-služba“** ✗ → **„aplikačná služba“** (spresňuje serving; „app-služba“ zo Serving ostáva v tej
+  merged stránke — retrofit s milestone).
+- **„vyrobiť či kúpiť“** (*make-or-buy*) ✗ → **„postaviť či kúpiť“** (softvér build ≠ výroba; zosúladené na
+  oboch výskytoch v tejto lekcii).
+- **link-slug ako gramatický podmet** („ingestion nakreslil“) ✗ → **„lekcia o [ingestione] nakreslila…“**.
+
+**KONFLIKT — flagnutý, čaká na milestone (nerozhodnuté silovým prepisom merged stránok).**
+- **`on-demand` glos: §1.1 + glosár + táto lekcia = „(platba za tokeny)“; Fáza 19 handoff (r. ~2745) +
+  merged Serving = „(na požiadanie)“.** Táto lekcia použila **„(platba za tokeny)“** (kánon-správne pre
+  cenový zmysel: on-demand = platba za spotrebované tokeny). Odporúčanie: **korpusový smer „(platba za
+  tokeny)“**, retrofit Serving index + riadka Fáza 19 handoff v **milestone-prechode vlny 3** (dotýka sa
+  merged stránky → nie v tomto PR). Cloud-platforms netreba meniť.
+- **Mena — konvencia:** USD ostáva s prefixom `$` ($1 422, $1 224, $5 000, $10 000–12 000; tisícový
+  oddeľovač NBSP); EUR so slovenskou príponovou podobou „7,8 mld. €“ (NBSP pred €). Zmiešaná konvencia
+  vedome ponechaná (USD-prefix bežný, EUR-sufix slovenský štandard); kandidát na milestone-zjednotenie, ak
+  autor rozhodne inak.
+
+**Glosár — návrh doplnku (backlog, nie defekt stránky):** **frontier model → „hraničné (frontier) modely“**
+— „hraničný“ samo dekóduje naivný čitateľ nesprávnym smerom (borderline vs frontier); v tele glosované
+`(frontier)` raz na stránke pri prvom výskyte. Kandidát na jednoriadkové heslo pri sekcii Production.
+
+**Odkazy (druhá lekcia Časti III).** Časť I + II SK → plná SK cesta s `.md`: mcp
+„../../part-2-agents/mcp/index.md“, ingestion/evaluation/guardrails „../../part-1-rag/…/index.md“. Serving
+SK existuje → „../serving/index.md“ / „../serving/deep-dive.md“ s `.md`. Nepreložení **súrodenci Časti III**
+(llmops, tooling-ecosystem) → **holá EN-fallback zložková cesta bez `.md`** („../llmops/“,
+„../tooling-ecosystem/“) až do ich landingu. V rámci lekcie „./index.md“ / „./deep-dive.md“; glosár
+„../../glossary.md“. Index nesie poznámku prehĺbenia „:::note[Ďalej — druhá časť lekcie]“ s textom odkazu
+**„Náklady, agenti a suverenita“ == deep-dive `sidebar_label` bajt-za-bajt**; prehĺbenie NEMÁ poznámku
+prehĺbenia, ale MÁ video (suverénny cloud, IBM). Frontmatter: index drží `title: Cloud AI platforms` (EN,
+nedotknutý) + `slug`; prehĺbenie `title:"Cloudové AI platformy — prehĺbenie"` + `sidebar_label:"Náklady,
+agenti a suverenita"` + `sidebar_position:2`. Mermaid: node IDs zachované, labely preložené a quotované
+`["…"]` (špeciálne znaky —, +, /, ·, `<br/>`); kódové identifikátory v labeloch nedotknuté (scale-to-zero,
+PTU). `_category_.json` + `current.json` (label „Cloudové AI platformy“) existovali z bootstrapu Časti III —
+nerekreované.
+
+**Pre lekciu Ekosystém nástrojov (odovzdanie):**
+- **HEAVY cross-linky do Časti I (všetky SK) + do tejto lekcie.** Ekosystém HEAVILY krížuje prierezové
+  prehĺbenia Časti I (evaluation/guardrails/observability — Ragas/OTel/red-team teória) a **cloud-platforms
+  pre ceny** — všetky SK → plná cesta s `.md`: „../../part-1-rag/cross-cutting/<x>/index.md“ resp.
+  „…/deep-dive.md“, cloud-platforms „../cloud-platforms/index.md“ / „…/deep-dive.md“. Serving tiež SK
+  (../serving/…md). Nepreložený llmops → holá EN-fallback „../llmops/“.
+- Otázka „**postaviť či kúpiť**“ (make-or-buy) je most z cloud-platforms (guardrails + managed RAG +
+  managed agent runtime) DO ekosystému nástrojov — cloud otvára, ekosystém rieši priamo. Drž tvar
+  „postaviť či kúpiť“ (NIE „vyrobiť či kúpiť“).
+- **multi-cloud brána / LiteLLM** je pomenovaná v cloud-platforms deep-dive a **rozvíja sa v LLMOps** —
+  ekosystém ju smie spomenúť, ale hĺbka patrí LLMOps (per EN zdroj).
+- Term-smer: väčšina Časti III kept-EN s glosom + SK-vedené naturalizované (rezervovaná priepustnosť,
+  spravovaný RAG, dávkový režim). „self-hosting / prevádzka u seba“ (§1.2). Karta 1 (chyba vs zlyhanie),
+  Karta 6 (dávkový režim vs continuous batching), Karta 9 (strop), verb-by-object §1.5, em-dash metronóm +
+  zákaz „— ,“ + straight-quote checkpoint platia ďalej.
+
+**§8 polotučné + em-dash + straight-quote (potvrdenie Fázy 2/6/10/12–19).** Celovetné zvýraznenia žiadne;
+polotučné len kotvy termínov + úvodné položky definičných zoznamov + zriedkavé maximy. Em-dash metronóm:
+index ~2,3/100 slov, prehĺbenie ~2,1/100 slov (v sesterskom pásme). Zákaz **„— ,“ = 0** na oboch.
+**Straight-quote checkpoint:** prozaická rovná `"` mimo kódu/frontmatteru/Mermaid/YouTube = **0**. **ř/ě/ů =
+0.** NBSP pred „%“, jednotkami a ako tisícový oddeľovač (1 900, 1 400, $1 422, 30–45 %, 24 h, 8 h).
+
+**Stav:** Wave 3 lekcia 2 (Cloud AI platformy) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu).
+Ďalej: Wave 3 lekcia 3 — Ekosystém nástrojov.
