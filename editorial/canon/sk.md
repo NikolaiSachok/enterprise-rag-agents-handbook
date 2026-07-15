@@ -2450,3 +2450,146 @@ guardrails-smer reconciliácia v `mcp/`; glossary-flip backlog z Fázy 11.
 
 **Stav:** Wave 2 capstone (real-agents) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu). Part II
 (vlna 2) kompletná.
+
+### Fáza 18 — milestone-prechod vlny 2 (uzávierka #96): reconciliácia a rozhodnutia
+
+Delta-driven milestone-prechod nad všetkými 13 SK stránkami Časti II (nie re-preklad). Dokončil odložené
+súrodenecké retrofity, opravil krížostránkový smer termínu, dal probačným figúram čerstvý naivný decode,
+prebehol konzistenčný sense-card prechod (Karta 1/2/3/9), studený spätný prechod 4 strán, zosúladil kánon s
+korpusom a zaznamenal odložené a doriešené položky. Sub-agenti (naivný jednojazyčný slovenský čitateľ +
+studený literárny čitateľ) bežali synchrónne, zdroj skrytý. Táto vlna uzatvára **#96** (Part II SK).
+
+**A. Súrodenecké retrofity — HOTOVÉ (SK ciele existujú → holá EN-fallback cesta nahradená plnou).**
+- **`../mcp/` → `../mcp/index.md`** (mcp je zložka s indexom): **4 výskyty** — tool-use/index, orchestration-
+  frameworks/index + deep-dive, multi-agent/deep-dive. Grep bare `](../mcp/)` 4→0; `](../mcp/index.md)` 0→4.
+- **`../real-agents/` → `../real-agents.md`** (real-agents je **plochá stránka**, nie zložka): **10 výskytov**
+  — tool-use/index, orchestration-frameworks/index, multi-agent/index + deep-dive, agentic-rag/index,
+  mcp/index (×2), planning-loops/index + deep-dive, mcp/deep-dive. Grep bare `](../real-agents/)` 10→0;
+  `](../real-agents.md)` 0→10.
+- **`../multi-agent/` → `../multi-agent/index.md`** (nájdené greppom zvyšných holých ciest): **1 výskyt** —
+  tool-use/deep-dive L107. multi-agent je preložený súrodenec, EN vedie `../multi-agent/index.md`.
+- **Zvyšné holé zložkové cesty PONECHANÉ (správne):** `../../part-3-production/overview/` (4×),
+  `../../part-3-production/tooling-ecosystem/` (2×) — Časť III nie je preložená → EN-fallback holou zložkou
+  (Fáza 16 konvencia). Grep po retrofite: žiadna relatívna cesta na preložený cieľ bez `.md`. i18n-link-check
+  ostáva PASS; korpus teraz bajtovo zrkadlí EN tvary odkazov (zatvára Fáza 11 zásadu „SK-existujúci súrodenci
+  idú s `.md`" pre celú Časť II).
+
+**D. Krížostránkový smer termínu — guardrails opravený.**
+- **`mcp/index.md` L71** razil SK-vedené „Bezpečnostné mantinely … (guardrails)", čo obracia kánonický smer
+  §1.1 (guardrails je kept-EN so slovenským glosom). Opravené na **„Guardrails (bezpečnostné mantinely) z
+  Časti I príručky"** (veta začína termínom → veľké G, §Typografia). Zhoda s capstone (Fáza 17 flag #3
+  „mcp je strana na opravu") aj s EN „the guardrails from Part I". Jediný výskyt na stránke → most správne raz.
+- **Konzistenčný sense-card prechod (13 strán) — 0 defektov.** Karta 1: každý „zlyhani*" = názov kategórie /
+  „spôsob zlyhania" (grep + klasifikácia, žiadny incident mis-labeled). Karta 2: každé „hodnotenie" = akt/
+  disciplína (hodnotenie trajektórie/výsledku/tímu), žiadne „hodnotenie" ako číslo (to je „skóre"). Karta 3:
+  „objavovanie" = discovery, „vyhľadávanie" = retrieval/webové — bez zámeny. Karta 9: každý „strop" v
+  rozpočtovom/loop-cap rámci (strop krokov/tokenov, tvrdý/mäkký strop, „strop na počet …"); žiadny holý
+  generický strop. §4 opakujúce sa bloky bajtovo zhodné (12× „Ďalej — druhá časť lekcie"; „Nové pojmy →
+  Glosár"; video-blok).
+
+**E. Probačné figúry — čerstvý naivný decode (jednojazyčný SK, zdroj skrytý, bez čítania dopredu).**
+- **„plocha súhlasu" (consent surface) — PROBATION POKRAČUJE, teraz so scaffoldom v KAŽDOM výskyte.** Naivný
+  čitateľ potvrdil Fázu 16: pri definícii (deep-dive L69) dekóduje (nesie ju rým s „plocha útoku" + apozícia),
+  ale v takeaway (L152) **holá takmer padá** — jump-in čitateľ ju uchytí iba z priľahlého „povinné schválenie
+  používateľom". **Náprava (brief E „confirm WITH scaffold"):** takeaway L152 dostal echo-glos hneď za termín —
+  „Obe sú plochy súhlasu (miesta, kde ti server siaha späť a ty udeľuješ alebo odopieraš súhlas) — …" (zrkadlí
+  definíciu L69). Fakty nehýbané (sampling = povinné schválenie; obe rástli k 25. 11. 2025). Figúra ostáva na
+  skúšobnej dobe; pravidlo: nesie sa **len so scaffoldom, nikdy holá** (rovnako ako „zásuvka pre nástroje",
+  Fáza 17).
+- **„prehĺbenie vrstvy X" — STRUCK (tretí naivný čitateľ ju nedekódoval; Fáza 5 #8 = dvaja predtým).** Číta sa
+  ako *fyzické prehlbovanie vrstvy* (geológia/výkop), nie „druhá časť lekcie / hĺbkový rozbor". **Rozdelené na
+  dva konštrukty:**
+  1. **§4 poznámkový štítok** `:::note[Ďalej — prehĺbenie vrstvy]` — jediný živý výskyt v korpuse:
+     **real-agents.md L180** (plochá stránka bez prehĺbenia, 🚧 plánovaná forma; ostatných 12 lekcií nesie
+     publikovanú formu „Ďalej — druhá časť lekcie"). EN je **„Next — going deeper"** (bez „vrstvy" — SK navyše
+     pridala „layer"). Opravené na **`:::note[Ďalej — do hĺbky]`** (verné EN „going deeper", dekóduje triviálne,
+     ladí s telom „hĺbkové sondy"). §4 plánovaná forma sa týmto aktualizuje: pre plochú stránku s budúcim
+     prehĺbením je štítok **„Ďalej — do hĺbky"**; „prehĺbenie vrstvy" vyškrtnuté medzi odmietnuté coinage.
+  2. **Telové krížové odkazy „prehĺbenie vrstvy X"** (= deep-dive vrstvy X) — **4 výskyty, VŠETKY v Časti I
+     (#95, uzavreté):** ingestion/index L12, ingestion/deep-dive L77, retrieval/deep-dive L11, generation/
+     deep-dive L11 (+ Karta 5 / §4 znenie „mostík na vrstvu X" rodina). **Rozhodnutie: rewrite (drop „vrstvy" /
+     zjednotiť s reader-facing „druhá časť lekcie / prehĺbenie <lekcie>"), ale MIMO tohto PR** — siaha do
+     uzavretej Časti I a do Karty 5 (§2). Zaradené do **odloženého Part-I / pre-launch prechodu spolu s B**
+     (oba sú korpusové term-passy dotýkajúce sa Časti I). Bez slug/anchor ripple (iba próza a text odkazu).
+- **Native-check track — doriešené a ponechané.**
+  - **inštrumentál plurál „chunkami" — POTVRDENÉ správne** (spojovacie -a- po zhluku -nk, ako „stromami";
+    „chunkmi" ťažko vysloviteľné, neštandardné pre prevzatia). Korpus už jednotne „chunkami" (Fáza 5 #5) →
+    residual UZAVRETÝ, žiaden flip.
+  - **„signatúra funkcie" — PROMOVANÉ (clean).** Štandardný, prirodzený SK programátorský termín. Z native-
+    check tracku von.
+  - **„rozmernosť" vs „dimenzia":** naivný čitateľ vedie „dimenzia" ako prirodzenejší matematický/ML tvar;
+    „rozmernosť" číta ako kalk *dimensionality*. **Flip sa NEROBÍ tu** — je to glosárové heslo (§1.2 riadok,
+    slug) → patrí do B (glossary-flip pass). Lean zaznamenaný.
+  - **Ponechané na human-friend tracku (marginálne, so scaffoldom v texte):** preskórovať/preskórovanie
+    (pre- dvojznačné), ansámbel behov (ťah k hudobnému telesu), Skórer (coinage, OK ako názov komponentu),
+    allowlisty (glosované „(zoznamy povoleného)" v mcp/deep-dive L11 — v kontexte dekóduje; naivný flag „allow"
+    zaznamenaný), vydestilovať fakt (kalk, zrozumiteľný), minúť výpočet (Fáza 17 „sledovať" — „výpočet" sg.
+    ťahá ku *calculation*), zásuvka pre nástroje (Fáza 17 marginálne, nesie so scaffoldom). Human-friend
+    packet ich rozhodne (paralelne, nedorazil — nedržíme naň vlnu).
+
+**Studený spätný prechod (4 strany: agentic-rag/index, planning-loops/deep-dive, multi-agent/deep-dive,
+orchestration-frameworks/index; naivný + literárny, nahlas).** agentic-rag/index a orchestration-frameworks/
+index publikačne čisté. Tri cielené prepisy (nízkosignálové kalky, fidelita zachovaná):
+- planning-loops/deep-dive L49: „je **tesná** verzia" (kalk *tight* = fyzická tesnosť) → „je **kompaktná**
+  verzia" (EN „the tight version" = kompaktná, lokálna forma; Self-Refine žije v jednom behu).
+- planning-loops/deep-dive L19: „stojí **alebo** padá s ňou" (kalk *stands or falls*) → „stojí **či** padá s
+  ňou" (zhoda s vnútrostránkovým L146 „stojí či padá").
+- multi-agent/deep-dive L82: „Háčik **je** aritmetika" (menný kalk *the catch is arithmetic*) → „**Háčikom je**
+  aritmetika" (inštrumentálový prísudok). → do §1.4 grep-zoznamu.
+- Ponechané (dekódujú z kontextu / dôsledná domáca stavba): „Zhoršuj sa dôstojne" (degrade gracefully, glos
+  vetou), verbless fragmenty multi-agentu (house style); dativ „daroval ho Linux Foundation" (proper-name
+  dativ nemarkovaný — zhoda s „prešiel pod Linux Foundation", ponechané).
+
+**C. Kánon-housekeeping (záznam, prózu nehýbeme).**
+- **§1.1 kept-EN — vedomé výnimky (multiagentová/orchestračná lekcia, glos raz pri prvom výskyte):**
+  **contract net protocol** (glos „(dražobný protokol prideľovania úloh)" v próze), **KQML** (holé meno,
+  predchodca FIPA ACL), **MAST** (rozvedené „Multi-Agent System failure Taxonomy"), **deadlock** (glos
+  „(vzájomné uviaznutie)"), **performatív** (glos „(performative)" — komunikačný akt FIPA ACL), **BDI** (glos
+  „(belief–desire–intention, BDI)"). Všetky = Trieda 3, vedomé kept-EN dev-/výskumné termíny bez ustáleného
+  domáceho tvaru.
+- **`durable execution` §1.1 → §1.2 Trieda-2 „odolné vykonávanie (durable execution)".** Korpus už tak **aj
+  razí** (nadpisy „Grafy a odolné vykonávanie", „Prežiť pád: odolné vykonávanie"; telo „odolné vykonávanie
+  (durable execution): beh sa obnoví…") — kánon sa zosúlaďuje s korpusom, nie naopak. Glosárová lemma ostáva
+  kept-EN „durable execution" (pätička = lemma; telo = §1.0 SK-vedený smer — rovnaký vzor ako permission
+  modes, Fáza 17).
+- **Fáza 16 per-page glosy zaznamenané:** sampling (MCP) „(server si požičia model klienta na generovanie)",
+  elicitation „(server si cez klienta vyžiada údaj od človeka)" / na indexe „(vyžiadanie vstupu od
+  používateľa)", roots „(hranice, v ktorých server smie pracovať)", sandbox „(izolované prostredie s
+  obmedzenými právami)", tasks (MCP) „(trvácne, dopytovateľné požiadavky)".
+- **Fáza 16 Trieda-2 hlavy (SK-vedené, most raz na stránku):** hostiteľ (host), relácia (session), prenos
+  (transport), register (MCP registry), objavovanie serverov (server discovery), vyjednanie schopností
+  (capability negotiation), inicializačné podanie rúk (initialize handshake).
+
+**F. Mechanické brány (spot-check 13 strán) — PASS.** `— ,` = **0**; `—,` = **0**; prozaická rovná úvodzovka
+`"` (U+0022) mimo kódu/frontmatteru/Mermaid/YouTube = **0** (všetky výskyty v inline `code`/JSON); **ř/ě/ů =
+0**; verb-by-object §1.5 bez univerzálneho emit-„vydať" (jediný „vydal sa graf cestou" = zvratné *vydať sa* =
+vyraziť, mimo zákazu). Em-dash metronóm 1,66–2,70/100 slov — v sesterskom pásme, kotvený pilotom
+tool-use/index (2,70); dampovaný, žiadny beh nad kritický prah. Polotučné bez inflácie.
+
+**G. EN/RU zdrojová chyba (Fáza 5 #7 / Fáza 11 residual) — UŽ DORIEŠENÁ, žiaden `docs:` commit netreba.**
+Kontrola korpusu ukázala: **EN takeaway** ingestion/deep-dive L110 už znie „contrastive learning on **triples**
+from your domain (a query, a right passage, a wrong one)" — opravené commitom **f404ea73** (pribalené k SK
+Wave 1 Ingestion, 2026-07-14; parent mal ešte „query–passage pairs"). **RU takeaway** L266 „контрастным
+обучением **на тройках** с трудными негативами" bola správna od vzniku (9ed5ea6). Telá EN L84 / RU L181 / SK L94
+učia trojice; zvyšné „pairs"/„пары" sú buď mechanizmus (priťahovanie správnej dvojice dopyt–úryvok v rámci
+trojice) alebo iný, správny nárok (retrieval-optimised embeddingy trénované na pároch). **Residual Fázy 11
+„EN/RU zdroj čaká na `docs:` commit" sa týmto ZATVÁRA ako vyriešený.** Live-verify po deploi potvrdí „triples".
+
+**B. ODLOŽENÉ — glossary-headword slug flipy (NIE v tomto PR; samostatný pre-launch prechod).** Menia SLUG
+glosárového hesla → ripple na každú „Nové pojmy" pätičku a anchor v celom korpuse; riskantné mid-projekt a
+Časť III ešte nie je preložená. **Plný zoznam na jeden vedomý prechod (Fáza 6-adjacent):**
+- HITL heslo „(človek v slučke)" → zosúladiť s telovým „schválenie človekom / človek v rozhodovacom procese"
+  (porušuje §1.2/§1.3).
+- „kosínusová podobnosť", „viacjazyčné embeddingy", **„rozmernosť" → „dimenzia"** (native lean, Fáza 18 E).
+- Trojtriedne terms-footer flipy: prísny režim, obmedzené dekódovanie, idempotencia, kľúč idempotencie,
+  validácia argumentov (glosár EN-vedené heslá vs telo SK-vedené — §1.0 smer).
+- **+ pridané v tejto vlne:** telové krížové odkazy „prehĺbenie vrstvy X" (4× Časť I) + Karta 5 znenie —
+  drop „vrstvy" / zjednotiť na „druhá časť lekcie" (Fáza 18 E; próza, bez slug ripple, ale dotýka sa Časti I,
+  tak s B v jednom Part-I prechode).
+
+**Human-friend naturalness packet** (`editorial/sk-pilot-naturalness-check.md`) — stále paralelne u
+slovenských priateľov autora; nálezy pri uzávierke #96 NEDORAZILI. Vlnu nedržíme — poskladajú sa neskôr malým
+follow-up PR do kánonu + dotknutých strán (spolu s native-check tracku a odloženým B/Part-I prechodom).
+
+**Stav locale:** SK ostáva **gated** (mimo plain buildu; launch podľa roadmapy). Táto vlna uzatvára **#96**
+(Part II SK — 13 strán). Ďalej: Wave 3 — Part III (#97).
