@@ -1,12 +1,12 @@
 # Enterprise RAG & Agents Handbook — Project Guide
 
-A public, open-source, **bilingual** teaching handbook on production RAG and agentic systems. Built with
-**Docusaurus → GitHub Pages** (docs = the course, blog = article excerpts, Mermaid diagrams, offline local
-search).
+A public, open-source, **trilingual** teaching handbook on production RAG and agentic systems. Built with
+**Docusaurus → GitHub Pages** (docs = the course, Mermaid diagrams, offline local search). There is no blog:
+the docs plugin owns every page.
 
-**Locale model (EN-canonical).** English is the **default locale** — it lives in the top-level `docs/` +
-`blog/` and serves at the site root `/`. Russian is a secondary locale under
-`i18n/ru/docusaurus-plugin-content-docs/current/` (+ `i18n/ru/docusaurus-plugin-content-blog/`) and serves
+**Locale model (EN-canonical).** English is the **default locale** — it lives in the top-level `docs/` and
+serves at the site root `/`. Russian is a secondary locale under
+`i18n/ru/docusaurus-plugin-content-docs/current/` and serves
 at `/ru/`. **Slovak** (launched 2026-07-15) is a third locale under `i18n/sk/…` serving at `/sk/`. This is
 only the URL/serving structure: **RU and SK stay audience-primary in *authoring*** (written
 natively per the workflow below, never machine-translated).

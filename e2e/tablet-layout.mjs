@@ -24,7 +24,7 @@
 import {chromium} from 'playwright';
 
 const BASE = (process.env.BASE_URL ?? 'http://localhost:3210').replace(/\/$/, '');
-const SITE = `${BASE}/enterprise-rag-agents-handbook`;
+const SITE = `${BASE}/ai-engineering-handbook`;
 const LESSON = 'part-3-production/tooling-ecosystem';
 
 // The widths we care about: phone, small tablets (still <997 → drawer), the two

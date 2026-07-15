@@ -1,9 +1,0 @@
-rag:
-  label: RAG
-  permalink: /rag
-  description: Retrieval-augmented generation
-
-agents:
-  label: Agents
-  permalink: /agents
-  description: Agentic systems

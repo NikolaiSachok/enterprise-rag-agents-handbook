@@ -33,9 +33,12 @@ Output is generated into `build/` and can be served with any static host.
 
 ## Structure
 
-- `docs/` — the handbook (Russian, the primary locale). Part I — RAG, Part II — Agents, Glossary.
-- `i18n/en/` — the English locale tree (translations of the docs, blog, and theme strings).
-- `blog/` — article excerpts and notes (placeholder for now).
+- `docs/` — the handbook in English, the canonical locale, served at the site root. Part I — RAG,
+  Part II — Agents, Part III — Production & LLMOps, Glossary.
+- `i18n/ru/`, `i18n/sk/` — the Russian and Slovak locale trees (docs + theme strings), served at `/ru/`
+  and `/sk/`. Both are audience-primary: written natively, never machine-translated.
+- `editorial/` — the style canon: a thin cross-language router plus a per-language term ledger
+  (`canon/ru.md`, `canon/sk.md`).
 
 ## Contributing / workflow
 

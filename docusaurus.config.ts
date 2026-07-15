@@ -29,7 +29,7 @@ const RELEASED_LOCALES = ['en', 'ru', 'sk']; // Slovak launched 2026-07-15 (Part
 const UNRELEASED_LOCALES: string[] = []; // add the next in-progress locale here to build+validate it in CI while gated
 const INCLUDE_UNRELEASED = process.env.HANDBOOK_INCLUDE_UNRELEASED === '1';
 const LOCALES = [...RELEASED_LOCALES, ...(INCLUDE_UNRELEASED ? UNRELEASED_LOCALES : [])];
-const BASE_URL = '/enterprise-rag-agents-handbook/';
+const BASE_URL = '/ai-engineering-handbook/';
 
 // Search-index languages. The local search plugin loads a lunr stemmer per language
 // via `require.resolve('lunr-languages/lunr.<code>')`; lunr-languages ships stemmers
@@ -133,7 +133,7 @@ const config: Config = {
   url: 'https://nikolaisachok.github.io',
   baseUrl: BASE_URL,
   organizationName: 'NikolaiSachok', // GitHub user/org
-  projectName: 'enterprise-rag-agents-handbook',
+  projectName: 'ai-engineering-handbook',
 
   // Released (deployed) builds throw on any dead internal link — the hard gate for
   // shipped EN/RU content. The unreleased-inclusive validation build (CI, sets
@@ -169,13 +169,13 @@ const config: Config = {
   themes: [
     '@docusaurus/theme-mermaid',
     // Local, zero-config offline search. Builds a client-side index at build time
-    // (no external service / network calls). Index docs + blog for both locales.
+    // (no external service / network calls). Indexes the docs in every locale.
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
         indexDocs: true,
-        indexBlog: true,
+        indexBlog: false, // no blog plugin (see `blog: false` in the preset)
         docsRouteBasePath: '/',
         // Build a search index per locale. `language` is the set of lunr STEMMERS to
         // load — LOCALES minus codes lunr can't stem (see SEARCH_LANGUAGES above); an
@@ -212,16 +212,11 @@ const config: Config = {
           // No "Edit this page" link: the site is read-only for visitors (no auth),
           // and the source is a click away on GitHub for the one person who edits it.
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        // No blog. The site is a course, not a feed: the docs plugin owns every
+        // page. Re-enabling it means restoring the plugin options here, the
+        // navbar item, `indexBlog` in the search theme, the `blog/**` lint glob,
+        // and an `i18n/<locale>/docusaurus-plugin-content-blog/` tree per locale.
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -247,12 +242,11 @@ const config: Config = {
           position: 'left',
           label: 'Handbook',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
           type: 'localeDropdown',
           position: 'right',
         },
-        {href: 'https://github.com/NikolaiSachok/enterprise-rag-agents-handbook', label: 'GitHub', position: 'right'},
+        {href: 'https://github.com/NikolaiSachok/ai-engineering-handbook', label: 'GitHub', position: 'right'},
       ],
     },
     footer: {
@@ -278,7 +272,7 @@ const config: Config = {
         {
           title: 'Project',
           items: [
-            {label: 'GitHub', href: 'https://github.com/NikolaiSachok/enterprise-rag-agents-handbook'},
+            {label: 'GitHub', href: 'https://github.com/NikolaiSachok/ai-engineering-handbook'},
           ],
         },
       ],

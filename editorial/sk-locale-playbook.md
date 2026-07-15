@@ -71,7 +71,7 @@ SK's counterpart of RU's anglicism problem: a named, always-on check.
   locale-list-driven, so the browser-language detector and switcher pick `sk` up with no other code change);
   content under `i18n/sk/docusaurus-plugin-content-docs/current/**` mirroring the **EN default in `docs/`**
   (EN is canonical since the EN-canonical flip; RU is itself a secondary locale under `i18n/ru/`);
-  `_category_.json` translations; navbar/footer strings; blog if/when applicable.
+  `_category_.json` translations; navbar/footer strings.
 - **Gated visibility:** merge SK content to `main` continuously, but keep `sk` OUT of the deployed locale
   list until launch (env/config-driven locales array: CI builds all three for verification; the deployed
   build adds `sk` only when the final milestone pass signs off). A public locale dropdown pointing at a

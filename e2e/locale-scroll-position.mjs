@@ -15,7 +15,7 @@
 import {chromium} from 'playwright';
 
 const BASE = (process.env.BASE_URL ?? 'http://localhost:3210').replace(/\/$/, '');
-const SITE = `${BASE}/enterprise-rag-agents-handbook`;
+const SITE = `${BASE}/ai-engineering-handbook`;
 
 // The same "which section am I in" rule the feature uses at runtime, evaluated in
 // the page: the index of the last h2/h3 whose top has scrolled above the line just

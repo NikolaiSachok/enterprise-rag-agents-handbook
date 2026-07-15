@@ -32,11 +32,10 @@
     // MDX comments `{/* truncate */}` read as "space inside emphasis" to the linter.
     "MD037": false
   },
-  // Lint the handbook prose (docs, blog, and their EN translations). Meta/config files
-  // (CLAUDE.md, README, .github templates) are not lesson content and are out of scope.
+  // Lint the handbook prose (the canonical EN docs and every localized tree). Meta/config
+  // files (CLAUDE.md, README, .github templates) are not lesson content and are out of scope.
   "globs": [
     "docs/**/*.md",
-    "blog/**/*.md",
     "i18n/**/*.md"
   ],
   "ignores": [
