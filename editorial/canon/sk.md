@@ -3049,3 +3049,200 @@ súrodenci SK → `../serving/index.md`, `../cloud-platforms/index.md`. V rámci
 
 **Stav:** Wave 3 lekcia 3 (Ekosystém nástrojov) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu).
 Ďalej: Wave 3 lekcia 4 — LLMOps (posledná lekcia príručky).
+
+### Fáza 22 — vlna 3, lekcia LLMOps (POSLEDNÁ lekcia príručky): rozhodnutia kánonu
+
+Štvrtá a záverečná lekcia vlny 3 (Časť III) — a **posledná lekcia celej príručky**, stránky `index`
+(„Život LLM-systému sa vydaním nekončí, ale začína“) + prehĺbenie „Doladenie, výdavky a fronty“. Plný
+redakčný tím v synchrónnych dávkach (literárny, naivný jednojazyčný čitateľ, technický/fakt, korektor,
+konzistenčný, riadiaci), adjudikácia (fidelita > štýl; glosár/kánon > novinka jednej stránky), oprava a
+**studený prechod ×2** (čerstvá dvojica literárny + naivný čitateľ na každej stránke, zdroj skrytý).
+Prezentačná lokalita bez ľudskej poistky — brány niesli plnú váhu. **Termíny LLMOps už usadené v glosári**
+(sekcia „Production — LLMOps“, heslá LLMOps … dead-letter queue) — telo sa zosúlaďuje s glosárom, ktorý je
+pre smer termínu autoritatívny.
+
+**Fakty nehýbané — 0 pohybu proti skeletonu** (fakt-diff čistý na oboch stránkach; oba kódové literály
+`acks_late` / `worker_prefetch_multiplier = 1` bajt-identické). Čísla/mená/dátumy intaktné: `gpt-4o-2024-05-13`;
+Anthropic životný cyklus Active/Legacy/Deprecated/Retired, ≥ 60 dní pred vyradením; cache-write Anthropic
+1,25×/2×, OpenAI 1,25×, cachovaný vstup ~1/10 základnej ceny; OpenAI RFT na o4-mini + SFT na GPT-4.1 nano;
+Bedrock RFT na open-weight (GPT-OSS, Qwen) cez OpenAI-kompatibilné API (feb. 2026); FinOps Foundation State of
+FinOps 2026 — 98 % vs 31 % pred dvomi rokmi, 30–200× rozdiel; Google SRE 4-týždňové kĺzavé okno + eskalácia na
+CTO; Batch API (OpenAI/Anthropic/Vertex) ~½ ceny za ~24 h SLA k pol. 2026. Žiadny zdrojový (EN/RU) bug nenájdený.
+
+**Smer termínu — glosár katalogizuje lemmu, telo vedie podľa headwordu (zrkadlí Fázu 19/20/21).** Rodina LLMOps
+je v glosári **EN-vedená** (heslá „Canary release (kanárikové nasadenie)“ atď.) → v tele kept-EN mená (§1.1) so
+slovenským glosom raz na stránke, ďalej holé EN. **Konzistenčná náprava (§1.0 kolísanie smeru):** prvá verzia
+prehĺbenia zaviedla 6 termínov SK-vedene (model pinning, prompt registry, release gate, release freeze, error
+budget policy, job queue) — **zjednotené na EN-vedené** podľa indexu + glosára + skeletonu. Konkrétne rozhodnutia:
+- **kept-EN, EN-vedené (glos raz na stránku):** **LLMOps** (bez glosu, vlastné heslo), **canary release
+  „(kanárikové nasadenie)“**, **shadow deployment „(tieňové nasadenie)“**, **prompt registry „(register
+  promptov)“**, **model pinning „(pripnutie modelu)“**, **model routing „(smerovanie medzi modelmi)“** (Karta 8
+  — tretí význam, MEDZI modelmi; odlíšené od query routera Časti I a výberu nástroja Časti II), **fallback
+  „(záložná cesta)“**, **LLM gateway „(LLM-brána)“**, **prompt caching „(cachovanie promptu)“**, **semantic
+  caching „(sémantické cachovanie)“**, **drift „(posun)“** (tri podoby: drift vstupu / drift korpusu / drift
+  modelu zhora — prívlastok „zhora“ povinný, odlišuje od MLOps „model drift“), **grader „(hodnotiteľ)“**,
+  **showback „(zobrazenie nákladov)“**, **chargeback „(preúčtovanie nákladov)“**, **release gate „(releasová
+  brána)“**, **error budget policy „(politika rozpočtu chýb)“**, **release freeze „(zmrazenie vydávania)“**,
+  **job queue „(fronta úloh)“**, **dead-letter queue (DLQ) „(fronta nedoručených úloh)“**, **golden set
+  „(etalónová sada)“**, **guardrails „(bezpečnostné mantinely)“**, **observability „(pozorovateľnosť)“**. Holé
+  §1.1: SFT, DPO, RFT, LoRA, PEFT, FinOps, Batch API, LiteLLM, OpenRouter, Celery, Redis, RabbitMQ, arq, RQ,
+  LangSmith, Langfuse, SLI, SLO, SLA, P&L, scratchpad, streaming, trace/tracy, span, cache, top-K, reranker,
+  faithfulness (glos „(vernosť zdrojom)“), embedding, chunking.
+- **SK-vedené (Trieda 2, EN originál raz v zátvorke):** **nasadenie / nasadiť (deployment)** (§1.2),
+  **monitorovanie (monitoring)** (sloveso „monitorovať“; „monitoring“ len v názve kategórie/paneli),
+  **priradenie nákladov (cost attribution)** (Fáza 10, NIE „pripísanie“ — pozri REZOLÚCIU nižšie),
+  **náklad na požiadavku (cost per request)**, **kvalita za dolár (quality per dollar)**, **protitlak
+  (backpressure, ochrana pred zahltením)** (glosár EN-lemma „Backpressure“ → pätička „backpressure“),
+  **zhadzovanie záťaže / zhodíš záťaž (load shedding)**, **idempotencia (idempotency)** + **kľúč idempotencie
+  (idempotency key)**, **vedľajší účinok (side effect)**, **fond workerov (worker pool)** (worker kept-EN,
+  serving/queue-worker, NIE subagent — §1.2), **otrávená úloha (poison job)**, **opätovné načítanie do indexu
+  (re-ingest)**, **regresné hodnotenie (regression eval)** / **regresia kvality**, **riadič vydania (release
+  controller)**, **dávkový režim (batch tier)** (Karta 6 význam 2; continuous batching kept-EN = serving),
+  **fronta úloh** ako telový tvar hesla „job queue“.
+
+**REZOLÚCIA „cost attribution“ (glosárová nekonzistencia — opravená v tomto PR).** Glosárový headword (r. 387)
+znel **„Cost attribution (pripísanie nákladov)“**, ale kánon Fáza 10 (r. 1473) aj vlastná definícia hesla
+Chargeback (glosár r. 944 „priradenie nákladov je presné“) vedú **„priradenie nákladov“**. Headword bol jediný
+odklon → **opravený na „(priradenie nákladov)“** v tomto PR (žiadny slug/anchor ripple — pätičky mieria na
+`../../glossary.md` bez kotvy). Sloveso pre atribúciu regresie naprieč spanmi = **„priradiť“** (zhoda s
+prehĺbením Observability Časti I: „musíš priradiť k príčine“, Mermaid „Priradiť naprieč spanmi tracu“); telo
+LLMOps zjednotené na „priradiť“ (pôvodné „pripísať“ na r. 13/72 opravené).
+
+**Karty (potvrdené).**
+- **Karta 1:** „zlyhanie“ len ako kategória („zlyhanie vyhľadávania / zlyhanie generovania“ pri dekompozícii
+  incidentovej slučky); jednotlivý incident = „chyba“; **429/503 pod záťažou / výpadok poskytovateľa =
+  „chyba 429“ / „počasie“ / „odmietnutie“, NIE „zlyhanie“** (zrkadlí Fáza 19 load-shedding); **pád workera =
+  „spadnúť“ / „pád“** (nie „odumrieť“ — necrotický falošný obraz, → §1.3). Čisté.
+- **Karta 2:** grader **priradí skóre** (§1.5, číslo = skóre); disciplína/akt = „evaluácia / eval / hodnotenie“.
+  „hodnotenie“ pre číslo = 0. Čisté.
+- **Karta 6:** async cenová úroveň = **„dávkový režim“**; **Batch API** kept-EN produktové meno; continuous
+  batching sa na tejto lekcii nevyskytol (patrí Servingu). Čisté.
+- **Karta 8:** **„smerovanie medzi modelmi“** (model routing) výslovne odlíšené od query routera (Časť I) a
+  výberu nástroja (Časť II) — „tretí význam smerovania v knihe“. Čisté.
+- **Karta 9:** pár **„mäkký strop (soft cap) / tvrdý strop (hard cap)“**; sloveso **„zastropovať“** (súbežnosť);
+  **glos opravený na čistú angličtinu „(soft cap)/(hard cap)“** (prvá verzia mala degeneratívny
+  seba-glos „(mäkký strop)“). „strop“ na aktuálnosť/kvalitu vždy s prívlastkom. Čisté.
+
+**Verb-by-object (§1.5):** univerzálne „vydať“ **grep = 0** na oboch stránkach (všetky tvary „vyd-“ patria
+rodine vydania/release — „vydávaj postupne“, „pred vydaním“, „vydať doladený model“). Plánovač/grader
+**priradí/vráti**; model **generuje / počíta**; poskytovateľ **presunie / účtuje**; cache **zaberie / vráti**;
+producent **zaradí**; worker **potvrdí / ťahá**; fronta **oddelí**.
+
+**liability = „príťaž a riziko“ (nie „zodpovednosť“).** „vydanie, ktoré nevieš zvrátiť, je príťaž a riziko“
+(deep-dive) — zrkadlí Fáza 10 („zodpovednosť“ pre *liability* ✗ = responsibility/accountability). Potvrdené
+naivným aj literárnym prechodom.
+
+**fine-tuning — usporiadanie potvrdené (Fáza 5).** Termín-podstatné meno v próze VŽDY kept-EN **fine-tuning**
+(glos „(doladenie modelu)“ raz); sloveso **„doladiť / dolaďovať“**; podstatné meno **„doladenie“** len v
+nadpisoch/glose („Kedy meniť váhy“, „Doladenie“ v Mermaid). **overfit → „nadmerne prispôsobiť (sa)“**
+(„preučiť sa“ ✗ — CZ-tlak *přeučení* + falošný priateľ „preškoliť na inú prácu“, kolízia s „pretrénuj“);
+**forget → „zabudnúť“** (potvrdené); **regress → „zhoršiť sa“** („regredovať“ ✗ — klinický latinizmus, nie
+ML-úzus). „pretrénuj“ = retrain (životný cyklus), odlíšené od „nadmerne prispôsobiť“.
+
+**Figúry — studený prechod ×2 (naivný dekódoval pri prvom kontakte = confirmed):**
+- **POTVRDENÉ → usadené:** **„tokenová diéta“** (token diet — „diéta“ je bežné SK slovo, dekóduje s inline
+  rozbalením „systematické orezávanie počtu tokenov na vstupe aj na výstupe“ pri prvom výskyte; probačný
+  kandidát z briefu POTVRDENÝ oboma naivnými čitateľmi vrátane studeného); **„počasie“** (výpadky/429 ako
+  počasie, nie incidenty); **„nadmerne prispôsobiť“** (overfit); „divadlo dostupnosti“ znovupoužité (Fáza 10,
+  správne LEN na prehĺbení, nie na indexe).
+- **POTVRDENÉ s výhradou (kontext ju drží):** **„otrávená úloha“** (poison job) — mierny falošný priateľ
+  „otrávený = nahnevaný“, ale rámec fronty + „zasekne frontu a páli tokeny“ ju drží; nesie sa s okolitým
+  výkladom.
+- **ZAMIETNUTÉ → medzi odmietnuté varianty:** „regredovať“ (→ zhoršiť sa), „preučiť sa“ (→ nadmerne
+  prispôsobiť), „reže na obe strany“ (cuts both ways, Fáza 15 §1.4 → „platí aj pre náklady“), „poctivý nadpis“
+  (honest headline → „úprimné zhrnutie“), „za koncové okno“ (trailing window → „za kĺzavé okno“).
+
+**Nové kalkové pasce a falošní priatelia (žatva LLMOps — do grep-zoznamov §1.3/§1.4):**
+- **„reže na obe strany“** ✗ (cuts both ways, potvrdenie Fáza 15) → **„platí aj pre náklady / v oboch smeroch“**.
+- **„staviteľ aplikácií“** ✗ (app builder) → **„vývojár aplikácií“**.
+- **„obrátené k používateľovi“** ✗ (user-facing) → **„ktoré dostanú reálni používatelia“**.
+- **„kvalita prichádza v odtieňoch“** ✗ (comes in shades) → **„kvalita má odtiene“**.
+- **„domov / domovy“** ✗ (homes — „oba domovy sú v poriadku“) → **„oboje je v poriadku“**; „prirodzeným
+  domovom je X“ → **„toto všetko prirodzene zastreší X“**.
+- **„v jednom priechode“** ✗ (in one pass) → **„jedným pohľadom / naraz“**.
+- **„opečiatkovať / oštítkovateľný / oštítkovanie“** ✗ (stamp/tag) → **„označiť / označiteľný / označenie“**.
+- **„úroveň nepriamosti“** ✗ (level of indirection) → **„o úroveň vyššie“**; **„to je odpoveď“** ✗ (that's
+  your answer) → **„ďalej netreba ísť“**; **„na ktorého by bolo kam spadnúť“** ✗ → **„na ktorého sa dá vrátiť“**.
+- **„minutá latencia“** ✗ (spent latency) → **„premárnený čas“**; **„stiahni prompt“** ✗ (download vs shorten,
+  falošný priateľ) → **„skráť prompt“**; **„odumrieť“** (proces) ✗ → **„spadnúť“** (§ Karta 1).
+- **„kade“** ✗ (nespisovné) → **„kadiaľ“**; **„nájomník“** (bytový nájomník) → **„nájomca“** pre SaaS-tenant.
+- **šípka „→“ ako spojka v súvislej próze** ✗ → prepíš na spojku („a tým sa dostávame k…“); „→“ ostáva v
+  Mermaid, diagnostických reťazcoch a pomenovaných reťazcoch (rozpoznaj → priraď → priveď do evalu).
+- **register:** „ťažšia mašinéria“ ✗ → „náročnejší aparát“; „luxus navyše“ potvrdené (nie „príjemnosť navyše“).
+
+**§8 polotučné + em-dash + straight-quote (potvrdenie Fázy 2/6/10/12–21).** Celovetné zvýraznenia žiadne;
+polotučné kotvy termínov + úvodné položky zoznamov. Em-dash metronóm: index ~2,4/100 slov, prehĺbenie ~2,2/100
+(v sesterskom pásme). Refrén **„vlastní [teóriu/ceny]“** (section-owns) stíšený — variované „rozoberá / preberá /
+patrí“, max ~2 vedomé výskyty/stránka (kandidát do §1.4 na sledovanie); refrén **„z úvodu lekcie“** (~10×) a
+**„žije v prehĺbení“** stíšené (zrkadlí Fáza 21 „Prvá časť lekcie“ damping). Zákaz **„— ,“ = 0**,
+**straight-quote (U+0022 v próze) = 0**, **U+201D nesprávny záver = 0**, **ř/ě/ů = 0** na oboch. NBSP pred „%“,
+jednotkami (24 h) a pred „60 dňami“.
+
+**Odkazy (POSLEDNÁ lekcia Časti III — Časť I/II/III VŠETKY SK → plná cesta s `.md`).** guardrails/evaluation/
+observability „../../part-1-rag/cross-cutting/<x>/index.md“ + observability „…/deep-dive.md“, ingestion
+„../../part-1-rag/ingestion/index.md“, planning-loops/tool-use „../../part-2-agents/<x>/index.md“; Časť III
+súrodenci serving/cloud-platforms/tooling-ecosystem „../<x>/index.md“ + cloud-platforms „../cloud-platforms/
+deep-dive.md“. V rámci lekcie „./index.md“ / „./deep-dive.md“; glosár „../../glossary.md“. Predpoklady-admonícia
+odkazuje externé dokumentácie nástrojov (Celery/arq/RQ — jediná výnimka z „externé len v glosári“, §4).
+Index-note text **„Doladenie, výdavky a fronty“ == deep-dive `sidebar_label` bajt-za-bajt** (hex-diff prázdny).
+`_category_.json` + `current.json` (label „LLMOps — nasadenie, monitoring, náklady“) existovali z bootstrapu —
+nerekreované. i18n-link-check PASS. Prehĺbenie NEMÁ poznámku prehĺbenia (JE prehĺbenie); MÁ video (zYGDpG-pTho).
+
+**SIBLING-RETROFIT (Fáza 11 konvencia — LLMOps je teraz SK) — patrí do milestone-prechodu vlny 3:** súrodenci
+Časti III mieria na LLMOps holým EN-fallback **„../llmops/“** (serving/index, cloud-platforms/index +
+deep-dive, tooling-ecosystem/index — Fáza 19/20/21, keď LLMOps nebola preložená). Teraz SK existuje →
+**retrofit na „../llmops/index.md“** patrí do milestone-prechodu (dotýka sa merged stránok).
+
+---
+
+## KONSOLIDOVANÝ WORKLIST MILESTONE-PRECHODU VLNY 3 (uzávierka #97) — kompletný, zostavený poslednou lekciou
+
+LLMOps je posledná lekcia Časti III; nižšie je ÚPLNÝ zoznam odloženého, ktorý milestone-prechod vlny 3 (jediný
+PR s `Closes #97`) musí zosúladiť. Delta-driven, nie re-preklad.
+
+**A. Sibling-retrofity Časti III (SK ciele teraz existujú → holá EN-fallback cesta „../<x>/“ → „…/index.md“):**
+- **„../llmops/“ → „../llmops/index.md“** (LLMOps teraz SK): serving/index r. ~78-ekvivalent „ako táto slučka
+  žije po vydaní“; cloud-platforms/index + cloud-platforms/deep-dive; tooling-ecosystem/index r. 78 + r. 102
+  see-also „[LLMOps](../llmops/)“. Grep bare `](../llmops/)` na 0.
+- Over aj zvyšné Časť-III bare cesty: keď je celá Časť III SK, žiadna relatívna cesta na preložený cieľ Časti
+  III nesmie ostať bez `.md` (zrkadlí Fáza 18 A pre Časť II).
+
+**B. on-demand glos KONFLIKT (Fáza 20) — korpusový smer „(platba za tokeny)“:** merged Serving index + Fáza 19
+handoff (r. ~2745) vedú „(na požiadanie)“; glosár + §1.1 + cloud-platforms + LLMOps vedú **„(platba za
+tokeny)“**. Retrofit Serving index na „(platba za tokeny)“ + zosúladiť riadok Fáza 19.
+
+**C. Glosárový flip Prefill/decode (Fáza 19):** heslo „dekódovanie **vydáva**…“ → „**generuje**…“ (§1.5).
+
+**D. Mena — konvencia (Fáza 20):** USD prefix `$` vs EUR sufix „mld. €“ — vedome zmiešané; ak autor chce
+jednotu, zjednotiť v milestone.
+
+**E. Glosárové návrhy doplnkov (backlog, nie defekt stránky):** **frontier model → heslo „hraničné (frontier)
+modely“** (Fáza 20). cost attribution headword „(priradenie nákladov)“ UŽ opravený (Fáza 22, tento PR).
+
+**F. Prenesený glossary-flip backlog z Fáz 11/18 (mení SLUG hesiel → ripple na pätičky/anchory; jeden vedomý
+pre-launch prechod):** HITL heslo „(človek v slučke)“ → „schválenie človekom“; „kosínusová podobnosť“,
+„viacjazyčné embeddingy“, **„rozmernosť“ → „dimenzia“** (native lean); trojtriedne footer flipy (prísny režim,
+obmedzené dekódovanie, idempotencia, kľúč idempotencie, validácia argumentov — glosár EN-vedené heslá vs telo
+SK-vedené).
+
+**G. Telové krížové odkazy „prehĺbenie vrstvy X“ (Fáza 18 E) — 4× Časť I + Karta 5 znenie:** drop „vrstvy“ /
+zjednotiť na „druhá časť lekcie / prehĺbenie <lekcie>“ (próza, bez slug ripple; s F v jednom Part-I prechode).
+
+**H. Native-check track (rodený Slovák; marginálne, so scaffoldom v texte):** preskórovať/preskórovanie,
+ansámbel behov, Skórer, allowlisty, vydestilovať fakt, minúť výpočet, zásuvka pre nástroje, „plocha súhlasu“
+(PROBATION, nesie sa len so scaffoldom). **Nové z vlny 3:** „otrávená úloha“ (falošný priateľ „otrávený =
+nahnevaný“, kontext ju drží — sledovať), „tokenová diéta“ (POTVRDENÁ, ale coinage — voliteľný native-check),
+„premávka“ (traffic, Fáza 19 sankcionovaná), „zombie endpoint“ (Fáza 20).
+
+**I. Probačné figúry naprieč Časťou III — čerstvý naivný decode v milestone:** „bublina v zreťazení“, „služba
+sa roztaví“, „daň za studený štart“ (Fáza 19); „páčka rezidencia↔kapacita“, „zombie“, „bod zvratu“, „rebrík
+prispôsobenia“ (Fáza 20); „splácame dlh z Prvej časti“, „koľajnice“, „podložie“, „spojivo“, „švy/šev“,
+„odovzdanie“ (dátový handoff — POZOR §1.2 rezervuje „odovzdanie riadenia“ pre agentový control-handoff, tu nová
+vedomá sémantika) (Fáza 21); „tokenová diéta“, „počasie“, „nadmerne prispôsobiť“, „otrávená úloha“ (Fáza 22).
+
+**J. Human-friend naturalness packet** (`editorial/sk-pilot-naturalness-check.md`) — ak nálezy dorazia, poskladať
+do kánonu + dotknutých strán (spolu s F/G/H).
+
+**Stav:** Wave 3 lekcia 4 (LLMOps) redakčne uzavretá; **Časť III (vlna 3) kompletná** (4 lekcie × index+prehĺbenie
+= 8 strán). SK ostáva **gated** (mimo plain buildu; launch podľa roadmapy). Milestone-prechod vlny 3 (A–J vyššie)
+je jediný PR, ktorý nesie `Closes #97`.
