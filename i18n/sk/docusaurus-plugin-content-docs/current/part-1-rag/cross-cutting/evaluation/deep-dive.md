@@ -165,7 +165,7 @@ Nízka kappa ukazuje na hodnotiace kritériá: pokyny na značkovanie sú natoľ
 
 ### Kam míňať ľudský rozpočet, aby sa to vrátilo
 
-Ľudské značkovanie je v celej tej stavbe vzácny a drahý zdroj, takže značkovať naslepo je plytvanie. **Active sampling** (aktívne vzorkovanie) vyberá tie príklady, ktorých značky ťa naučia najviac, namiesto rovnomerného naberania. V praxi značkuješ tam, kde je sudca najmenej istý, kde sa ansámbel sudcov rozchádza, alebo kde produkcia odhalila zlyhanie, aké golden set nikdy predtým neobsahoval — je to tá slučka z produkcie späť do offline z Časti 1, ktorá vracia skutočné chyby do označkovanej sady.
+Ľudské značkovanie je v celej tej stavbe vzácny a drahý zdroj, takže značkovať naslepo je plytvanie. **Active sampling** (aktívne vzorkovanie) vyberá tie príklady, ktorých značky ťa naučia najviac, namiesto rovnomerného naberania. V praxi značkuješ tam, kde je sudca najmenej istý, kde sa ansámbel (súbor) sudcov rozchádza, alebo kde produkcia odhalila zlyhanie, aké golden set nikdy predtým neobsahoval — je to tá slučka z produkcie späť do offline z Časti 1, ktorá vracia skutočné chyby do označkovanej sady.
 
 Výber vedený neistotou prinesie viac kalibračného signálu na jednu ľudskú hodinu než rovnomerné náhodné vzorkovanie, občas s veľkým náskokom.
 

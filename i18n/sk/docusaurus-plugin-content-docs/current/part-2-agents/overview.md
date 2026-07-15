@@ -43,6 +43,6 @@ a observability menia zo želateľných na povinné.
 Základ Časti II je hotový — publikované sú všetky lekcie: Agentic RAG, používanie nástrojov, plánovanie
 a slučky, multiagentové systémy, orchestračné frameworky, MCP a záverečná lekcia o reálnych agentoch (Claude,
 OpenAI, Gemini). 🚧 Ešte je pred nami druhý prechod — prehĺbenie každej vrstvy; témy sú v poznámkach „Ďalej —
-prehĺbenie vrstvy“ na stránkach lekcií.
+druhá časť lekcie“ na stránkach lekcií.
 
 :::

@@ -58,17 +58,17 @@ vyhľadávanie sa zredukuje na hľadanie bodov najbližších k vektoru dopytu.
 **Cross-encoder** — podá pár „dopyt + chunk“ do modelu spolu a vráti jedno číslo relevantnosti. Presnejší ako
 bi-encoder, ale pomalší (skóre sa nedá predpočítať). Používa sa v rerankingu.
 
-**Dimensionality (rozmernosť)** — dĺžka vektora embeddingu (napríklad 384 / 768 / 1536). Vyššia je
+**Dimenzia (dimensionality)** — dĺžka vektora embeddingu (napríklad 384 / 768 / 1536). Vyššia je
 výraznejšia, ale náročnejšia na pamäť, pomalšia na vyhľadávanie a drahšia.
 
-**Cosine similarity (kosínusová podobnosť)** — blízkosť meraná uhlom medzi vektormi; číta smer a ignoruje
+**Kosínusová podobnosť (cosine similarity)** — blízkosť meraná uhlom medzi vektormi; číta smer a ignoruje
 dĺžku. Predvolená metrika; pri normalizovaných vektoroch splýva so skalárnym súčinom (dot product).
 ↗ [Wikipedia](https://en.wikipedia.org/wiki/Cosine_similarity)
 
 **Retrieval-optimised (asymmetric) embeddings** — modely trénované na pároch „dopyt ↔ úryvok (passage)“
 namiesto všeobecnej podobnosti viet. Často očakávajú prefix `query:` / `passage:`.
 
-**Multilingual embeddings (viacjazyčné embeddingy)** — embeddingové modely fungujúce vo viacerých jazykoch;
+**Viacjazyčné embeddingy (multilingual embeddings)** — embeddingové modely fungujúce vo viacerých jazykoch;
 nevyhnutné pre viacjazyčný podnikový obsah.
 
 **Self-hosted vs. API embeddings** — voľba medzi otvoreným modelom na vlastnej infraštruktúre (dáta zostávajú
@@ -444,15 +444,15 @@ kontext).
 
 **Parallel tool calls (paralelné volania nástrojov)** — niekoľko nezávislých volaní nástrojov, ktoré model vydá v jednom ťahu; behové prostredie ich rozdelí (fan-out — spustí naraz) a pozbiera výsledky (fan-in). Sú platné iba vtedy, keď volania na sebe nezávisia a navzájom si neprekážajú; riadi sa to príznakom podľa poskytovateľa (`disable_parallel_tool_use`, `parallel_tool_calls`).
 
-**Constrained decoding (obmedzené dekódovanie)** — vynucovanie schémy priamo pri generovaní: schéma sa skompiluje na gramatiku a na každom kroku sa zamaskuje každý token, ktorý by gramatiku porušil, takže výstup je platný podľa schémy už z konštrukcie, nie overený až dodatočne.
+**Obmedzené dekódovanie (constrained decoding)** — vynucovanie schémy priamo pri generovaní: schéma sa skompiluje na gramatiku a na každom kroku sa zamaskuje každý token, ktorý by gramatiku porušil, takže výstup je platný podľa schémy už z konštrukcie, nie overený až dodatočne.
 
-**Strict mode / Structured Outputs (striktný režim)** — produktový prepínač (`strict: true`), ktorý zapne obmedzené dekódovanie pre argumenty nástroja; zaručuje správne sformované, podľa schémy platné argumenty (nie vecne správne). Vyžaduje `additionalProperties: false` a každú vlastnosť označenú ako povinnú.
+**Prísny režim (strict mode) / Structured Outputs** — produktový prepínač (`strict: true`), ktorý zapne obmedzené dekódovanie pre argumenty nástroja; zaručuje správne sformované, podľa schémy platné argumenty (nie vecne správne). Vyžaduje `additionalProperties: false` a každú vlastnosť označenú ako povinnú.
 
-**Idempotency / idempotency key (idempotencia / kľúč idempotencie)** — zápis je idempotentný, keď jeho dvojnásobné vykonanie s rovnakým vstupom má rovnaký účinok ako jednorazové; kľúč idempotencie umožní serveru zahodiť opakované zápisy, takže opakovanie po vypršaní časového limitu je bezpečné. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Idempotence)
+**Idempotencia / kľúč idempotencie (idempotency / idempotency key)** — zápis je idempotentný, keď jeho dvojnásobné vykonanie s rovnakým vstupom má rovnaký účinok ako jednorazové; kľúč idempotencie umožní serveru zahodiť opakované zápisy, takže opakovanie po vypršaní časového limitu je bezpečné. ↗ [Wikipedia](https://en.wikipedia.org/wiki/Idempotence)
 
 **Tool-RAG / dynamic tool loadout (dynamický výber nástrojov)** — vyhľadanie iba tých nástrojov, ktoré sa týkajú aktuálneho dopytu, a načítanie len ich, namiesto vozenia celého katalógu v každej požiadavke; RAG nad menu nástrojov. Znižuje tokenové náklady a chyby výberu nástroja pri veľkých súboroch nástrojov.
 
-**Argument validation (validácia argumentov)** — kontrola argumentov volania nástroja pred vykonaním, na dvoch úrovniach: na úrovni schémy (typy, enumy, formáty) a sémantickej (hodnoty nesprávne v kontexte — neznáme id, suma mimo rozsahu).
+**Validácia argumentov (argument validation)** — kontrola argumentov volania nástroja pred vykonaním, na dvoch úrovniach: na úrovni schémy (typy, enumy, formáty) a sémantickej (hodnoty nesprávne v kontexte — neznáme id, suma mimo rozsahu).
 
 **Retry budget (rozpočet opakovaní)** — tvrdý strop na počet opakovaní, na jedno volanie aj na celý beh; bez neho sa deterministicky padajúce volanie zvrhne na nezastaviteľnú slučku opakovaní. Obdoba rozpočtu krokov a rozpočtu tokenov.
 
@@ -588,7 +588,7 @@ pamäť).
 agentov v konfigurácii (YAML/JSONC, deklaratívne pracovné postupy) oproti stavbe grafu v kóde
 (add_node / add_edge).
 
-**Human-in-the-loop (HITL) (človek v slučke)** — bod pauzy, kde človek schváli alebo zasiahne skôr, než
+**Human-in-the-loop (HITL) (schválenie človekom)** — bod pauzy, kde človek schváli alebo zasiahne skôr, než
 slučka pokračuje; vo frameworku plnohodnotný uzol-prerušenie.
 
 ## Agents — MCP a protokoly agentov

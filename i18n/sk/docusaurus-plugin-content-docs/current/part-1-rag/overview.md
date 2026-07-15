@@ -37,6 +37,6 @@ vysvetľujeme od prvých princípov.
 
 Základ Časti I je hotový — publikované sú všetky lekcie: Ingestion, Retrieval, Generation a prierezové aspekty
 (eval, guardrails, observability). 🚧 Ešte je pred nami druhý prechod — prehĺbenie každej vrstvy; témy žijú
-v poznámkach „Ďalej — prehĺbenie vrstvy“ na stránkach lekcií.
+v poznámkach „Ďalej — druhá časť lekcie“ na stránkach lekcií.
 
 :::

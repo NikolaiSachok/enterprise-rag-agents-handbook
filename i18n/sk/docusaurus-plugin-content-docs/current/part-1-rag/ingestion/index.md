@@ -9,7 +9,7 @@ slug: /part-1-rag/ingestion/
 
 Celá táto vrstva RAG beží ako pipeline — reťaz štyroch krokov. Dokumenty sa najprv parsujú, potom sa delia na **chunky** (kúsky dokumentu) — tomuto kroku sa hovorí **chunking**. Ku každému chunku sa pripoja metadáta a napokon sa chunky prevedú na **embeddingy** (vektorové reprezentácie textu) a uložia do vektorovej databázy (vector database).
 
-Táto stránka sa venuje chunkingu a embeddingovým modelom — dvom pilierom celej vrstvy. Parsovanie dokumentov (document parsing) rozoberá až druhá časť lekcie — prehĺbenie vrstvy; pozri poznámku na konci stránky.
+Táto stránka sa venuje chunkingu a embeddingovým modelom — dvom pilierom celej vrstvy. Parsovanie dokumentov (document parsing) rozoberá až druhá časť lekcie; pozri poznámku na konci stránky.
 
 :::info[Ako čítať túto stránku]
 
@@ -142,7 +142,7 @@ Predvolenou voľbou je **kosínusová podobnosť** (cosine similarity): uhol med
 
 - Bi-encoder je rýchly a jeho vektory sa predpočítajú — to je vektorové vyhľadávanie; cross-encoder je presnejší, ale počíta každý pár — to je reranking.
 - Kvalita vyhľadávania je zhora ohraničená kvalitou embeddingov.
-- Model vyberaj podľa osí: retrieval-optimised · rozmernosť · jazyk a doména · dĺžka vstupu · API vs. prevádzka u seba (dôvernosť dát).
+- Model vyberaj podľa osí: retrieval-optimised · dimenzia · jazyk a doména · dĺžka vstupu · API vs. prevádzka u seba (dôvernosť dát).
 - Na dopyty aj dokumenty jeden a ten istý model; stráž si metriku a prefixy.
 
 **Nové pojmy** → [Glosár](../../glossary.md): embedding, embedding space, bi-encoder, cross-encoder, dimensionality, cosine similarity, retrieval-optimised (asymmetric) embeddings, multilingual embeddings, self-hosted vs. API embeddings.
