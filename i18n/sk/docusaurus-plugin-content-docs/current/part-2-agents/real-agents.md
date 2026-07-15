@@ -177,7 +177,7 @@ Tieto techniky nie sú abstraktné. Takto vyzerajú, keď spúšťaš agentov na
 
 ---
 
-:::note[Ďalej — prehĺbenie vrstvy]
+:::note[Ďalej — do hĺbky]
 
 🚧 Druhý prechod: hĺbkové sondy pre jednotlivých dodávateľov (každé SDK prakticky vyskúšané), rytmus kontroly zastaraných faktov pre túto rýchlo starnúcu stránku, computer-use a browser tools, evaluácie naprieč dodávateľmi a benchmarking nákladov a latencie všetkých troch.
 

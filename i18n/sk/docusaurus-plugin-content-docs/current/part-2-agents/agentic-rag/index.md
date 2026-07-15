@@ -110,6 +110,6 @@ Práve tu vedie priamy most na prierezovú vrstvu. **Observability** (pozorovate
 
 **[Iteratívne vyhľadávanie a hodnotenie](./deep-dive.md)** — hlbší prechod slučkou vyhľadávania: pomenované vzory agentického RAG (Self-RAG, corrective RAG, adaptive RAG), ako slučku udržať, aby sa netočila na mieste, ako medzi krokmi odovzdať nájdený kontext a ako ohodnotiť celú trajektóriu vyhľadávania, nie iba jej poslednú odpoveď.
 
-Pozri aj: ako slučku agenta vo všeobecnosti viesť a ohraničiť — [Plánovanie a slučky](../planning-loops/index.md); ako tieto akcie fungujú v Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents/).
+Pozri aj: ako slučku agenta vo všeobecnosti viesť a ohraničiť — [Plánovanie a slučky](../planning-loops/index.md); ako tieto akcie fungujú v Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents.md).
 
 :::

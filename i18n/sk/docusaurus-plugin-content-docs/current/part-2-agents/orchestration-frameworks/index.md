@@ -106,6 +106,6 @@ A práve preto, že balia tie isté primitíva, zapadajú rovno do vrstvy pozoro
 
 **[Grafy a odolné vykonávanie](./deep-dive.md)** — prechádzka jedným konkrétnym grafom v LangGraphe, odolné vykonávanie a checkpoint backendy za ním, pamäť samotného frameworku postavená proti jeho multiagentovým konštrukciám, deklaratívne verzus imperatívne definovanie agenta a trasovanie s hodnotením na úrovni frameworku.
 
-Pozri aj: ako sa tieto konštrukcie stavajú naprieč Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents/); všeobecná vrstva riadenia slučky a rozpočtu, ktorú framework zabaľuje — [plánovanie a slučky](../planning-loops/index.md); štandardné protokoly pod prenosom — [MCP](../mcp/).
+Pozri aj: ako sa tieto konštrukcie stavajú naprieč Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents.md); všeobecná vrstva riadenia slučky a rozpočtu, ktorú framework zabaľuje — [plánovanie a slučky](../planning-loops/index.md); štandardné protokoly pod prenosom — [MCP](../mcp/index.md).
 
 :::

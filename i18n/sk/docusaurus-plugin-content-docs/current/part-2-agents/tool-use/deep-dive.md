@@ -104,7 +104,7 @@ Pri veľkej sade pomáha neposielať všetky nástroje pri každej požiadavke. 
 
 **Menné priestory (namespacing)** riešia ten istý problém z druhej strany. Daj nástrojom štruktúrované názvy a zoskup ich — podľa domény, podľa servera, z ktorého nástroje pochádzajú — aby ich model aj vyhľadávací krok dokázali spoľahlivo rozlíšiť; pri veľkom katalógu tak ubudne kolízií názvov aj prekryvov.
 
-Od určitého počtu nástrojov už dlhší zoznam nepomôže. Keď jeden agent pracuje s desiatkami nástrojov, rozdeľ prácu medzi **špecializovaných agentov**, každého s malou, ortogonálnou sadou nástrojov — to zodpovedá princípu špecializácie z [lekcie o multiagentových systémoch](../multi-agent/). Zoznam nástrojov, ktorý stále rastie, je sám osebe signál, že jeden agent už nestačí.
+Od určitého počtu nástrojov už dlhší zoznam nepomôže. Keď jeden agent pracuje s desiatkami nástrojov, rozdeľ prácu medzi **špecializovaných agentov**, každého s malou, ortogonálnou sadou nástrojov — to zodpovedá princípu špecializácie z [lekcie o multiagentových systémoch](../multi-agent/index.md). Zoznam nástrojov, ktorý stále rastie, je sám osebe signál, že jeden agent už nestačí.
 
 Pozor však aj na opačný extrém: po tool-RAG nesiahaj predčasne. Pri hrstke nástrojov je to zbytočná zložitosť s vlastným rizikom zlyhania — pribudne krok vyhľadávania, ktorý sa môže pomýliť, a nástroj, ktorý model potreboval, sa do požiadavky vôbec nedostane. Kým katalóg nie je naozaj veľký, úplne stačí plná statická sada; dynamický výber sa oplatí až potom. Aj tu platí rovnaká zásada ako v celej Časti II príručky: zvoľ najjednoduchšie riešenie, ktoré na úlohu stačí.
 

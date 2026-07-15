@@ -90,6 +90,6 @@ Deep-research systémy majú rovnaký tvar. Vedúci agent rozvetví prácu na ni
 
 **[Protokoly a koordinácia](./deep-dive.md)** — konkrétne medziagentové protokoly a schémy správ, architektúry so zdieľanou pamäťou (blackboard), vzory prideľovania rolí a vyjednávania, hodnotenie tímu, ktoré pozošíva trajektóriu naprieč agentmi, a politiky na udržanie nákladov na uzde.
 
-Pozri aj: ako sa orchestrátor a izolovaní vykonávatelia stavajú naprieč Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents/); všeobecná vrstva riadenia slučky a rozpočtu — [plánovanie a slučky](../planning-loops/index.md).
+Pozri aj: ako sa orchestrátor a izolovaní vykonávatelia stavajú naprieč Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents.md); všeobecná vrstva riadenia slučky a rozpočtu — [plánovanie a slučky](../planning-loops/index.md).
 
 :::

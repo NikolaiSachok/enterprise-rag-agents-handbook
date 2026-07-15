@@ -89,6 +89,6 @@ Keď má agent viac nástrojov, rieši situáciu, v ktorej rôzne otázky potreb
 
 **[Spoľahlivosť a škálovanie](./deep-dive.md)** — ako dostať volania nástrojov do produkcie: paralelné volania, formáty schém a vynucovanie schémy cez obmedzené dekódovanie, ošetrenie chýb a opakované pokusy, ako aj kontextová cena desiatok nástrojov.
 
-Pozri aj: prepojenie nástrojov cez spoločný štandard — [MCP a agentné protokoly](../mcp/); ako to riešia Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents/).
+Pozri aj: prepojenie nástrojov cez spoločný štandard — [MCP a agentné protokoly](../mcp/index.md); ako to riešia Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents.md).
 
 :::

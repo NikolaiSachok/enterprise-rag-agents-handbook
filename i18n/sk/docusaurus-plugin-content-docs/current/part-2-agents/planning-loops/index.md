@@ -116,6 +116,6 @@ A evaluácia teraz meria kvalitu trajektórie, nie len „odpovedal správne?“
 
 **[Prehľadávanie plánov a pamäť](./deep-dive.md)** — hlbší prechod vedením a ohraničením slučky: prehľadávanie stromu a grafu plánov, pomenované frameworky reflexie, rozpočtové a nákladové politiky v produkcii, pamäťové architektúry pre dlhé trajektórie (epizodická oproti pracovnej pamäti) a metriky hodnotenia na úrovni trajektórie.
 
-Pozri aj: špecificky vyhľadávací variant tej istej slučky — [Agentic RAG](../agentic-rag/index.md); ako slučka, jej stropy a zotavenie vyzerajú v Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents/).
+Pozri aj: špecificky vyhľadávací variant tej istej slučky — [Agentic RAG](../agentic-rag/index.md); ako slučka, jej stropy a zotavenie vyzerajú v Claude, OpenAI a Gemini — [záverečná stránka časti](../real-agents.md).
 
 :::
