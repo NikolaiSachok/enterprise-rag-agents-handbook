@@ -249,7 +249,7 @@ Stĺpec „Odmietnuté“ drží konkrétne varianty, ktoré sa razili a zamietl
 | validácia argumentov | argument validation | |
 | štruktúrovaný výstup | structured output | Trieda 2 (v4) — „structured output“ ako vedený tvar v tele ✗; branded **Structured Outputs** ostáva EN (Trieda 1) |
 | skúšobné spustenie | dry-run | Trieda 2 (v4) — predtým kept-EN s glosom; presný tvar `dry-run` ostáva v kóde/UI a v moste |
-| princíp najnižších oprávnení | least privilege | Trieda 2 (v4) — predtým kept-EN §1.1; webom overené (sk.wikipedia „princíp najnižšieho privilégia“, smernice NBÚ/SAAVS); „princíp najmenších oprávnení“ ✗ (slabé slovenské doklady) |
+| princíp najnižších oprávnení | least privilege | Trieda 2 (v4) — predtým kept-EN §1.1. **SPORNÝ RIADOK (Fáza 26): incumbent drží, doklady ho nerozhodujú.** Modifikátor „najnižš-“ stojí na najvyššej dostupnej autorite (vyhláška NBÚ č. 362/2018 Z. z. §5 písm. a) „zásada **najnižších privilégií**“, 4×; správy a návody NBÚ; sk.wikipedia „Princíp najnižšieho privilégia“) — lenže tie zhodne vedú **privilégií**, nie „oprávnení“: kryjú modifikátor, nie presný kánonický tvar. Pôvodné zdôvodnenie „slabé slovenské doklady“ je **FALZIFIKOVANÉ** — „princíp **najmenších** oprávnení“ doložený (sk.wikipedia „Kybernetická bezpečnosť“, STU FEI KCKB), „princíp **minimálnych** oprávnení/privilégií“ tretia rodina (STU FEI, MIRRI); MS Learn sk-sk „najmenších oprávnení“ = **slabý doklad (MT-signál)**; STN ISO/IEC 27001 SK neextrahovateľná, IATE bez SK hesla. Tretia možnosť **„zásada najnižších privilégií“** (najvernejšia autorite) zapísaná, **NEPRIJATÁ**. Rozhodujú rodení Slováci (packet, otázka Q3) — dovtedy **žiadny flip**, pozri Fázu 26 |
 | race condition (súbehová chyba) | race condition | **kept-EN primárny tvar** (Trieda 3, §1.0); bare **„súbeh“ = concurrency, NIE chyba** — sémanticky nesprávny názov chyby (§1.3, blocklist); v1 záložný tvar „súbeh (race condition)“ **zrušený** — pozri poznámku pod tabuľkou |
 
 Ustálené prijaté prevzatia, ktoré ostávajú (dev-úzus, ako „chunking“): **dashboard** (nie „nástenka“ ako
@@ -424,7 +424,7 @@ vykonávateľom deja (slučka sa neopravuje sama — volanie opravuje model; vol
 slučka po ňom; validácia „neodmieta“ — argument validáciou neprejde). Tieto dvojice sa flagujú:
 
 - dostať nezmysel ✗ → dostať neplatné/nezmyselné argumenty
-- opraviť predpoklad ✗ → predpoklad výslovne obmedziť/usmerniť (v systémovom prompte)
+- opraviť predpoklad ✗; **predpoklad výslovne obmedziť/usmerniť ✗ (ZVRAT Fáza 26 — predpoklad je abstraktum: neobmedzuje sa a neusmerňuje, iba sa vysloví, prevalcuje alebo opraví; Gate 2a menuje presne tento prípad)** → **predpoklad nahradiť výslovným pravidlom** (v systémovom prompte)
 - zdvojiť vedľajší účinok ✗ → vykonať tú istú operáciu dvakrát
 - zlyhané volanie sa zotaví ✗ → slučka sa po zlyhanom volaní zotaví
 - validácia odmietne argument ✗ → argument neprejde validáciou
@@ -787,7 +787,10 @@ súrodenci (slabá kolokácia / nejasný referent / nesprávny sémantický akto
   **štruktúrovaný výstup (structured output)** — Trieda 2; **skúšobné spustenie (dry-run)** — Trieda 2;
   **princíp najnižších oprávnení (least privilege)** — Trieda 2 (podoba „najnižších“ podľa slovenských
   dokladov — sk.wikipedia „princíp najnižšieho privilégia“, smernice NBÚ/SAAVS; „princíp najmenších
-  oprávnení“ zamietnuté ako slabo doložené); **dynamický výber nástrojov (dynamic tool loadout)** —
+  oprávnení“ vtedy zamietnuté ako slabo doložené — **toto zdôvodnenie Fáza 26 falzifikovala: doklady pre
+  „najmenších“ existujú a autoritatívne zdroje navyše vedú „privilégií“, nie „oprávnení“. Samotné
+  rozhodnutie „najnižších“ PLATÍ ďalej — ale ako incumbent v spornom riadku, nie ako uzavretá otázka;
+  pozri §1.2 a Fázu 26**); **dynamický výber nástrojov (dynamic tool loadout)** —
   Trieda 2; **race condition** — Trieda 3, vedomá zapísaná výnimka.
 - **Figúra „daň“ vyradená:** „stála daň“ → **„stála réžia“** (variant „priebežné náklady“); nadväzná veta
   „Daň nie je len finančná“ → „Réžia nie je len finančná“. Ruší potvrdenie Fázy 2; „réžia“ pre overhead je
@@ -1017,9 +1020,12 @@ odôvodnené, aplikované na celý korpus vrátane už publikovaných stránok:*
    heslo glosára **„Embedding fine-tuning (doladenie embeddingov)“** — predmetom doladenia je embeddingový
    model, preto „embeddingov“. Rozdiel je vecný (predmet doladenia), zapisuje sa sem; žiadna oprava textu.
 4. **least privilege — „princíp najnižších oprávnení“, celý korpus.** Fáza 4 už rozhodla „najnižších“
-   (webom overené: sk.wikipedia „princíp najnižšieho privilégia“, smernice NBÚ/SAAVS; „najmenších“ slabo
-   doložené). Glosár mal na dvoch miestach „najmenších“ — **zosúladený na „najnižších“** (heslo „Least
-   privilege / tool allow-listing“ + definícia hesla „Roots“).
+   (webom overené: sk.wikipedia „princíp najnižšieho privilégia“, smernice NBÚ/SAAVS; „najmenších“ vtedy
+   vedené ako slabo doložené — **Fáza 26 tento dôvod falzifikovala; zosúladenie korpusu na „najnižších“
+   platí ďalej ako incumbent, riadok je však SPORNÝ, pozri §1.2**). Glosár mal na dvoch miestach
+   „najmenších“ — **zosúladený na „najnižších“** (heslo „Least privilege / tool allow-listing“ + definícia
+   hesla „Roots“). *(Zosúladenie nebolo úplné: „najmenšie oprávnenia“ prežilo v hesle „Confused deputy“,
+   r. 654 — nájdené až Fázou 26.)*
 5. **Inštrumentál plurálu chunku — „chunkami“ ostáva, celý korpus.** Pravidelná paradigma mužských
    neživotných dáva „-mi“ („vlakmi“ → teoreticky „chunkmi“), no pri prevzatom slove so spoluhláskovým
    zhlukom volí slovenčina eufonické **„-ami“**; korpus je 14× konzistentný na „chunkami“ (glosár + obe
@@ -1300,8 +1306,10 @@ EN-vedené, slovenský glos raz pri prvom výskyte NA STRÁNKE (obe stránky glo
 **Trieda 2 (slovensky vedené, EN originál raz v zátvorke) — potvrdené / doplnené §1.2:**
 
 - **princíp najnižších oprávnení (least privilege)** — potvrdenie Fázy 4/6 („najnižších", nie „najmenších").
-  Studený čitateľ navrhol „najmenšie oprávnenia" — **zamietnuté**, rozhodnuté web-dokladmi vo Fáze 4
-  (sk.wikipedia, NBÚ/SAAVS). Konflikt s usadeným riadkom → neprepisuje sa.
+  Studený čitateľ navrhol „najmenšie oprávnenia" — **zamietnuté**, vtedy s odvolaním na web-doklady Fázy 4
+  (sk.wikipedia, NBÚ/SAAVS). **Fáza 26: to zdôvodnenie neobstálo (doklady majú obe podoby) — zamietnutie
+  však platí ďalej, lebo incumbent v spornom riadku sa neprepisuje bez rozhodujúceho dokladu (§1.2).**
+  Konflikt s usadeným riadkom → neprepisuje sa.
 - **kontrola vstupu (input scanning/validation) / validácia výstupu (output validation)** — slovensky
   vedené; „validácia" prijaté.
 - **bezpečnosť obsahu (content safety)** — slovensky vedené, EN raz v zátvorke; „moderovanie obsahu" v próze.
@@ -1463,8 +1471,10 @@ publikovaných stránok je ODLOŽENÝ na milestone-prechod vlny (nemení sa tout
    kvalitu úlohy ↑") → „kvalita výstupu".
 3. **«najnižšie / najnižších oprávnení» (least privilege) — POTVRDENÉ (resolve = žiadny flip).** Fáza 4/6/9
    už rozhodli „princíp **najnižších** oprávnení" web-dokladmi (sk.wikipedia „princíp najnižšieho
-   privilégia", smernice NBÚ/SAAVS); návrhy „najmenších / najmenšie" zamietnuté. Held-stav uzavretý:
-   ostáva „najnižších". Observability termín nepoužíva.
+   privilégia", smernice NBÚ/SAAVS); návrhy „najmenších / najmenšie" zamietnuté — **tvrdenie, že sú slabo
+   doložené, Fáza 26 falzifikovala; zamietnutie stojí na tom, že incumbenta nemá čo prevážiť, nie na tom,
+   že by protikandidát doklady nemal**. Held-stav ostáva „najnižších", riadok je však **SPORNÝ** (§1.2).
+   Observability termín nepoužíva.
 
 **Smer termínu podľa glosára / §1.1 (potvrdené, celý korpus).** Observability = kept-EN názov; v próze
 **KAŽDEJ stránky** glos „(pozorovateľnosť)" pri prvom výkladovom výskyte (nie v rekapitulácii), v see-also
@@ -1588,7 +1598,12 @@ managing-editor prechod, studený spätný prechod 4 strán, a zosúladil kánon
   zosúladený.
 - **«kvalita úlohy» → «kvalita výstupu»** (doložený SK AI-úzus) — 6 výskytov, všetky Guardrails prehĺbenie
   (telo + Mermaid). Grep SK: „kvalita úlohy" 6→0; „kvalita výstupu" 6.
-- **«najnižších» (least privilege)** — POTVRDENÉ, žiadny flip; „najmenších" v SK = 0.
+- **«najnižších» (least privilege)** — POTVRDENÉ, žiadny flip. Grep tejto fázy hľadal **iba genitív**
+  „najmenších" — v korpuse 0 výskytov; **nominatív neprehľadal**, a Fáza 26 našla „najmenšie oprávnenia"
+  v glosári (heslo „Confused deputy", r. 654). Korpusový stav teda znie: 20 sídel incumbenta, **1 odchýlka**.
+  Pozn.: „v SK = 0" v tomto zozname znamená **výskyt v korpuse**, nie neexistenciu tvaru v slovenčine —
+  „najmenších / najmenšie oprávnenia" je doložená slovenčina (sk.wikipedia „Kybernetická bezpečnosť",
+  STU FEI); pozri sporný riadok §1.2 a Fázu 26.
 - **«spôsob zlyhania» (failure mode)** — flip Generation z Fázy 8 drží; „chybový režim" v SK = 0.
 - **Zákaz „— ,"** — grep „— ," = 0; navyše 3 výskyty „—," (dash-inset tesne pred čiarkou) v Ingestion
   prehĺbení prepísané na zátvorku / „a" (§Fáza 6). Glosár flipy nepotreboval (grep «a spol.»/«kvalita úlohy» = 0).
@@ -3505,3 +3520,168 @@ build stále vylučuje SK (gated); lint:md, typecheck, leak-scan čisté. Zmenen
 
 **Stav locale:** SK stále **gated** (mimo plain buildu). Backlog: **F/G/H HOTOVÉ; J (human-friend packet)
 PENDING** — samostatný následný PR pred/pri launch-flipe. Ďalej: launch-flip #98 (odgejtovanie SK).
+
+### Fáza 26 — post-launch copy-edit pilotu „tool use“ (štvrtá externá recenzia ~9/10): rozhodnutia kánonu
+
+Cielený finálny copy-edit dvoch **živých** stránok pilotu (`part-2-agents/tool-use/index.md` + `deep-dive.md`)
+po štvrtej externej recenzii, ktorá stránky ohodnotila ~9/10 a výslovne odporučila **neprepisovať ich
+plošne**. Próza only, **nulový posun faktu**, veľký diff = zlyhanie. Táto fáza zároveň rieši prvý prípad, keď
+externá recenzia napadla **usadený riadok** — a je zapísaná ako učebný prípad, lebo výsledok nie je „recenzent
+mal pravdu“ ani „recenzent sa mýlil“.
+
+**Least privilege — SPORNÝ RIADOK. Bránu udržala regresná poistka usadených termínov; obaja AI recenzenti sa
+čiastočne mýlili.** Recenzia v4 označila usadené **„princíp najnižších oprávnení“** (Fáza 4, potvrdené
+6/9/13/16) za regresiu a žiadala „najmenších / minimálnych oprávnení“ — na základe DOJMU („znie menej
+ustálene“). Poistka žiada pred prepisom usadeného riadku citovateľný doklad, nie dojem. Doklady sa preverili
+na surovom texte zdrojov a **rozhodnutie nepriniesli**:
+- **Za incumbentov modifikátor (najvyššia dostupná autorita):** **vyhláška NBÚ č. 362/2018 Z. z., §5 písm. a)**
+  (záväzný vykonávací predpis ku kybernetickému zákonu, slov-lex.sk) — „uplatňuje sa najmä zásada
+  a) **najnižších privilégií**, podľa ktorej sú každému používateľovi obmedzené privilégiá…“, tvar
+  `najnižších privilégií` 4× (§5, §8, §13, príloha). Ďalej **NBÚ Správa o kybernetickej bezpečnosti 2022**
+  („nie je sformalizovaná zásada **najnižších privilégií**“) a **NBÚ Návod na samohodnotenie** („**zásada
+  najnižších privilégií** ‚least privilege‘“). **sk.wikipedia** má samostatné heslo **„Princíp najnižšieho
+  privilégia“**; site-search „najnižších oprávnení“ na sk.wikipedia = **0 výsledkov**.
+- **Za protikandidáta (reálne, nie slabé):** **sk.wikipedia „Kybernetická bezpečnosť“** — „princíp
+  **najmenších oprávnení**“ (jediné miesto na sk.wikipedia, kde je koncept v tvare *oprávnení*, a to
+  s modifikátorom protikandidáta). **STU Bratislava FEI (KCKB, 2025–2026)** je vnútorne nekonzistentná:
+  `Riadenie-pristupovych-prav` nadpisuje „PRINCÍP **NAJMENŠÍCH** OPRÁVNENÍ (POLP)“ (×3),
+  `Uvod-do-informacnej-bezpecnosti` „PRINCÍP **MINIMÁLNYCH** OPRÁVNENÍ (POLP)“ (×2),
+  `Audit-a-kontrolne-cinnosti` používa v JEDNOM súbore „najnižších oprávnení (PoLP)“ **aj** „princípu
+  najmenších oprávnení“, `Klasifikacia-aktiv` „najnižších privilégií“. **MIRRI, šablóna „Politika KIB“**
+  nesie v jednom dokumente **všetky štyri rodiny**: „Princíp **najnižších oprávnení** (least privilege
+  principle)“ ako nadpis sekcie, „princípu **najmenších privilégií**“, „princíp **minimálnych privilégií**“
+  (×2), „zásady **minimálnych oprávnení** (least privilege principle)“.
+- **Vyradené z váženia:** **Microsoft Learn sk-sk** („najmenších oprávnení“) — **slabý doklad, MT-signál**:
+  česká stránka toho istého dodávateľa vedie „nejnižších oprávnění“, poľské sa delia „najniższych“/
+  „najmniejszych“ — dodávateľova vlastná lokalizačná linka si protirečí, čo je znak strojového prekladu, nie
+  doklad zaužívaného rodeného úzu. **STN ISO/IEC 27001 SK** — text neextrahovateľný, **neoveriteľné**.
+  **IATE** — slovenské heslo neexistuje.
+
+**Verdikt — prípad (b) poistky: doklady si PROTIREČIA / nerozhodujú → drží incumbent, riadok sa značí
+SPORNÝ, otázka ide k ľuďom.** Zdôvodnenie:
+- Na **osi modifikátora** (`najnižších` vs `najmenších`/`minimálnych`) je incumbent krytý jediným najvyšším
+  dostupným prameňom (záväzná vyhláška 362/2018 + správy NBÚ + názov hesla sk.wikipedia — všetko `najnižš-`).
+  Prípad protikandidáta je reálny, ale slabší a kontaminovaný dodávateľským MT.
+- Na **osi podstatného mena** sú **obaja kandidáti krok od autority**: NBÚ aj názov hesla sk.wikipedia vedú
+  **`privilégií`**, nie `oprávnení` (v korpuse `privilégi` = **0 výskytov**). Tretia možnosť — **„zásada
+  najnižších privilégií“** — je zrejme najvernejšia autorite a **nenavrhol ju ani jeden z AI recenzentov**.
+  **Neprijíma sa teraz** (to by bol presne ten korpusový ping-pong, ktorý poistka zakazuje) — zapisuje sa
+  a ide k ľuďom.
+- **Obaja AI recenzenti sa čiastočne mýlili.** Fáza 4 zamietla „najmenších“ ako **„slabo doložené“** — to je
+  falzifikované. Recenzia v4 nazvala incumbenta regresiou — to je dojem bez dokladu, ktorý by prevážil
+  záväznú vyhlášku. **Žiadny tvar jasne nevyhráva.** Poistka udržala líniu: **nulový flip reťazcov.**
+
+**Korekcie falzifikovaného zdôvodnenia (rozhodnutie STOJÍ, dôvod bol sčasti nepravdivý).** Opravené riadky:
+**§1.2** (riadok prepísaný, značka SPORNÝ, obaja kandidáti, obe skupiny dokladov, tretia možnosť, ukazovateľ
+na packet), **Fáza 4** (dôvod „slabo doložené“ označený za falzifikovaný + ukazovateľ sem), **Fáza 6 §4**,
+**Fáza 9**, **Fáza 10 §3**. Zvlášť **Fáza 11**: riadok „«najnižších» — POTVRDENÉ, žiadny flip; „najmenších“
+v SK = 0“ bol nejednoznačný **a nepravdivý v oboch čítaniach**. Súrodenci v tom zozname („kvalita úlohy“ 6→0;
+„chybový režim“ v SK = 0) viažu význam „v SK = 0“ na **výskyt v korpuse**, nie na neexistenciu tvaru
+v slovenčine — a ako korpusové tvrdenie je **tiež nepravdivé**: grep Fázy 11 hľadal iba genitív „najmenších“
+a **minul nominatív** „najmenšie oprávnenia“ v glosári (heslo „Confused deputy“, r. 654). Riadok teraz
+hovorí korpusový stav presne (**20 sídel incumbenta : 1 odchýlka**) a výslovne odmieta jazykové čítanie.
+
+**Odchýlka `glossary.md:654` — ZAZNAMENANÁ, NEOPRAVENÁ (record-and-defer).** Jediná ledgerovaná odchýlka
+v celom `i18n/sk`; jej telový dvojník (`mcp/deep-dive.md:109`, ten istý confused-deputy výklad) už vedie
+„najnižšie oprávnenia“, takže smer korpusu je jednoznačný. Neopravuje sa v tejto vlne: glosár nie je cieľový
+súbor prózového copy-editu, riadok je **SPORNÝ** a verdikt ľudí dopadne naraz na všetkých 21 sídel (jeden
+konsolidovaný prechod je lacnejší aj bezpečnejší než osamelá oprava, ktorú by bolo treba robiť druhý raz),
+a pre čitateľa to nie je defekt — „najmenšie oprávnenia“ dekóduje správne a k správnemu významu. Ide do
+worklistu k packetu, spolu so smerovým flipom hesla `glossary.md:316` (`**Least privilege / tool allow-listing
+(princíp najnižších oprávnení)**` je EN-vedené, hoci termín je Trieda 2 — Fáza 25 §F ho na zozname nemala;
+obe zmeny sa dotýkajú tej istej rodiny, teda jeden prechod).
+
+**Prózové opravy dvoch živých stránok (Item 2) — usadené rozhodnutia.**
+- **(a) „predpoklad výslovne obmedziť“ ✗ → „predpoklad nahradiť výslovným pravidlom“ — ZVRAT usadeného
+  riadku §1.4 (r. ~427).** Prehĺbenie r. 33 znie: „Model volania zoskupuje na základe **vlastného predpokladu
+  o ich nezávislosti**; v systémovom prompte tento predpoklad **nahradíš výslovným pravidlom**.“ Dôvod je
+  citovateľný, nie dojmový: **Gate 2a editoriálnej skill menuje presne tento prípad** („an assumption isn't
+  *limited* — it's stated/overridden/corrected“) — abstraktum nepodstupuje dej, ktorý podstúpiť nevie. Riadok
+  §1.4 prepísaný. Zvrat je zapísaný výslovne, ako poistka žiada — nie zahrabaný v úprave.
+- **(b) Apozícia zotaviteľnej chyby prestavaná.** „**Chyba ako prompt**: modelu vrátiš **zotaviteľnú chybu**
+  (recoverable error) — správu, ktorú vie prečítať a podľa ktorej vie konať, formulovanú ako návod…“ —
+  podstatné meno vstupuje do vety raz a nesie svoje prívlastky (Gate 2a, opakovaná apozícia = švík
+  z konceptu). Termín aj glos ostávajú nedotknuté. **Zamietnuté: „zotaviteľná chybová správa (recoverable
+  error)“ ✗** — láme čistotu glosu (glos by pomenoval podstatné meno, ktoré nie je termínom) a presúva
+  zotaviteľnosť z CHYBY na SPRÁVU.
+- **(c) „skôr než sa spustí akýkoľvek vedľajší účinok“ ✗ → „skôr než **nastane** akýkoľvek vedľajší účinok“.**
+  Vedľajší účinok sa nespúšťa (spúšťa sa nástroj/kód/dopyt); `nastať` drží nepodmienenú hranicu tvrdenia.
+  **Zamietnuté: „pred vykonaním akejkoľvek operácie s vedľajším účinkom“ ✗** — zužuje tvrdenie z *akéhokoľvek
+  vedľajšieho účinku* na *operácie, ktoré si za vedľajšie sám klasifikoval* (fidelita > štýl).
+- **(d) Párovanie a nevrátený `tool_result`.** „každý páruješ s **jeho** volaním“ → „s **príslušným**
+  volaním“ (zámeno bez jasného referenta v hustej pasáži); „bez ohlásenia **zahodil**“ → „bez ohlásenia
+  **vynechal**“ — volanie, ktoré si nespustil, sa nezahadzuje, vynecháva sa. **Pozn. ku kánonu: riadok
+  Fázy 4 („ticho zahodiť“ ✗ → „zahodiť bez ohlásenia“) mieril na kalk *silently drop* — adverbium
+  „bez ohlásenia“ DRŽÍ, mení sa iba sloveso podľa predmetu (§1.5). Usadený reťazec pre tento prípad je teraz
+  „**bez ohlásenia vynechať**“; zákaz „ticho zahodiť“ platí ďalej.** **„bez ohlásenia“ PONECHANÉ** (usadený
+  riadok v4; „bez vysvetlenia“ zamietnuté — bez dokladu, ktorý by prevážil). **Nedokonavé „páruješ“
+  PONECHANÉ** (vidová zhoda s „posielaš“; „spáruješ“ zamietnuté).
+- **(e) Vágne „to“ na skokovej ploche.** Takeaway prehĺbenia: „nič to automaticky nekontroluje“ → „**túto
+  nezávislosť** nič automaticky nekontroluje; overiť **ju** je úloha tvojej aplikácie“ (shuffle test —
+  takeaway sa číta bez kontextu; zároveň zmizlo opakované podstatné meno). **Pozn. ku kánonu: Fáza 4 cituje
+  starý reťazec „nič to automaticky nekontroluje“ ako fakt, s ktorým sa takeaway nesmie rozísť — pravidlo
+  (takeaway neprotirečí telu) platí ďalej, citovaný reťazec je aktualizovaný.**
+- **(f) „Zaručuje správne sformované argumenty, nie správne“ → „…, nie **ich vecnú správnosť**“**; telový
+  dvojník „nikdy nie správne“ → „nikdy nie **vecne správne**“. Usadený reťazec: **„vecná správnosť“** ako
+  protipól „správne sformované, podľa schémy platné“. **Zamietnuté: „správny formát argumentov“ ✗** —
+  zahadzuje polovicu záruky (platnosť podľa schémy), ktorú si stránka sama definuje. **r. 65 (definičná
+  pasáž) nedotknutá** — kontrast je tam rozpísaný a nie je defektný.
+- **(h) Reťazec so šípkami, OBE stránky:** „chybné volanie → zrozumiteľná chyba → **preformulovanie** →
+  opakovanie“ → „→ **oprava volania** →“. **Zamietnuté: „oprava argumentov“ ✗** — protirečilo by vlastnému
+  príkladu stránky o klauzu vyššie („neznáme `user_id`, najprv zavolaj `list_users`“ nie je oprava argumentu,
+  ale iné volanie). **„oprava volania“ je usadený reťazec na oboch stránkach** (index r. 60, prehĺbenie r. 87).
+- **(j) „reťaz závislostí“ → „reťaz **závislých volaní**“.** Antitéza „skupina nezávislých volaní“ ↔ „reťaz
+  závislostí“ nesedela hlavovým podstatným menom (skupina volaní vs reťaz závislostí); stránka sama o štyri
+  riadky nižšie píše „reťaz postupných volaní“.
+- **(k) Takeaway P1 — reťaz s bodkočiarkou rozdelená na dve vety**; „k tomu“ → „**K tomu pribúda**“, čím
+  bezpečnosť ostáva kategóriou **odlíšenou** od zoznamu spôsobov zlyhania (fidelita).
+- **(S1) P1: „**Či** sa nástroj … rozhoduje výstup modelu“ → „**O tom, či** sa nástroj … rozhoduje výstup
+  modelu“.** Holý cleft „Či…“ je kostra anglického „Whether…“; natívny rámec je „O tom, či…, rozhoduje X“.
+  Nález povinného čítania nahlas (Gate 2a) — kalk, ktorý prežil tri predchádzajúce recenzie.
+
+**Zamietnuté návrhy recenzie (zapísané ako odmietnuté varianty).**
+- **(g) „presne na hranici, ktorú chceš strážiť“ — PONECHANÉ.** Smer recenzie („podľa toho, ktoré operácie
+  chceš povoliť bez potvrdenia…“) je **posun faktu**: podsúva kritérium *potvrdenia* namiesto skutočného
+  kritéria odseku (*čítanie vs zápis*) a importuje fakt zo susedného odseku o dry-run/confirm. Naivný
+  jednojazyčný čitateľ riadok dekódoval a číta ho ako zámerný spätný odkaz na „bezpečnostnú hranicu“. Žiadna
+  fakt-bezpečná náhrada ho neprekonala bez zopakovania predchádzajúcej klauzy.
+- **(i) Nadpis „Domýšľanie si toho, čo vo výsledku nie je“ — PONECHANÝ.** Navrhované „Domýšľanie chýbajúcich
+  informácií“ zamietli všetky tri role nezávisle: je to už raz zamietnuté čítanie „dopĺňanie“ v novom
+  podstatnom mene (**Fáza 3: „dopĺňanie“ ✗**); zahadzuje kotvu „vo výsledku“, ktorá z toho robí **nástrojový**
+  spôsob zlyhania, nie generickú halucináciu; a presupponuje, že tá informácia existuje (blízko falošnému
+  priateľovi). Usadený riadok Fázy 3 → platí poistka.
+- **(l) „správu, vďaka ktorej sa slučka dokáže z chyby zotaviť“ — PONECHANÉ.** Navrhované „správu, podľa
+  ktorej model dokáže volanie opraviť“ zmenšuje tvrdenie (zotavenie slučky → model opraví volanie), duplikuje
+  hneď nasledujúcu vetu a osirie tri spätné odkazy prehĺbenia (nadpis „ako sa slučka zotaví“, „tá istá slučka
+  zotavenia“, takeaway „Slučka sa po zlyhanom volaní zotaví“). Súčasné znenie je navyše **presne ten aktor**,
+  ktorý žiada §1.4 aj vlastný rozpracovaný príklad Gate 2a.
+
+**Diagnostický nástroj — packet (`editorial/sk-pilot-naturalness-check.md`) opravený (meta-text prechádza
+tými istými bránami, Fáza 4).**
+- **Sprievodný text odstaralený:** SK locale je od **2026-07-15 živý** — „ešte nie sú verejne nasadené“ bolo
+  **NEPRAVDIVÉ**, rovnako „pripravovanej slovenskej verzie“.
+- **„celá próza“ → „celý text“** — *próza* je žáner krásnej literatúry, pri technickej dokumentácii afektuje.
+- **Tvrdenie o finálnosti zmäkčené** — „Text zodpovedá finálnej redigovanej verzii“ bola **zaujatosť
+  nástroja**: primalo respondenta ratifikovať namiesto posudzovať.
+- **Q8/Q9 rozdelené na značené pod-položky a/b/c/…, každá s vlastným áno/nie** — jedno áno/nie cez päť javov
+  skryje, ktorý z nich zlyhal.
+- **DEFEKT pokrytia opravený:** Q9 sa pýtala na blok „Nové pojmy → Glosár“, ktorý sa **nenachádzal ani
+  v jednom z vložených úryvkov** → blok doplnený do oboch (úryvok má BYŤ tou stránkou; každý citovaný reťazec
+  ⊆ vložený text).
+- **„názov v bočnom paneli“ → „názov druhej stránky“** — respondent žiadny bočný panel nevidí.
+- **Otázka na „výpadok“ zmäkčená** — text ho ako kategóriu v skutočnosti **neodlišuje**, použije ho raz
+  mimochodom; otázka predpokladala rozlíšenie, ktoré tam nie je.
+- **Nová Q3** — smeruje **SPORNÝ** termín least privilege k rodeným Slovákom: všetky štyri kandidátske podoby
+  v **nominatíve slovníkovej podoby**, incumbent **neoznačený a umiestnený posledný** (defúza primacy efektu).
+- **Prečíslované na 12 otázok**; úryvky **re-synchronizované** s upravenými stránkami.
+
+**Mechanické brány.** i18n-link-check **PASS**; `npm run build` (plain — po launchi zahŕňa SK pod
+`onBrokenLinks: 'throw'`, čiže toto JE deploy build) **čistý pre všetky tri locale**; lint:md **0 chýb**
+(116 súborov); typecheck čistý; leak-scan **PASS**. Rozpočet polotučného (§8) nedotknutý: index 23→23,
+prehĺbenie 47→47. Zmenené 2 SK stránky + packet + kánon; **žiadny flip termínu, nulový posun faktu.**
+
+**Stav locale:** SK **živá** (launch 2026-07-15, `RELEASED_LOCALES`) — Fáza 26 je post-launch copy-edit, nie
+vlna. Backlog: **J (packet u rodených Slovákov) PENDING** a nesie **rozhodnutie o spornom riadku least
+privilege** (Q3) + zapísanú odchýlku `glossary.md:654` + smerový flip hesla `glossary.md:316` — jeden
+konsolidovaný prechod, keď nálezy dorazia. Dovtedy: **incumbent „princíp najnižších oprávnení“ drží, žiadny
+flip.**

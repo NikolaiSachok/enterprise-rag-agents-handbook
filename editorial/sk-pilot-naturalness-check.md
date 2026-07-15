@@ -1,12 +1,12 @@
 # Kontrola prirodzenosti slovenčiny — pilotná lekcia „Používanie nástrojov“
 
-> **Pre slovenského vývojára.** Prečítaj si, prosím, tieto dve stránky z pripravovanej slovenskej verzie
+> **Pre slovenského vývojára.** Prečítaj si, prosím, tieto dve stránky zo slovenskej verzie
 > príručky o AI a **označ všetko, čo znie cudzo** — poangličtene, počeštene, strojovo preložené alebo
 > jednoducho „nie po našom“. **Netreba nič opravovať** — stačí to označiť (napríklad komentárom „toto by
 > Slovák nepovedal“ alebo podčiarknutím). Ide o to, či to znie ako text napísaný slovenským kolegom, nie
-> preložený. Na konci je jedenásť rýchlych otázok typu áno/nie k pasážam, pri ktorých máme najväčšie
-> pochybnosti.
-> Zaberie to zhruba pätnásť minút.
+> preložený. Na konci je dvanásť rýchlych otázok (väčšinou áno/nie) k pasážam, pri ktorých máme
+> najväčšie pochybnosti.
+> Zaberie to zhruba dvadsať minút.
 
 Kontext, ktorý pomôže: kniha zámerne **ponecháva časť anglických odborných termínov** (tak, ako ich
 vývojári bežne hovoria). Pri prvom výskyte sa pri každom takom termíne uvedie slovenské vysvetlenie
@@ -14,8 +14,9 @@ v zátvorke; ďalej sa termín píše už samostatne, bez vysvetlivky. Pri slove
 výskyte uvádza aj anglický originál v zátvorke. Otázka nie je, či rozumieš jednotlivým slovám — otázka je,
 či to celé **plynie ako slovenčina**.
 
-*(Stránky ešte nie sú verejne nasadené — slovenská verzia sa spustí neskôr. Preto je celá próza vložená
-nižšie, aby sa dala čítať aj offline. Text zodpovedá finálnej redigovanej verzii.)*
+*(Obe stránky sú už verejne dostupné v slovenskej verzii príručky; celý text je uvedený nižšie, aby sa dal
+čítať aj offline a rovno doň písať poznámky. Je to znenie, ktoré je práve nasadené — a práve preto nás
+zaujíma, či obstojí.)*
 
 ---
 
@@ -84,7 +85,7 @@ tu nie je deterministický kód — je to model, ktorý číta prirodzený jazyk
   nástroja (tool selection) pribúda. Sadu nástrojov starostlivo zostavuj, nenafukuj ju.
 - **Zrozumiteľné chyby.** Keď nástroj zlyhá, vráť správu, vďaka ktorej sa slučka dokáže z chyby zotaviť
   („dátum musí byť vo formáte `YYYY-MM-DD`“). Model potom môže volanie opraviť a skúsiť ho znova: chybné
-  volanie → zrozumiteľná chyba → preformulovanie → opakovanie.
+  volanie → zrozumiteľná chyba → oprava volania → opakovanie.
 - **Správna granularita** — nie príliš jemná (desať volaní na jednu úlohu), ani príliš hrubá (jeden
   nástroj na všetko).
 
@@ -97,8 +98,8 @@ tu nie je deterministický kód — je to model, ktorý číta prirodzený jazyk
 - **Domýšľanie si toho, čo vo výsledku nie je.** Model si k výsledku môže domyslieť fakty, ktoré v ňom
   nie sú — najmä pri nejasnom alebo prázdnom výsledku. Vráť výsledok ako samostatnú správu, výslovne
   označenú ako výstup nástroja; riziko to zníži, no neodstráni.
-- **Bezpečnosť — nové a vážne riziko.** Či sa nástroj, ktorý *koná* — zapisuje, odosiela, spúšťa kód —
-  naozaj zavolá a s akými argumentmi, rozhoduje teraz výstup modelu. A ten výstup sa dá cez **prompt
+- **Bezpečnosť — nové a vážne riziko.** O tom, či sa nástroj, ktorý *koná* — zapisuje, odosiela, spúšťa
+  kód — naozaj zavolá a s akými argumentmi, rozhoduje teraz výstup modelu. A ten výstup sa dá cez **prompt
   injection** (podvrhnutie inštrukcií do promptu) zmanipulovať — aj nepriamo, inštrukciami ukrytými v
   nájdenom obsahu. Obranou je **princíp najnižších oprávnení** (least privilege): obmedz sadu nástrojov,
   oddeľ čítacie nástroje od zapisovacích a pri nebezpečných akciách vyžaduj potvrdenie. Aj úspešný útok
@@ -124,8 +125,11 @@ výpočet. Vhodný nástroj vyberá práve **router (smerovač)** z predchádzaj
 - Definícia nástroja je prompt: model vyberá podľa slov, nie podľa kódu. Dobrý nástroj má jasný opis a
   prísnu schému, patrí do malej sady bez prekryvov a vracia zrozumiteľné chyby.
 - Nové spôsoby zlyhania: nesprávny nástroj, neplatné argumenty, domýšľanie si toho, čo vo výsledku nie
-  je; k tomu nové bezpečnostné riziko — zapisovací nástroj sa dá zneužiť cez prompt injection; obranou je
-  princíp najnižších oprávnení.
+  je. K tomu pribúda nové bezpečnostné riziko: zapisovací nástroj sa dá zneužiť cez prompt injection —
+  obranou je princíp najnižších oprávnení.
+
+**Nové pojmy** → **Glosár**: tool use / function calling, tool definition, tool call, tool result, tool
+selection, JSON Schema, structured output.
 
 ---
 
@@ -169,16 +173,16 @@ kroku, hodnotou `false` obmedzíš model na najviac jedno volanie.
 **Gemini** podporuje **parallel function calling** — viac nezávislých funkcií v jednom kroku — a popri
 ňom zámerne odlišuje **compositional function calling**: zreťazené, závislé volania, ktoré nasledujú za
 sebou, pričom výstup jedného je vstupom pre ďalšie: `get_current_location()`, potom
-`get_weather(location)`. V prvom prípade ide o skupinu nezávislých volaní, v druhom o reťaz závislostí —
-a práve toto rozlíšenie rozhoduje o tom, čo vôbec smieš púšťať paralelne.
+`get_weather(location)`. V prvom prípade ide o skupinu nezávislých volaní, v druhom o reťaz závislých
+volaní — a práve toto rozlíšenie rozhoduje o tom, čo vôbec smieš púšťať paralelne.
 
 Zbieranie výsledkov sa riadi pevnými pravidlami. V prípade Anthropicu vrátiš za každý blok `tool_use`
 jeden `tool_result`. Všetky výsledky posielaš spolu v nasledujúcej používateľskej správe a každý páruješ
-s jeho volaním cez `tool_use_id`; v tej správe sa musia nachádzať pred akýmkoľvek textom. Ak si sa
+s príslušným volaním cez `tool_use_id`; v tej správe sa musia nachádzať pred akýmkoľvek textom. Ak si sa
 rozhodol volanie nespustiť — povedzme, že si skupinu vykonal postupne a niektoré skoršie volanie skončilo
 chybou — aj tak zaň vrátiš `tool_result` s `is_error: true` a krátkym dôvodom, namiesto toho, aby si ho
-bez ohlásenia zahodil. Gemini používa podobný princíp párovania: každá odpoveď sa priradí k svojmu volaniu cez
-`id` a vrátiť musíš všetky.
+bez ohlásenia vynechal. Gemini používa podobný princíp párovania: každá odpoveď sa priradí k svojmu
+volaniu cez `id` a vrátiť musíš všetky.
 
 Neparalelizuj **závislé volania** — také, kde jedno potrebuje výsledok predchádzajúceho. To je
 compositional function calling — reťaz postupných volaní: spúšťaj ich jedno po druhom. Zoskupiť ich je
@@ -193,7 +197,8 @@ kóde. K tomu sa vrátime pri idempotencii (idempotency).
 Keď model opakovane zoskupuje volania, ktoré by zoskupovať nemal, oprav to priamo v systémovom prompte —
 presne tento postup uvádza aj dokumentácia: „Only batch tool calls that are independent of each other.“
 (v preklade: zoskupuj len volania, ktoré sú navzájom nezávislé). Model volania zoskupuje na základe
-predpokladu a práve v systémovom prompte tento predpoklad výslovne obmedzíš.
+vlastného predpokladu o ich nezávislosti; v systémovom prompte tento predpoklad nahradíš výslovným
+pravidlom.
 
 *(Nasleduje diagram: „Model“ → tri paralelné „tool call: read_orders / read_inventory / read_pricing“ →
 „Tvoja aplikácia ich spustí súbežne“ → „Zber všetkých výsledkov“ → „Model pokračuje“.)*
@@ -261,11 +266,11 @@ ktorý vyrieši jeden druh chyby, môže iný druh zhoršiť. Taxonómia:
   nadväzuje na nejasný alebo prázdny výsledok. Patrí do zoznamu, hoci technicky nič nezlyhalo.
 
 Najdôležitejší postup pri zlyhanom volaní už poznáš. Prvá časť nazvala definíciu nástroja promptom; o
-chybe platí to isté. **Chyba ako prompt**: chybu vrátiš modelu ako správu, ktorú vie prečítať a podľa
-ktorej vie konať — **zotaviteľnú chybu** (recoverable error) formulovanú ako návod („dátum musí byť
+chybe platí to isté. **Chyba ako prompt**: modelu vrátiš **zotaviteľnú chybu** (recoverable error) —
+správu, ktorú vie prečítať a podľa ktorej vie konať, formulovanú ako návod („dátum musí byť
 `YYYY-MM-DD`“; „neznáme `user_id`, najprv zavolaj `list_users`“), nie nečitateľný výpis zásobníka volaní
 a nie holý nenulový návratový kód. Model potom môže volanie opraviť a zopakovať: chybné volanie →
-zrozumiteľná chyba → preformulovanie → opakovanie. V API Anthropicu je to `tool_result` s `is_error:
+zrozumiteľná chyba → oprava volania → opakovanie. V API Anthropicu je to `tool_result` s `is_error:
 true` a správou, ktorá modelu povie, čo opraviť; model v ďalšom kroku odošle opravené volanie.
 
 Nie každú chybu spôsobí model; tie ostatné sa riešia inak. Pri **prechodných chybách** — timeout, rate
@@ -364,7 +369,7 @@ povoľ opakovania; naopak to nefunguje.
 
 Obmedzené dekódovanie ti dá správne sformované argumenty — nie *prijateľné*. **Validácia argumentov**
 (argument validation) má preto svoje miesto medzi okamihom, keď model argumenty vygeneruje, a okamihom,
-keď nástroj spustíš: argumenty skontroluj skôr, než sa spustí akýkoľvek vedľajší účinok. Kontrola má dve
+keď nástroj spustíš: argumenty skontroluj skôr, než nastane akýkoľvek vedľajší účinok. Kontrola má dve
 úrovne a každá zachytáva iné chyby.
 
 - **Validácia na úrovni schémy** — typy, povinné polia, enumy, formáty. Obmedzené dekódovanie to pri
@@ -381,16 +386,16 @@ tá istá slučka zotavenia, len chybu zachytíš ešte pred spustením nástroj
 
 Hranica medzi oboma úrovňami je teda jasná. Netlač sémantické kontroly do schémy — väčšina sa v nej
 vyjadriť nedá. A validáciu nevynechávaj len preto, že beží obmedzené dekódovanie: to zaručí správne
-sformované argumenty, nikdy nie správne. Obe úrovne sa dopĺňajú a ani jedna nezastúpi druhú.
+sformované argumenty, nikdy nie vecne správne. Obe úrovne sa dopĺňajú a ani jedna nezastúpi druhú.
 
 ### Čo si odniesť z lekcie
 
 - V jednom kroku model vytvorí viac nezávislých volaní; tvoja aplikácia ich spustí súbežne a výsledky
   pozbiera naraz. Platí to len vtedy, keď volania jedno od druhého naozaj nezávisia a navzájom si
-  neprekážajú — nič to automaticky nekontroluje; overiť nezávislosť je úloha tvojej aplikácie.
+  neprekážajú — túto nezávislosť nič automaticky nekontroluje; overiť ju je úloha tvojej aplikácie.
 - Prísny režim (strict mode) vynucuje schému cez obmedzené dekódovanie: schéma sa skompiluje na gramatiku
-  a vzorkovač zamaskuje každý token, ktorý by ju porušil. Zaručuje správne sformované argumenty, nie
-  správne — a prvé volanie s novou schémou je pomalšie, kým sa hotová gramatika neuloží do cache.
+  a vzorkovač zamaskuje každý token, ktorý by ju porušil. Zaručuje správne sformované argumenty, nie ich
+  vecnú správnosť — a prvé volanie s novou schémou je pomalšie, kým sa hotová gramatika neuloží do cache.
 - Slučka sa po zlyhanom volaní zotaví, keď chybu vrátiš ako prompt — čitateľnú správu, podľa ktorej
   model dokáže volanie opraviť. Pri prechodných poruchách opakuj volanie s backoffom a s tvrdým limitom
   opakovaní; opakovať volanie po deterministickej chybe bez zmeny vstupu je nekonečná slučka, nie
@@ -405,6 +410,9 @@ sformované argumenty, nikdy nie správne. Obe úrovne sa dopĺňajú a ani jedn
   význam. Obmedzené dekódovanie pokryje prvú, druhú musí pokryť tvoj kód; a chybu validácie vráť modelu
   rovnako ako chybu pri vykonaní.
 
+**Nové pojmy** → **Glosár**: parallel tool calls, constrained decoding, strict mode / Structured Outputs,
+idempotency / idempotency key, tool-RAG / dynamic tool loadout, argument validation, retry budget.
+
 ---
 
 ## Rýchle otázky (áno / nie + prípadná poznámka)
@@ -416,41 +424,68 @@ sformované argumenty, nikdy nie správne. Obe úrovne sa dopĺňajú a ani jedn
 
 2. **Odborné pojmy uvádzané po slovensky.** V texte sa používajú podoby „**prísny režim** (strict mode)“,
    „**obmedzené dekódovanie** (constrained decoding)“, „**idempotencia** (idempotency)“, „**kľúč
-   idempotencie** (idempotency key)“ — po slovensky, s angličtinou v zátvorke pri prvom výskyte. Povedal by si to takto,
-   alebo by si v reči nechal anglický termín („strict mode“, „constrained decoding“)? **áno (slovensky
-   sedí) / nie**
+   idempotencie** (idempotency key)“ — po slovensky, s angličtinou v zátvorke pri prvom výskyte.
+   Povedal by si to takto, alebo by si v reči nechal anglický termín („strict mode“, „constrained
+   decoding“)? **áno (slovensky sedí) / nie**
 
-3. **Race condition.** Kniha ponecháva anglický termín „**race condition** (súbehová chyba)“. V texte:
+3. **Podoba princípu „least privilege“.** Po slovensky sa v bezpečnosti pre tento princíp používa
+   viacero podôb:
+
+   - princíp najmenších oprávnení
+   - princíp minimálnych oprávnení
+   - zásada najnižších privilégií
+   - princíp najnižších oprávnení
+
+   Jeden fakt, ktorý sa oplatí mať pri ruke: podobu **zásada najnižších privilégií** používa záväzný
+   právny text (vyhláška NBÚ) aj názov článku na slovenskej Wikipédii. Ostatné podoby sa bežne vyskytujú
+   v odbornej praxi.
+
+   a) Ktorú z nich by si **povedal** nahlas kolegovi? ______________________
+   b) Ktorú by si **napísal** do odborného textu (dokumentácia, príručka)? ______________________
+   c) Znie ti niektorá z nich cudzo, kostrbato alebo úradnícky — ktorá a prečo? ______________________
+
+4. **Race condition.** Kniha ponecháva anglický termín „**race condition** (súbehová chyba)“. V texte:
    „nedostaneš chybovú správu, ale race condition (súbehovú chybu): dve súbežné volania pristupujú
    k rovnakému zdieľanému prostriedku a výsledok závisí od náhodného časovania“. Sedí ti to slovenské
    vysvetlenie v zátvorke — povedal by to tak slovenský vývojár? **áno / nie**
 
-4. **„Tvoja aplikácia“ / „tvoj kód“** pre časť systému, ktorá volania vykonáva: „model rozhoduje, čo
+5. **„Tvoja aplikácia“ / „tvoj kód“** pre časť systému, ktorá volania vykonáva: „model rozhoduje, čo
    zavolať; tvoja aplikácia volanie vykoná“. Znie to prirodzene? **áno / nie**
 
-5. **Fan-out.** Text píše: „Tvoja aplikácia volania rozdelí a spustí súbežne (fan-out); potom všetky
+6. **Fan-out.** Text píše: „Tvoja aplikácia volania rozdelí a spustí súbežne (fan-out); potom všetky
    výsledky pozbiera (fan-in)“. Povedal by si to tak? **áno / nie**
 
-6. **Slovesá opisujúce činnosť modelu.** „model **vyjadrí** štruktúrovaný zámer“, „model **vygeneruje**
+7. **Slovesá opisujúce činnosť modelu.** „model **vyjadrí** štruktúrovaný zámer“, „model **vygeneruje**
    štruktúrovaný výstup“, „model v ďalšom kroku **odošle** opravené volanie“. Sedia tie slovesá, alebo by
    si niekde povedal iné? **áno / nie**
 
-7. **Slová pre zlyhania.** Text rozlišuje „**chyba validácie**“, „**chyba počas behu** (runtime error)“ a
-   „**výpadok**“; o kategóriách hovorí súhrnne („**nové spôsoby zlyhania**“, „**nesprávny nástroj — alebo
-   žiadny**“). Je ten rozdiel zrozumiteľný a prirodzený? **áno / nie**
+8. **Slová pre zlyhania.** Text rozlišuje „**chybu validácie**“ a „**chybu počas behu** (runtime error)“;
+   inde použije aj slovo „**výpadok**“ („krátkodobý výkyv tak môže prerásť do výpadku“). O kategóriách
+   hovorí súhrnne („**nové spôsoby zlyhania**“, „**nesprávny nástroj — alebo žiadny**“). Je ten rozdiel
+   zrozumiteľný a prirodzený? **áno / nie**
 
-8. **Slovné obrazy.** Obrazy „chyba ako prompt“, „stála réžia“, „bezpečnostná hranica“, „jeden krok sa
-   rozvetví na N paralelných volaní a N výsledkov sa spojí do jednej správy“ a spojenie „signatúra
-   funkcie“ — sedia po slovensky, alebo znejú preložene? **áno (sedia) / nie**
+9. **Slovné obrazy.** Sedia tieto výrazy po slovensky, alebo znejú preložene?
+   Pri každom výraze označ áno / nie a prípadne dopíš poznámku.
 
-9. **Nadpisy a opakujúce sa bloky.** „**Čo si odniesť z lekcie**“, „**Nové pojmy → Glosár**“,
-   „**(Video je v angličtine.)**“, názov v bočnom paneli „**Spoľahlivosť a škálovanie**“. Znejú tieto
-   opakujúce sa prvky prirodzene? **áno / nie**
+   a) **chyba ako prompt** — **áno / nie** ______________________
+   b) **stála réžia** — **áno / nie** ______________________
+   c) **bezpečnostná hranica** — **áno / nie** ______________________
+   d) **rozvetvenie a spojenie výsledkov (fan-out/fan-in)** — v texte: „jeden krok sa rozvetví na N
+      paralelných volaní a N výsledkov sa spojí do jednej správy“ — **áno / nie** ______________________
+   e) **signatúra funkcie** — **áno / nie** ______________________
 
-10. **Typografia.** Slovenské úvodzovky „…“ a dlhá pomlčka „—“ vo vsuvkách. Vyzerá to správne? **áno /
+10. **Nadpisy a opakujúce sa bloky.** Znejú tieto opakujúce sa prvky prirodzene?
+    Pri každom výraze označ áno / nie a prípadne dopíš poznámku.
+
+    a) nadpis **Čo si odniesť z lekcie** — **áno / nie** ______________________
+    b) pätka **Nové pojmy → Glosár** — **áno / nie** ______________________
+    c) poznámka pri videu **(Video je v angličtine.)** — **áno / nie** ______________________
+    d) názov druhej stránky **Spoľahlivosť a škálovanie** — **áno / nie** ______________________
+
+11. **Typografia.** Slovenské úvodzovky „…“ a dlhá pomlčka „—“ vo vsuvkách. Vyzerá to správne? **áno /
     nie**
 
-11. **Celkový dojem.** Prijal by si tieto dve stránky ako napísané slovenským kolegom (nie strojovo
+12. **Celkový dojem.** Prijal by si tieto dve stránky ako napísané slovenským kolegom (nie strojovo
     preložené)? Kde si sa **potkol** alebo zaváhal? **áno / nie + kde**
 
 *Ďakujem! Stačia odpovede a čokoľvek, čo ti udrelo do očí — netreba návrhy opráv.*

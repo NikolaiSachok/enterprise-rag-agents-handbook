@@ -57,7 +57,7 @@ Keď je opis vágny, model zavolá nástroj v nesprávnej chvíli, vyberie nespr
 - **Jasný, jednoznačný opis** — model rozlišuje nástroje podľa opisu, nie podľa kódu za nimi.
 - **Prísne typované, obmedzené parametre** (JSON Schema, `enum`, formáty) zúžia, čo model smie vygenerovať, a znížia počet chybných volaní.
 - **Málo nástrojov, bez prekryvov.** Tucet funkcií s blízkym významom model mätie a chýb pri výbere nástroja (tool selection) pribúda. Sadu nástrojov starostlivo zostavuj, nenafukuj ju.
-- **Zrozumiteľné chyby.** Keď nástroj zlyhá, vráť správu, vďaka ktorej sa slučka dokáže z chyby zotaviť („dátum musí byť vo formáte `YYYY-MM-DD`“). Model potom môže volanie opraviť a skúsiť ho znova: chybné volanie → zrozumiteľná chyba → preformulovanie → opakovanie.
+- **Zrozumiteľné chyby.** Keď nástroj zlyhá, vráť správu, vďaka ktorej sa slučka dokáže z chyby zotaviť („dátum musí byť vo formáte `YYYY-MM-DD`“). Model potom môže volanie opraviť a skúsiť ho znova: chybné volanie → zrozumiteľná chyba → oprava volania → opakovanie.
 - **Správna granularita** — nie príliš jemná (desať volaní na jednu úlohu), ani príliš hrubá (jeden nástroj na všetko).
 
 ## Kde sa to láme
@@ -65,7 +65,7 @@ Keď je opis vágny, model zavolá nástroj v nesprávnej chvíli, vyberie nespr
 - **Nesprávny nástroj — alebo žiadny.** Model siahol po nesprávnej funkcii alebo odpovedal z pamäte namiesto použitia nástroja. Rieši to jasnejší opis a menšia sada nástrojov.
 - **Neplatné argumenty** — vymyslené alebo nesprávne parametre. Rieši to prísna schéma, validácia a zrozumiteľné chyby, podľa ktorých model dokáže chybné volanie opraviť.
 - **Domýšľanie si toho, čo vo výsledku nie je.** Model si k výsledku môže domyslieť fakty, ktoré v ňom nie sú — najmä pri nejasnom alebo prázdnom výsledku. Vráť výsledok ako samostatnú správu, výslovne označenú ako výstup nástroja; riziko to zníži, no neodstráni.
-- **Bezpečnosť — nové a vážne riziko.** Či sa nástroj, ktorý *koná* — zapisuje, odosiela, spúšťa kód — naozaj zavolá a s akými argumentmi, rozhoduje teraz výstup modelu. A ten výstup sa dá cez **prompt injection** (podvrhnutie inštrukcií do promptu) zmanipulovať — aj nepriamo, inštrukciami ukrytými v nájdenom obsahu. Obranou je **princíp najnižších oprávnení** (least privilege): obmedz sadu nástrojov, oddeľ čítacie nástroje od zapisovacích a pri nebezpečných akciách vyžaduj potvrdenie. Aj úspešný útok cez prompt injection má potom iba obmedzené následky.
+- **Bezpečnosť — nové a vážne riziko.** O tom, či sa nástroj, ktorý *koná* — zapisuje, odosiela, spúšťa kód — naozaj zavolá a s akými argumentmi, rozhoduje teraz výstup modelu. A ten výstup sa dá cez **prompt injection** (podvrhnutie inštrukcií do promptu) zmanipulovať — aj nepriamo, inštrukciami ukrytými v nájdenom obsahu. Obranou je **princíp najnižších oprávnení** (least privilege): obmedz sadu nástrojov, oddeľ čítacie nástroje od zapisovacích a pri nebezpečných akciách vyžaduj potvrdenie. Aj úspešný útok cez prompt injection má potom iba obmedzené následky.
 
 ## Späť k RAG
 
@@ -79,7 +79,7 @@ Keď má agent viac nástrojov, rieši situáciu, v ktorej rôzne otázky potreb
 - Model zámer iba vyjadrí — samotné volanie vykoná tvoj kód: model rozhoduje „čo“, tvoja aplikácia rieši „ako“. To je zároveň bezpečnostná hranica.
 - Mechanizmus je „definícia nástroja → volanie nástroja → výsledok nástroja → pokračuj“; tá istá slučka ako pri agentickom RAG, len s ľubovoľnou akciou.
 - Definícia nástroja je prompt: model vyberá podľa slov, nie podľa kódu. Dobrý nástroj má jasný opis a prísnu schému, patrí do malej sady bez prekryvov a vracia zrozumiteľné chyby.
-- Nové spôsoby zlyhania: nesprávny nástroj, neplatné argumenty, domýšľanie si toho, čo vo výsledku nie je; k tomu nové bezpečnostné riziko — zapisovací nástroj sa dá zneužiť cez prompt injection; obranou je princíp najnižších oprávnení.
+- Nové spôsoby zlyhania: nesprávny nástroj, neplatné argumenty, domýšľanie si toho, čo vo výsledku nie je. K tomu pribúda nové bezpečnostné riziko: zapisovací nástroj sa dá zneužiť cez prompt injection — obranou je princíp najnižších oprávnení.
 
 **Nové pojmy** → [Glosár](../../glossary.md): tool use / function calling, tool definition, tool call, tool result, tool selection, JSON Schema, structured output.
 
