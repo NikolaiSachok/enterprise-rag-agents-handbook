@@ -7,8 +7,17 @@ search).
 **Locale model (EN-canonical).** English is the **default locale** — it lives in the top-level `docs/` +
 `blog/` and serves at the site root `/`. Russian is a secondary locale under
 `i18n/ru/docusaurus-plugin-content-docs/current/` (+ `i18n/ru/docusaurus-plugin-content-blog/`) and serves
-at `/ru/`. This is only the URL/serving structure: **RU stays audience-primary in *authoring*** (written
-natively per the workflow below, never machine-translated). A first visitor's browser language is
+at `/ru/`. **Slovak** (launched 2026-07-15) is a third locale under `i18n/sk/…` serving at `/sk/`. This is
+only the URL/serving structure: **RU and SK stay audience-primary in *authoring*** (written
+natively per the workflow below, never machine-translated).
+- **LOCALE PARITY (from the SK launch on).** All three locales (en, ru, sk) are RELEASED and public. Every
+  content PR that adds or changes an EN/RU page **either updates the SK counterpart in the same PR or files
+  a parity issue** — the deployed build now runs `onBrokenLinks: 'throw'` with `sk` included, so a broken or
+  missing SK link fails the deploy. Authoring a new lesson means all three languages via the authoring-team
+  skill, then the SK canon (`editorial/canon/sk.md`) + `scripts/i18n-link-check.sh` gate it. The gated-
+  visibility infra (`RELEASED_LOCALES`/`UNRELEASED_LOCALES` in `docusaurus.config.ts`) stays in place for the
+  NEXT locale: add it to `UNRELEASED_LOCALES` to build+validate it in CI while hidden on deploy, then move it
+  to `RELEASED_LOCALES` to launch. A first visitor's browser language is
 auto-detected (blocking `<head>` script in `docusaurus.config.ts`, `localeDetectionScript`) and their choice
 is remembered in a `preferred_locale` cookie; the whole mechanism is **locale-list-driven** — adding a
 locale = add it to the `LOCALES`/`localeConfigs` in the config, no other code change.

@@ -25,8 +25,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // Launching a locale = move it from UNRELEASED_LOCALES to RELEASED_LOCALES (one
 // line); its `localeConfigs` label is already set below, so nothing else changes.
 const DEFAULT_LOCALE = 'en';
-const RELEASED_LOCALES = ['en', 'ru'];
-const UNRELEASED_LOCALES = ['sk']; // Slovak — built + validated in CI, hidden on deploy until launch
+const RELEASED_LOCALES = ['en', 'ru', 'sk']; // Slovak launched 2026-07-15 (Parts I–III complete)
+const UNRELEASED_LOCALES: string[] = []; // add the next in-progress locale here to build+validate it in CI while gated
 const INCLUDE_UNRELEASED = process.env.HANDBOOK_INCLUDE_UNRELEASED === '1';
 const LOCALES = [...RELEASED_LOCALES, ...(INCLUDE_UNRELEASED ? UNRELEASED_LOCALES : [])];
 const BASE_URL = '/enterprise-rag-agents-handbook/';

@@ -32,7 +32,7 @@ cd "$REPO_ROOT"
 # Unreleased locales that may legitimately carry EN-fallback pages. Keep in sync with
 # UNRELEASED_LOCALES in docusaurus.config.ts (single source of truth would be nicer,
 # but the config is TS; this list is small and changes once per locale launch).
-UNRELEASED_LOCALES=(sk)
+UNRELEASED_LOCALES=()  # sk launched 2026-07-15; empty = every locale is hard-gated (no tolerated EN-fallbacks)
 
 I18N_DOCS_ROOT="i18n" # i18n/<locale>/docusaurus-plugin-content-docs/current/<docpath>
 
