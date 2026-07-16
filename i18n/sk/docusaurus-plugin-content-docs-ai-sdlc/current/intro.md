@@ -9,7 +9,7 @@ slug: /
 
 Stavať softvér s flotilou kódovacích agentov nie je problém promptovania. Je to problém overovania. Vygenerovať kód je dnes lacné a rýchle; overiť, že ten kód robí to, čo má, lacné nie je. Práve táto nerovnováha — **úzke miesto overovania (verification bottleneck)** — rozhoduje o všetkom ostatnom. Každý mechanizmus, ktorý tu učíme, slúži jednému cieľu: aby overovanie stíhalo tempo generovania.
 
-Druhá téza je rovnako nosná. Učiaca slučka sa musí uzatvárať na **produkcii**, nie na internom testovaní. Zlú zmenu má odhaliť a vrátiť späť sám systém, nie používateľ, ktorý sa sťažuje.
+Druhá téza je rovnako nosná. Slučka učenia sa musí uzatvárať na **produkcii**, nie na internom testovaní. Zlú zmenu má odhaliť a vrátiť späť sám systém, nie používateľ, ktorý sa sťažuje.
 
 ## Jedna mapa celého kurzu
 
@@ -30,9 +30,9 @@ flowchart TB
 
 Horný rad je chrbtica práce: **PLÁN → DEKOMPOZÍCIA → IMPLEMENTÁCIA → DODANIE → PREVÁDZKA**. Nad ním stojí človek. V komunite sa jeho rola volá **human-in-the-loop** (schválenie človekom / človek v rozhodovacom procese) — a keďže nie je krokom v slučke, ale rozhoduje nad ňou v pomenovaných kontrolných bodoch, voláme ho v tomto kurze **človek-smerovač**: poistka a úsudok, nie ďalšia zastávka na páse.
 
-Rozhodujúca je spätná hrana z PREVÁDZKY naspäť do PLÁNU. Práve ona robí z obrázka slučku, a nie pás. Väčšina publikovaných schém — vrátane praktického korpusu, z ktorého tento kurz čerpá — kreslí pás, ktorý končí pri „produkcii“ a nikdy sa nevracia; to je najväčšia štrukturálna medzera v tom, čo sa dnes o téme píše. Táto oprava je vlastný rámec kurzu: `ASSERTED` (namerané / hlásené / tvrdené) — ide o *tvrdenie* podložené výskumom, nie o meranie.
+Rozhodujúca je spätná hrana z PREVÁDZKY do PLÁNU. Práve ona robí z obrázka slučku, a nie pás. Väčšina publikovaných schém — vrátane praktického korpusu, z ktorého tento kurz čerpá — kreslí pás, ktorý končí pri „produkcii“ a nikdy sa nevracia; to je najväčšia štrukturálna medzera v tom, čo sa dnes o téme píše. Túto opravu podáva sám kurz ako svoj rámec: `ASSERTED` (tvrdené) — na rozdiel od `MEASURED` (namerané) a `REPORTED` (hlásené), ktoré naplno zavádza Lekcia 2. Ide o *tvrdenie* podložené výskumom, nie o meranie.
 
-Že hodnota je práve v tej spätnej hrane, naznačuje jeden údaj. `MEASURED`: správa DORA 2025 hlási záporný vzťah medzi nasadzovaním AI a stabilitou dodávky softvéru — zrýchlenie odhalí slabiny ďalej v procese. Čítaj to opatrne: je to sebahlásený prieskum medzi približne 5 000 respondentmi, nie telemetria — vnímaná stabilita, nie meraná.
+Že hodnota je práve v tej spätnej hrane, naznačuje jeden údaj. `MEASURED`: správa DORA 2025 hlási záporný vzťah medzi nasadzovaním AI a stabilitou dodávky softvéru — zrýchlenie odhalí slabiny ďalej v procese. Čítaj to opatrne: je to prieskum, kde údaje uvádzajú sami respondenti (približne 5 000 respondentov), nie telemetria — vnímaná stabilita, nie meraná.
 
 :::note[Čo mapa zámerne nekreslí ako políčka]
 
@@ -44,7 +44,7 @@ Tri veci sú v obrázku prítomné, no naschvál nie sú políčkom — aby si i
 
 :::
 
-*Mapa je zároveň obsah kurzu.* Horný rad (PLÁN → PREVÁDZKA) sú **Časti II–IV** — samotné konanie. Rad základu je **Časť I**, ktorú práve čítaš: čo musí byť pravda skôr, než sa čokoľvek vygeneruje. Optika troch úrovní je **Časť V**.
+*Mapa je zároveň obsah kurzu.* Horný rad (PLÁN → PREVÁDZKA) sú **Časti II–IV** — samotné konanie. Základom celej slučky je **Časť I**, ktorú práve čítaš: čo musí byť pravda skôr, než sa čokoľvek vygeneruje. Optika troch úrovní je **Časť V**.
 
 :::tip[▶ Video]
 
@@ -62,7 +62,7 @@ Odtiaľ pramení poctivý postoj, ktorý je hlavným rozdielom tohto kurzu oprot
 
 - Každé tvrdenie nesie stupeň dôkazu — `MEASURED`, `REPORTED` alebo `ASSERTED`. Stupeň uvádzame priamo v próze a nikdy ho nepovyšujeme. (Naplno ho zavádza Lekcia 2.)
 - Každé číslo vedie k pôvodnému zdroju s dátumom. Pri číslach od dodávateľa platí jednoduché pravidlo: kto nástroj predáva, ten ho nevie nezaujato zmerať — platí to pre Microsoft, Google aj Meta rovnako.
-- Sekundárna vrstva odboru skresľuje na obe strany — nadšenci nafukujú, skeptici zamrznú pri zastaranom čísle. Liek je ten istý: choď k pôvodným zdrojom, ohodnoť, čo nájdeš, a povedz to nahlas. Práve tento postoj je obsahom kurzu.
+- Sekundárna vrstva skresľuje na obe strany — nadšenci nafukujú, skeptici sa držia zastaraného čísla. Liek je ten istý: choď k pôvodným zdrojom, ohodnoť, čo nájdeš, a povedz to nahlas. Práve tento postoj je obsahom kurzu.
 
 Napokon optika troch úrovní. Každá lekcia je označená pre soloistu, malý tím a enterprise, a rámec znie: *prax je stála, mechanizmus sa škáluje.* Najprv pomenujeme nemennú zásadu, potom mechanizmus pre každú úroveň a nakoniec konkrétne zlyhanie, ktorému ten mechanizmus zabráni — nikdy nie „enterprise má viac peňazí“. A naprieč celým kurzom nesieme jedno spresnenie: čím ďalej je kontrola od miesta škody (blast radius), tým viac je o dôkaze; čím bližšie, tým viac je o schopnosti chybu zachytiť.
 
@@ -73,7 +73,7 @@ Napokon optika troch úrovní. Každá lekcia je označená pre soloistu, malý 
 1. **[Overovanie je úzke miesto](./part-1-foundation/verification-bottleneck.md)** — téza celého kurzu, doložená dôkazmi.
 2. **Ako čítať dôkazy odboru** — rebrík dôkazov a to, ako sekundárna vrstva skresľuje na obe strany.
 3. **Príprava je dôležitejšia než model** — kde rozhoduje nastavenie, nie voľba modelu.
-4. **Pamäť projektu a vrstvenie** — trvalá znalosť, ktorú agent prečíta naprieč behmi.
+4. **Pamäť projektu a vrstvenie** — trvalá znalosť, ktorú agent prečíta pri každom behu.
 5. **Pravidlá, ktoré držia** — pokyn nie je kontrola; vynucujú ju brány, nie vety.
 
 Téza celého kurzu sa dokazuje hneď v Lekcii 1; poctivý postoj sa uvádza do praxe v Lekcii 2; základ tvoria Lekcie 3–5. Spätnú hranu „slučka sa uzatvára na produkcii“ rozoberajú až Časti IV a V (Prevádzka a úrovne) — tu ju len značíme, neučíme.
