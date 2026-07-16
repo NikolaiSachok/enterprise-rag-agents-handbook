@@ -187,8 +187,8 @@ const localeDetectionScript = `
 `;
 
 const config: Config = {
-  title: 'Enterprise RAG & Agents Handbook',
-  tagline: 'A practical, first-principles guide to production RAG and agentic systems',
+  title: 'AI Engineering Handbook',
+  tagline: 'First-principles courses on production AI engineering — RAG, agents, and the AI-assisted SDLC',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -331,9 +331,11 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'RAG & Agents Handbook',
+      // The site is a HUB — the global brand is the hub, not any one course.
+      // Each course is identified by its URL prefix + sidebar, not the navbar title.
+      title: 'AI Engineering Handbook',
       logo: {
-        alt: 'Enterprise RAG & Agents Handbook',
+        alt: 'AI Engineering Handbook',
         src: 'img/logo.svg',
       },
       items: [
