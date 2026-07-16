@@ -29,7 +29,7 @@ tokens `MEASURED` / `REPORTED` / `ASSERTED` stay kept-EN, code-styled, with a on
 |---|---|---|
 | Verification bottleneck | the binding constraint: generation is cheap, checking is not; throughput is gated by verification capacity. | **native — „úzke miesto overovania"** (most *(verification bottleneck)* pri prvom výskyte). `overovanie` = verification (potvrdené SK, SDLC fáza). **Web-overené / BOHEMIZMUS ZACHYTENÝ:** „úzke hrdlo" vracia prevažne české zásahy (cs.wikipedia, anycoders.cz) — **odmietnuté** ako CZ-ťahnúce; „úzke miesto" je doložene slovenské (SK slovník vývoja softvéru). Malým v tele vety. |
 | The loop closes on production | the feedback edge must return from live operation to planning; ending at internal QA is a pipeline, not a loop. | **native — veta „slučka sa uzatvára na produkcii"** (nie jednoslovný termín). `slučka` = loop (REUSE `rag.md`: slučka agenta = „slučka"; „okruh" ✗ zamietnuté). „produkcia". |
-| Human router | the human's role above the loop: guardrail and judgment at named checkpoints, not a stage inside it. | **uvádza sa ako human-in-the-loop** — **kept-EN** (REUSE `rag.md`: „human-in-the-loop / HITL — kept-EN; v próze „schválenie človekom / človek v rozhodovacom procese"; **NIKDY „človek v slučke"**"). Živý štítok „human router" je autorská figúra → SK uprednostňuje holé slovo (§Figúry, Prvá fáza). Pozri CONTESTED. |
+| Human router | the human's role above the loop: guardrail and judgment at named checkpoints, not a stage inside it. | **figúra „človek-smerovač" — ADOPT (owner), NA SKÚŠOBNEJ DOBE.** **Vždy sa uvádza pri prvom výskyte cez natívny HITL-termín** — kept-EN „human-in-the-loop" s glosom „(schválenie človekom / človek v rozhodovacom procese)" (REUSE `rag.md`; **NIKDY „človek v slučke"**), potom figúra **„človek-smerovač"** nesie obraz (zrkadlí RU «человек-маршрутизатор»; `smerovač` = router — repurpose siete na človeka je zámerná metafora). Na skúšobnej dobe — kontroluje sa studeným prechodom. **Odmietnuté:** „človek-rozcestník" (rozcestník = pasívna smerová tabuľa, nesmeruje). |
 | Substrate → **Foundation** | Part I's subject: project memory, rules-as-code, artifacts-as-the-only-interface. | **native — „základ"** (de-jargón: substrate → foundation). **Odmietnuté:** „substrát" (nepriehľadná kalka); „základňa" ako alternatíva prípustná. |
 | Tier lens | the SOLOIST/SMALL-TEAM/ENTERPRISE reading applied to every mechanism. | **native — „optika troch úrovní"** (soloista · malý tím · enterprise); `úroveň` = tier. Most *(tier lens)*. **Odmietnuté:** „šošovka úrovní" (mechanický prenos). |
 | Proof-vs-capability | close to production a control is about what it *prevents*; far from it, about what you can *prove*. | **NIE termín — plain phrasing** (de-jargón; „gradient" zrušený). Poviem vetou: „bližšie k produkcii je kontrola o tom, čomu zabráni; ďalej o tom, čo vieš dokázať". Nezavádzať ako pomenovaný termín. |
@@ -50,7 +50,7 @@ tokens `MEASURED` / `REPORTED` / `ASSERTED` stay kept-EN, code-styled, with a on
 |---|---|---|
 | Evidence grade / the ladder | the `MEASURED` / `REPORTED` / `ASSERTED` classification; grades inherited, never upgraded. | **native — „stupeň dôkazu" / „rebrík dôkazov"** (`rebrík` = ladder, SK). Tokeny `MEASURED` / `REPORTED` / `ASSERTED` — **kept-EN, code-styled, invariant**; jednorazový glos „(namerané / hlásené / tvrdené)". |
 | Can't-be-checked | a claim whose weakness is that nobody can check it, distinct from tested-and-failed. | **NIE termín — plain „nedá sa overiť"** (de-jargón; „nefalzifikovateľné, nie vyvrátené" zrušené). **Odmietnuté:** „nefalzifikovateľné tvrdenie" (akademizmus). |
-| Citation laundering | a distorted claim passed along until it looks sourced. | **plain phrasing v Prvej fáze** (SK uprednostňuje holé slovo pred razenou figúrou, §Figúry): „skreslené tvrdenie, ktoré sa opakuje, kým nevyzerá ako zdroj". Razená figúra „vypranie pôvodu" — **CONTESTED / na skúšobnej dobe**, len po studenom prechode. |
+| Citation laundering | a distorted claim passed along until it looks sourced. | **Razená figúra sa NEMANDÁTUJE (owner: DROP).** Význam sa vyjadruje **priamo**: „skreslené tvrdenie, ktoré sa opakuje, kým nevyzerá ako odkaz na štúdiu". Rodený pisateľ smie použiť idióm, iba ak je naozaj prirodzený. **Odmietnuté ako mandát:** „vypranie pôvodu". |
 | Evidence that cuts against whoever published it | a result that cuts against its publisher's incentive; the strongest evidence class in a COI-heavy field. | **native — „zistenie proti vlastnému záujmu"** (de-jargón z against-interest finding). **Odmietnuté:** „nález proti záujmu" (kalka finding). |
 | Conflict of interest, stated inline | naming the conflict of interest (who's paying) as part of the finding, not a footnote. | **native — „konflikt záujmov, uvedený priamo"** (de-jargón z positionality); `konflikt záujmov` — štandard SK. **Odmietnuté:** „pozicionalita" (nepriehľadné). |
 
@@ -91,15 +91,28 @@ tokens `MEASURED` / `REPORTED` / `ASSERTED` stay kept-EN, code-styled, with a on
 | Blast radius | the scope of damage a confused or compromised agent can reach. | **kept-EN — „blast radius"** (term-of-art, KEEP) + glos „(rozsah škôd)". **Web-overené:** natívne „polomer zásahu" v SK IT nemá doklad (vracia len bleskozvody/fyziku) → kept-EN je správne. |
 | Policy-as-code | enforced-in-the-pipeline, audited rules (the enterprise form of executable rules). | **kept-EN — „policy-as-code"** (term-of-art, KEEP) + glos „(politiky ako kód)". |
 | Least privilege | the agent can reach exactly the resources its task needs and no more. | **REUSE — „princíp najnižších oprávnení (least privilege)"** (`rag.md` §1.2/Fáza 4/6 — vlastnícke rozhodnutie „najnižších", nie „najmenších"; **NEOTVÁRAŤ**). |
-| Drift / rule rot | the decay of a rule corpus without a staleness mechanism. | **REUSE kept-EN „drift"** (`rag.md` SK register drží „drift" kept-EN) — **POSUNUTÝ VÝZNAM, flag:** v RAG „drift" = drift vstupu/modelu; tu = rozchádzanie/hnitie korpusu pravidiel. Reuse „drift" pre rozchod + native **„hnitie pravidiel" / „zastarávanie pravidiel"** pre rule rot. |
+| Drift / rule rot | the decay of a rule corpus without a staleness mechanism. | **Tri RÔZNE významy — pozri „Kartu významov: drift pravidiel" nižšie (owner).** Skrátene: „drift kontextu" (context drift) · „drift pravidiel" (pravidlá sú tie isté, drift má ich VÝKLAD kvôli context rot) · „zastarávanie pravidiel" (pravidlá ZASTARALI a treba ich zmeniť kvôli novým faktom/prístupom). Pisateľ volí podľa významu. REUSE kept-EN „drift" — `rag.md` (SK register drží „drift" kept-EN); RAG-význam (drift vstupu/modelu) je samostatný, štvrtý. |
 | Consistency owner | the role accountable for reconciling a rule corpus so two files can't prescribe opposite things. | **native — „vlastník konzistencie" / „zodpovedný za konzistenciu"** (`vlastník` — SK, používa `rag.md`). |
 
-## CONTESTED — needs owner / Codex arbitration
+## Karta významov: drift pravidiel (owner ruling — tri rôzne významy)
 
-- **Human router (label).** The community term (human-in-the-loop, kept-EN) anchors the intro (REUSE), but
-  the vivid label is an author figure, and SK prefers a bare word in Phase 1 (§Figúry). Options: (a) keep the
-  EN label „human router" nesklonený; (b) coin „človek-rozcestník" (rozcestník = junction/signpost) — figure
-  on probation; (c) drop the label, keep only „schválenie človekom / človek nad slučkou". No native SK term
-  for "router-as-a-person" exists; recommend (a) or (c) until a cold naive-reader pass validates (b).
-- **Citation laundering — „vypranie pôvodu" (figure).** Coinage on probation; SK prefers the plain phrasing
-  above in Phase 1. Promote the figure only if a cold naive reader decodes it without the EN page.
+Formulácia vlastníka **doslovne** (owner ruling je v RU; SK zrkadlí významy natívne), aby pisateľ volil termín
+podľa významu, nie podľa slova:
+
+> - **„drift kontextu"** — context drift (OK as-is).
+> - **„drift pravidiel"** — the rules stay the SAME but their INTERPRETATION drifts due to context rot.
+> - **„zastarávanie pravidiel"** — the rules become OBSOLETE and should be CHANGED due to new facts / approaches / practices.
+> These are DIFFERENT senses (interpretation-drift vs obsolescence).
+
+Použitie v kurze:
+- Lekcia 5, „hnitie pravidiel kvôli context rot" (pravidlá sa nemenili, ale model ich vykladá inak) → **„drift pravidiel"**.
+- Lekcia 5, „pravidlá treba aktualizovať pre nové fakty/prístupy" → **„zastarávanie pravidiel"**.
+- „drift kontextu" — samostatný význam (okno/história driftuje), nemiešať s dvoma vyššie.
+- Štvrtý, RAG-význam „drift" (drift vstupu/korpusu/modelu, `rag.md`) — tiež samostatný; nezlievať s korpusom pravidiel.
+- **Web-overené:** „zastarávanie" je slovenský tvar (doklad „Zastarávanie kódu"); CZ „zastarávání" ✗ odmietnuté.
+
+## Vlastníkom rozhodnuté sporné termíny (denník)
+
+- **Human router — ADOPT.** Figúra „človek-smerovač" prijatá (na skúšobnej dobe), s povinným uvedením cez
+  human-in-the-loop pri prvom výskyte. Pozri riadok Intro.
+- **Citation laundering — DROP.** Razená figúra zrušená; význam sa vyjadruje priamo. Pozri riadok „Reading the evidence".

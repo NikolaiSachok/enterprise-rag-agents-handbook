@@ -27,7 +27,7 @@ would not say at work is wrong. `REUSE` rows carry the RAG-canon citation; the g
 |---|---|---|
 | Verification bottleneck | the binding constraint in agent-built software: generation is cheap, checking is not; throughput is gated by review/verification capacity, not by model capability. | **native — «узкое место проверки»** (мост *(verification bottleneck)* при первом упоминании). «проверка» — практикующая, plain; «верификация» допустима как синоним в теле. Строчными в прозе. **Отвергнуто:** «бутылочное горлышко» (калька bottleneck; «узкое место» — идиоматичная русская форма). |
 | The loop closes on production | the design principle that the feedback edge must return from live operation to planning; a scheme that ends at internal QA is a pipeline, not a loop. | **native — фраза «цикл замыкается на проде»** (не однословный термин). `цикл` — REUSE смысла из RAG (planning loops = «циклы»). «прод» / «продакшн» — устоявшийся dev-жаргон. **Отвергнуто:** «петля замыкается» («петля» двоится с loop-в-верёвочном смысле; «цикл» однозначнее). |
-| Human router | the human's role above the loop: guardrail and judgment at named checkpoints, not a stage inside it. | **вводится как «человек-в-цикле»** (REUSE `rag.md`: «человек-в-цикле (human-in-the-loop, HITL)», строка про HITL — форма без дефисов «человек в цикле» тоже канонна), затем несёт авторский ярлык **«человек-маршрутизатор»** — фигура, **НА ИСПЫТАНИИ** (проверяется холодным прогоном как обычная калька). См. CONTESTED-заметку ниже. |
+| Human router | the human's role above the loop: guardrail and judgment at named checkpoints, not a stage inside it. | **фигура «человек-маршрутизатор» — ADOPT (owner), НА ИСПЫТАНИИ.** **Всегда вводится при первом упоминании через нативный HITL-термин** «человек-в-цикле» (REUSE `rag.md`: «человек-в-цикле (human-in-the-loop, HITL)»; форма без дефисов «человек в цикле» тоже канонна), затем ярлык **«человек-маршрутизатор»** несёт образ. Фигура на испытании — проверяется холодным прогоном как обычная калька. |
 | Substrate → **Foundation** | Part I's subject: project memory, rules-as-code, artifacts-as-the-only-interface. | **native — «фундамент»** (термин де-жаргонизирован: substrate → foundation). Строчными. **Отвергнуто:** «субстрат» (непрозрачная академическая калька). |
 | Tier lens | the SOLOIST/SMALL-TEAM/ENTERPRISE reading applied to every mechanism; "practice constant, mechanism scales." | **native — «оптика трёх уровней»** (соло · команда · энтерпрайз); `уровень` = tier. Мост *(tier lens)*. **Отвергнуто:** «линза уровней» (механический перенос). |
 | Proof-vs-capability | close to production a control is about what it *prevents*; far from it, about what you can *prove*. | **НЕ термин — plain phrasing** (де-жаргонизировано; «градиент» снят). Выражается предложением: «ближе к проду контроль — про то, что он предотвращает; дальше — про то, что можешь доказать». Не вводить как именованный термин. |
@@ -48,7 +48,7 @@ would not say at work is wrong. `REUSE` rows carry the RAG-canon citation; the g
 |---|---|---|
 | Evidence grade / the ladder | the `MEASURED` / `REPORTED` / `ASSERTED` classification; grades inherited, never upgraded. | **native — «уровень доказательности» / «лестница доказательности»**. Токены `MEASURED` / `REPORTED` / `ASSERTED` — **kept-EN, code-styled, инвариант**; разовый глосс «(измерено / сообщено / заявлено)» при первом появлении. **Отвергнуто:** перевод токенов в теле каждый раз (теряется единый ярлык-якорь). |
 | Can't-be-checked | a claim whose weakness is that nobody can check it (private corpus, no method), distinct from tested-and-failed. | **НЕ термин — plain «это нельзя проверить»** (де-жаргонизировано; «нефальсифицируемо, но не опровергнуто» снято). **Отвергнуто:** «нефальсифицируемое утверждение» (академизм). |
-| Citation laundering | a distorted claim passed along until it looks sourced. | **фигура «отмывание ссылок» — НА ИСПЫТАНИИ**, глосс при первом употреблении «искажённое утверждение, которое пересказывают, пока оно не начнёт выглядеть как исследование». **Отвергнуто:** «отмывание цитат» («цитата» двоится с прямой цитатой). Проверяется холодным прогоном. |
+| Citation laundering | a distorted claim passed along until it looks sourced. | **Чеканная фигура НЕ мандатируется (owner: DROP — «отмывание цитат» читается странно).** Выражать смысл **прямо**: «искажённое утверждение, которое пересказывают, пока оно не начнёт выглядеть как ссылка на исследование». Нативный автор вправе применить идиому, только если она действительно естественна. **Отвергнуто как мандат:** «отмывание ссылок / цитат». |
 | Evidence that cuts against whoever published it | a result that cuts against its publisher's incentive; the strongest evidence class in a field full of COI. | **native — «свидетельство против собственного интереса»** (де-жаргонизировано из against-interest finding; юридическая по происхождению формула). **Отвергнуто:** «находка против интереса» (калька finding). |
 | Conflict of interest, stated inline | naming the conflict of interest (who's paying) as part of the finding, not a footnote. | **native — «конфликт интересов, названный прямо»** (де-жаргонизировано из positionality); `конфликт интересов` (COI) — стандарт. **Отвергнуто:** «позициональность» (непрозрачно). |
 
@@ -89,16 +89,27 @@ would not say at work is wrong. `REUSE` rows carry the RAG-canon citation; the g
 | Blast radius | the scope of damage a confused or compromised agent can reach. | **kept-EN — «blast radius»** (term-of-art, KEEP; RU DevOps так и говорит) + глосс «радиус поражения». |
 | Policy-as-code | enforced-in-the-pipeline, audited rules (the enterprise form of executable rules). | **kept-EN — «policy-as-code»** (term-of-art, KEEP) + глосс «политики как код». |
 | Least privilege | the agent can reach exactly the resources its task needs and no more. | **REUSE — «принцип наименьших привилегий»** (`rag.md`: «принцип наименьших привилегий \| least privilege \| термин остаётся EN в списках, это его мост»). Не пере-чеканивать. |
-| Drift / rule rot | the decay of a rule corpus without a staleness mechanism. | **REUSE «дрейф»** (`rag.md`: «дрейф \| drift») — **СМЕЩЁННЫЙ СМЫСЛ, флаг:** в RAG «дрейф» = дрейф входа/корпуса/модели; здесь смысл — расхождение/загнивание корпуса правил. Реюз «дрейф» для расхождения + **«устаревание правил»** для rule rot. **Отвергнуто:** «сдвиг» (RAG резервирует против него как термина). |
+| Drift / rule rot | the decay of a rule corpus without a staleness mechanism. | **Три РАЗНЫХ смысла — см. «Карточку смыслов: дрейф правил» ниже (owner).** Кратко: «дрейф контекста» (context drift) · «дрейф правил» (правила те же, дрейфует их толкование из-за context rot) · «устаревание правил» (правила устарели и подлежат замене из-за новых фактов/подходов). Писатель выбирает по смыслу. REUSE «дрейф» — `rag.md` («дрейф \| drift»); RAG-смысл (дрейф входа/корпуса/модели) — отдельный, четвёртый. **Отвергнуто:** «сдвиг» (RAG резервирует против него как термина). |
 | Consistency owner | the role accountable for reconciling a rule corpus so two files can't prescribe opposite things. | **native — «ответственный за согласованность»**. |
 
-## CONTESTED — needs owner / Codex arbitration
+## Карточка смыслов: дрейф правил (owner ruling — три разных смысла)
 
-- **Human router → «человек-маршрутизатор» (label).** The community term «человек-в-цикле» anchors the intro
-  (REUSE), but the vivid label is an author figure. Options: (a) «человек-маршрутизатор» (kept as coined
-  figure, on probation); (b) keep only «человек-в-цикле» and drop the router label in RU; (c) plain
-  «человек над циклом». Evidence: no community RU term for "router-as-a-person"; the figure must survive a
-  cold naive-reader pass before promotion. Recommend (a) on probation.
-- **Citation laundering → «отмывание ссылок» (figure).** Coinage on probation; a cold reader must decode
-  «отмывание» in the laundering sense from the inline gloss, not from the EN page. If it fails the cold pass,
-  fall back to the plain phrasing and drop the figure.
+Формулировка владельца **дословно**, чтобы писатель выбирал термин по смыслу, а не по слову:
+
+> - **«дрейф контекста»** — context drift (OK as-is).
+> - **«дрейф правил»** — the rules stay the SAME but their INTERPRETATION drifts due to context rot.
+> - **«устаревание правил»** — the rules become OBSOLETE and should be CHANGED due to new facts / approaches / practices.
+> These are DIFFERENT senses (interpretation-drift vs obsolescence).
+
+Применение в курсе:
+- Урок 5, «загнивание правил из-за context rot» (правила не меняли, но модель толкует их иначе) → **«дрейф правил»**.
+- Урок 5, «правила надо обновить под новые факты/подходы» → **«устаревание правил»**.
+- «дрейф контекста» — самостоятельный смысл (окно/история дрейфует), не путать с двумя выше.
+- Четвёртый, RAG-смысл «дрейф» (дрейф входного трафика/корпуса/модели у провайдера, `rag.md`) — ещё отдельный;
+  не сливать с корпусом правил.
+
+## Разрешённые владельцем спорные термины (журнал)
+
+- **Human router — ADOPT.** Фигура «человек-маршрутизатор» принята (на испытании), с обязательным вводом через
+  «человек-в-цикле» при первом упоминании. См. строку Intro.
+- **Citation laundering — DROP.** Чеканная фигура снята; смысл выражается прямо. См. строку «Reading the evidence».
