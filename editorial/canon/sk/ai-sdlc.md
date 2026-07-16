@@ -116,3 +116,11 @@ Použitie v kurze:
 - **Human router — ADOPT.** Figúra „človek-smerovač" prijatá (na skúšobnej dobe), s povinným uvedením cez
   human-in-the-loop pri prvom výskyte. Pozri riadok Intro.
 - **Citation laundering — DROP.** Razená figúra zrušená; význam sa vyjadruje priamo. Pozri riadok „Reading the evidence".
+
+
+## Pilot Intro+L1 — rozhodnutia tohto behu (2026-07-16)
+
+- **Separation of duties — „oddelenie právomocí"** (native; most *(separation of duties)* pri prvom výskyte). Podnikový princíp nezávislej revízie „kritik nie je autor" na enterprise úrovni Lekcie 1. Zrkadlí RU «разделение обязанностей». (Alternatíva „oddelenie zodpovedností" prípustná; „segregácia povinností" odmietnutá ako kalka.)
+- **Priemyselné štandardy (enterprise):** pevné názvy/veľké písmená — „SLSA Source L4 „Two-Party Review"" (OpenSSF), „DORA RTS, čl. 17" (EU 2024/1774, nezávislosť schvaľujúcej a vykonávajúcej funkcie). Stupeň: `MEASURED` pre výskum schvaľovania zmien + nariadené regulátorom.
+- **Figúry — verdikt:** „chrbtica práce" (spine) — POTVRDENÁ (natívny idióm, dekóduje pri prvom kontakte). „niť, nie etapa" — PONECHANÁ NA SKÚŠOBNEJ DOBE (dekóduje, ale opiera sa o následný obraz tkania; najbližší milestone potvrdí/vyškrtne). „technický dlh na úver" — POTVRDENÁ.
+- **blast radius:** stránky používajú natívne „miesto škody (blast radius)"; ledger drží kept-EN „blast radius (rozsah škôd)" ako kotvu — SPORNÉ, ponechané na rozhodnutie vlastníka (naivný čitateľ „miesto škody" dekóduje bezchybne).
