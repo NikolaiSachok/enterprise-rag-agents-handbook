@@ -75,7 +75,7 @@ async function run() {
   const browser = await chromium.launch();
   const page = await browser.newPage({viewport: {width: 1280, height: 820}});
 
-  const lesson = 'part-3-production/llmops';
+  const lesson = 'rag-agents/part-3-production/llmops';
 
   // ---- RU -> EN, from a late section ----
   // After the EN-canonical flip: RU serves under /ru/, EN at the root.
@@ -115,7 +115,7 @@ async function run() {
   // than the other (e.g. guardrails deep-dive: RU 18 vs EN 9 h2/h3), so the
   // section-index mapping can't line up. The feature must fall back to the
   // whole-document scroll fraction rather than dumping the reader at the top.
-  const mmLesson = 'part-1-rag/cross-cutting/guardrails/deep-dive';
+  const mmLesson = 'rag-agents/part-1-rag/cross-cutting/guardrails/deep-dive';
   const readFraction = () =>
     page.evaluate(() => {
       const max = Math.max(

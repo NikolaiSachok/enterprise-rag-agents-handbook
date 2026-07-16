@@ -36,6 +36,7 @@
   // files (CLAUDE.md, README, .github templates) are not lesson content and are out of scope.
   "globs": [
     "docs/**/*.md",
+    "docs-ai-sdlc/**/*.md",
     "i18n/**/*.md"
   ],
   "ignores": [

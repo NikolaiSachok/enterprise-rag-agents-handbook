@@ -1,0 +1,131 @@
+/*
+ * Landing hub styles. Theme-aware via Infima CSS variables (--ifm-*), so light
+ * and dark modes both work with no media query of our own. Responsive: the
+ * course grid is auto-fit and collapses to one column on narrow screens. No
+ * external assets, no fonts, no images.
+ */
+
+.hub {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1rem 4rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem 0 2.5rem;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  margin: 0 0 1rem;
+}
+
+.heroTagline {
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  color: var(--ifm-color-emphasis-700);
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  background: var(--ifm-background-surface-color);
+  height: 100%;
+}
+
+/* Live course = clickable card. Kill the link underline/color and lift on hover. */
+.cardLive {
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    border-color 150ms ease;
+}
+
+.cardLive:hover {
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(-3px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* In-progress course = muted, non-interactive. */
+.cardSoon {
+  opacity: 0.8;
+  cursor: default;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cardTitle {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.badgeLive,
+.badgeSoon {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badgeLive {
+  color: var(--ifm-color-success-darkest);
+  background: var(--ifm-color-success-contrast-background);
+}
+
+.badgeSoon {
+  color: var(--ifm-color-emphasis-700);
+  background: var(--ifm-color-emphasis-200);
+}
+
+.cardBlurb {
+  margin: 0;
+  color: var(--ifm-color-emphasis-800);
+  line-height: 1.5;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.langs {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.cta {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}

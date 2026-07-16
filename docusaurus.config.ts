@@ -31,6 +31,72 @@ const INCLUDE_UNRELEASED = process.env.HANDBOOK_INCLUDE_UNRELEASED === '1';
 const LOCALES = [...RELEASED_LOCALES, ...(INCLUDE_UNRELEASED ? UNRELEASED_LOCALES : [])];
 const BASE_URL = '/ai-engineering-handbook/';
 
+// --- Courses (docs instances) — the hub's single source of truth -------------
+// This site is a HUB of independent AI-engineering courses, not one book. Each
+// course is its own Docusaurus docs instance served under its own URL prefix
+// (`routeBasePath`); the root `/` is a landing hub (src/pages/index.tsx) that
+// presents them as equal peers. The navbar items, the local search index, and
+// the landing page all DERIVE from this one list — so the courses never drift
+// apart across those surfaces.
+//
+// Adding a THIRD course later is symmetric and mechanical:
+//   1. Append an entry to COURSES below (id, basePath, sidebarId, label, flags).
+//   2. Wire its docs instance. The FIRST course is the preset `docs` (the
+//      "default" instance, id 'default') — its i18n lives under the UN-suffixed
+//      `i18n/<loc>/docusaurus-plugin-content-docs/`. EVERY OTHER course is a
+//      `@docusaurus/plugin-content-docs` entry in `plugins` (generated from
+//      COURSES.slice(1) below) with a matching `id`; its i18n lives under
+//      `i18n/<loc>/docusaurus-plugin-content-docs-<id>/`.
+//   3. Create its content dir `docs-<id>/` and a `sidebars-<id>.ts`.
+//   4. Add its EN + per-locale intro so parity holds.
+// Navbar + search + landing then pick it up with NO further code changes.
+type Course = {
+  id: string;          // docs-plugin instance id ('default' = the preset instance)
+  basePath: string;    // routeBasePath, e.g. '/rag-agents'
+  sidebarId: string;   // the sidebar key exported by its sidebars file
+  navbarLabel: string; // label shown in the navbar and on the landing card
+  blurb: string;       // one-line description for the landing hub card
+  languages: string[]; // locales the course is available in (landing card)
+  live: boolean;       // true = content shipped; false = placeholder / in progress
+  inNavbar: boolean;   // add a docSidebar item to the navbar yet?
+};
+const COURSES: Course[] = [
+  // RAG & Agents — the launched, trilingual course. It stays the DEFAULT docs
+  // instance (id 'default') so its frozen EN `docs/` + RU/SK i18n trees never
+  // move; only its URL prefix changed from '/' to '/rag-agents'.
+  {
+    id: 'default',
+    basePath: '/rag-agents',
+    sidebarId: 'handbookSidebar',
+    navbarLabel: 'RAG & Agents',
+    blurb:
+      'Production RAG and agentic systems from first principles — ingestion, retrieval, ' +
+      'generation, agents, and the eval, guardrails and LLMOps that keep them honest.',
+    languages: ['English', 'Русский', 'Slovenčina'],
+    live: true,
+    inNavbar: true,
+  },
+  // AI SDLC — Part I in progress. Ships as a stub (intro only) so the instance
+  // builds and locale parity holds; kept OUT of the navbar until real content
+  // lands (flip `inNavbar` to true then — no other change needed).
+  {
+    id: 'ai-sdlc',
+    basePath: '/ai-sdlc',
+    sidebarId: 'aiSdlcSidebar',
+    navbarLabel: 'AI SDLC',
+    blurb:
+      'The AI-assisted software development lifecycle: planning, building, reviewing and ' +
+      'shipping when AI agents are part of the team.',
+    languages: ['English'],
+    live: false,
+    inNavbar: false,
+  },
+];
+const DEFAULT_COURSE = COURSES[0];
+// Every course's route base path — the set of docs instances the local search
+// index must cover (see the search theme below).
+const DOCS_ROUTE_BASE_PATHS = COURSES.map((c) => c.basePath);
+
 // Search-index languages. The local search plugin loads a lunr stemmer per language
 // via `require.resolve('lunr-languages/lunr.<code>')`; lunr-languages ships stemmers
 // for many languages but NOT Slovak (nor Czech), so passing 'sk' straight through
@@ -135,6 +201,19 @@ const config: Config = {
   organizationName: 'NikolaiSachok', // GitHub user/org
   projectName: 'ai-engineering-handbook',
 
+  // Expose the course list to the client so the landing hub (src/pages/index.tsx)
+  // renders its cards from the SAME source of truth as the navbar and search —
+  // add a course to COURSES and it shows up on the landing page automatically.
+  customFields: {
+    courses: COURSES.map((c) => ({
+      basePath: c.basePath,
+      label: c.navbarLabel,
+      blurb: c.blurb,
+      languages: c.languages,
+      live: c.live,
+    })),
+  },
+
   // Released (deployed) builds throw on any dead internal link — the hard gate for
   // shipped EN/RU content. The unreleased-inclusive validation build (CI, sets
   // HANDBOOK_INCLUDE_UNRELEASED=1) instead warns, because gated partial translation
@@ -176,7 +255,9 @@ const config: Config = {
         hashed: true,
         indexDocs: true,
         indexBlog: false, // no blog plugin (see `blog: false` in the preset)
-        docsRouteBasePath: '/',
+        // Index EVERY course instance. The plugin accepts an array of route base
+        // paths; derived from COURSES so a new course is indexed automatically.
+        docsRouteBasePath: DOCS_ROUTE_BASE_PATHS,
         // Build a search index per locale. `language` is the set of lunr STEMMERS to
         // load — LOCALES minus codes lunr can't stem (see SEARCH_LANGUAGES above); an
         // unstemmed locale is still indexed with the default analyzer.
@@ -207,8 +288,12 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Serve the docs (the handbook) at the site root.
-          routeBasePath: '/',
+          // The RAG & Agents course is the DEFAULT docs instance. Its content
+          // (`docs/`) and RU/SK i18n trees are frozen and UNCHANGED — only its
+          // URL prefix moved from '/' to '/rag-agents' (the root is now the
+          // landing hub). Everything under it (including the intro's `slug: /`)
+          // is prefixed automatically; no content file changes.
+          routeBasePath: DEFAULT_COURSE.basePath,
           // No "Edit this page" link: the site is read-only for visitors (no auth),
           // and the source is a click away on GitHub for the one person who edits it.
         },
@@ -224,6 +309,22 @@ const config: Config = {
     ],
   ],
 
+  // Every course AFTER the default one is its own docs instance, generated from
+  // COURSES so adding a course needs no bespoke wiring here. Each gets its own
+  // content dir (`docs-<id>/`), URL prefix, and sidebar; its i18n lives under
+  // `i18n/<loc>/docusaurus-plugin-content-docs-<id>/`.
+  plugins: [
+    ...COURSES.slice(1).map((c): [string, Record<string, unknown>] => [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: c.id,
+        path: `docs-${c.id}/`,
+        routeBasePath: c.basePath,
+        sidebarPath: `./sidebars-${c.id}.ts`,
+      },
+    ]),
+  ],
+
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
@@ -236,12 +337,17 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'handbookSidebar',
-          position: 'left',
-          label: 'Handbook',
-        },
+        // One docSidebar item per course that's ready to show. Derived from
+        // COURSES: a course appears here only once its `inNavbar` flag is true
+        // (AI SDLC stays hidden until Part I ships). The default instance needs
+        // no `docsPluginId`; named instances reference their own id.
+        ...COURSES.filter((c) => c.inNavbar).map((c) => ({
+          type: 'docSidebar' as const,
+          sidebarId: c.sidebarId,
+          ...(c.id === 'default' ? {} : {docsPluginId: c.id}),
+          position: 'left' as const,
+          label: c.navbarLabel,
+        })),
         {
           type: 'localeDropdown',
           position: 'right',
@@ -257,16 +363,16 @@ const config: Config = {
         {
           title: 'Contents',
           items: [
-            {label: 'Part I — RAG', to: '/part-1-rag/overview'},
-            {label: 'Part II — Agents', to: '/part-2-agents/overview'},
-            {label: 'Part III — Production & LLMOps', to: '/part-3-production/overview'},
+            {label: 'Part I — RAG', to: '/rag-agents/part-1-rag/overview'},
+            {label: 'Part II — Agents', to: '/rag-agents/part-2-agents/overview'},
+            {label: 'Part III — Production & LLMOps', to: '/rag-agents/part-3-production/overview'},
           ],
         },
         {
           title: 'Reference',
           items: [
-            {label: 'Introduction', to: '/'},
-            {label: 'Glossary', to: '/glossary'},
+            {label: 'Introduction', to: '/rag-agents/'},
+            {label: 'Glossary', to: '/rag-agents/glossary'},
           ],
         },
         {
