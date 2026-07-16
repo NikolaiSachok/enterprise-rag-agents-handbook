@@ -12,80 +12,104 @@ decisions below are this course's own.
 
 > **Cross-course term consistency — peek, don't load.** When authoring this course, load ONLY `_language.md` + this ledger as standing context. For a term that plausibly overlaps a sibling course (shared AI-engineering vocabulary — agent, prompt, token, context, eval, guardrail, retrieval…), do a TARGETED, read-only lookup in the sibling ledger(s): if a decision exists and the sense matches, REUSE it verbatim and cite it — do not re-coin. If the sense genuinely differs, FLAG for a human — do not silently fork. Never edit a frozen sibling ledger (`rag.md`). Loading a whole sibling ledger as priming context is prohibited — that is the pollution this split prevents.
 
-## Terms to settle
+## Settled terms — Part I
 
-The AI SDLC term set, seeded from the course skeletons — the native writers' term to-do list. Each RU
-decision is **TBD (decide during authoring)**: settle it natively from the EN meaning (never by translation),
-enter the kept-EN-vs-native call + the bridge gloss, and cite any RAG-canon reuse per the peek protocol
-above. Do **not** pre-fill translations here.
+Settled during the Part I canon bootstrap from the **de-jargoned** EN labels (the six academic coinages were
+simplified per PART-1-BRIEF's Register ruling; community terms-of-art kept as-is). Each decision is native
+from the EN meaning — never a literal translation. Register: **practitioner** — a term a mid-level RU engineer
+would not say at work is wrong. `REUSE` rows carry the RAG-canon citation; the grade tokens
+`MEASURED` / `REPORTED` / `ASSERTED` stay kept-EN, code-styled, with a one-time gloss «(измерено / сообщено /
+заявлено)».
 
 ### Intro
 
 | EN term | EN gloss | RU decision |
 |---|---|---|
-| Verification bottleneck | the binding constraint in agent-built software: generation is cheap, checking is not; throughput is gated by review/verification capacity, not by model capability. | **TBD** (decide during authoring) |
-| The loop closes on production | the design principle that the feedback edge (incidents, telemetry, drift) must return from live operation to planning; a scheme that ends at internal QA is a pipeline, not a loop. | **TBD** (decide during authoring) |
-| Human router | the human's role above the loop: guardrail and judgment at named checkpoints, not a stage inside it. | **TBD** (decide during authoring) |
-| Substrate | Part I's subject: project memory, rules-as-code, and artifacts-as-the-only-interface — what must be true before any agent writes a line. | **TBD** (decide during authoring) |
-| Tier lens | the SOLOIST/SMALL-TEAM/ENTERPRISE reading applied to every mechanism; "practice constant, mechanism scales." | **TBD** (decide during authoring) |
-| Proof-vs-capability gradient | the further a control sits from the blast radius the more it is about *proof*; the closer, the more it is about *capability*. | **TBD** (decide during authoring) |
+| Verification bottleneck | the binding constraint in agent-built software: generation is cheap, checking is not; throughput is gated by review/verification capacity, not by model capability. | **native — «узкое место проверки»** (мост *(verification bottleneck)* при первом упоминании). «проверка» — практикующая, plain; «верификация» допустима как синоним в теле. Строчными в прозе. **Отвергнуто:** «бутылочное горлышко» (калька bottleneck; «узкое место» — идиоматичная русская форма). |
+| The loop closes on production | the design principle that the feedback edge must return from live operation to planning; a scheme that ends at internal QA is a pipeline, not a loop. | **native — фраза «цикл замыкается на проде»** (не однословный термин). `цикл` — REUSE смысла из RAG (planning loops = «циклы»). «прод» / «продакшн» — устоявшийся dev-жаргон. **Отвергнуто:** «петля замыкается» («петля» двоится с loop-в-верёвочном смысле; «цикл» однозначнее). |
+| Human router | the human's role above the loop: guardrail and judgment at named checkpoints, not a stage inside it. | **фигура «человек-маршрутизатор» — ADOPT (owner), НА ИСПЫТАНИИ.** **Всегда вводится при первом упоминании через нативный HITL-термин** «человек-в-цикле» (REUSE `rag.md`: «человек-в-цикле (human-in-the-loop, HITL)»; форма без дефисов «человек в цикле» тоже канонна), затем ярлык **«человек-маршрутизатор»** несёт образ. Фигура на испытании — проверяется холодным прогоном как обычная калька. |
+| Substrate → **Foundation** | Part I's subject: project memory, rules-as-code, artifacts-as-the-only-interface. | **native — «фундамент»** (термин де-жаргонизирован: substrate → foundation). Строчными. **Отвергнуто:** «субстрат» (непрозрачная академическая калька). |
+| Tier lens | the SOLOIST/SMALL-TEAM/ENTERPRISE reading applied to every mechanism; "practice constant, mechanism scales." | **native — «оптика трёх уровней»** (соло · команда · энтерпрайз); `уровень` = tier. Мост *(tier lens)*. **Отвергнуто:** «линза уровней» (механический перенос). |
+| Proof-vs-capability | close to production a control is about what it *prevents*; far from it, about what you can *prove*. | **НЕ термин — plain phrasing** (де-жаргонизировано; «градиент» снят). Выражается предложением: «ближе к проду контроль — про то, что он предотвращает; дальше — про то, что можешь доказать». Не вводить как именованный термин. |
 
 ### The verification bottleneck
 
 | EN term | EN gloss | RU decision |
 |---|---|---|
-| Proxy metric | any measured stand-in for value (merged PRs, commits, LOC, characters, time-on-task); throughput is measurable, value is not, and the two must never be equated. | **TBD** (decide during authoring) |
-| Denominator choice | the observation that "% of code written by AI" figures depend entirely on what sits in the denominator; the same telemetry yields wildly different headlines (28.7% vs 70.6%). | **TBD** (decide during authoring) |
-| Benchmark-to-production gap | the collapse from offline benchmark score to real-SDLC applied rate (Meta's 68%→19.7%, ~3.5×); benchmark numbers do not survive contact with a real SDLC. | **TBD** (decide during authoring) |
-| Self-assessment gap | developers cannot judge AI's effect on their own speed; measured error ~40 percentage points, wrong even about the sign. | **TBD** (decide during authoring) |
-| Complexity debt (on credit) | velocity gained early, paid back later as sustained complexity/warning increases that drive the eventual slowdown. | **TBD** (decide during authoring) |
+| Proxy metric | any measured stand-in for value (merged PRs, commits, LOC, time-on-task); throughput is measurable, value is not. | **гибрид — «прокси-метрика»** (kept-EN приставка `прокси` + «метрика»; устоявшаяся форма RU DevOps). **Отвергнуто:** «метрика-заместитель» (годится как разовый глосс, но не термин). |
+| Denominator choice | "% of code written by AI" figures depend entirely on the denominator; same telemetry → 28.7% vs 70.6%. | **native — «выбор знаменателя»** (прозрачные математические слова). Мост не нужен. |
+| Benchmark-to-production gap | the collapse from offline benchmark score to real-SDLC applied rate (Meta 68%→19.7%, ~3.5×). | **гибрид — «разрыв между бенчмарком и продом»**; `бенчмарк` kept-EN (устоявшееся). **Отвергнуто:** «оффлайн-онлайн разрыв» (мутно). |
+| Self-assessment gap | developers cannot judge AI's effect on their own speed; measured error ~40pp, wrong even about the sign. | **native — «ошибка самооценки»**. **Отвергнуто:** «разрыв самооценки» (калька gap). |
+| Tech debt on credit | velocity gained early, paid back later as sustained complexity/warning increases that drive the slowdown. | **native — «техдолг в кредит»** (де-жаргонизировано: complexity debt → tech debt on credit). «технический долг» / «техдолг» — устоявшееся. Мост *(tech debt on credit)*. |
 
 ### Reading the evidence
 
 | EN term | EN gloss | RU decision |
 |---|---|---|
-| Evidence grade / the ladder | the `MEASURED` / `REPORTED` / `ASSERTED` classification applied to every claim; grades are inherited and never upgraded. | **TBD** (decide during authoring) |
-| Unfalsifiable-not-refuted | a claim whose weakness is that nobody can check it (private corpus, no method), distinct from a claim that has been tested and failed. | **TBD** (decide during authoring) |
-| Citation laundering | the drift by which an assertion, a vendor figure, or a misattributed quote acquires the authority of a study as it passes through secondary sources. | **TBD** (decide during authoring) |
-| Against-interest finding | a result that cuts against its publisher's incentive (Anthropic publishing a skill cost, OpenAI retiring its own benchmark); the strongest evidence class in a field full of COI. | **TBD** (decide during authoring) |
-| Positionality (named COI) | stating the conflict of interest inline as part of the finding, not in a footnote. | **TBD** (decide during authoring) |
+| Evidence grade / the ladder | the `MEASURED` / `REPORTED` / `ASSERTED` classification; grades inherited, never upgraded. | **native — «уровень доказательности» / «лестница доказательности»**. Токены `MEASURED` / `REPORTED` / `ASSERTED` — **kept-EN, code-styled, инвариант**; разовый глосс «(измерено / сообщено / заявлено)» при первом появлении. **Отвергнуто:** перевод токенов в теле каждый раз (теряется единый ярлык-якорь). |
+| Can't-be-checked | a claim whose weakness is that nobody can check it (private corpus, no method), distinct from tested-and-failed. | **НЕ термин — plain «это нельзя проверить»** (де-жаргонизировано; «нефальсифицируемо, но не опровергнуто» снято). **Отвергнуто:** «нефальсифицируемое утверждение» (академизм). |
+| Citation laundering | a distorted claim passed along until it looks sourced. | **Чеканная фигура НЕ мандатируется (owner: DROP — «отмывание цитат» читается странно).** Выражать смысл **прямо**: «искажённое утверждение, которое пересказывают, пока оно не начнёт выглядеть как ссылка на исследование». Нативный автор вправе применить идиому, только если она действительно естественна. **Отвергнуто как мандат:** «отмывание ссылок / цитат». |
+| Evidence that cuts against whoever published it | a result that cuts against its publisher's incentive; the strongest evidence class in a field full of COI. | **native — «свидетельство против собственного интереса»** (де-жаргонизировано из against-interest finding; юридическая по происхождению формула). **Отвергнуто:** «находка против интереса» (калька finding). |
+| Conflict of interest, stated inline | naming the conflict of interest (who's paying) as part of the finding, not a footnote. | **native — «конфликт интересов, названный прямо»** (де-жаргонизировано из positionality); `конфликт интересов` (COI) — стандарт. **Отвергнуто:** «позициональность» (непрозрачно). |
 
 ### Preparation over model
 
 | EN term | EN gloss | RU decision |
 |---|---|---|
-| Preparation-over-model | the finding that setup/scope moves agent success more than model choice (dotnet/runtime: 38.1%→69%). | **TBD** (decide during authoring) |
-| The gate-not-the-agent misread | reading a low revert/failure number as agent quality when it is a property of the review gate that produced it. | **TBD** (decide during authoring) |
-| Controllable scope | starting agent work where the problem is bounded and knowable, with declared inputs/outputs and a human approval gate at the requirements boundary. | **TBD** (decide during authoring) |
-| Architecture-first (with a loop) | investing in design before code, while accepting that even sound-looking architecture needs iteration — which is why the loop exists. | **TBD** (decide during authoring) |
-| Harness staleness | the property that every scaffold component encodes an assumption about model limits that expires as models improve; preparation must be re-reviewed, not set once. | **TBD** (decide during authoring) |
+| Preparation-over-model | setup/scope moves agent success more than model choice (dotnet/runtime 38.1%→69%). | **native — максима «подготовка важнее модели»**. |
+| The gate-not-the-agent misread | reading a low revert/failure number as agent quality when it's a property of the review gate. | **native — «это заслуга ворот, а не агента»**; `ворота` = gate (REUSE `rag.md`: «релизные ворота», «регрессионные ворота (quality gate)»). |
+| Controllable scope | starting agent work where the problem is bounded and knowable, with a human approval gate at the requirements boundary. | **native — «управляемый объём задачи»** / «контролируемый периметр». **Отвергнуто:** «управляемый скоуп» (жаргон-калька; «объём» чище). |
+| Architecture-first (with a loop) | investing in design before code, while accepting even sound architecture needs iteration. | **native — «сначала архитектура (но с циклом)»**. |
+| Harness staleness | every scaffold component encodes an assumption about model limits that expires as models improve. | **kept-EN — «устаревание harness»**; `harness` kept-EN (REUSE `rag.md`: голое «harness» в теле допустимо после первого моста, рядом с «средой выполнения»). Мост «harness (обвязка агента)» при первом упоминании. **Отвергнуто:** голое «каркас» как термин (теряет kept-EN якорь). |
 
 ### Project memory & tiering
 
 | EN term | EN gloss | RU decision |
 |---|---|---|
-| Project memory | durable, agent-readable knowledge that persists across runs; the fix for agent amnesia. | **TBD** (decide during authoring) |
-| Amnesia (the smart friend with amnesia) | the property that agents retain nothing between sessions except the artifacts on disk; anything that must survive must be pinned or re-injected. | **TBD** (decide during authoring) |
-| Context tax / "length is a subscription" | the MEASURED >20%-per-turn cost of standing context; every line is re-sent and billed on every turn, so the file must earn its length. | **TBD** (decide during authoring) |
-| Over-compliance | the measured mechanism by which extra written artifacts hurt: agents follow instructions "thoroughly but unnecessarily," burning cost without improving outcomes. | **TBD** (decide during authoring) |
-| Scar archive | the reasoning behind each locked decision, appended after every fixed bug class; the highest-value section of any project memory because it stops re-litigating decided tradeoffs. | **TBD** (decide during authoring) |
-| Knowledge tiering | organizing project memory by rate-of-change / distance-from-focus so only the relevant tier is loaded (type→roster→item; blueprint→contract→map). | **TBD** (decide during authoring) |
-| LOD ladder (map / contract / blueprint) | the three-level tiering of an artifact by its relation to the current task; independently mirrored by Anthropic Skills' activation/reference/deep-dive. | **TBD** (decide during authoring) |
-| Hot set / cold set | the always-loaded one-screen non-negotiables vs the on-demand retrieved detail. | **TBD** (decide during authoring) |
-| Progressive disclosure | loading only an artifact's name+description until its body is needed, then paging it in; the retrieval half of tiering. | **TBD** (decide during authoring) |
-| Artifact overload | the central unsolved failure mode of spec-driven work: artifacts generated faster than human review or model context can absorb, with no lifecycle discipline. | **TBD** (decide during authoring) |
+| Project memory | durable, agent-readable knowledge that persists across runs; the fix for agent amnesia. | **native — «память проекта»**. **Отвергнуто:** «проектная память» (звучит канцелярски). |
+| Amnesia | agents retain nothing between sessions except artifacts on disk. | **native — «амнезия»** (авторская фигура «умный друг с амнезией»). |
+| Context tax / "length is a subscription" | the MEASURED >20%-per-turn cost of standing context; every line is re-sent and billed. | **REUSE фигуры «токенный налог»** (`_language.md` §6 / RU-канон — подтверждённая фигура «токенный налог»: постоянная плата токенами) + обязательная plain-пара «каждая строка оплачивается на каждом шаге»; «длина — это подписка, а не документ». `context rot` — **kept-EN** (глосс «гниение контекста»). |
+| Over-compliance | agents follow instructions "thoroughly but unnecessarily," burning cost without improving outcomes. | **native — «избыточная исполнительность»** / «сверхусердие». **Отвергнуто:** «сверх-комплаенс» (офисный жаргон). |
+| Scar archive | the reasoning behind each locked decision, appended after every fixed bug class. | **фигура «архив шрамов» — НА ИСПЫТАНИИ**, глосс при первом употреблении + мост к индустрии «безвинный разбор инцидентов (blameless postmortem)». Проверяется холодным прогоном. |
+| Knowledge tiering | organizing memory by rate-of-change / distance-from-focus so only the relevant tier loads. | **native — «разбиение знаний по уровням»** / «уровневое хранение знаний»; `tiering` = «разбиение по уровням». |
+| Detail tiers (map / contract / blueprint) | the three-level tiering of an artifact by its relation to the current task. | **native — «уровни детализации (карта / контракт / чертёж)»** (де-жаргонизировано: «LOD» снят). Собственные ярлыки DefinitiveSpec (LOD_0/1/2) цитируются как имя того инструмента, не как термин курса. **Отвергнуто:** «LOD-лестница». |
+| Hot set / cold set | the always-loaded one-screen non-negotiables vs the on-demand retrieved detail. | **native, term-of-art KEEP — «горячий набор / холодный набор»** (прозрачно) + мост *(hot set / cold set)* при первом упоминании. |
+| Load detail on demand | loading only name+description until the body is needed, then paging it in. | **native — «подгрузка деталей по требованию»** (де-жаргонизировано из progressive disclosure). **Отвергнуто:** «прогрессивное раскрытие» (кроме одного глоссированного упоминания). |
+| Artifact overload | artifacts generated faster than human review or model context can absorb, with no lifecycle discipline. | **native — «перегрузка артефактами»**; `артефакт` — родное. |
 
 ### Rules that hold
 
 | EN term | EN gloss | RU decision |
 |---|---|---|
-| Executable rule / rules-as-code | a constraint enforced by the harness or CI (hook, lint rule, grep, gate), which the model cannot bypass — as opposed to prose it is asked to obey. | **TBD** (decide during authoring) |
-| "An instruction is not a control" | the principle that a rule stated in natural language (a freeze, an "ask me first," a "don't") is a suggestion, not an enforced boundary. | **TBD** (decide during authoring) |
-| Hook vs skill | a hook is deterministic harness enforcement (runs regardless of the model); a skill is model judgment (advice it may ignore). Security/correctness failures must be hooks. | **TBD** (decide during authoring) |
-| The gate defines the artifact | an agent optimises exactly what you check, so anything unchecked does not exist; "the agent grading its own homework" is not verification. | **TBD** (decide during authoring) |
-| Reward hacking / gaming the gate | the measured behavior of satisfying the checked metric without doing the requested work (retrieving rather than deriving; suppressing a symptom to make a test pass). | **TBD** (decide during authoring) |
-| Blast radius | the scope of damage a confused or compromised agent can reach; controls are placed relative to it. | **TBD** (decide during authoring) |
-| Policy-as-code | enforced-in-the-pipeline, audited rules (the enterprise form of executable rules). | **TBD** (decide during authoring) |
-| Least privilege | the agent can reach exactly the resources its current task needs and no more (five distinct scopes: repo, CI token, cloud IAM, tool allow-list, network egress). *(SK canon: `princíp najnižších oprávnení` — owner ruling, do not reopen; RU RAG canon mirrors it as `принцип наименьших привилегий`, `rag.md` §7 — peek and reuse if the sense matches.)* | **TBD** (decide during authoring) |
-| Drift / rule rot | the decay of a rule corpus without a staleness mechanism: duplicated constants diverge, copied reference code goes stale, rules whose framework changed survive, and seams between files contradict. | **TBD** (decide during authoring) |
-| Consistency owner | the person/role accountable for reconciling a rule corpus so two authoritative files cannot prescribe opposite things. | **TBD** (decide during authoring) |
+| Executable rule / rules-as-code | a constraint enforced by the harness or CI which the model cannot bypass. | **native — «исполняемое правило» / «правила как код»**. |
+| "An instruction is not a control" | a rule stated in natural language is a suggestion, not an enforced boundary. | **native — максима «инструкция — это не контроль»** (в кавычках/курсиве по бюджету §8). |
+| Hook vs skill | a hook is deterministic harness enforcement; a skill is model judgment it may ignore. | **kept-EN — «hook против skill»** (REUSE `rag.md`: hooks/callbacks в kept-EN реестре; skill kept-EN). Глосс «hook (детерминированный перехватчик харнесса) против skill (совет, который модель может проигнорировать)». |
+| The gate defines the artifact | an agent optimises exactly what you check; anything unchecked does not exist. | **native — максима «что проверяешь, то и получаешь»** / «ворота определяют результат»; `ворота` — REUSE. |
+| Reward hacking / gaming the gate | satisfying the checked metric without doing the requested work. | **kept-EN — «reward hacking»** (community term-of-art, KEEP) + глосс «игра на метрику вознаграждения: пройти проверку, не сделав работу». **Отвергнуто:** «взлом вознаграждения» (буквальная калька). |
+| Blast radius | the scope of damage a confused or compromised agent can reach. | **kept-EN — «blast radius»** (term-of-art, KEEP; RU DevOps так и говорит) + глосс «радиус поражения». |
+| Policy-as-code | enforced-in-the-pipeline, audited rules (the enterprise form of executable rules). | **kept-EN — «policy-as-code»** (term-of-art, KEEP) + глосс «политики как код». |
+| Least privilege | the agent can reach exactly the resources its task needs and no more. | **REUSE — «принцип наименьших привилегий»** (`rag.md`: «принцип наименьших привилегий \| least privilege \| термин остаётся EN в списках, это его мост»). Не пере-чеканивать. |
+| Drift / rule rot | the decay of a rule corpus without a staleness mechanism. | **Три РАЗНЫХ смысла — см. «Карточку смыслов: дрейф правил» ниже (owner).** Кратко: «дрейф контекста» (context drift) · «дрейф правил» (правила те же, дрейфует их толкование из-за context rot) · «устаревание правил» (правила устарели и подлежат замене из-за новых фактов/подходов). Писатель выбирает по смыслу. REUSE «дрейф» — `rag.md` («дрейф \| drift»); RAG-смысл (дрейф входа/корпуса/модели) — отдельный, четвёртый. **Отвергнуто:** «сдвиг» (RAG резервирует против него как термина). |
+| Consistency owner | the role accountable for reconciling a rule corpus so two files can't prescribe opposite things. | **native — «ответственный за согласованность»**. |
+
+## Карточка смыслов: дрейф правил (owner ruling — три разных смысла)
+
+Формулировка владельца **дословно**, чтобы писатель выбирал термин по смыслу, а не по слову:
+
+> - **«дрейф контекста»** — context drift (OK as-is).
+> - **«дрейф правил»** — the rules stay the SAME but their INTERPRETATION drifts due to context rot.
+> - **«устаревание правил»** — the rules become OBSOLETE and should be CHANGED due to new facts / approaches / practices.
+> These are DIFFERENT senses (interpretation-drift vs obsolescence).
+
+Применение в курсе:
+- Урок 5, «загнивание правил из-за context rot» (правила не меняли, но модель толкует их иначе) → **«дрейф правил»**.
+- Урок 5, «правила надо обновить под новые факты/подходы» → **«устаревание правил»**.
+- «дрейф контекста» — самостоятельный смысл (окно/история дрейфует), не путать с двумя выше.
+- Четвёртый, RAG-смысл «дрейф» (дрейф входного трафика/корпуса/модели у провайдера, `rag.md`) — ещё отдельный;
+  не сливать с корпусом правил.
+
+## Разрешённые владельцем спорные термины (журнал)
+
+- **Human router — ADOPT.** Фигура «человек-маршрутизатор» принята (на испытании), с обязательным вводом через
+  «человек-в-цикле» при первом упоминании. См. строку Intro.
+- **Citation laundering — DROP.** Чеканная фигура снята; смысл выражается прямо. См. строку «Reading the evidence».
