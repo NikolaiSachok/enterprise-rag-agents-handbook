@@ -5,12 +5,11 @@ sidebar_position: 1
 
 # Verification is the bottleneck
 
-Generation got cheap; checking did not. That single asymmetry is the spine of this whole course, and the
-evidence for it is unusually clean — cleaner, in fact, than the evidence for almost anything else people claim
-about AI and software. When you go to the primary studies, one half of the story is measured cleanly, the other
-barely at all: output rises, reliably, across independent measurements. Whether the output is any *good* stays
-unmeasured. Put those two together and you get the thesis of this lesson: unchecked generation is a liability,
-not throughput.
+Generation got cheap; checking did not. That single asymmetry is the spine of this whole course. And the
+evidence for it is unusually clean — cleaner, in fact, than for almost anything else people claim about AI and
+software. Go to the primary studies and one half of the story is measured cleanly, the other barely at all.
+Output rises, reliably, across independent measurements; whether the output is any *good* stays unmeasured. Put
+those two together and you get the thesis of this lesson: unchecked generation is a liability, not throughput.
 
 A note on how the claims are graded, because this lesson leans on it. `MEASURED` means a controlled study or
 randomised trial found the effect; `REPORTED` means practitioners describe it but nobody has isolated it;
@@ -26,10 +25,10 @@ Microsoft measured it most carefully (`MEASURED`): engineers who adopted a CLI c
 **24% more pull requests**, and the lift held across four months with no fade. It is dose-responsive, too —
 five or more days a week of use tracked to roughly +50%, four days to +22%, three days to +15%. The study was
 observational, using within-person fixed effects, and it passed a clean placebo test (−1.1%, with a confidence
-interval spanning zero). Two cautions travel with it. The authors are Microsoft employees and Microsoft owns
-both GitHub and the Copilot CLI — the sell-and-measure conflict this course flags everywhere, and to their
-credit they flag it themselves. And the outcome is *merged PRs per engineer per day for voluntary adopters* —
-a **proxy metric**, a measurable stand-in for value, not value itself.
+interval spanning zero). Two cautions travel with it. The authors are Microsoft employees, and Microsoft owns
+both GitHub and the Copilot CLI — the sell-and-measure conflict this course flags everywhere. To their credit,
+they flag it themselves. And the outcome is *merged PRs per engineer per day for voluntary adopters* — a
+**proxy metric**, a measurable stand-in for value, not value itself.
 
 Google saw the same shape (`MEASURED`): **+17.5% change-lists** per developer-month, with a tight interval, for
 adopters of its "Transform Code" tooling. Same caveats — a throughput proxy, an observational
@@ -59,8 +58,8 @@ belongs nearer the IDE-first group, a different population.
 
 A companion study (`MEASURED`) makes the timing explicit: the quality risks are sustained "even when velocity
 advantages fade," and the accumulated debt is what *drives* the later slowdown. The velocity lift faded around
-month two and was gone by month three, while the complexity stayed. That is the shape of debt taken on credit —
-you get the speed now and pay for it later, with interest, as the mess you generated slows the next change down.
+month two and was gone by month three, while the complexity stayed. That is the shape of debt taken on credit.
+You get the speed now and pay for it later, with interest — the mess you generated slows the next change down.
 
 One thing not to hide: the same research group authored these quality studies, so they corroborate each other
 rather than independently replicate each other, and the literature leans heavily on a single dataset of
@@ -87,9 +86,9 @@ scored at or above 65% — near the manual group's 67%. The researchers found si
 three of them preserved learning. So the tool did not decide the outcome — the interaction pattern did.
 
 Two caveats keep this honest. The scope is *learning an unfamiliar library*, not steady-state work on a codebase
-you know — a regime chosen to stress comprehension. And it is an against-interest finding: an Anthropic author
-publishing a limit of AI. Whether comprehension debt compounds over a whole career is `UNKNOWN` — nobody has
-measured that.
+you know — a regime chosen to stress comprehension. And the result cuts against its source's own interest: an
+Anthropic author published a limit of AI. That is exactly what makes it credible. Whether comprehension debt
+compounds over a whole career is `UNKNOWN` — nobody has measured that.
 
 ## Self-assessment is broken — you can't feel the effect, you have to measure it
 
@@ -179,10 +178,10 @@ explains the split, sitting underneath both results. Teach the contrast, not eit
 
 :::
 
-## The tier lens — soloist · small-team · enterprise
+## The three tiers — soloist · small-team · enterprise
 
 The invariant holds at every scale: **unchecked generation is a liability, not throughput.** The bottleneck is
-universal. What scales is the verification budget you can bring to it — and, following the course's recurring
+universal. What scales is the verification budget you can bring to it. And, following the course's recurring
 lens, the further that check sits from the blast radius, the more it becomes about *proof* rather than raw
 *capability* to catch the bug.
 
@@ -199,8 +198,8 @@ lens, the further that check sits from the blast radius, the more it becomes abo
 - **Enterprise.** Independent review becomes a structural requirement — the reviewer is provably not the author
   — feeding a loop where production telemetry returns to the fix. *The failure it prevents:* velocity that
   raises change volume without a control system able to absorb it, which is the downstream instability DORA
-  flags. Here the practice meets a named standard almost exactly: keeping the critic separate from the
-  implementer *is* **separation of duties** — the long-standing audit and security principle — and it is
+  flags. Here the practice meets a named standard almost exactly. Keeping the critic separate from the
+  implementer *is* **separation of duties**, the long-standing audit and security principle — and it is
   codified, not merely recommended. OpenSSF's **SLSA Source Level 4** requires "Two-Party Review," and the EU's
   **DORA regulation (RTS Article 17)** mandates independence between the functions that approve a change and the
   functions that implement it. That backing is strong in its own right: `MEASURED` for the change-approval

@@ -7,7 +7,7 @@ slug: /
 
 # Ako čítať tento kurz: generovať je lacné, overovať je úzke miesto
 
-Stavať softvér s flotilou kódovacích agentov nie je problém promptovania. Je to problém overovania. Vygenerovať kód je dnes lacné a rýchle; overiť, že ten kód robí to, čo má, lacné nie je. Práve táto nerovnováha — **úzke miesto overovania (verification bottleneck)** — rozhoduje o všetkom ostatnom. Každý mechanizmus, ktorý tu učíme, slúži jednému cieľu: aby overovanie stíhalo tempo generovania.
+Stavať softvér s flotilou kódovacích agentov nie je problém promptovania. Je to problém overovania. Vygenerovať kód je dnes lacné a rýchle. Overiť, že robí to, čo má, lacné nie je. Práve táto nerovnováha — **úzke miesto overovania (verification bottleneck)** — rozhoduje o všetkom ostatnom. Každý mechanizmus, ktorý tu učíme, slúži jednému cieľu: aby overovanie stíhalo tempo generovania.
 
 Druhá téza je rovnako nosná. Slučka učenia sa musí uzatvárať na **produkcii**, nie na internom testovaní. Zlú zmenu má odhaliť a vrátiť späť sám systém, nie používateľ, ktorý sa sťažuje.
 
@@ -28,11 +28,11 @@ flowchart TB
     HR -.-> OPS
 ```
 
-Horný rad je chrbtica práce: **PLÁN → DEKOMPOZÍCIA → IMPLEMENTÁCIA → DODANIE → PREVÁDZKA**. Nad ním stojí človek. V komunite sa jeho rola volá **human-in-the-loop** (schválenie človekom / človek v rozhodovacom procese) — a keďže nie je krokom v slučke, ale rozhoduje nad ňou v pomenovaných kontrolných bodoch, voláme ho v tomto kurze **človek-smerovač**: poistka a úsudok, nie ďalšia zastávka na páse.
+Horný rad je chrbtica práce: **PLÁN → DEKOMPOZÍCIA → IMPLEMENTÁCIA → DODANIE → PREVÁDZKA**. Nad ním stojí človek. V komunite sa jeho rola volá **human-in-the-loop** (schválenie človekom / človek v rozhodovacom procese). Keďže nie je krokom v slučke, ale rozhoduje nad ňou v pomenovaných kontrolných bodoch, voláme ho v tomto kurze **človek-smerovač**: poistka a úsudok, nie ďalšia zastávka na páse.
 
-Rozhodujúca je spätná hrana z PREVÁDZKY do PLÁNU. Práve ona robí z obrázka slučku, a nie pás. Väčšina publikovaných schém — vrátane praktického korpusu, z ktorého tento kurz čerpá — kreslí pás, ktorý končí pri „produkcii“ a nikdy sa nevracia; to je najväčšia štrukturálna medzera v tom, čo sa dnes o téme píše. Túto opravu podáva sám kurz ako svoj rámec: `ASSERTED` (tvrdené) — na rozdiel od `MEASURED` (namerané) a `REPORTED` (hlásené), ktoré naplno zavádza Lekcia 2. Ide o *tvrdenie* podložené výskumom, nie o meranie.
+Rozhodujúca je spätná hrana z PREVÁDZKY do PLÁNU. Práve ona robí z obrázka slučku, a nie pás. Väčšina publikovaných schém kreslí pás, ktorý končí pri „produkcii“ a nikdy sa nevracia — vrátane praktického korpusu, z ktorého tento kurz čerpá. To je najväčšia štrukturálna medzera v tom, čo sa dnes o téme píše. Túto opravu podáva sám kurz ako svoj rámec: `ASSERTED` (tvrdené) — na rozdiel od `MEASURED` (namerané) a `REPORTED` (hlásené), ktoré naplno zavádza Lekcia 2. Ide o *tvrdenie* podložené výskumom, nie o meranie.
 
-Že hodnota je práve v tej spätnej hrane, naznačuje jeden údaj. `MEASURED`: správa DORA 2025 hlási záporný vzťah medzi nasadzovaním AI a stabilitou dodávky softvéru — zrýchlenie odhalí slabiny ďalej v procese. Čítaj to opatrne: je to prieskum, kde údaje uvádzajú sami respondenti (približne 5 000 respondentov), nie telemetria — vnímaná stabilita, nie meraná.
+Že hodnota je práve v tej spätnej hrane, naznačuje jeden údaj. `MEASURED`: správa DORA 2025 hlási záporný vzťah medzi nasadzovaním AI a stabilitou dodávky softvéru — zrýchlenie odhalí slabiny ďalej v procese. Čítaj to opatrne. Je to prieskum, kde údaje uvádzajú sami respondenti (približne 5 000 respondentov), nie telemetria — teda vnímaná stabilita, nie meraná.
 
 :::note[Čo mapa zámerne nekreslí ako políčka]
 
@@ -40,11 +40,11 @@ Tri veci sú v obrázku prítomné, no naschvál nie sú políčkom — aby si i
 
 - **Overovanie** je votkané do každého švu slučky (revízia · kritik · vynútené brány), nie samostatný krok. Keby bolo políčkom, protirečilo by celej téze.
 - **Základ** (Časť I) leží pod celou slučkou: pamäť projektu · pravidlá ako kód · artefakty ako jediné rozhranie. Toto musí platiť skôr, než agent napíše prvý riadok.
-- **Optika troch úrovní** (tier lens): každý prvok čítaj na troch úrovniach — soloista · malý tím · enterprise.
+- **Tri úrovne zrelosti** (three maturity tiers): každý prvok čítaj na troch úrovniach — soloista · malý tím · enterprise.
 
 :::
 
-*Mapa je zároveň obsah kurzu.* Horný rad (PLÁN → PREVÁDZKA) sú **Časti II–IV** — samotné konanie. Základom celej slučky je **Časť I**, ktorú práve čítaš: čo musí byť pravda skôr, než sa čokoľvek vygeneruje. Optika troch úrovní je **Časť V**.
+*Mapa je zároveň obsah kurzu.* Horný rad (PLÁN → PREVÁDZKA) sú **Časti II–IV** — samotné konanie. Základom celej slučky je **Časť I**, ktorú práve čítaš: čo musí byť pravda skôr, než sa čokoľvek vygeneruje. Tri úrovne zrelosti sú **Časť V**.
 
 :::tip[▶ Video]
 
@@ -56,7 +56,7 @@ IBM v tom istom duchu prehodnocuje, čím AI nástroje a agenti v životnom cykl
 
 ## Čestný titulok a čestná metóda
 
-Výstupu je merateľne viac; či je viac aj **hodnoty**, doložené nie je — a znamienko toho rozdielu určuje práve kapacita revízie a overovania. Toto je čestný titulok celého kurzu: nie „AI zrýchľuje tímy“ ani „AI ich spomaľuje“, ale „výstupu pribudlo, o hodnote nevieme“. Sami tvorcovia najsilnejšieho čísla v prospech AI (Microsoft) hovoria, že zlúčený pull request nie je to isté ako hodnota, ktorú prináša, a že odboru stále chýbajú dohodnuté miery.
+Výstupu je merateľne viac. Či je viac aj **hodnoty**, doložené nie je — a znamienko toho rozdielu určuje práve kapacita revízie a overovania. Toto je čestný titulok celého kurzu: nie „AI zrýchľuje tímy“ ani „AI ich spomaľuje“, ale „výstupu pribudlo, o hodnote nevieme“. Sami tvorcovia najsilnejšieho čísla v prospech AI (Microsoft) hovoria jasne: zlúčený pull request nie je to isté ako hodnota, ktorú prináša, a dohodnuté miery na ten rozdiel odboru stále chýbajú.
 
 Odtiaľ pramení poctivý postoj, ktorý je hlavným rozdielom tohto kurzu oproti bežnému písaniu o téme:
 
@@ -64,7 +64,7 @@ Odtiaľ pramení poctivý postoj, ktorý je hlavným rozdielom tohto kurzu oprot
 - Každé číslo vedie k pôvodnému zdroju s dátumom. Pri číslach od dodávateľa platí jednoduché pravidlo: kto nástroj predáva, ten ho nevie nezaujato zmerať — platí to pre Microsoft, Google aj Meta rovnako.
 - Sekundárna vrstva skresľuje na obe strany — nadšenci nafukujú, skeptici sa držia zastaraného čísla. Liek je ten istý: choď k pôvodným zdrojom, ohodnoť, čo nájdeš, a povedz to nahlas. Práve tento postoj je obsahom kurzu.
 
-Napokon optika troch úrovní. Každá lekcia je označená pre soloistu, malý tím a enterprise, a rámec znie: *prax je stála, mechanizmus sa škáluje.* Najprv pomenujeme nemennú zásadu, potom mechanizmus pre každú úroveň a nakoniec konkrétne zlyhanie, ktorému ten mechanizmus zabráni — nikdy nie „enterprise má viac peňazí“. A naprieč celým kurzom nesieme jedno spresnenie: čím ďalej je kontrola od miesta škody (blast radius), tým viac je o dôkaze; čím bližšie, tým viac je o schopnosti chybu zachytiť.
+Napokon tri úrovne zrelosti. Každá lekcia je označená pre soloistu, malý tím a enterprise, a rámec znie: *prax je stála, mechanizmus sa škáluje.* Najprv pomenujeme nemennú zásadu, potom mechanizmus pre každú úroveň a nakoniec konkrétne zlyhanie, ktorému ten mechanizmus zabráni — nikdy nie „enterprise má viac peňazí“. A naprieč celým kurzom nesieme jedno spresnenie: čím ďalej je kontrola od miesta škody (blast radius), tým viac je o dôkaze; čím bližšie, tým viac je o schopnosti chybu zachytiť.
 
 ## Päť lekcií Časti I
 
@@ -76,4 +76,4 @@ Napokon optika troch úrovní. Každá lekcia je označená pre soloistu, malý 
 4. **Pamäť projektu a vrstvenie** — trvalá znalosť, ktorú agent prečíta pri každom behu.
 5. **Pravidlá, ktoré držia** — pokyn nie je kontrola; vynucujú ju brány, nie vety.
 
-Téza celého kurzu sa dokazuje hneď v Lekcii 1; poctivý postoj sa uvádza do praxe v Lekcii 2; základ tvoria Lekcie 3–5. Spätnú hranu „slučka sa uzatvára na produkcii“ rozoberajú až Časti IV a V (Prevádzka a úrovne) — tu ju len značíme, neučíme.
+Téza celého kurzu sa dokazuje hneď v Lekcii 1. Poctivý postoj sa uvádza do praxe v Lekcii 2. Základ tvoria Lekcie 3–5. Spätnú hranu „slučka sa uzatvára na produkcii“ rozoberajú až Časti IV a V (Prevádzka a úrovne) — tu ju len značíme, neučíme.
