@@ -59,7 +59,7 @@ primary-reading discipline turned on a first-party number.
 If setup is the biggest lever, the first place to pull it is scope. What I do before handing an agent anything
 is refuse to hand it an open-ended goal — I start where the problem is bounded and I already know what "done"
 looks like. The idea long predates agents. One practitioner writing a public series on AI-first
-development, Andrey Beloborodov, restates it as a principle *"with more than twenty years of history"*: without
+development, [Andrey Beloborodov](https://www.threads.com/@andreybwhite), restates it as a principle *"with more than twenty years of history"*: without
 a spec, you get nonsense out (`ASSERTED` — his framing, offered as experience, not measurement). A tracker or a
 finance tool you can hand over cold; something you have to grow and maintain, you cannot.
 
