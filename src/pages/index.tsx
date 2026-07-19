@@ -38,22 +38,20 @@ function CourseCard({course}: {course: LandingCourse}): ReactNode {
       <p className={styles.cardBlurb}>{course.blurb}</p>
       <div className={styles.cardMeta}>
         <span className={styles.langs}>{course.languages.join(' · ')}</span>
-        {course.live && <span className={styles.cta}>Open course →</span>}
+        <span className={styles.cta}>{course.live ? 'Open course →' : 'View the plan →'}</span>
       </div>
     </>
   );
 
-  // Live courses are clickable cards; an in-progress course is shown as a
-  // non-interactive card (its content is a placeholder) so the hub never sends a
-  // reader to an empty page.
-  return course.live ? (
-    <Link to={href} className={`${styles.card} ${styles.cardLive}`}>
+  // Every course card is clickable. A course in progress still has a real
+  // syllabus — lesson titles plus what each one covers — worth reading. The badge
+  // (Live vs In progress) is what tells the reader how complete it is.
+  return (
+    <Link
+      to={href}
+      className={`${styles.card} ${course.live ? styles.cardLive : styles.cardSoon}`}>
       {body}
     </Link>
-  ) : (
-    <div className={`${styles.card} ${styles.cardSoon}`} aria-disabled="true">
-      {body}
-    </div>
   );
 }
 

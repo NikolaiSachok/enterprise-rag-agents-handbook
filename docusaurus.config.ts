@@ -76,9 +76,10 @@ const COURSES: Course[] = [
     live: true,
     inNavbar: true,
   },
-  // AI SDLC — Part I in progress. Ships as a stub (intro only) so the instance
-  // builds and locale parity holds; kept OUT of the navbar until real content
-  // lands (flip `inNavbar` to true then — no other change needed).
+  // AI SDLC — in progress: Lesson 1 is written; the rest of Parts I–V are a
+  // published syllabus (placeholders with titles + what each lesson covers).
+  // Trilingual like RAG. `live: false` badges it "In progress" on the hub (still
+  // clickable → the syllabus); flip to true when the course is complete.
   {
     id: 'ai-sdlc',
     basePath: '/ai-sdlc',
@@ -87,7 +88,7 @@ const COURSES: Course[] = [
     blurb:
       'The AI-assisted software development lifecycle: planning, building, reviewing and ' +
       'shipping when AI agents are part of the team.',
-    languages: ['English'],
+    languages: ['English', 'Русский', 'Slovenčina'],
     live: false,
     inNavbar: true,
   },
