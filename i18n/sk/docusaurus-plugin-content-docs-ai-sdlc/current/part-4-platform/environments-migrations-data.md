@@ -9,4 +9,4 @@ sidebar_position: 3
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Ako držať produkčné dáta ďalej od agenta. Migrácie a rollbacky, ktoré prežijú agentovu chybu.
+Ako zabrániť agentovi v prístupe k produkčným dátam. Migrácie a rollbacky, ktoré prežijú agentovu chybu.

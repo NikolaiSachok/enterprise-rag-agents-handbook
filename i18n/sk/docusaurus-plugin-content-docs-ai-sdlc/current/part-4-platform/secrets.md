@@ -9,4 +9,4 @@ sidebar_position: 1
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Invariant: tajomstvá sa nikdy nedostanú k agentovi ani do repozitára. Mechanizmus rastie od env-súboru v `.gitignore` po spravovaný trezor tajomstiev.
+Invariant: tajomstvá sa nikdy nedostanú k agentovi ani do repozitára. Spôsob ochrany sa mení podľa rozsahu: od env-súboru v `.gitignore` až po spravovaný trezor tajomstiev.

@@ -9,4 +9,4 @@ sidebar_position: 1
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Veľa agentov naraz. Izolácia cez worktree, čo môže bežať paralelne a čo musí ostať sériové.
+Lekcia ukáže, ako izolovať veľa agentov naraz pomocou worktree, čo možno spúšťať súbežne a čo musí prebiehať postupne.

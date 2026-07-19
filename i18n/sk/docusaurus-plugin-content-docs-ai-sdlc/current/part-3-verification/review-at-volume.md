@@ -1,12 +1,12 @@
 ---
-title: "Revízia výstupu vo veľkom"
+title: "Revízia veľkého objemu výstupov"
 sidebar_position: 4
 ---
 
-# Revízia výstupu vo veľkom
+# Revízia veľkého objemu výstupov
 
 :::note[Pripravovaná lekcia]
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Ako udržať ľudskú revíziu zmysluplnou, keď agent vyprodukuje viac, než stihneš prečítať.
+Ako zachovať zmysluplnú ľudskú revíziu, keď agent vyprodukuje viac, než stihneš prečítať.

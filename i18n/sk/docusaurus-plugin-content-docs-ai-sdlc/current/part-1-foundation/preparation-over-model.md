@@ -9,4 +9,4 @@ sidebar_position: 4
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Najväčšia páka nie je voľba modelu. Je to rozsah a príprava, ktoré agentovi odovzdáš. Lekcia rozoberá zvládnuteľný rozsah úlohy a štart „najprv architektúra".
+Najviac nerozhoduje výber modelu, ale to, ako presne si úlohu vymedzil a čo agentovi pripravíš. Lekcia sa venuje zvládnuteľnému rozsahu úlohy a tomu, prečo začať návrhom architektúry.

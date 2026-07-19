@@ -9,4 +9,4 @@ sidebar_position: 4
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Jadro slučky. Plán, ktorý sa preverí skôr, než sa začne pracovať. Implementácia, ktorú kritik porovná s realitou, než sa dostane do kódu.
+Jadro slučky. Plán sa preverí ešte pred začiatkom práce. Kritik porovná implementáciu s realitou skôr, než sa zmena začlení do kódu.

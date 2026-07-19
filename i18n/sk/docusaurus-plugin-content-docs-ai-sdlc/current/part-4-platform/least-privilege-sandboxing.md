@@ -9,4 +9,4 @@ sidebar_position: 2
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Dať agentovi presne ten prístup, ktorý úloha potrebuje, a schránku, z ktorej neunikne. Lekcia prejde reálne incidenty, kde nadmerné oprávnenia spôsobili škodu. Zásada — princíp najnižších oprávnení.
+Dať agentovi presne ten prístup, ktorý úloha potrebuje — a sandbox, z ktorého neunikne. Lekcia rozoberie reálne incidenty, kde nadmerné oprávnenia spôsobili škodu.

@@ -9,4 +9,4 @@ sidebar_position: 4
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Kontroly, ktoré existujú preto, že niekto musí dokázať, že existovali. Auditné záznamy, pôvod artefaktov a oddelenie právomocí.
+Kontroly zavedené preto, aby sa ich vykonanie dalo spätne preukázať. Auditné záznamy, pôvod artefaktov a oddelenie právomocí.

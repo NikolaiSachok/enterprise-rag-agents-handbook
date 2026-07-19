@@ -9,4 +9,4 @@ sidebar_position: 4
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Ako uzavrieť slučku na produkcii: telemetria, postupné nasadzovanie a vypínač, ktorý zastaví zlú zmenu.
+Ako uzavrieť cyklus spätnej väzby v produkcii: telemetria, postupné nasadzovanie a vypínač, ktorý zastaví chybnú zmenu.

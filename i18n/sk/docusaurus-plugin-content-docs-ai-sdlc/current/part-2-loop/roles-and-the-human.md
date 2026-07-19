@@ -9,4 +9,4 @@ sidebar_position: 5
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Kto čo robí naprieč slučkou. A pomenované kontrolné body, kde musí ostať human-in-the-loop — človek-smerovač nad prácou, nie etapa v nej.
+Kto čo robí v jednotlivých krokoch slučky. A jasne určené kontrolné body, kde musí zostať human-in-the-loop: človek je smerovač nad prácou, nie ďalšia etapa procesu.

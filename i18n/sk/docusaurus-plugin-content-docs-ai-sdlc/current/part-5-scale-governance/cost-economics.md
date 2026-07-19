@@ -9,4 +9,4 @@ sidebar_position: 3
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Koľko agent naozaj stojí na jednotku práce. A ako tieto náklady udržať vykázateľné a pod kontrolou.
+Koľko agent naozaj stojí na jednotku práce. A ako tieto náklady prehľadne vykazovať a držať pod kontrolou.

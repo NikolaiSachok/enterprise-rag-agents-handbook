@@ -1,12 +1,12 @@
 ---
-title: "Register uniknutých chýb"
+title: "Register chýb, ktoré unikli kontrolám"
 sidebar_position: 2
 ---
 
-# Register uniknutých chýb
+# Register chýb, ktoré unikli kontrolám
 
 :::note[Pripravovaná lekcia]
 Táto lekcia sa pripravuje. Nižšie je, čo pokryje.
 :::
 
-Čo prejde cez reťaz brán a prečo. Pomenovať slepé miesto každej brány je jediný spôsob, ako ju zlepšiť.
+Ktoré chyby prejdú celým reťazcom brán a prečo. Jediný spôsob, ako každú bránu zlepšiť, je pomenovať jej slepé miesto.
