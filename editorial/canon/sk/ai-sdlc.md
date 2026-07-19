@@ -59,7 +59,7 @@ tokens `MEASURED` / `REPORTED` / `ASSERTED` stay kept-EN, code-styled, with a on
 | EN term | EN gloss | SK decision |
 |---|---|---|
 | Preparation-over-model | setup/scope moves agent success more than model choice (dotnet/runtime 38.1%→69%). | **native — maxima „príprava je dôležitejšia než model"**. |
-| The gate-not-the-agent misread | reading a low revert/failure number as agent quality when it's a property of the review gate. | **native — „zásluha brány, nie agenta"**; `brána` = gate (natívne SK; kánon ho používa v meta-próze „faktová brána", „grep-brána"). |
+| The gate-not-the-agent misread | reading a low revert/failure number as agent quality when it's a property of the review gate. | **native — „zásluha kontroly, nie agenta"** — tu `gate` = **review gate** (Sense A: proces revízie PR pred zlúčením), teda **nie „brána"**, ale „(prísna) kontrola pri revízii". Pozri **kartu významov `gate`** nižšie. |
 | Controllable scope | starting agent work where the problem is bounded, with a human approval gate at the requirements boundary. | **native — „zvládnuteľný rozsah (úlohy)"**. **Odmietnuté:** „kontrolovateľný skoup" (žargón-kalka). |
 | Architecture-first (with a loop) | investing in design before code, while accepting even sound architecture needs iteration. | **native — „najprv architektúra (so slučkou)"**. |
 | Harness staleness | every scaffold component encodes an assumption about model limits that expires as models improve. | **kept-EN — „zastarávanie harnessu"**; `harness` kept-EN + SK skloňovanie (harnessu; §3 kept-EN termíny berú SK koncovky). Glos „harness (obväzba/lešenie agenta)" pri prvom výskyte. **Odmietnuté:** holé „lešenie" ako termín. |
@@ -110,6 +110,14 @@ Použitie v kurze:
 - „drift kontextu" — samostatný význam (okno/história driftuje), nemiešať s dvoma vyššie.
 - Štvrtý, RAG-význam „drift" (drift vstupu/korpusu/modelu, `rag.md`) — tiež samostatný; nezlievať s korpusom pravidiel.
 - **Web-overené:** „zastarávanie" je slovenský tvar (doklad „Zastarávanie kódu"); CZ „zastarávání" ✗ odmietnuté.
+
+## Karta významov: `gate` (owner ruling — kánon preberaj podľa VÝZNAMU, nie podľa anglického slova)
+
+`gate` v angličtine pokrýva rôzne pojmy. Nedá sa kalkovať jedným slovom „brána": záznam kánonu nesie **významový kontext ako v tezaure** a RAG-kánon sa preberá, iba ak sa **význam zhoduje** (peek-don't-load „reuse only if the sense matches").
+
+- **Sense A — review gate** — proces revízie PR pred zlúčením (kontext `dotnet/runtime`, Lekcia 3). → **nie „brána"**, ale opisne: „(prísna) kontrola pri revízii", „kontrola zmien pred zlúčením". Maxima misread: „zásluha kontroly, nie agenta".
+- **Sense B — verification / pipeline gate** — štrukturálny kontrolný bod, ktorý blokuje postup a zachytáva triedy chýb (Intro; Lekcia 1 „automatická brána (build/testy)"; Časť III „viacúrovňové brány", escape ledger). → **„brána"** (ustálený obraz). Pri písaní Časti III zvážiť „brána" vs komunitný „gate".
+- **Sense C — requirements sign-off / stage-gate** — schválenie požiadaviek človekom pred nákladnou realizáciou. → „schválenie požiadaviek" / kept-EN „stage-gate"; nie „brána".
 
 ## Vlastníkom rozhodnuté sporné termíny (denník)
 

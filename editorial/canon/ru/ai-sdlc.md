@@ -57,7 +57,7 @@ would not say at work is wrong. `REUSE` rows carry the RAG-canon citation; the g
 | EN term | EN gloss | RU decision |
 |---|---|---|
 | Preparation-over-model | setup/scope moves agent success more than model choice (dotnet/runtime 38.1%→69%). | **native — максима «подготовка важнее модели»**. |
-| The gate-not-the-agent misread | reading a low revert/failure number as agent quality when it's a property of the review gate. | **native — «это заслуга ворот, а не агента»**; `ворота` = gate (REUSE `rag.md`: «релизные ворота», «регрессионные ворота (quality gate)»). |
+| The gate-not-the-agent misread | reading a low revert/failure number as agent quality when it's a property of the review gate. | **native — «это заслуга ревью, а не агента»** — здесь `gate` = **review gate** (Sense A: процесс ревью PR перед слиянием), поэтому **НЕ «ворота»**, а «(строгий) процесс ревью». См. **карточку смыслов `gate`** ниже. |
 | Controllable scope | starting agent work where the problem is bounded and knowable, with a human approval gate at the requirements boundary. | **native — «управляемый объём задачи»** / «контролируемый периметр». **Отвергнуто:** «управляемый скоуп» (жаргон-калька; «объём» чище). |
 | Architecture-first (with a loop) | investing in design before code, while accepting even sound architecture needs iteration. | **native — «сначала архитектура (но с циклом)»**. |
 | Harness staleness | every scaffold component encodes an assumption about model limits that expires as models improve. | **kept-EN — «устаревание harness»**; `harness` kept-EN (REUSE `rag.md`: голое «harness» в теле допустимо после первого моста, рядом с «средой выполнения»). Мост «harness (обвязка агента)» при первом упоминании. **Отвергнуто:** голое «каркас» как термин (теряет kept-EN якорь). |
@@ -107,6 +107,14 @@ would not say at work is wrong. `REUSE` rows carry the RAG-canon citation; the g
 - «дрейф контекста» — самостоятельный смысл (окно/история дрейфует), не путать с двумя выше.
 - Четвёртый, RAG-смысл «дрейф» (дрейф входного трафика/корпуса/модели у провайдера, `rag.md`) — ещё отдельный;
   не сливать с корпусом правил.
+
+## Карточка смыслов: `gate` (owner ruling — переиспользуй канон по СМЫСЛУ, а не по английскому слову)
+
+`gate` в английском покрывает разные понятия. Калькировать одним словом «ворота» нельзя: запись канона несёт **смысловой контекст, как в тезаурусе**, а RAG-канон переиспользуется, только если **смысл совпадает** (peek-don't-load «reuse only if the sense matches»).
+
+- **Sense A — review gate** — процесс ревью PR перед слиянием (контекст `dotnet/runtime`, Урок 3). → **НЕ «ворота»**, а описательно: «(строгий) процесс ревью», «обязательная проверка перед слиянием изменений». Максима misread: «это заслуга ревью, а не агента».
+- **Sense B — verification / pipeline gate** — структурный барьер-контрольная точка, который блокирует продвижение и ловит классы дефектов (Intro «ворота → выкатка»; Урок 1 «автоматические ворота (сборка/тесты)»; Часть III «многоуровневые ворота», escape ledger). → **«ворота»** (устоявшийся образ; REUSE `rag.md` quality-gate). При написании Части III пересмотреть «ворота» vs практикующий «гейт».
+- **Sense C — requirements sign-off / stage-gate** — утверждение требований человеком до дорогой реализации. → «согласование требований» / kept-EN «stage-gate»; не «ворота».
 
 ## Разрешённые владельцем спорные термины (журнал)
 
