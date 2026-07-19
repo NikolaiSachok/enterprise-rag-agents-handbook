@@ -6,5 +6,21 @@
   "sidebar.aiSdlcSidebar.category.Part I — The Foundation": {
     "message": "Часть I — Фундамент",
     "description": "The label for category 'Part I — The Foundation' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part II — The Loop": {
+    "message": "Часть II — Цикл",
+    "description": "The label for category 'Part II — The Loop' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part III — Verification": {
+    "message": "Часть III — Проверка",
+    "description": "The label for category 'Part III — Verification' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part IV — The Platform": {
+    "message": "Часть IV — Платформа",
+    "description": "The label for category 'Part IV — The Platform' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part V — Scale & Governance": {
+    "message": "Часть V — Масштаб и управление",
+    "description": "The label for category 'Part V — Scale & Governance' in sidebar 'aiSdlcSidebar'"
   }
 }

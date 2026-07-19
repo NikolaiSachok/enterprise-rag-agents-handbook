@@ -6,5 +6,21 @@
   "sidebar.aiSdlcSidebar.category.Part I — The Foundation": {
     "message": "Časť I — Základ",
     "description": "The label for category 'Part I — The Foundation' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part II — The Loop": {
+    "message": "Časť II — Slučka",
+    "description": "The label for category 'Part II — The Loop' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part III — Verification": {
+    "message": "Časť III — Overovanie",
+    "description": "The label for category 'Part III — Verification' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part IV — The Platform": {
+    "message": "Časť IV — Platforma",
+    "description": "The label for category 'Part IV — The Platform' in sidebar 'aiSdlcSidebar'"
+  },
+  "sidebar.aiSdlcSidebar.category.Part V — Scale & Governance": {
+    "message": "Časť V — Škálovanie a správa",
+    "description": "The label for category 'Part V — Scale & Governance' in sidebar 'aiSdlcSidebar'"
   }
 }

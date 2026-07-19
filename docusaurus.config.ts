@@ -89,7 +89,7 @@ const COURSES: Course[] = [
       'shipping when AI agents are part of the team.',
     languages: ['English'],
     live: false,
-    inNavbar: false,
+    inNavbar: true,
   },
 ];
 const DEFAULT_COURSE = COURSES[0];
