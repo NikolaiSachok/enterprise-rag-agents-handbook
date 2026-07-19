@@ -288,5 +288,49 @@
   "theme.tags.tagsPageTitle": {
     "message": "Štítky",
     "description": "The title of the tag list page"
+  },
+  "landing.meta.description": {
+    "message": "Rozcestník kurzov od prvých princípov o produkčnom AI inžinierstve — RAG, agenti a životný cyklus vývoja softvéru s asistenciou AI.",
+    "description": "Landing hub page meta description"
+  },
+  "landing.hero.tagline": {
+    "message": "Kurzy od prvých princípov o tom, ako stavať AI systémy, ktoré vydržia v produkcii: o tom {why} a o režimoch zlyhania, nie iba zoznam funkcií.",
+    "description": "Landing hub hero tagline; {why} is the emphasized word"
+  },
+  "landing.hero.tagline.why": {
+    "message": "prečo",
+    "description": "The emphasized word in the hero tagline"
+  },
+  "landing.badge.live": {
+    "message": "Dostupný",
+    "description": "Card badge for a course that is available"
+  },
+  "landing.badge.inProgress": {
+    "message": "V príprave",
+    "description": "Card badge for a course still in progress"
+  },
+  "landing.badge.live.aria": {
+    "message": "Dostupné teraz",
+    "description": "Accessible label for the Live badge"
+  },
+  "landing.badge.inProgress.aria": {
+    "message": "V príprave",
+    "description": "Accessible label for the In-progress badge"
+  },
+  "landing.cta.open": {
+    "message": "Otvoriť kurz →",
+    "description": "Card call-to-action for an available course"
+  },
+  "landing.cta.plan": {
+    "message": "Pozrieť plán →",
+    "description": "Card call-to-action for an in-progress course"
+  },
+  "landing.course.rag-agents.blurb": {
+    "message": "Produkčné RAG a agentové systémy od prvých princípov: ingestion, retrieval, generation, agenti — plus eval, guardrails a LLMOps, ktoré im nedovolia klamať.",
+    "description": "Landing card blurb for the RAG & Agents course"
+  },
+  "landing.course.ai-sdlc.blurb": {
+    "message": "Životný cyklus vývoja softvéru s asistenciou AI: plánovanie, vývoj, review a nasadenie, keď sú súčasťou tímu AI agenti.",
+    "description": "Landing card blurb for the AI SDLC course"
   }
 }
