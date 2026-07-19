@@ -197,7 +197,7 @@ const config: Config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  url: 'https://nikolaisachok.github.io',
+  url: 'https://nikolaisachok.com',
   baseUrl: BASE_URL,
   organizationName: 'NikolaiSachok', // GitHub user/org
   projectName: 'ai-engineering-handbook',
