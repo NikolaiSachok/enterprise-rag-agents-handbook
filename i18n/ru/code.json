@@ -288,5 +288,49 @@
   "theme.tags.tagsPageTitle": {
     "message": "Теги",
     "description": "The title of the tag list page"
+  },
+  "landing.meta.description": {
+    "message": "Хаб курсов с первых принципов по продакшен-AI-инженерии: RAG, агенты и AI-ассистированный жизненный цикл разработки.",
+    "description": "Landing hub page meta description"
+  },
+  "landing.hero.tagline": {
+    "message": "Курсы с первых принципов о том, как строить AI-системы, которые держатся в продакшене: про {why} и про режимы отказа, а не просто список фич.",
+    "description": "Landing hub hero tagline; {why} is the emphasized word"
+  },
+  "landing.hero.tagline.why": {
+    "message": "почему",
+    "description": "The emphasized word in the hero tagline"
+  },
+  "landing.badge.live": {
+    "message": "Доступен",
+    "description": "Card badge for a course that is available"
+  },
+  "landing.badge.inProgress": {
+    "message": "В работе",
+    "description": "Card badge for a course still in progress"
+  },
+  "landing.badge.live.aria": {
+    "message": "Доступен сейчас",
+    "description": "Accessible label for the Live badge"
+  },
+  "landing.badge.inProgress.aria": {
+    "message": "В работе",
+    "description": "Accessible label for the In-progress badge"
+  },
+  "landing.cta.open": {
+    "message": "Открыть курс →",
+    "description": "Card call-to-action for an available course"
+  },
+  "landing.cta.plan": {
+    "message": "Посмотреть план →",
+    "description": "Card call-to-action for an in-progress course"
+  },
+  "landing.course.rag-agents.blurb": {
+    "message": "Продакшен-RAG и агентные системы с первых принципов: ingestion, retrieval, генерация, агенты — плюс eval, guardrails и LLMOps, которые не дают им врать.",
+    "description": "Landing card blurb for the RAG & Agents course"
+  },
+  "landing.course.ai-sdlc.blurb": {
+    "message": "AI-ассистированный жизненный цикл разработки: планирование, разработка, ревью и релиз, когда часть команды — AI-агенты.",
+    "description": "Landing card blurb for the AI SDLC course"
   }
 }

@@ -36,6 +36,12 @@
   margin-top: 1rem;
 }
 
+/*
+ * Every card is a clickable <Link> (a live course opens its lessons; an
+ * in-progress one opens its syllabus), so ALL cards share one interactive
+ * treatment — same neutral text color, same hover lift. Status is conveyed by
+ * the badge alone (Live vs In progress), never by different card behaviour.
+ */
 .card {
   display: flex;
   flex-direction: column;
@@ -45,10 +51,6 @@
   border-radius: 12px;
   background: var(--ifm-background-surface-color);
   height: 100%;
-}
-
-/* Live course = clickable card. Kill the link underline/color and lift on hover. */
-.cardLive {
   text-decoration: none;
   color: inherit;
   transition:
@@ -57,18 +59,12 @@
     border-color 150ms ease;
 }
 
-.cardLive:hover {
+.card:hover {
   text-decoration: none;
   color: inherit;
   transform: translateY(-3px);
   border-color: var(--ifm-color-primary);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-/* In-progress course = muted, non-interactive. */
-.cardSoon {
-  opacity: 0.8;
-  cursor: default;
 }
 
 .cardHead {
