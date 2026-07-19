@@ -112,12 +112,12 @@ way of arranging the material, not a proven-optimal lifecycle. Use it to navigat
 
 Part I is the foundation — five lessons:
 
-1. **[Verification is the bottleneck](./part-1-foundation/verification-bottleneck.md)** — the thesis above,
+1. **[The verification bottleneck](./part-1-foundation/verification-bottleneck.md)** — the thesis above,
    argued from the evidence.
-2. **Reading the field's evidence** — the grading ladder, and how the second-hand layer distorts in both
+2. **[Reading the evidence](./part-1-foundation/reading-the-evidence.md)** — the grading ladder, and how the second-hand layer distorts in both
    directions.
-3. **Preparation over model** — why what you hand the agent beats which agent you hand it to.
-4. **Project memory and tiering** — the durable context a fleet works against.
-5. **Rules that hold** — turning conventions into constraints a machine enforces.
+3. **[Preparation over model](./part-1-foundation/preparation-over-model.md)** — why what you hand the agent beats which agent you hand it to.
+4. **[Project memory and tiering](./part-1-foundation/project-memory-and-tiering.md)** — the durable context a fleet works against.
+5. **[Rules that hold](./part-1-foundation/rules-that-hold.md)** — turning conventions into constraints a machine enforces.
 
 Start with Lesson 1: it proves the claim the rest of the course is built on.

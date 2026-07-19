@@ -70,10 +70,10 @@ Napokon tri úrovne zrelosti. Každá lekcia je označená pre soloistu, malý t
 
 Časť I je základ — čo musí platiť, skôr než agent napíše prvý riadok. Má päť lekcií:
 
-1. **[Overovanie je úzke miesto](./part-1-foundation/verification-bottleneck.md)** — téza celého kurzu, doložená dôkazmi.
-2. **Ako čítať dôkazy odboru** — rebrík dôkazov a to, ako sekundárna vrstva skresľuje na obe strany.
-3. **Príprava je dôležitejšia než model** — kde rozhoduje nastavenie, nie voľba modelu.
-4. **Pamäť projektu a vrstvenie** — trvalá znalosť, ktorú agent prečíta pri každom behu.
-5. **Pravidlá, ktoré držia** — pokyn nie je kontrola; vynucujú ju brány, nie vety.
+1. **[Úzke miesto overovania](./part-1-foundation/verification-bottleneck.md)** — téza celého kurzu, doložená dôkazmi.
+2. **[Ako posudzovať dôkazy](./part-1-foundation/reading-the-evidence.md)** — rebrík dôkazov a to, ako sekundárna vrstva skresľuje na obe strany.
+3. **[Príprava je dôležitejšia než model](./part-1-foundation/preparation-over-model.md)** — kde rozhoduje nastavenie, nie voľba modelu.
+4. **[Pamäť projektu a vrstvenie znalostí](./part-1-foundation/project-memory-and-tiering.md)** — trvalá znalosť, ktorú agent prečíta pri každom behu.
+5. **[Pravidlá, ktoré vydržia](./part-1-foundation/rules-that-hold.md)** — pokyn nie je kontrola; vynucujú ju brány, nie vety.
 
 Téza celého kurzu sa dokazuje hneď v Lekcii 1. Poctivý postoj sa uvádza do praxe v Lekcii 2. Základ tvoria Lekcie 3–5. Spätnú hranu „slučka sa uzatvára na produkcii“ rozoberajú až Časti IV a V (Prevádzka a úrovne) — tu ju len značíme, neučíme.
