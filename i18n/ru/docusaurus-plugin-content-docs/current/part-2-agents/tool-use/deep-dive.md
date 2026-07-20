@@ -268,4 +268,4 @@ validation)** — механизм контроля. Строгий декоди
   семантический (несуществующий id, дата в прошлом, путь за корнем). Строгий декодинг закрывает только
   первый; второй пишешь ты.
 
-**Новые термины** → [Глоссарий](../../glossary.md): parallel tool calls, constrained decoding, strict mode / Structured Outputs, idempotency / idempotency key, tool-RAG / dynamic tool loadout, argument validation, retry budget.
+**[Новые термины](../../glossary.md)**: parallel tool calls, constrained decoding, strict mode / Structured Outputs, idempotency / idempotency key, tool-RAG / dynamic tool loadout, argument validation, retry budget.

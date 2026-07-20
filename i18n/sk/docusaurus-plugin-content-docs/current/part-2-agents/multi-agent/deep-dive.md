@@ -129,4 +129,4 @@ Ostáva otázka, okolo ktorej stránka krúžila: kedy sa čokoľvek z toho opla
 - Rozpočtuj to. Multiagentové systémy míňajú okolo 15× toľko tokenov ako chat a samotný počet tokenov hnal približne 80 % rozptylu výkonu v systéme Anthropicu — tak drž rozpočet celej úlohy nad čiastkovými rozpočtami agentov, zastropuj rozvetvenie aj hĺbku, odstupňuj modely a mäkké stropy drž oddelene od tvrdých.
 - Toto všetko pridáš, až keď je tím opodstatnený, nie ako východisko. Jeden silný agent alebo supervízor so statickým smerovaním vyhrá väčšinu úloh za zlomok ceny.
 
-**Nové pojmy** → [Glosár](../../glossary.md): FIPA ACL, contract net protocol, blackboard, A2A (Agent2Agent), multi-agent debate, trajectory stitching.
+**[Nové pojmy](../../glossary.md)**: FIPA ACL, contract net protocol, blackboard, A2A (Agent2Agent), multi-agent debate, trajectory stitching.

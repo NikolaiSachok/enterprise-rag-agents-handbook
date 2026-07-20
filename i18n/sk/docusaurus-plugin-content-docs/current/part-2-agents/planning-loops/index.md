@@ -108,7 +108,7 @@ A evaluácia teraz meria kvalitu trajektórie, nie len „odpovedal správne?“
 - Bráň sa vo vrstvách — rozpočty (nespochybniteľná poistka), detekcia zacyklenia, výslovné kritérium zastavenia, sledovanie postupu a navrchu reflexia, vrstva, ktorá zlej slučke zabráni, nielen ju odsekne. Pri kódovacom agentovi vidíš celé toto na vlastné oči, ako to funguje aj zlyháva.
 - Ďalej v reťazci sa Observability stáva povinnou (na odladenie prejdeš celú trajektóriu) a evaluácia meria trajektóriu — či došla k cieľu a za koľko krokov.
 
-**Nové pojmy** → [Glosár](../../glossary.md): planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
+**[Nové pojmy](../../glossary.md)**: planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
 
 ---
 

@@ -115,7 +115,7 @@ Nech vyhrá ktorákoľvek platforma, drž si jednu architektonickú poistku: apl
 - Vyberaj podľa záväzku voči cloudu plus štyroch skutočných rozdielov: modely v tvojom regióne, súlad, spravovaný RAG a ekonomika kapacity.
 - Aplikačnú vrstvu drž nezávislú od poskytovateľa — uviaznutie sídli v nadstavbe, nie v endpointe.
 
-**Nové pojmy** → [Glosár](../../glossary.md): managed endpoint, model catalogue, data residency, provisioned throughput, batch mode, managed RAG, vendor lock-in.
+**[Nové pojmy](../../glossary.md)**: managed endpoint, model catalogue, data residency, provisioned throughput, batch mode, managed RAG, vendor lock-in.
 
 ---
 

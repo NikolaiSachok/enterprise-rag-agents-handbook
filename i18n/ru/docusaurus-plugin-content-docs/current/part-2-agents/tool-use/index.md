@@ -117,7 +117,7 @@ flowchart LR
 - Новые провалы: не тот инструмент, невалидные аргументы, выдумка поверх результата и безопасность —
   пишущий инструмент плюс prompt injection, отсюда принцип наименьших привилегий.
 
-**Новые термины** → [Глоссарий](../../glossary.md): tool use / function calling, tool definition, tool call,
+**[Новые термины](../../glossary.md)**: tool use / function calling, tool definition, tool call,
 tool result, tool selection, JSON Schema, structured output.
 
 ---

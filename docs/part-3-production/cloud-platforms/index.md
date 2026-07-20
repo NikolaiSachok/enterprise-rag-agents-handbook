@@ -217,7 +217,7 @@ Lock-in lives in the batteries, not in the endpoint.
   managed-RAG fit, capacity economics.
 - Keep the app layer provider-agnostic — lock-in lives in the batteries, not the endpoint.
 
-**New terms** → [Glossary](../../glossary.md): managed endpoint, model catalogue, data residency, provisioned
+**[New terms](../../glossary.md)**: managed endpoint, model catalogue, data residency, provisioned
 throughput, batch mode, managed RAG, vendor lock-in.
 
 ---

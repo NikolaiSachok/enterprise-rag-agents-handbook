@@ -133,7 +133,7 @@ agent makes its decisions.
 - You pay in latency, cost, unpredictability, and debugging difficulty — which is why observability
   and eval from Part I become mandatory.
 
-**New terms** → [Glossary](../../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting),
+**[New terms](../../glossary.md)**: Agentic RAG, agent loop, ReAct (Reasoning + Acting),
 routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection, iterative
 retrieval.
 

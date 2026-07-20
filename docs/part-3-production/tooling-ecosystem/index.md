@@ -160,7 +160,7 @@ top. Tools amplify discipline; they don't replace it.
   make-or-buy fork. Measure them with ASR via red-teaming.
 - Default adoption order: tracing → eval in CI → guardrails.
 
-**New terms** → [Glossary](../../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
+**[New terms](../../glossary.md)**: instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
 
 ---
 

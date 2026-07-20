@@ -143,4 +143,4 @@ flowchart LR
 
 Pozri aj: mechanika SLI/SLO a rýchlosti míňania rozpočtu chýb spolu so slučkou rozpoznaj → priraď → priveď do evalu žije v [prehĺbení o observability](../../part-1-rag/cross-cutting/observability/deep-dive.md); ceny jednotlivých platforiem nájdeš v [prehĺbení o cloudových platformách](../cloud-platforms/deep-dive.md).
 
-**Nové pojmy** → [Glosár](../../glossary.md): SFT, DPO, RFT, grader, LoRA / PEFT, showback, chargeback, error budget policy, release freeze, release gate, job queue, dead-letter queue (DLQ), backpressure, load shedding.
+**[Nové pojmy](../../glossary.md)**: SFT, DPO, RFT, grader, LoRA / PEFT, showback, chargeback, error budget policy, release freeze, release gate, job queue, dead-letter queue (DLQ), backpressure, load shedding.

@@ -173,7 +173,7 @@ Gemini is the [closing capstone on real agents](../real-agents.md).
   over-reach. Defend with **least privilege**, vetted-only servers, and human approval for sensitive actions;
   treat all server-supplied content as untrusted input, never as instructions.
 
-**New terms** → [Glossary](../../glossary.md): MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
+**[New terms](../../glossary.md)**: MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
 
 ---
 

@@ -310,4 +310,4 @@ flowchart TB
   сервера, песочница. А высшая сдержанность — не подключать сервер вовсе, когда он не проверен, слишком
   привилегирован или не изолируется.
 
-**Новые термины** → [Глоссарий](../../glossary.md): MCP host, capability negotiation, roots, sampling, elicitation, streamable HTTP, MCP registry, server discovery, tool poisoning, rug pull, confused deputy.
+**[Новые термины](../../glossary.md)**: MCP host, capability negotiation, roots, sampling, elicitation, streamable HTTP, MCP registry, server discovery, tool poisoning, rug pull, confused deputy.

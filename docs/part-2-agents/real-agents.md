@@ -327,7 +327,7 @@ keep. Once you can see it, a new vendor's documentation is something you consult
   Foundation in December 2025; all three are MCP clients today. Learn the durable pattern; the vendor is a
   dated case.
 
-**New terms** → [Glossary](../glossary.md): extended thinking, interleaved thinking, reasoning effort, thinking budget, Claude Code hooks, ADK callbacks, permission modes.
+**[New terms](../glossary.md)**: extended thinking, interleaved thinking, reasoning effort, thinking budget, Claude Code hooks, ADK callbacks, permission modes.
 
 ---
 

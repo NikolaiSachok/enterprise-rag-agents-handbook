@@ -217,7 +217,7 @@ flowchart LR
 - The inference server owns the GPU (continuous batching, PagedAttention); FastAPI owns the product; the
   OpenAI-compatible API between them makes backends swappable.
 
-**New terms** → [Glossary](../../glossary.md): serving, inference, inference server, SSE (Server-Sent Events), time-to-first-token (TTFT), streaming, continuous batching, PagedAttention, cold start, OpenAI-compatible API.
+**[New terms](../../glossary.md)**: serving, inference, inference server, SSE (Server-Sent Events), time-to-first-token (TTFT), streaming, continuous batching, PagedAttention, cold start, OpenAI-compatible API.
 
 ---
 

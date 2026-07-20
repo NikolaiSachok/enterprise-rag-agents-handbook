@@ -82,7 +82,7 @@ Deep-research systémy majú rovnaký tvar. Vedúci agent rozvetví prácu na ni
 - Brzda: cena aj latencia sa násobia (približne N×), chyby sa šíria bez spoločnej pravdy, koordinácia niečo stojí, ťažšie sa ladí a hodnotí (trajektóriu treba pozošívať cez agentov). Jeden dobre navrhnutý agent zvyčajne vyhrá.
 - Jeden si už videl: redakčný a autorský tím za príručkou aj deep-research systémy sú tímy typu orchestrátor–vykonávatelia — vedúci, ktorý rozloží, nasmeruje na slepých špecialistov a spojí.
 
-**Nové pojmy** → [Glosár](../../glossary.md): multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
+**[Nové pojmy](../../glossary.md)**: multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
 
 ---
 

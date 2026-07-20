@@ -57,7 +57,7 @@ Complete protection doesn't exist: this is **defence-in-depth**, in layers. And 
 - Content safety on both surfaces + ingestion in RAG.
 - Defence-in-depth, not a cure-all; measure attack success rate; keep the balance against over-strictness.
 
-**New terms** → [Glossary](../../../glossary.md): guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defence-in-depth.
+**[New terms](../../../glossary.md)**: guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defence-in-depth.
 
 ---
 

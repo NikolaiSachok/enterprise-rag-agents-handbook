@@ -217,7 +217,7 @@ flowchart LR
 - Инференс-сервер отвечает за GPU (непрерывный батчинг, PagedAttention), сервис приложения — за продукт;
   **OpenAI-совместимый API** расцепляет их: смена бэкенда — почти смена URL.
 
-**Новые термины** → [Глоссарий](../../glossary.md): serving, inference, inference server, SSE (Server-Sent
+**[Новые термины](../../glossary.md)**: serving, inference, inference server, SSE (Server-Sent
 Events), time-to-first-token (TTFT), streaming, continuous batching, PagedAttention, cold start,
 OpenAI-compatible API.
 

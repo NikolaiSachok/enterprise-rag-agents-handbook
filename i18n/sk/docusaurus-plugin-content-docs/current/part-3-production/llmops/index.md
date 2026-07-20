@@ -148,7 +148,7 @@ Týmto sa uzatvára Tretia časť príručky — a s ňou aj základný kurz cel
 - Páky na náklady: smerovanie medzi modelmi, fallbacky za LLM-bránou, cachovanie promptu (najprv statický prefix) plus sémantická cache, tokenová diéta a dávkový režim pre offline prácu.
 - Rozpočty žijú na bráne a prehľad nákladov patrí do kontrolného zoznamu pred nasadením: zmena promptu je zmena nákladov.
 
-**Nové pojmy** → [Glosár](../../glossary.md): LLMOps, canary release, shadow deployment, prompt registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
+**[Nové pojmy](../../glossary.md)**: LLMOps, canary release, shadow deployment, prompt registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
 
 ---
 

@@ -81,7 +81,7 @@ Keď má agent viac nástrojov, rieši situáciu, v ktorej rôzne otázky potreb
 - Definícia nástroja je prompt: model vyberá podľa slov, nie podľa kódu. Dobrý nástroj má jasný opis a prísnu schému, patrí do malej sady bez prekryvov a vracia zrozumiteľné chyby.
 - Nové spôsoby zlyhania: nesprávny nástroj, neplatné argumenty, domýšľanie si toho, čo vo výsledku nie je. K tomu pribúda nové bezpečnostné riziko: zapisovací nástroj sa dá zneužiť cez prompt injection — obranou je princíp najnižších oprávnení.
 
-**Nové pojmy** → [Glosár](../../glossary.md): tool use / function calling, tool definition, tool call, tool result, tool selection, JSON Schema, structured output.
+**[Nové pojmy](../../glossary.md)**: tool use / function calling, tool definition, tool call, tool result, tool selection, JSON Schema, structured output.
 
 ---
 

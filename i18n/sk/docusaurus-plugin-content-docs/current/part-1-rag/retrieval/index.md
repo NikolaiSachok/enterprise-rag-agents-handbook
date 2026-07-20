@@ -76,7 +76,7 @@ Každá fáza tlačí zlyhanie vyhľadávania nadol. O koľko presne, to už **m
 - Reranking (cross-encoder) opravuje poradie: najprv fáza úplnosti, potom fáza presnosti.
 - Filtre a riadenie prístupu dávajú relevantnosť spolu s oprávneniami; ACL je bezpečnostná požiadavka.
 
-**Nové pojmy** → [Glosár](../../glossary.md): retrieval failure / generation failure, dense retrieval, top-K, query transformation, multi-query, HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank Fusion (RRF), reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K, nDCG, MRR.
+**[Nové pojmy](../../glossary.md)**: retrieval failure / generation failure, dense retrieval, top-K, query transformation, multi-query, HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank Fusion (RRF), reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K, nDCG, MRR.
 
 ---
 

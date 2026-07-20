@@ -246,7 +246,7 @@ Grounding-инструкции склоняют её к контексту; вы
 - Форма ответа (формат, тон, длина) — реальный рычаг качества, но подчинённый опоре на контекст: хорошо
   оформленный неверный ответ хуже, чем некрасивый верный.
 
-**Новые термины** → [Глоссарий](../../glossary.md): self-consistency, chain-of-verification (CoVe), knowledge
+**[Новые термины](../../glossary.md)**: self-consistency, chain-of-verification (CoVe), knowledge
 conflict, форма ответа (answer-shaping). (Структурированный вывод,
 строгий декодинг, строгий режим, lost-in-the-middle, faithfulness, параметрические знания — из прошлых
 уроков.)

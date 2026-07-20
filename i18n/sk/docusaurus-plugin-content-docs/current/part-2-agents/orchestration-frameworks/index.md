@@ -98,7 +98,7 @@ A práve preto, že balia tie isté primitíva, zapadajú rovno do vrstvy pozoro
 - Cenou je abstrakcia: framework skryje prompt aj tok riadenia, takže ladíš cez vrstvy kódu, ktorý si nenapísal. Pre jednoduchého agenta je holá slučka plus natívne volanie nástrojov prehľadnejšia.
 - Pravidlo: najprv primitíva. Framework používaj na mazanie obslužného kódu, nie na vyhýbanie sa pochopeniu — grafový framework pre ovládateľné zložité toky riadenia, SDK poskytovateľa priamo pre jednoduchého agenta.
 
-**Nové pojmy** → [Glosár](../../glossary.md): orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
+**[Nové pojmy](../../glossary.md)**: orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
 
 ---
 
