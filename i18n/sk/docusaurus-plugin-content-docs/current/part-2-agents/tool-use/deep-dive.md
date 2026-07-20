@@ -142,4 +142,4 @@ Hranica medzi oboma úrovňami je teda jasná. Netlač sémantické kontroly do 
 - Čítanie je bezpečné opakovať; zápis iba vtedy, keď je idempotentný — daj zapisovacím nástrojom kľúč idempotencie, nebezpečné zápisy rozdeľ na skúšobné spustenie a potvrdenie a dva zápisy nikdy nedávaj do tej istej paralelnej skupiny.
 - Validuj argumenty pred vykonaním, na dvoch úrovniach: schémou skontroluj tvar, sémantickou kontrolou význam. Obmedzené dekódovanie pokryje prvú, druhú musí pokryť tvoj kód; a chybu validácie vráť modelu rovnako ako chybu pri vykonaní.
 
-**Nové pojmy** → [Glosár](../../glossary.md): parallel tool calls, constrained decoding, strict mode / Structured Outputs, idempotency / idempotency key, tool-RAG / dynamic tool loadout, argument validation, retry budget.
+**[Nové pojmy](../../glossary.md)**: parallel tool calls, constrained decoding, strict mode / Structured Outputs, idempotency / idempotency key, tool-RAG / dynamic tool loadout, argument validation, retry budget.

@@ -269,7 +269,7 @@ flowchart LR
   кэширование промпта и семантический кэш, диета токенов, пакетный тариф для офлайна.
 - **Бюджеты токенов** на шлюзе по командам и фичам; ревью стоимости — часть чек-листа деплоя.
 
-**Новые термины** → [Глоссарий](../../glossary.md): LLMOps, canary release, shadow deployment, prompt
+**[Новые термины](../../glossary.md)**: LLMOps, canary release, shadow deployment, prompt
 registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
 
 ---

@@ -151,7 +151,7 @@ trace and measure there.
 - The rule: **primitives first**. Use a framework to remove boilerplate, not to avoid understanding — a graph
   framework for controllable complex flows, the provider SDK directly for a simple agent.
 
-**New terms** → [Glossary](../../glossary.md): orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
+**[New terms](../../glossary.md)**: orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
 
 ---
 

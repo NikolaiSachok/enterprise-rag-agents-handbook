@@ -297,7 +297,7 @@ flowchart LR
   дообучаешь, на чём крутятся твои агенты, во что это встаёт и как посчитать, как остаться переносимым и кто
   вправе всё это трогать.
 
-**Новые термины** → [Глоссарий](../../glossary.md): fine-tuning, LoRA / PEFT, DPO, reinforcement fine-tuning
+**[Новые термины](../../glossary.md)**: fine-tuning, LoRA / PEFT, DPO, reinforcement fine-tuning
 (RFT), model distillation, continued pre-training, managed agent runtime, FinOps, cost modelling, unit
 economics, committed-use discount, prompt/context caching, cross-region egress, multi-cloud gateway, digital
 sovereignty, sovereign cloud, air-gapped.

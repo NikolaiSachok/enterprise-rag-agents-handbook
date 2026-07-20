@@ -134,4 +134,4 @@ flowchart LR
 
 See also: the SLI/SLO/burn-rate mechanics and the detect→attribute→feed-eval loop live in the [observability deep dive](../../part-1-rag/cross-cutting/observability/deep-dive.md); per-platform pricing lives in the [cloud-platforms deep dive](../cloud-platforms/deep-dive.md).
 
-**New terms** → [Glossary](../../glossary.md): SFT, DPO, RFT, grader, LoRA / PEFT, showback, chargeback, error budget policy, release freeze, release gate, job queue, dead-letter queue (DLQ), backpressure, load shedding.
+**[New terms](../../glossary.md)**: SFT, DPO, RFT, grader, LoRA / PEFT, showback, chargeback, error budget policy, release freeze, release gate, job queue, dead-letter queue (DLQ), backpressure, load shedding.

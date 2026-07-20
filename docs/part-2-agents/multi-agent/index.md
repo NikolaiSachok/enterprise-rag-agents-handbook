@@ -139,7 +139,7 @@ synthesizer combines what they each found into one answer. Same topology, differ
 - You've already seen one: the editorial/authoring team behind a handbook, and deep-research systems, are
   orchestrator–worker teams — a lead that decomposes, routes to blind specialists, and synthesizes.
 
-**New terms** → [Glossary](../../glossary.md): multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
+**[New terms](../../glossary.md)**: multi-agent system, orchestrator / supervisor, worker / sub-agent, handoff, agent chain, critic / debate.
 
 ---
 

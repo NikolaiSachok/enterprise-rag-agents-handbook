@@ -266,7 +266,7 @@ set — им и завершается урок.
 - Golden set — линейка, на которой стоит всё: мерь согласие между разметчиками поправленной на случайность
   каппой, трать человеческий бюджет активным сэмплингом и перекалибровывай при дрейфе.
 
-**Новые термины** → [Глоссарий](../../../glossary.md): context precision, context recall, faithfulness,
+**[Новые термины](../../../glossary.md)**: context precision, context recall, faithfulness,
 релевантность ответа, reference-free vs reference-based eval, LLM-judge calibration, position bias, verbosity bias, self-preference /
 self-enhancement bias, pointwise vs pairwise, inter-annotator agreement (IAA), Cohen's kappa, Fleiss' kappa,
 active sampling / active learning.

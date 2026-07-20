@@ -57,7 +57,7 @@ slug: /part-1-rag/cross-cutting/guardrails/
 - Безопасность контента на обеих поверхностях + ingestion в RAG.
 - Defense-in-depth, не панацея; мерь долю успешных атак (ASR); помни про баланс со строгостью.
 
-**Новые термины** → [Глоссарий](../../../glossary.md): guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defense-in-depth.
+**[Новые термины](../../../glossary.md)**: guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defense-in-depth.
 
 ---
 

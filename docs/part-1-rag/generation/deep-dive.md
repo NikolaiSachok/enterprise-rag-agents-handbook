@@ -132,4 +132,4 @@ Now the rule this all serves. Answer-shaping is subordinate to grounding and fai
 - Long-context packing past lost-in-the-middle is a discipline in three moves — select few (rerank), deduplicate, and place the highest-ranked chunks at the start and end — because a bigger window is not an evenly-usable one.
 - Answer-shaping (format, tone, length) is a genuine quality lever but stays subordinate to grounding: a well-shaped wrong answer is worse than an ugly right one, since shaping only makes a wrong answer more convincing.
 
-**New terms** → [Glossary](../../glossary.md): self-consistency, chain-of-verification (CoVe), knowledge conflict (context–memory conflict), answer-shaping. (Structured output, constrained decoding, strict mode, lost-in-the-middle, faithfulness, parametric knowledge — from earlier lessons.)
+**[New terms](../../glossary.md)**: self-consistency, chain-of-verification (CoVe), knowledge conflict (context–memory conflict), answer-shaping. (Structured output, constrained decoding, strict mode, lost-in-the-middle, faithfulness, parametric knowledge — from earlier lessons.)

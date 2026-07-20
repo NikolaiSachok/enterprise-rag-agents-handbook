@@ -131,7 +131,7 @@ flowchart LR
 - Платишь латентностью, стоимостью, непредсказуемостью и сложностью отладки — из-за чего observability
   и eval из Части I становятся обязательными.
 
-**Новые термины** → [Глоссарий](../../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting),
+**[Новые термины](../../glossary.md)**: Agentic RAG, agent loop, ReAct (Reasoning + Acting),
 routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection,
 iterative retrieval.
 

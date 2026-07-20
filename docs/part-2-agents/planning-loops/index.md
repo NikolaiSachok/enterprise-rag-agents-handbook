@@ -176,7 +176,7 @@ an agent that gets the right answer in forty steps when six would do is not a go
 - Downstream, **observability becomes mandatory** (trace the whole trajectory to debug it) and **eval measures
   the trajectory** — whether it reached the goal, and in how many steps.
 
-**New terms** → [Glossary](../../glossary.md): planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
+**[New terms](../../glossary.md)**: planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
 
 ---
 

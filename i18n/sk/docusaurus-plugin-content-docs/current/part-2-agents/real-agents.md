@@ -173,7 +173,7 @@ Tieto techniky nie sú abstraktné. Takto vyzerajú, keď spúšťaš agentov na
 - Rozdeľ na orchestrátora a izolovaných vykonávateľov len vtedy, keď jedna slučka nestačí: subagenty u Claude, handoff verzus agent ako nástroj u OpenAI, koordinátor plus deterministickí workflow-agenti v ADK.
 - MCP to zväzuje dohromady — napísal ho Anthropic v roku 2024, v decembri 2025 ho daroval Agentic AI Foundation pod Linux Foundation; všetci traja sú dnes MCP klientmi. Nauč sa trvácny vzor; dodávateľ je datovaný prípad.
 
-**Nové pojmy** → [Glosár](../glossary.md): extended thinking, interleaved thinking, reasoning effort, thinking budget, Claude Code hooks, ADK callbacks, permission modes.
+**[Nové pojmy](../glossary.md)**: extended thinking, interleaved thinking, reasoning effort, thinking budget, Claude Code hooks, ADK callbacks, permission modes.
 
 ---
 

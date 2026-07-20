@@ -170,7 +170,7 @@ ReAct-циклом, а при срыве шага — перепланируют
 - **Наблюдаемость и eval** сдвигаются на уровень траектории: трейсить всю цепочку шагов, мерять не только
   «дошёл ли», но и «за сколько».
 
-**Новые термины** → [Глоссарий](../../glossary.md): planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
+**[Новые термины](../../glossary.md)**: planning, task decomposition, plan-and-execute, re-planning, reflection / self-critique, termination criterion, step budget / iteration limit, loop detection, scratchpad / working memory, non-termination.
 
 ---
 

@@ -301,4 +301,4 @@ flowchart TD
 - Вся эта надстройка — протоколы, общая память, переговоры, оценка, бюджет — включается только тогда, когда
   команда оправдана. По умолчанию выигрывает один хороший агент или супервизор со статической раздачей.
 
-**Новые термины** → [Глоссарий](../../glossary.md): FIPA ACL, contract net protocol, blackboard, A2A (Agent2Agent), multi-agent debate, trajectory stitching.
+**[Новые термины](../../glossary.md)**: FIPA ACL, contract net protocol, blackboard, A2A (Agent2Agent), multi-agent debate, trajectory stitching.

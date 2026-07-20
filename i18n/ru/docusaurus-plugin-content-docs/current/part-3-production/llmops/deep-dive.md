@@ -334,6 +334,6 @@ eval» разбирает [углублённый урок про
 наблюдаемость](../../part-1-rag/cross-cutting/observability/deep-dive.md); тарифы по платформам — [углубление
 про облачные платформы](../cloud-platforms/deep-dive.md).
 
-**Новые термины** → [Глоссарий](../../glossary.md): SFT, DPO, RFT, grader, LoRA / PEFT, showback, chargeback,
+**[Новые термины](../../glossary.md)**: SFT, DPO, RFT, grader, LoRA / PEFT, showback, chargeback,
 error budget policy, release freeze, release gate, job queue, dead-letter queue (DLQ), backpressure, load
 shedding.

@@ -134,4 +134,4 @@ Recall@K и Precision@K уже знакомы: Recall@K — попал ли ну
 - Маршрутизация — верх воронки: неверный индекс исключает ответ из кандидатов навсегда. pre-filter корректен, но конфликтует с ANN на избирательном предикате; post-filter быстр, но недобирает; ACL — только до поиска, никогда постфактум.
 - Меряй стадию, которую крутишь: Recall@K — для ретривера, nDCG и MRR — для порядка. MRR бинарен и слеп после первого попадания; nDCG видит градации и весь список.
 
-**Новые термины** → [Глоссарий](../../glossary.md): score fusion / score normalization, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.
+**[Новые термины](../../glossary.md)**: score fusion / score normalization, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.

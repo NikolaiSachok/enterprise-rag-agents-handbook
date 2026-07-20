@@ -83,7 +83,7 @@ Vráťme sa k faktu, že nad chunkom sa vyhľadáva a ten istý chunk sa podáva
 - Metadáta — zdroj, sekcia, dátum, oprávnenia — sa pripájajú už pri delení na chunky; umožňujú filtrovanie, citácie a riadenie prístupu.
 - Veľkosť chunku sa nemá hádať, ale merať metrikami.
 
-**Nové pojmy** → [Glosár](../../glossary.md): chunk, chunk overlap, recursive / structural chunking, semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
+**[Nové pojmy](../../glossary.md)**: chunk, chunk overlap, recursive / structural chunking, semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 ---
 
@@ -145,7 +145,7 @@ Predvolenou voľbou je **kosínusová podobnosť** (cosine similarity): uhol med
 - Model vyberaj podľa osí: retrieval-optimised · dimenzia · jazyk a doména · dĺžka vstupu · API vs. prevádzka u seba (dôvernosť dát).
 - Na dopyty aj dokumenty jeden a ten istý model; stráž si metriku a prefixy.
 
-**Nové pojmy** → [Glosár](../../glossary.md): embedding, embedding space, bi-encoder, cross-encoder, dimensionality, cosine similarity, retrieval-optimised (asymmetric) embeddings, multilingual embeddings, self-hosted vs. API embeddings.
+**[Nové pojmy](../../glossary.md)**: embedding, embedding space, bi-encoder, cross-encoder, dimensionality, cosine similarity, retrieval-optimised (asymmetric) embeddings, multilingual embeddings, self-hosted vs. API embeddings.
 
 :::tip[▶ Video]
 

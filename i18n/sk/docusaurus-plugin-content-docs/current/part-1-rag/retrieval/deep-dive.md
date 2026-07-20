@@ -130,4 +130,4 @@ Naprieč celou stránkou vedie jedna niť: meraj tú fázu, ktorú ladíš. Reca
 - Chunk, ktorý sa dobre vyhľadáva, a chunk, z ktorého sa dobre generuje, sa rozchádzajú; obohať to, čo vraciaš, v čase dopytu, alebo zabuduj kontext dokumentu do toho, čo indexuješ, ešte pred embeddovaním — a obe sa skladajú s hybrid search a rerankingom, namiesto toho, aby ich nahrádzali.
 - Smerovanie a umiestnenie filtra rozhodnú o množine kandidátov skôr, než sa spustí radenie: zlá trasa alebo neskoro uplatnená kontrola oprávnení stratí odpoveď tam, kde ju už nič ďalej nezachráni — preto riadenie prístupu reže pred vyhľadávaním, vždy.
 
-**Nové pojmy** → [Glosár](../../glossary.md): score fusion / score normalisation, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.
+**[Nové pojmy](../../glossary.md)**: score fusion / score normalisation, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.

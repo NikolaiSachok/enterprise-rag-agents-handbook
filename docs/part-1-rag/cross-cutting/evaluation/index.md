@@ -92,7 +92,7 @@ The main practical power of eval: it shows you which stage the failure is in.
 - Offline (regressions in CI) + online (feedback, A/B).
 - Metrics tell you which stage to fix.
 
-**New terms** → [Glossary](../../../glossary.md): evaluation, golden set / golden dataset / ground truth, answer relevance,
+**[New terms](../../../glossary.md)**: evaluation, golden set / golden dataset / ground truth, answer relevance,
 correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval, A/B testing.
 
 ---

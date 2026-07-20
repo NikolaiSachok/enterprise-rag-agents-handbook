@@ -104,4 +104,4 @@ And the restraint, once more. A router-only system has no trajectory to evaluate
 - Evaluate outcome and process separately, grade retrieval at every hop rather than once, and add trajectory-level signals — step count, termination, routing, sufficient context — judged by an LLM-as-a-judge over the recorded trace. None of it is possible without that trace, so observability is the precondition, not an add-on.
 - A router-only system can't loop and has no trajectory — it owes none of the loop-fighting or trajectory-eval machinery. Take the simplest level that solves the task.
 
-**New terms** → [Glossary](../../glossary.md): Self-RAG, corrective RAG (CRAG), adaptive RAG, retrieval budget, sufficient context.
+**[New terms](../../glossary.md)**: Self-RAG, corrective RAG (CRAG), adaptive RAG, retrieval budget, sufficient context.

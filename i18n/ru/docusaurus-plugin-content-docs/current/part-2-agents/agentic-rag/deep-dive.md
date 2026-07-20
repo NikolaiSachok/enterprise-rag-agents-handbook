@@ -211,4 +211,4 @@ precision, context recall, faithfulness, релевантность ответа
 - Всего этого арсенала — паттернов, бюджетов, пошаговой оценки — стоит касаться, только когда ты правда
   запускаешь полный цикл. Маршрутизатору она не нужна: бери самый простой уровень, который решает задачу.
 
-**Новые термины** → [Глоссарий](../../glossary.md): Self-RAG, corrective RAG (CRAG), adaptive RAG, retrieval budget, sufficient context.
+**[Новые термины](../../glossary.md)**: Self-RAG, corrective RAG (CRAG), adaptive RAG, retrieval budget, sufficient context.

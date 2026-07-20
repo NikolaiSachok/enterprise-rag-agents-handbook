@@ -56,7 +56,7 @@ V [Časti II](../../../part-2-agents/overview) táto statická pipeline ožíva:
 - Náklad a latencia sú prvoradé — tokeny sú peniaze a volania sú pomalé.
 - Observability dáva evaluácii nové prípady: zlé odpovede z produkcie → nové prípady v golden sete → vývoj riadený evaluáciou.
 
-**Nové pojmy** → [Glosár](../../../glossary.md): observability, trace / span, RAG tracing, cost per request / token accounting, latency (p50 / p95), three pillars (metrics / logs / traces), feedback loop (observability → eval).
+**[Nové pojmy](../../../glossary.md)**: observability, trace / span, RAG tracing, cost per request / token accounting, latency (p50 / p95), three pillars (metrics / logs / traces), feedback loop (observability → eval).
 
 ---
 

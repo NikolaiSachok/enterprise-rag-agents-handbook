@@ -103,7 +103,7 @@ MRR, nDCG. Метрики формализуем в слое [Evaluation](../cro
 - Реранкинг (cross-encoder) чинит порядок: стадия полноты, затем стадия точности.
 - Фильтры и контроль доступа дают релевантность вместе с правами; ACL — это требование безопасности.
 
-**Новые термины** → [Глоссарий](../../glossary.md): retrieval failure / generation failure, dense retrieval,
+**[Новые термины](../../glossary.md)**: retrieval failure / generation failure, dense retrieval,
 top-K, query transformation, multi-query, HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank
 Fusion (RRF), reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K,
 nDCG, MRR.

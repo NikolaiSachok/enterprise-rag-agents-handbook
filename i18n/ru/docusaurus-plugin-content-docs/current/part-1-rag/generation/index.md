@@ -92,7 +92,7 @@ Retrieval отдал хороший, разрешённый контекст. Т
 - **Отказ** — штатное поведение системы.
 - Верность контексту (faithfulness) **измеряют** → мостик к Evaluation.
 
-**Новые термины** → [Глоссарий](../../glossary.md): grounding, grounding instructions, context packing,
+**[Новые термины](../../glossary.md)**: grounding, grounding instructions, context packing,
 lost-in-the-middle, citations / attribution, refusal / abstention, faithfulness / groundedness, parametric
 knowledge, hallucination.
 

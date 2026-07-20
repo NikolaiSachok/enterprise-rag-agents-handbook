@@ -127,7 +127,7 @@ enough to remember that splitting a chunk's two roles apart is possible.
   and access control.
 - You **measure** chunk size with metrics — you don't guess it.
 
-**New terms** → [Glossary](../../glossary.md): chunk, chunk overlap, recursive / structural chunking, semantic
+**[New terms](../../glossary.md)**: chunk, chunk overlap, recursive / structural chunking, semantic
 chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 ---
@@ -211,7 +211,7 @@ metric the model was trained for (stated on its model card) — a mismatch hurts
   vs. self-hosted (privacy)**.
 - One model for both query and document; watch the metric and the prefixes.
 
-**New terms** → [Glossary](../../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
+**[New terms](../../glossary.md)**: embedding, embedding space, bi-encoder, cross-encoder,
 dimensionality, cosine similarity, retrieval-optimised (asymmetric) embeddings, multilingual embeddings,
 self-hosted vs API embeddings.
 

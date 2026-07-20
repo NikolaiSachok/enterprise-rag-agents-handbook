@@ -105,7 +105,7 @@ Precision@K, MRR, nDCG. We formalize the metrics in the [Evaluation](../cross-cu
 - Reranking (a cross-encoder) fixes the ordering: a recall stage, then a precision stage.
 - Filters and access control give you relevance together with permissions; ACL is a security requirement.
 
-**New terms** → [Glossary](../../glossary.md): retrieval failure / generation failure, dense retrieval,
+**[New terms](../../glossary.md)**: retrieval failure / generation failure, dense retrieval,
 top-K, query transformation, multi-query, HyDE, hybrid search, BM25 / sparse retrieval, Reciprocal Rank
 Fusion (RRF), reranking, two-stage retrieval, metadata filtering, access control (ACL), Recall@K, Precision@K,
 nDCG, MRR.
