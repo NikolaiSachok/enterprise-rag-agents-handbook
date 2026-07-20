@@ -83,7 +83,7 @@ Tým sa lekcia uzatvára — a s ňou aj základná výbava Časti II príručky
 - MCP je agent↔nástroj; A2A (Agent-to-Agent) je agent↔agent. Dve osi. Táto oblasť sa ešte len formuje — nauč sa rozlíšenie, nie práve platné mená.
 - MCP server je nová plocha útoku: nepriama prompt injection, vynesenie dát, prekročenie oprávnení. Bráň sa princípom najnižších oprávnení, len preverenými servermi a schválením človekom pri citlivých akciách; ku všetkému, čo server pošle, sa správaj ako k nedôveryhodnému vstupu, nikdy ako k pokynom.
 
-**Nové pojmy** → [Glosár](../../glossary.md): MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
+**[Nové pojmy](../../glossary.md)**: MCP (Model Context Protocol), MCP server, MCP client, MCP resources, MCP prompts, M×N integration problem, A2A (Agent-to-Agent).
 
 ---
 

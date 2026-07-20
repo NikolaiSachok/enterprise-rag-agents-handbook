@@ -141,4 +141,4 @@ One arrow on that diagram is itself an operational practice worth pinning down. 
 - `on_fail` is a policy dial, not new code: start on `noop` to measure the false-positive rate against real traffic, then promote to `exception` / `fix` / `filter` / `refrain`. Every validator is a latency and cost tax — test it like the code it is.
 - Each category has an OSS-self-host lane and a managed lane, and the categories blur (observability ships eval), so two overlapping tools beat four. OpenTelemetry is the connective tissue: instrument once, swap backends by exporter config, and never double-instrument.
 
-**New terms** → [Glossary](../../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming, observability, guardrails.
+**[New terms](../../glossary.md)**: instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming, observability, guardrails.

@@ -121,4 +121,4 @@ Which leaves the question the page has been circling: when is any of this worth 
 - Budget it. Multi-agent systems run around 15× the tokens of a chat, and token count alone drove ~80% of the performance variance in Anthropic's system — so hold a whole-task budget over per-agent sub-budgets, cap fan-out and depth, tier your models, and keep soft caps separate from hard caps.
 - All of this is what you add once a team is justified, not a starting point. A single strong agent or a static-routing supervisor wins most tasks at a fraction of the cost.
 
-**New terms** → [Glossary](../../glossary.md): FIPA ACL, contract net protocol, blackboard, A2A (Agent2Agent), multi-agent debate, trajectory stitching.
+**[New terms](../../glossary.md)**: FIPA ACL, contract net protocol, blackboard, A2A (Agent2Agent), multi-agent debate, trajectory stitching.

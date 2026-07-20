@@ -121,7 +121,7 @@ flowchart LR
 - Špecifikum AI sa v Dockeri ukáže, keď v kontajneri býva model: váhy ostávajú mimo image, GPU potrebujú NVIDIA toolkit a výslovné žiadosti a pripravenosť znamená „model načítaný a zohriaty“, nie „proces beží“ — cold start je cena za scale-to-zero (škálovanie na nulu).
 - Inference server vlastní GPU (continuous batching, PagedAttention); FastAPI vlastní produkt; OpenAI-compatible API medzi nimi robí backendy vymeniteľnými.
 
-**Nové pojmy** → [Glosár](../../glossary.md): serving, inferencia (inference), inference server, SSE (Server-Sent Events), time-to-first-token (TTFT), streaming, continuous batching, PagedAttention, cold start, OpenAI-compatible API.
+**[Nové pojmy](../../glossary.md)**: serving, inferencia (inference), inference server, SSE (Server-Sent Events), time-to-first-token (TTFT), streaming, continuous batching, PagedAttention, cold start, OpenAI-compatible API.
 
 ---
 

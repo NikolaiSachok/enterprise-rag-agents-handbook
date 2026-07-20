@@ -121,7 +121,7 @@ Ingestion — офлайн-часть RAG: то, что происходит с 
   контроль доступа.
 - Размер чанка **измеряют метриками**, а не угадывают.
 
-**Новые термины** → [Глоссарий](../../glossary.md): chunk, chunk overlap, recursive / structural chunking,
+**[Новые термины](../../glossary.md)**: chunk, chunk overlap, recursive / structural chunking,
 semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
 
 ---
@@ -201,7 +201,7 @@ semantic chunking, chunk metadata, parent-document (small-to-big) retrieval.
   (приватность)**.
 - Одна модель для запроса и документа; следи за метрикой и префиксами.
 
-**Новые термины** → [Глоссарий](../../glossary.md): embedding, embedding space, bi-encoder, cross-encoder,
+**[Новые термины](../../glossary.md)**: embedding, embedding space, bi-encoder, cross-encoder,
 dimensionality, cosine similarity, retrieval-optimized (asymmetric) embeddings, multilingual embeddings,
 self-hosted vs API embeddings.
 

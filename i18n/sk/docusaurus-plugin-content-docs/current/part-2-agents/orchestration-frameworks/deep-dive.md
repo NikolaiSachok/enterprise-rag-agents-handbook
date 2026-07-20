@@ -114,4 +114,4 @@ Záverečná zdržanlivosť zrkadlí „najprv primitíva“ z prvej časti. Tot
 - Graf pomenovaných uzlov vytvorí strom spanov (úsekov trasovania) sám — natívne cez LangSmith, alebo od dodávateľa nezávisle cez konvencie OpenTelemetry pre GenAI, hoci tie sú k júlu 2026 stále nastupujúci štandard. Framework trace zachytí; hodnotiacu disciplínu, ktorú nad ním spustíš, vlastní tretia časť.
 - Graf je jediné miesto, na ktoré sa napája každá produkčná starosť — checkpointuješ ho, pamätáš si cez neho, definuješ ho dvoma spôsobmi a trasuješ ho. Jednoduchý agent každú vrstvu preskočí a pridať jednu, ktorú nepotrebuje, je cena abstrakcie zaplatená dvakrát.
 
-**Nové pojmy** → [Glosár](../../glossary.md): state graph, checkpointer, checkpoint backend, thread (thread_id), durable execution, conditional edge, framework long-term memory (store), declarative vs imperative agent definition.
+**[Nové pojmy](../../glossary.md)**: state graph, checkpointer, checkpoint backend, thread (thread_id), durable execution, conditional edge, framework long-term memory (store), declarative vs imperative agent definition.

@@ -146,4 +146,4 @@ That fixes the line between the two levels. Don't push semantic checks into the 
 - A read is safe to retry; a write is not, unless it is idempotent — give write tools an idempotency key, a dry-run/confirm split for the dangerous ones, and never a seat in a parallel batch beside another write.
 - Validate arguments before executing, at two levels: schema-level for shape, semantic for meaning. Strict decoding covers the first; your code has to cover the second; and a validation error feeds back to the model exactly like an execution error.
 
-**New terms** → [Glossary](../../glossary.md): parallel tool calls, constrained decoding, strict mode / Structured Outputs, idempotency / idempotency key, tool-RAG / dynamic tool loadout, argument validation, retry budget.
+**[New terms](../../glossary.md)**: parallel tool calls, constrained decoding, strict mode / Structured Outputs, idempotency / idempotency key, tool-RAG / dynamic tool loadout, argument validation, retry budget.

@@ -73,7 +73,7 @@ Preto sa aj guardrails merajú — cez **attack success rate** (miera úspešnos
 - Bezpečnosť obsahu na oboch stranách plus ingestion v RAG.
 - Defence-in-depth, nie všeliek; meraj attack success rate a udrž rovnováhu voči prílišnej prísnosti.
 
-**Nové pojmy** → [Glosár](../../../glossary.md): guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defence-in-depth.
+**[Nové pojmy](../../../glossary.md)**: guardrails, prompt injection, spotlighting, instruction hierarchy, PII redaction, input / output validation, content safety / moderation, jailbreak, least privilege / tool allow-listing, attack success rate (ASR), defence-in-depth.
 
 ---
 

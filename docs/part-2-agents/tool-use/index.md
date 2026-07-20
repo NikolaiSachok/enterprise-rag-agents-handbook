@@ -116,7 +116,7 @@ use.
 - New failure modes: the wrong tool, invalid arguments, making things up on top of the result, and
   security — a write tool plus prompt injection, hence least privilege.
 
-**New terms** → [Glossary](../../glossary.md): tool use / function calling, tool definition, tool call, tool
+**[New terms](../../glossary.md)**: tool use / function calling, tool definition, tool call, tool
 result, tool selection, JSON Schema, structured output.
 
 ---

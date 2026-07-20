@@ -172,7 +172,7 @@ flowchart LR
 - Порядок по умолчанию: трейсинг → eval в CI → ограничители (раньше, если отрасль регулируемая или вход
   враждебный с первого дня).
 
-**Новые термины** → [Глоссарий](../../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
+**[Новые термины](../../glossary.md)**: instrumentation, OpenTelemetry GenAI conventions, safety classifier, red-teaming.
 
 ---
 

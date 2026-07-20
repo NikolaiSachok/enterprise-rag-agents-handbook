@@ -248,7 +248,7 @@ never finishes — which is the point. A production LLM system isn't done; it's 
 - Budgets live at the gateway, and cost review belongs in the deploy checklist: a prompt change is a cost
   change.
 
-**New terms** → [Glossary](../../glossary.md): LLMOps, canary release, shadow deployment, prompt registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
+**[New terms](../../glossary.md)**: LLMOps, canary release, shadow deployment, prompt registry, model pinning, model routing, fallback, LLM gateway, prompt caching, semantic caching, drift.
 
 ---
 

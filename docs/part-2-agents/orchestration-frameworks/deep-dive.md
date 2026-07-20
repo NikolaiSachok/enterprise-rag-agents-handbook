@@ -99,4 +99,4 @@ The closing restraint mirrors Part 1's "primitives first." All of this is opt-in
 - A graph of named nodes emits a span tree on its own — LangSmith natively, or the OpenTelemetry GenAI conventions vendor-neutrally, though those are still an emerging standard as of July 2026. The framework captures the trace; Part III owns the eval discipline you run over it.
 - The graph is the single seam every production concern attaches to — you checkpoint it, remember with it, define it two ways, and trace it. A simple agent skips every layer, and adding one it doesn't need is abstraction cost paid twice.
 
-**New terms** → [Glossary](../../glossary.md): state graph, checkpointer, checkpoint backend, thread (thread_id), durable execution, conditional edge, framework long-term memory (store), declarative vs imperative agent definition.
+**[New terms](../../glossary.md)**: state graph, checkpointer, checkpoint backend, thread (thread_id), durable execution, conditional edge, framework long-term memory (store), declarative vs imperative agent definition.

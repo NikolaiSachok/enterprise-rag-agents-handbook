@@ -130,4 +130,4 @@ The through-line ties the whole page together: measure the stage you're tuning. 
 - The chunk that searches well and the chunk that generates well come apart; enrich what you return at query time, or bake document context into what you index before embedding, and the two stack with hybrid search and reranking rather than replacing them.
 - Routing and filter placement decide the candidate set before ranking runs: a wrong route or a permission check applied too late loses the answer where nothing downstream can recover it, so access control cuts before the search, always.
 
-**New terms** → [Glossary](../../glossary.md): score fusion / score normalisation, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.
+**[New terms](../../glossary.md)**: score fusion / score normalisation, LLM reranker, late interaction / ColBERT, multi-vector retrieval, contextual retrieval, query routing, pre-filter / post-filter.

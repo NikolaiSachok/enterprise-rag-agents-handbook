@@ -92,7 +92,7 @@ Najväčšia praktická sila hodnotenia: ukáže ti, v ktorej etape zlyhanie vä
 - Offline (regresie v CI) plus online (spätná väzba, A/B).
 - Metriky ti povedia, ktorú etapu opraviť.
 
-**Nové pojmy** → [Glosár](../../../glossary.md): evaluation, golden set / golden dataset / ground truth, answer relevance, correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval, A/B testing.
+**[Nové pojmy](../../../glossary.md)**: evaluation, golden set / golden dataset / ground truth, answer relevance, correctness, LLM-as-a-judge, judge bias, offline vs online eval, regression eval, A/B testing.
 
 ---
 

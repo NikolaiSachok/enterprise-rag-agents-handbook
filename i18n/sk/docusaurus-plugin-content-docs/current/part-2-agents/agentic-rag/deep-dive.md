@@ -112,4 +112,4 @@ A ešte raz zdržanlivosť. Systém s jediným rozhodnutím (čistý router) nem
 - Výsledok a proces hodnoť oddelene, vyhľadávanie hodnoť na každom kroku, nie raz, a pridaj signály na úrovni trajektórie — počet krokov, zastavenie, smerovanie, dostatočnosť kontextu — posúdené cez LLM-as-a-judge nad zaznamenaným tracom. Bez toho záznamu nič z toho nejde, takže Observability je predpoklad, nie prídavok.
 - Systém s jediným rozhodnutím (čistý router) sa nevie zacykliť a nemá trajektóriu — nepotrebuje nič z aparátu proti slučkám ani z hodnotenia trajektórie. Zvoľ najjednoduchšiu úroveň, ktorá úlohu vyrieši.
 
-**Nové pojmy** → [Glosár](../../glossary.md): Self-RAG, corrective RAG (CRAG), adaptive RAG, retrieval budget, sufficient context.
+**[Nové pojmy](../../glossary.md)**: Self-RAG, corrective RAG (CRAG), adaptive RAG, retrieval budget, sufficient context.

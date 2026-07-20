@@ -94,7 +94,7 @@ feeling, it's a number.
 - **Refusal** is normal behaviour, not a malfunction.
 - Faithfulness to the context is something you **measure** → the bridge to Evaluation.
 
-**New terms** → [Glossary](../../glossary.md): grounding, grounding instructions, context packing,
+**[New terms](../../glossary.md)**: grounding, grounding instructions, context packing,
 lost-in-the-middle, citations / attribution, refusal / abstention, faithfulness / groundedness, parametric
 knowledge, hallucination.
 

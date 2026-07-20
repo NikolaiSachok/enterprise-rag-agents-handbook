@@ -356,7 +356,7 @@ Foundation, версия 1.0).
 - MCP связывает всё воедино — написан Anthropic (2024), передан Agentic AI Foundation под Linux Foundation
   (декабрь 2025); все трое сегодня MCP-клиенты. Учи долговечный приём, а поставщик — это частность с датой.
 
-**Новые термины** → [Глоссарий](../glossary.md): extended thinking, interleaved thinking, reasoning effort, thinking budget, Claude Code hooks, ADK callbacks, permission modes.
+**[Новые термины](../glossary.md)**: extended thinking, interleaved thinking, reasoning effort, thinking budget, Claude Code hooks, ADK callbacks, permission modes.
 
 ---
 

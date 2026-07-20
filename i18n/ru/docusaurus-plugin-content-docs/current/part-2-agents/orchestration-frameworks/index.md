@@ -146,7 +146,7 @@ Framework**, унаследованные от [AutoGen](https://github.com/micr
   Простому агенту хватит SDK провайдера; граф-фреймворк — под управляемые сложные потоки.
 - Правило одно: сперва примитивы, потом фреймворк — чтобы снять рутину, а не чтобы не понимать.
 
-**Новые термины** → [Глоссарий](../../glossary.md): orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
+**[Новые термины](../../glossary.md)**: orchestration framework, agent as a graph / state machine, node / edge, checkpointing, human-in-the-loop (HITL).
 
 ---
 

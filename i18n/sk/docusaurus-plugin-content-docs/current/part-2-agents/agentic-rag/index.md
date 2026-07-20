@@ -102,7 +102,7 @@ Práve tu vedie priamy most na prierezovú vrstvu. **Observability** (pozorovate
 - Je to spektrum: router → query planning → plná slučka. Zvoľ najjednoduchšiu úroveň, ktorá úlohu vyrieši.
 - Cenou je vyššia latencia, vyššie náklady, nepredvídateľnosť a ťažšie ladenie — a práve preto sa Observability a evaluácia z Časti I príručky stávajú povinnými.
 
-**Nové pojmy** → [Glosár](../../glossary.md): Agentic RAG, agent loop, ReAct (Reasoning + Acting), routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection, iterative retrieval.
+**[Nové pojmy](../../glossary.md)**: Agentic RAG, agent loop, ReAct (Reasoning + Acting), routing / query router, multi-hop retrieval, query planning, self-correction / self-reflection, iterative retrieval.
 
 ---
 

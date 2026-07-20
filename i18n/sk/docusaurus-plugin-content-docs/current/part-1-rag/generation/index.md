@@ -81,7 +81,7 @@ Nakoľko sa odpoveď naozaj opiera o zdroje, to **meriaš** — metrikou **faith
 - Odmietnutie je normálne správanie, nie porucha.
 - Faithfulness ku kontextu sa meria — a to je mostík k vrstve Evaluation.
 
-**Nové pojmy** → [Glosár](../../glossary.md): grounding, grounding instructions, context packing, lost-in-the-middle, citations / attribution, refusal / abstention, faithfulness / groundedness, parametric knowledge, hallucination.
+**[Nové pojmy](../../glossary.md)**: grounding, grounding instructions, context packing, lost-in-the-middle, citations / attribution, refusal / abstention, faithfulness / groundedness, parametric knowledge, hallucination.
 
 ---
 

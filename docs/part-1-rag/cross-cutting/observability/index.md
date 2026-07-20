@@ -73,7 +73,7 @@ control-flow decisions — and all the discipline you've built here travels with
 - Cost and latency come first (tokens = money, calls are slow).
 - Observability feeds eval: production failures → new golden-set cases → eval-driven development.
 
-**New terms** → [Glossary](../../../glossary.md): observability, trace / span, RAG tracing, cost per request /
+**[New terms](../../../glossary.md)**: observability, trace / span, RAG tracing, cost per request /
 token accounting, latency (p50 / p95), three pillars (metrics / logs / traces), feedback loop
 (observability → eval).
 

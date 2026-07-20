@@ -233,5 +233,5 @@ promptfoo, red-team-функции платформ, PyRIT из того же у
   два перекрывающихся инструмента лучше четырёх. Связывает всё OTel — инструментируй один раз, меняй бэкенд
   конфигом экспортёра, не инструментируй дважды.
 
-**Новые термины** → [Глоссарий](../../glossary.md): instrumentation, OpenTelemetry GenAI conventions, safety
+**[Новые термины](../../glossary.md)**: instrumentation, OpenTelemetry GenAI conventions, safety
 classifier, red-teaming, observability (наблюдаемость), guardrails.
