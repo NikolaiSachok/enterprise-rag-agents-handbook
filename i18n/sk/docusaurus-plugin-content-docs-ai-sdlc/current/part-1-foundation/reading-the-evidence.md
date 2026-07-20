@@ -93,4 +93,4 @@ Hodnotenie dôkazov potrebuje každý; mení sa iba závažnosť následkov.
 - Najčastejšie opakovaným údajom v určitej oblasti býva práve ten, ktorý sa nedá overiť — nie ten, ktorý sa podarilo dokázať. Tvrdenie GitClear o duplikácii sa nedá reprodukovať. Poctivé zistenie je nenápadnejšie: udržiavateľnosť zhoršuje zložitosť, nie duplikáty.
 - Zistenie uvádzaj spolu so vzorkou, proxy metrikou, konfliktom záujmov a informáciou, či je ešte aktuálne. Uprednostni výsledok, ktorý je v rozpore s obchodným záujmom samotného zdroja.
 
-**Nové pojmy:** stupeň dôkazu (rebrík `MEASURED` / `REPORTED` / `ASSERTED`), konflikt záujmov, uvedený priamo, overovanie v prvotnom zdroji.
+**[Nové pojmy](../glossary.md#reading-the-evidence)**: stupeň dôkazu, konflikt záujmov uvedený priamo, overovanie v prvotnom zdroji.
