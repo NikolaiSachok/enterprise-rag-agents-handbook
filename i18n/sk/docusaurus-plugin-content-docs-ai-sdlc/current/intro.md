@@ -62,7 +62,7 @@ Celým kurzom sa tiahne jeden rámec — **tri úrovne zrelosti**: postup zostá
 
 ## Prečo slučka, a nie postupnosť krokov
 
-Väčšina publikovaných schém — vrátane materiálov od odborníkov z praxe, z ktorých tento kurz čerpá — zobrazuje postupnosť krokov, ktorá sa končí „produkciou“ a spätnú väzbu už neobsahuje. Práve toto poňatie kurz opravuje. Vnímaj to ako opravu, nie ako dôvod na chválu: najväčšou štrukturálnou medzerou v súčasných textoch je, že slučka učenia sa uzatvára na internom QA, a nie na živej prevádzke. Dobre nastavená slučka chybnú zmenu sama odhalí a vráti späť ešte predtým, ako sa musí ozvať používateľ.
+Mnohé schémy — vrátane materiálov od odborníkov z praxe, z ktorých tento kurz čerpá — zobrazujú postupnosť krokov, ktorá sa končí „produkciou“ a spätnú väzbu už neobsahuje. Kurz sa tento nedostatok snaží napraviť. Najväčšou štrukturálnou medzerou v súčasných textoch je, že slučka učenia sa uzatvára na internom QA, a nie na živej prevádzke. Dobre nastavená slučka chybnú zmenu sama odhalí a vráti späť ešte predtým, ako sa musí ozvať používateľ.
 
 Jeden výsledok merania naznačuje, že hodnota sa ukrýva práve v hrane spätnej väzby. Správa DORA z roku 2025 zistila negatívny vzťah medzi používaním AI a *stabilitou* dodávania — zrýchlenie môže odhaliť slabiny v nadväzujúcich častiach procesu. Tento výsledok však treba čítať pozorne: stupeň `MEASURED` má iba v slabom zmysle sebahodnotiaceho prieskumu s približne 5 000 respondentmi. Ide o vnímanie, nie o telemetriu, a výsledok neoprávňuje tvrdiť ani „AI zrýchľuje tímy“, ani „AI spomaľuje tímy“. Oprávňuje presne na jediný záver: uzatváracia hrana si zaslúži pozornosť, ktorú jej venujú Časti IV a V.
 
