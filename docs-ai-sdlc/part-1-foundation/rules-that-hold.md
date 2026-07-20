@@ -13,6 +13,14 @@ the honest move is to say so and then show all three. The grades from Lesson 2 �
 `ASSERTED` — ride along, and they matter more than usual here, because the strongest stream is a pile of
 incident reports and the weakest is a consensus of opinion.
 
+:::note[Field note]
+
+A worked example of this exact distinction from building the handbook: [I built a course about AI-assisted
+development by doing it](/blog/building-a-course-by-doing-it) — verification caught a bad citation only because
+it was a separate step in the workflow, not an instruction the drafting task could skip.
+
+:::
+
 ## Three streams reach the same place
 
 Start with the voices, the softest evidence. The people who argue about coding agents for a living have quietly

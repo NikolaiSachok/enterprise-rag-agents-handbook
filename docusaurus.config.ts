@@ -255,7 +255,7 @@ const config: Config = {
       {
         hashed: true,
         indexDocs: true,
-        indexBlog: false, // no blog plugin (see `blog: false` in the preset)
+        indexBlog: true, // the EN-only "Field notes" making-of blog (preset `blog` above)
         // Index EVERY course instance. The plugin accepts an array of route base
         // paths; derived from COURSES so a new course is indexed automatically.
         docsRouteBasePath: DOCS_ROUTE_BASE_PATHS,
@@ -298,11 +298,38 @@ const config: Config = {
           // No "Edit this page" link: the site is read-only for visitors (no auth),
           // and the source is a click away on GitHub for the one person who edits it.
         },
-        // No blog. The site is a course, not a feed: the docs plugin owns every
-        // page. Re-enabling it means restoring the plugin options here, the
-        // navbar item, `indexBlog` in the search theme, the `blog/**` lint glob,
-        // and an `i18n/<locale>/docusaurus-plugin-content-blog/` tree per locale.
-        blog: false,
+        // "Field notes" — the making-of blog. This is the canonical long-form home
+        // of how the handbook was built *using* the AI-assisted SDLC it teaches:
+        // dated, first-person, teaching-framed field notes, each cross-linked to the
+        // lesson it demonstrates. It is deliberately ENGLISH-ONLY (no i18n tree),
+        // even though the curriculum ships EN/RU/SK — automated translation of
+        // informal prose isn't at a bar worth publishing under the author's name yet,
+        // and that limitation is itself one of the things the blog is about (there is
+        // a standing note to that effect on the blog index, in the BlogListPage
+        // swizzle). The curriculum's tri-lingual docs pipeline is untouched: because
+        // no `i18n/<locale>/docusaurus-plugin-content-blog/` tree exists, the RU/SK
+        // site builds simply fall back to the English posts — content stays English
+        // everywhere by design.
+        blog: {
+          path: 'blog',
+          routeBasePath: 'blog',
+          blogTitle: 'Field notes — building this handbook with the SDLC it teaches',
+          blogDescription:
+            'The making-of this handbook: honest, dated field notes on building an ' +
+            'AI-engineering curriculum using the AI-assisted SDLC it teaches. English-only.',
+          blogSidebarTitle: 'Recent field notes',
+          blogSidebarCount: 'ALL',
+          showReadingTime: true,
+          postsPerPage: 10,
+          feedOptions: {
+            type: ['rss', 'atom'],
+            title: 'AI Engineering Handbook — Field notes',
+            description:
+              'The making-of this handbook: building an AI-engineering curriculum ' +
+              'with the AI-assisted SDLC it teaches.',
+            copyright: `Copyright © ${new Date().getFullYear()} Nikolai Sachok.`,
+          },
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -351,6 +378,8 @@ const config: Config = {
           position: 'left' as const,
           label: c.navbarLabel,
         })),
+        // "Field notes" — the making-of blog (English-only; see the preset `blog`).
+        {to: '/blog', label: 'Field notes', position: 'left'},
         {
           type: 'localeDropdown',
           position: 'right',

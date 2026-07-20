@@ -16,6 +16,14 @@ randomised trial found the effect; `REPORTED` means practitioners describe it bu
 `ASSERTED` means someone argues it without measuring. The grade rides along with every number below. Lesson 2
 defines the full ladder.
 
+:::note[Field note]
+
+This lesson's claim gets tested on the author in the making-of blog: [I built a course about AI-assisted
+development by doing it](/blog/building-a-course-by-doing-it) — a wrong citation that came from my own brief and
+was caught by the verification step, not by me.
+
+:::
+
 ## Throughput rises — this half of the story is real, and it replicates
 
 Start with the part that is not in doubt. Adopters of command-line coding agents merge more pull requests, and
