@@ -22,8 +22,8 @@ smart friend with amnesia" (`ASSERTED` — his framing). Once the dialogue ends 
 a conversation runs past the context window and auto-compaction summarises it, that helps, he says, "but not by
 much."
 
-The intuition now has a measurement under it, sharper than the metaphor. A "governance decay" study
-(arXiv:2606.22528, June 2026; `MEASURED`) ran 1,323 episodes with a policy the agent was told to obey. With the
+The intuition now has a measurement under it, sharper than the metaphor. A ["governance decay" study](https://arxiv.org/abs/2606.22528)
+(June 2026; `MEASURED`) ran 1,323 episodes with a policy the agent was told to obey. With the
 full policy visible, the violation rate was **0%**. After compaction summarised the history, it rose to **30%
 overall, and up to 59% for some models**. The decomposition is the teachable part: when the constraint survived
 summarisation, violations stayed at **0%**; when the summariser dropped it, they jumped to **38%**. The model was
@@ -46,7 +46,7 @@ corpus above. Eight walls hit from eight directions, one of them with instrument
 
 The cost is where the metaphor turns into a number. A standing context file isn't a document you consult; it's a
 subscription you pay every turn, because every line is re-sent to the model each time it acts. ETH Zurich measured
-the bill (Gloaguen et al., arXiv:2602.11988; `MEASURED`): context files raised inference cost **over 20% per turn
+the bill ([Gloaguen et al.](https://arxiv.org/abs/2602.11988); `MEASURED`): context files raised inference cost **over 20% per turn
 on average** — **+20% on SWE-bench Lite, +23% on AGENTbench** for LLM-generated files, up to **+19%** for
 human-written ones. And the mechanism isn't the one you'd guess: agents "followed instructions thoroughly but
 unnecessarily" — over-compliance — burning the extra budget obeying the file too well, with no gain. More memory
@@ -61,7 +61,7 @@ success on SWE-bench Lite, **−2%** on AGENTbench. Human-written files came out
 can't infer from the repo, while an agent writing its own rules mostly restates what it could already read.
 
 Don't over-read that into "AGENTS.md doesn't work." A second paper points the other way, and both are honest.
-Lulla et al. (arXiv:2601.20404; `MEASURED`) found an AGENTS.md file *associated with* **28.64% lower median
+[Lulla et al.](https://arxiv.org/abs/2601.20404) (`MEASURED`) found an AGENTS.md file *associated with* **28.64% lower median
 runtime** and **16.58% fewer output tokens**. They don't collide — they weigh different ledgers on different
 populations. Gloaguen measures task success and input cost, where the file is re-sent every turn; Lulla measures
 runtime and output tokens, where a file that stops the agent flailing shortens the whole trajectory, and its
@@ -107,7 +107,7 @@ memory" (Yegge), or too many markdown files (Böckeler), or just a line count (E
 unclaimed territory.
 
 The answer isn't more memory; it's memory organised by how close the knowledge sits to the task in hand. That
-discipline has a name — **context engineering** — and Anthropic's engineers have written it up (`REPORTED`,
+discipline has a name — **context engineering** — and [Anthropic's engineers](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) have written it up (`REPORTED`,
 vendor): give the model exactly the context it needs and no more, because attention degrades as the window fills.
 The machinery ships already — load an artifact's name and description up front, page in its full body only when
 triggered: progressive disclosure, or plainly, detail on demand. The field's single hard measurement points the
@@ -144,13 +144,13 @@ them.
 The honest move is to admit how thin the ground under "tiering saved it" is. It is `REPORTED`, single-source, and
 mine. The convergence of several parties on the same lever raises confidence that the *lever* is right, not that
 the *mechanism* is validated — nobody, us included, has better than a self-report that it works. And that
-self-report comes from exactly the population METR caught misjudging its own AI-era productivity by around forty
+self-report comes from exactly the population [METR](https://arxiv.org/abs/2507.09089) caught misjudging its own AI-era productivity by around forty
 points, in the wrong direction, with high confidence (Lesson 1). Our "it works" carries that bias, and a course
 that spent Lesson 2 teaching you to grade claims would be a fraud if it exempted its own. There's also a reading of
 ETH that cuts against us: if generated artifacts hurt, maybe the corpus shouldn't exist, and tiering is just
 tidying a mess we made — which is why the parsimony framing matters, and why we don't claim tiering is *proven*.
 Last, the oldest warning here isn't about AI. The one large empirical study of model-driven engineering
-(Hutchinson et al., 2014) found success turned on *organisational* factors, not technical ones, and DORA later
+(Hutchinson et al., 2014) found success turned on *organisational* factors, not technical ones, and [DORA](https://dora.dev/dora-report-2025/) later
 rediscovered the same law for AI: it amplifies what a team already is; it doesn't fix it. Tiering is a technical
 answer. It works exactly to the extent that someone owns it — and no tool can supply that owner.
 
