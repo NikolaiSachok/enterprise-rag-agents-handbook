@@ -16,7 +16,7 @@ Lesson 2 — `MEASURED`, `REPORTED`, `ASSERTED` — ride along with every number
 ## Setup nearly doubled the agent's success
 
 The best piece of first-party evidence in the whole corpus is not a lab study. It is a blog post by one
-engineer. Stephen Toub of Microsoft published ten months of running an agent — GitHub's Copilot Coding Agent —
+engineer. [Stephen Toub of Microsoft](https://devblogs.microsoft.com/dotnet/ten-months-with-cca-in-dotnet-runtime/) published ten months of running an agent — GitHub's Copilot Coding Agent —
 against `dotnet/runtime`, a real, large, mission-critical open-source repository: **878 agent pull requests**,
 with the merge rates, the revert rates, the review burden, and the failures all included (`MEASURED`,
 March 2026). Buried in it is the most portable lesson in this course, and he states it flatly: *"if there's one
@@ -112,7 +112,7 @@ decisions this lesson says to make, and write down, before an agent starts build
 ## Why "preparation," not "the model"
 
 There is a deeper reason the lever is preparation and not model choice. The scaffolding around an agent — its
-rules, its tools, its guardrails — encodes assumptions that go stale. Anthropic's engineers put it directly:
+rules, its tools, its guardrails — encodes assumptions that go stale. [Anthropic's engineers](https://www.anthropic.com/engineering/harness-design-long-running-apps) put it directly:
 *"harnesses encode assumptions that go stale as models improve,"* and *"every component… encodes an assumption
 about what the model can't do on its own"* (`REPORTED`). Their worked example: an older model concluded work
 prematurely as its context filled, so harnesses added a fix for it; on the next model that behaviour was gone,
@@ -120,7 +120,7 @@ and the fix became dead weight — a tax on the stronger model.
 
 That is not just a vendor's anecdote. An independent study held the model constant and varied only the
 scaffolding across 35 sequential releases of a coding CLI, and quality still moved (`MEASURED`,
-*"Don't Blame the Large Language Model,"* arXiv:2607.03691, July 2026): practitioners report regressions after a scaffolding
+*["Don't Blame the Large Language Model,"](https://arxiv.org/abs/2607.03691)* July 2026): practitioners report regressions after a scaffolding
 update and reliably blame the model instead of the scaffold. The consequence for you is that preparation is
 never one-time. Every rule and every harness component carries an expiry date and needs a review that asks
 whether it still earns its place — which is where Lesson 4 (project memory) and Lesson 5 (rules that hold) pick
