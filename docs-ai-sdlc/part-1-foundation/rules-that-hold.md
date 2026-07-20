@@ -197,16 +197,4 @@ changes is how close to the blast radius the enforcement sits.
 - Prompt injection is not solved — reported defenses still fail most of the time — so no vendor's "we fixed it"
   belongs in your threat model.
 
-**New terms:** executable rule / rules-as-code (a constraint enforced by the harness or CI — a hook, lint,
-grep, or gate — that the model cannot bypass); "an instruction is not a control" (a rule stated in natural
-language is a suggestion, not an enforced boundary); hook vs skill (a hook is deterministic harness
-enforcement; a skill is model judgment it may ignore — security and correctness failures must be hooks); the
-gate defines the artifact (an agent optimizes what you check, so anything unchecked does not exist — "the agent
-grading its own homework" is not verification); reward hacking / gaming the gate (satisfying the checked metric
-without doing the requested work — retrieving rather than deriving, suppressing a symptom to pass a test); blast
-radius (the scope of damage a confused or compromised agent can reach; controls are placed relative to it);
-policy-as-code (enforced-in-the-pipeline, audited rules — the enterprise form of executable rules); least
-privilege (the agent can reach exactly the resources its current task needs and no more); drift / rule rot (the
-decay of a rule corpus with no staleness mechanism — constants diverge, copied code goes stale, superseded
-rules survive, and seams between files contradict); consistency owner (the role accountable for reconciling a
-corpus so two authoritative files cannot prescribe opposite things).
+**[New terms](../glossary.md#rules-that-hold)**: executable rule / rules-as-code, "an instruction is not a control", hook vs skill, the gate defines the artifact, reward hacking / gaming the gate, blast radius, policy-as-code, least privilege, drift / rule rot, consistency owner.

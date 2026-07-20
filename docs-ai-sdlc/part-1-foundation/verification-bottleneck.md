@@ -226,5 +226,4 @@ lens, the further that check sits from the blast radius, the more it becomes abo
 - The honest headline, from the strongest pro-AI number's own authors: output is up, value is unproven, and the
   lever that decides which way it goes is review.
 
-**New terms:** verification bottleneck, proxy metric, denominator choice, benchmark-to-production gap,
-self-assessment gap, tech debt on credit.
+**[New terms](../glossary.md#verification-bottleneck)**: verification bottleneck, proxy metric, denominator choice, benchmark-to-production gap, self-assessment gap, tech debt on credit.

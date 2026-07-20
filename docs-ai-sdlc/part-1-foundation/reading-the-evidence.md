@@ -178,5 +178,4 @@ Grading evidence is a universal skill; only the stakes scale.
 - State a finding with its population, its proxy, its conflict, and its currency attached. Prefer the result
   that cuts against whoever published it.
 
-**New terms:** evidence grade (the `MEASURED` / `REPORTED` / `ASSERTED` ladder), conflict of interest named
-inline, going to the primary.
+**[New terms](../glossary.md#reading-the-evidence)**: evidence grade, conflict of interest stated inline, going to the primary.
