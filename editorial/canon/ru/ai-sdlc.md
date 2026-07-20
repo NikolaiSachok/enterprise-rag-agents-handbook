@@ -123,6 +123,14 @@ would not say at work is wrong. `REUSE` rows carry the RAG-canon citation; the g
 - **Citation laundering — DROP.** Чеканная фигура снята; смысл выражается прямо. См. строку «Reading the evidence».
 - **Tier lens → «три уровня зрелости» (owner).** «оптика трёх уровней» снята как un-Russian; короткая форма «три уровня»; согласование masc-plural. EN выровнен на "the three tiers / three maturity tiers"; SK — „tri úrovne zrelosti". Строки Intro (обе таблицы) и заголовок §-уровней обновлены.
 - **Against-interest finding — DROP термина (owner).** Юридическая калька снята во ВСЕХ трёх языках; смысл выражается прямо и vendor-neutral (грейд доказательства, не похвала Anthropic). См. строку «Reading the evidence».
+- **Intro «not a boast» disclaimer — DROP в RU/SK (owner, 2026-07-20), НАМЕРЕННОЕ расхождение с EN.** EN-фраза
+  из «Why a loop, not a pipeline»: «It is worth flagging as a correction, not a boast». В EN читается нормально;
+  в RU/SK — нет: плоский технический регистр не делает сильных заявлений, которые надо было бы оговаривать, и
+  сама оговорка про «хвастовство» *звучит* как хвастовство. Решение владельца: НЕ переводить оговорку, а убрать
+  её — обе фразы сворачиваются в «Курс старается исправить этот недостаток» / «Kurz sa tento nedostatok snaží
+  napraviť». EN намеренно сохраняет «not a boast». **При РЕ-РЕНДЕРЕ интро не тащи оговорку обратно** — это
+  stance-предложение, а не факт (см. правило «stance vs information»). Также «Most/Väčšina» → «Многие/Mnohé»
+  (owner). PR #203.
 
 
 ## Pilot Intro+L1 — решения этого прогона (2026-07-16)
