@@ -1,5 +1,5 @@
 ---
-title: "Pravidlá, ktoré vydržia"
+title: "Pravidlá, ktoré platia"
 sidebar_position: 6
 ---
 
