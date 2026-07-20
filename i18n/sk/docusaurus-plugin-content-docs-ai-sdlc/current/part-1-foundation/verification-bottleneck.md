@@ -108,4 +108,4 @@ Na každej úrovni platí to isté: **nekontrolované generovanie je riziko, nie
 - Skóre benchmarkov neprežije stret so skutočným životným cyklom vývoja softvéru (Meta: 68% → 19,7%), údaj „% kódu napísaného AI“ závisí od voľby menovateľa a momentálne neexistuje žiadny dôveryhodný benchmark pre programovanie pri najvyspelejších modeloch — pretože zlúčený PR nikdy nebol špecifikáciou.
 - Poctivý titulok od autorov najsilnejšieho výsledku v prospech AI znie: objem odovzdanej práce rastie, rast hodnoty nie je preukázaný a o výsledku rozhoduje kontrola.
 
-**Nové pojmy:** úzke miesto overovania, proxy metrika, voľba menovateľa, priepasť medzi benchmarkom a produkciou, skreslenie sebahodnotenia, technický dlh na úver.
+**[Nové pojmy](../glossary.md#verification-bottleneck)**: úzke miesto overovania, proxy metrika, voľba menovateľa, priepasť medzi benchmarkom a produkciou, skreslenie sebahodnotenia, technický dlh na úver.
