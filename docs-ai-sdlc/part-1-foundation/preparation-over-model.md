@@ -162,8 +162,4 @@ hand it is the lever.** What changes with scale is how the setup is owned and pr
 - Preparation is not one-time. Harnesses encode assumptions that expire as models improve, so every rule and
   guardrail needs an expiry review.
 
-**New terms:** preparation over model (setup and scope move success more than model choice), the
-gate-not-the-agent misread (a low failure number that belongs to the review gate, not the agent), controllable
-scope (starting where the problem is bounded, with a requirements gate), architecture-first with a loop (design
-before code, while accepting sound-looking design still needs iteration), harness staleness (scaffold components
-encode model-limit assumptions that expire).
+**[New terms](../glossary.md#preparation-over-model)**: preparation over model, the gate-not-the-agent misread, controllable scope, architecture-first with a loop, harness staleness.

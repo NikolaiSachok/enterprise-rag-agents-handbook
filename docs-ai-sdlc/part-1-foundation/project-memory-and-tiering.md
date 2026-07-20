@@ -188,14 +188,4 @@ who owns the boundary and how it's proven.
   The mechanism is borrowed openly from context engineering; carrying it to a spec or rule corpus is the gap this
   course names, and our own evidence for it is a single graded self-report, not proof.
 
-**New terms:** project memory (durable, agent-readable knowledge that persists across runs); amnesia (agents keep
-nothing between sessions but the files on disk); context tax (the measured &gt;20%-per-turn cost of standing
-context — every line re-sent and billed each turn); over-compliance (the measured way extra artifacts hurt —
-agents follow instructions thoroughly but unnecessarily); scar archive (the reasoning behind each locked decision,
-appended after every fixed bug class — a blameless postmortem kept where the agent will read it); knowledge tiering
-(organising memory by rate-of-change or distance-from-focus so only the relevant tier loads); LOD ladder
-(three-level map / contract / blueprint tiering by an artifact's relation to the task, mirrored by Anthropic
-Skills' activation / reference / deep dive); hot set / cold set (the always-loaded one-screen non-negotiables
-versus the on-demand detail); progressive disclosure (loading only a name and description until the body is
-needed); artifact overload (spec-driven work's central unsolved failure — artifacts generated faster than review
-or context can absorb, with no lifecycle discipline).
+**[New terms](../glossary.md#project-memory-and-tiering)**: project memory, amnesia, context tax, over-compliance, scar archive, knowledge tiering, LOD ladder, hot set / cold set, progressive disclosure, artifact overload.
