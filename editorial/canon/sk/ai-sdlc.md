@@ -126,6 +126,13 @@ Použitie v kurze:
 - **Citation laundering — DROP.** Razená figúra zrušená; význam sa vyjadruje priamo. Pozri riadok „Reading the evidence".
 - **Tier lens → „tri úrovne zrelosti" (owner).** „optika troch úrovní" zrušená; krátka forma „tri úrovne". Web-overené ako prirodzené SK (model/úroveň zrelosti). EN vyrovnaný na "the three tiers / three maturity tiers"; RU — «три уровня зрелости». Riadky Intro aj nadpis úrovní v Lekcii 1 aktualizované.
 - **Against-interest finding — DROP termínu (owner).** Právna kalka zrušená vo všetkých troch jazykoch; význam sa vyjadruje priamo a vendor-neutral (hodnotí dôkaz, nie chvála Anthropicu). Pozri riadok „Reading the evidence".
+- **Intro disclaimer „not a boast" — DROP v RU/SK (owner, 2026-07-20), ZÁMERNÉ rozídenie s EN.** EN veta z „Why a
+  loop, not a pipeline": „It is worth flagging as a correction, not a boast". V EN znie prirodzene; v RU/SK nie:
+  plochý technický register nerobí silné tvrdenia, ktoré by bolo treba dementovať, a samotná zmienka o
+  „chvastaní" *znie* ako chvastanie. Rozhodnutie vlastníka: disclaimer NEPREKLADAŤ, ale vypustiť — obe vety sa
+  zvinú do „Kurz sa tento nedostatok snaží napraviť" / «Курс старается исправить этот недостаток». EN si „not a
+  boast" zámerne ponecháva. **Pri RE-RENDERI intra disclaimer NEVRACAJ** — je to stance-veta, nie fakt (pozri
+  pravidlo „stance vs information"). Tiež „Väčšina/Most" → „Mnohé/Многие" (owner). PR #203.
 
 
 ## Pilot Intro+L1 — rozhodnutia tohto behu (2026-07-16)
