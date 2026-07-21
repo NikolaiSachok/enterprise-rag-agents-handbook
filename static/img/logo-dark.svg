@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="AI Engineering Handbook">
+  <!-- Layered-stack mark — dark-mode variant: plates lightened to read on a dark navbar. -->
+  <!-- bottom plate (light slate) -->
+  <polygon points="60,57 90,72 60,87 30,72" fill="#dbe4ee"/>
+  <polygon points="30,72 60,87 60,95 30,80" fill="#aab7c6"/>
+  <polygon points="90,72 60,87 60,95 90,80" fill="#8f9dae"/>
+  <!-- middle plate (azure accent) -->
+  <polygon points="60,39 90,54 60,69 30,54" fill="#4C9BFF"/>
+  <polygon points="30,54 60,69 60,77 30,62" fill="#2f6ecb"/>
+  <polygon points="90,54 60,69 60,77 90,62" fill="#255aa6"/>
+  <!-- top plate (light slate) -->
+  <polygon points="60,21 90,36 60,51 30,36" fill="#eef3f8"/>
+  <polygon points="30,36 60,51 60,59 30,44" fill="#aab7c6"/>
+  <polygon points="90,36 60,51 60,59 90,44" fill="#8f9dae"/>
+  <!-- verification node + stem -->
+  <line x1="60" y1="10" x2="60" y2="26" stroke="#2DD4BF" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="60" cy="9" r="5" fill="#2DD4BF"/>
+</svg>
