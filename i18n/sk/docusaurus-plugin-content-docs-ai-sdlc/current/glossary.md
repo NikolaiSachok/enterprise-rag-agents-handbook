@@ -141,3 +141,13 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Kontrola plánu pred implementáciou** — kontrola plánu ešte pred implementáciou, ktorá prináša najväčší úžitok, pretože chybu v pláne opravíš jednou vetou, no rovnaká chyba v kóde znamená prepisovanie.
 
 **Brána kritika** — povinná kontrola, cez ktorú práca neprejde bez úspešného splnenia: je to hook, nie odporúčanie. Spravuje ju nezávislá strana, ktorá nemôže upravovať posudzovaný výsledok; ak agent hodnotí vlastný výstup, namiesto vykonania úlohy ho optimalizuje na kontrolu.
+
+<a id="roles-and-the-human"></a>
+
+## Roly a miesto človeka
+
+**Človek ako smerovač (nad cyklom a vnútri cyklu)** — miesto človeka je nad cyklom: dohliada naň, zodpovedá za podmienky dokončenia a brány a rozhoduje o začlenení zmien. Nie je fázou vnútri cyklu, ktorá sa dostane na rad medzi agentmi. Nad cyklom zostáva táto rola účinná aj pri zrýchľovaní generovania; vnútri cyklu sa človek stáva úzkym miestom a napokon obeťou preťaženia.
+
+**Nedelegovateľný kontrolný bod** — jedno z mála miest, ktoré nemožno prenechať cyklu bez toho, aby stratil svoj zmysel: nastavenie podmienok dokončenia, zodpovednosť za bránu kritika pri zlyhaniach bezpečnosti alebo správnosti a rozhodnutie o začlenení zmeny s veľkým blast radius.
+
+**Dohľad verzus formálne odklepnutie** — skutočný dohľad tvorí niekoľko vynucovaných kontrolných bodov, kde je úsudok človeka samotným kontrolným mechanizmom. „Kontrolovať všetko“ nie je dohľad, ale formálne odklepnutie, pri ktorom človek prepustí viac výstupov, než ktokoľvek dokáže skutočne skontrolovať.

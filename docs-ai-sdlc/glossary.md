@@ -124,3 +124,11 @@ its section here. The list grows as the course does.
 **Plan-first review** — reviewing the plan before implementation, the highest-leverage check because a mistake in a plan costs a sentence to fix and the same mistake in code costs a rewrite.
 
 **Critic gate** — a check the work cannot pass without clearing (a hook, not a suggestion), run by something independent of the work and unable to edit it; an agent grading its own output optimizes the check instead of doing the job.
+
+## Roles and the human
+
+**Human router (on-the-loop vs in-the-loop)** — the human's place is above the loop (supervising it, owning the done-conditions and gates and the land decision), not a stage inside it taking a turn between agents. On the loop, the role stays effective as generation speeds up; in the loop, it becomes a bottleneck and then a casualty.
+
+**Irreducible checkpoint** — one of the few points that can't be delegated to the loop without the loop losing its meaning: setting the done-conditions, owning the critic gate on security or correctness failures, and the decision to land a high-blast-radius change.
+
+**Oversight vs rubber-stamp** — real oversight is a few enforced checkpoints where a human's judgment is the control; "review everything" is not oversight but a rubber stamp — a person waved through more outputs than anyone could actually review.
