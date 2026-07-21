@@ -354,7 +354,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/og-card.jpg',
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -365,6 +365,7 @@ const config: Config = {
       logo: {
         alt: 'AI Engineering Handbook',
         src: 'img/logo.svg',
+        srcDark: 'img/logo-dark.svg',
       },
       items: [
         // One docSidebar item per course that's ready to show. Derived from
