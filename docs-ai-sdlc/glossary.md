@@ -96,3 +96,13 @@ its section here. The list grows as the course does.
 **Checkable vs inferential control** — a done-condition confirmed by a deterministic check that can't be talked out of a failure (checkable / computational) versus one confirmed by a model's judgment (inferential); prefer the former, and treat a stage that admits only the latter as not yet cut small or concrete enough.
 
 **Stage sizing** — sizing a stage to what you can verify in a short pass, not to what the model offers to do in one confident go.
+
+## Atomic tasks
+
+**Atomic task** — a unit of work small enough to verify in a single reading; the granularity at which you actually keep control of what an agent produces.
+
+**Decomposition as control** — the principle that how finely you cut the work sets how tightly you can check it: every boundary is a place to stop and verify, so control is decided at decomposition, not recovered later.
+
+**Over-decomposition** — cutting work so fine that coordination overhead — more briefs, more context re-sent each turn, more artifacts to keep consistent — outweighs the checkability gained; the artifact-overload failure reached by "just split it smaller."
+
+**Orchestrator and ephemeral workers** — a split where a long-lived orchestrator holds the plan, context, and done-conditions while short-lived workers each take one atomic task and return a compressed result; the orchestrator's job is verification, not generation.

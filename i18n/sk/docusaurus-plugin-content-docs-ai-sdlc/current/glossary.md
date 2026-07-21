@@ -107,3 +107,15 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Overiteľný verzus na úsudku založený kontrolný mechanizmus** — podmienka dokončenia potvrdená buď deterministickou kontrolou, ktorej neúspešný výsledok nemožno zmeniť presviedčaním (overiteľný, čiže výpočtový mechanizmus), alebo úsudkom modelu (mechanizmus založený na úsudku). Uprednostni prvý a etapu, ktorá umožňuje iba druhý, považuj za zatiaľ nedostatočne malú alebo konkrétnu.
 
 **Určovanie veľkosti etapy** — prispôsobenie veľkosti etapy tomu, čo vieš rýchlo overiť, nie tomu, čo model ponúka vykonať na jeden sebaistý pokus.
+
+<a id="atomic-tasks"></a>
+
+## Atomárne úlohy
+
+**Atomárna úloha** — jednotka práce, ktorá je dostatočne malá na to, aby sa dala overiť na jedno prečítanie; práve s takou podrobnosťou si skutočne zachovávaš kontrolu nad tým, čo agent vytvorí.
+
+**Dekompozícia ako nástroj kontroly** — princíp, podľa ktorého jemnosť rozdelenia práce určuje dôkladnosť jej kontroly: každá hranica je miestom, kde sa možno zastaviť a výsledok overiť, takže o miere kontroly sa rozhoduje pri dekompozícii a nemožno ju získať späť neskôr.
+
+**Príliš jemná dekompozícia** — rozdelenie práce na také malé časti, že režijné náklady na koordináciu — viac zadaní, opakované posielanie kontextu pri každom kroku a viac artefaktov, ktorých súlad treba udržiavať — prevážia získanú overiteľnosť; pokus „jednoducho to rozdeľ ešte viac“ tak vedie k zahlteniu artefaktmi.
+
+**Orchestrátor a dočasní vykonávatelia** — model, v ktorom dlhodobo fungujúci orchestrátor udržiava plán, kontext a podmienky dokončenia, zatiaľ čo dočasní vykonávatelia dostanú vždy jednu atomárnu úlohu a vrátia skrátený výsledok; úlohou orchestrátora je overovať, nie tvoriť.
