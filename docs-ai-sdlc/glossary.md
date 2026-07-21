@@ -86,3 +86,13 @@ its section here. The list grows as the course does.
 **Drift / rule rot** — the decay of a rule corpus with no staleness mechanism: constants diverge, copied code goes stale, superseded rules survive, and seams between files contradict.
 
 **Consistency owner** — the role accountable for reconciling a corpus so that two authoritative files can't prescribe opposite things.
+
+## Vision to stages
+
+**Verifiable stage** — a unit of a plan defined by a done-condition you can confirm, not by a step you can describe; the interval between two checks you can actually run.
+
+**Done-condition** — the concrete, inspectable fact that becomes true when a stage is genuinely complete (a passing test, a 401 on an untokened request), as opposed to the agent merely reporting it done.
+
+**Checkable vs inferential control** — a done-condition confirmed by a deterministic check that can't be talked out of a failure (checkable / computational) versus one confirmed by a model's judgment (inferential); prefer the former, and treat a stage that admits only the latter as not yet cut small or concrete enough.
+
+**Stage sizing** — sizing a stage to what you can verify in a short pass, not to what the model offers to do in one confident go.
