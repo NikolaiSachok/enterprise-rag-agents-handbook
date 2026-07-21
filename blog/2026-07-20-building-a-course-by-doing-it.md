@@ -6,74 +6,55 @@ tags: [making-of, ai-sdlc, verification]
 date: 2026-07-20
 ---
 
-I gave a background agent a bad citation. More precisely, the bad citation came from my own briefing
-document: I had listed an arXiv paper as a candidate source for a claim, but it was the wrong paper. The agent
-checked the source against the claim and rejected it. This is mildly embarrassing, given that I wrote a course
-arguing that verification is the binding constraint in AI-assisted development. It is also a useful scar. I
-generated the error, and it stayed out of the release only because checking existed as a separate step that could
-not be quietly skipped.
+The most instructive mistake in this project so far was a wrong citation — and I didn't write it.
+
+I don't do much of the line-level work on this handbook anymore. I direct a set of agents: I ask one to build
+a skill, another to draft a lesson, another to add the right IBM video, another to translate. Somewhere in that
+pipeline, an agent writing a brief for the others put down the wrong paper as the source for a claim. A
+different agent, whose whole job at that step was to check each source against the claim it supported, caught
+the mismatch and swapped in the correct one. I found out by reading the report afterward.
 
 {/* truncate */}
 
-The mistake happened during a citation pass over Part I of the AI-SDLC course. The pass covered five lessons in
-three languages: English, Russian, and Slovak (`REPORTED`). Its purpose was to replace weak or indirect support
-with links to real primary sources.
+That's a small thing, but it's the whole project in miniature. I'm building a course about doing software
+development with AI agents, and I'm building it the way it describes. What that actually feels like, day to day,
+is not what I expected.
 
-I delegated the work to background agents, each briefed and reviewed, isolated in its own git worktree, gated by
-CI. I started with one pilot agent, adjusted the approach based on that result, and then ran four more agents in
-parallel (`REPORTED`). One of those agents received the bad citation candidate from my brief and caught it
-during verification (`REPORTED`).
+## Generating is the cheap part
 
-That sequence matters more than the fact that an agent found a mistake. I had already done the supposedly
-careful part. I knew the subject, understood the claim, and was explicitly preparing instructions for source
-verification. I still placed an unsuitable paper in the brief. Knowing the material did not make my own
-output reliable.
+I can get a lot of plausible output, fast. Ask for a lesson draft, a translation, a set of citations, a patch —
+it arrives in minutes, and running agents in parallel multiplies it. None of that volume tells me whether any of
+it is right.
 
-## Cheap output, expensive confidence
+That's the part that costs. Every generated thing still has to be checked by someone, and for most of it that
+someone is me. Does this source actually support this exact sentence? Is it a primary source or a summary of
+one? Did the translation keep the claim as strong as the original, or quietly soften it? Did fixing one language
+break another? More output just means more of these questions waiting in line.
 
-Generating work that looks right has become cheap. I can ask an agent to draft a lesson, translate it, propose
-citations, edit links, or prepare a patch, and receive useful output quickly. Running agents in parallel pushes that
-volume higher. None of this tells me whether the resulting work deserves to merge.
+I spend most of my time in that queue, not in generation. It's also the argument the course opens with:
+[the real bottleneck in agent-built software is verification, not generation](/ai-sdlc/part-1-foundation/verification-bottleneck).
+I didn't set out to prove it on myself. The project did that on its own.
 
-Unchecked generation creates a backlog, not throughput. Every generated change still has to be checked by
-someone. Does the source actually support that exact sentence? Is it a primary source? Did the translation keep the
-claim as strong as the original? Did fixing one locale quietly break another? And does the site still build? More output simply means
-more material waiting to be checked.
+Some of the judgment calls have been genuinely interesting. I spent real time working out which model to trust
+for translation, and the most fluent one wasn't the most faithful — the smoothest Russian sometimes drifted
+furthest from the meaning. I found that authoring a lesson natively in each language beat translating one
+version into the others. I check every video before I embed it, because an ID recalled from memory points at the
+wrong thing often enough to matter. None of that is generation. It's deciding what's good enough to carry my
+name.
 
-This is the argument developed in [the verification
-bottleneck](/ai-sdlc/part-1-foundation/verification-bottleneck). The evidence reviewed there has an
-uncomfortable shape: adoption of coding agents increases merged-PR throughput, while measured code quality and
-comprehension decline, and developers do not reliably assess the effect on their own work (`MEASURED`). The
-lesson holds the studies and the citations; I am not going to reproduce their numbers here.
+## What the agents don't do
 
-The practical bottleneck is verification and review capacity. Model capability matters, but raw output is
-already easy to obtain. The slow part is establishing that the output is actually good enough to use. That
-work is less visible than generation. It means reading sources, examining diffs, running checks, and deciding
-what a passing result actually proves.
+The agent that caught my pipeline's bad citation is not a magic reviewer. It makes its own mistakes. Another
+agent might have missed the same mismatch; a person skimming an abstract might have waved it through. Checking
+layers help for a boring reason: their blind spots don't line up with the generator's, or with each other's.
+Stack a few and more gets caught. Nobody in the stack is infallible, me included.
 
-My citation error is a small example, but it shows exactly where the boundary is. The agent did not save the work
-because it generated better prose. It helped because the process required a different operation after
-generation: compare the proposed citation against the actual paper, and reject the match if the claim was
-unsupported. Had verification stayed an instruction buried inside the drafting task, the citation that looked fine
-might have survived. A rule that can be bypassed is only a request; [rules that
-hold](/ai-sdlc/part-1-foundation/rules-that-hold) have to be carried by the workflow, not by good intentions.
+And someone still makes the last call. A build can confirm that a link resolves; it can't decide whether a
+source really supports the reading I gave it. An agent can compare a sentence to a paper; it can't decide
+whether the claim belongs in the course at all. That part doesn't delegate. It's the job.
 
-## What I am not claiming
-
-This does not make AI agents magical reviewers. The agent that caught my mistake can produce mistakes of its
-own. Another agent might miss the same mismatch, and a human reviewer might accept a source after reading only
-the abstract. Verification layers help because their failure modes differ from the generator's and from each
-other's. They do not hand you infallibility.
-
-A human still has to make the final call. A build can verify syntax and links, but it cannot settle whether a
-citation supports the intended reading. An agent can compare a sentence against a paper, but I still have to
-decide whether the claim belongs in the course and whether the evidence is strong enough. Some of this can be
-automated. The rest needs judgment, and someone accountable for the result.
-
-So the useful lesson from this session is structural. I should assume that any generator, myself included, will
-occasionally produce something persuasive and wrong. The workflow has to reserve enough capacity to inspect that
-output, and the checking step has to have the standing to stop it.
-
-This handbook is being built with the lifecycle it teaches. That does not mean the process runs cleanly or
-proves itself by succeeding. In this case the most faithful demonstration was my own bad citation reaching a
-verification boundary and going no further.
+So the honest version of "I built this with the process it teaches" isn't a clean demo where everything works.
+It's this: inside a pipeline I designed and direct, something persuasive and wrong got made, and it stayed out
+of the course only because checking was a separate step with
+[the standing to stop it](/ai-sdlc/part-1-foundation/rules-that-hold). That's not a footnote to the thesis. It's
+the thesis.
