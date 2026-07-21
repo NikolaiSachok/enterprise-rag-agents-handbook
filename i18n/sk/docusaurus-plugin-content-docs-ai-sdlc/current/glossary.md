@@ -151,3 +151,19 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Nedelegovateľný kontrolný bod** — jedno z mála miest, ktoré nemožno prenechať cyklu bez toho, aby stratil svoj zmysel: nastavenie podmienok dokončenia, zodpovednosť za bránu kritika pri zlyhaniach bezpečnosti alebo správnosti a rozhodnutie o začlenení zmeny s veľkým blast radius.
 
 **Dohľad verzus formálne odklepnutie** — skutočný dohľad tvorí niekoľko vynucovaných kontrolných bodov, kde je úsudok človeka samotným kontrolným mechanizmom. „Kontrolovať všetko“ nie je dohľad, ale formálne odklepnutie, pri ktorom človek prepustí viac výstupov, než ktokoľvek dokáže skutočne skontrolovať.
+
+<a id="layered-gates"></a>
+
+## Vrstvené brány
+
+**Vrstvené brány** — overovací reťazec pozostávajúci z niekoľkých po sebe nasledujúcich kontrol. Každá brána pokrýva triedu chýb, ktorú predchádzajúca brána zo svojej podstaty nedokáže odhaliť. Pokrytie je vlastnosťou celého reťazca, nikdy nie jedinej brány.
+
+**Štrukturálne slepé miesto** — trieda chýb, ktorú brána nedokáže zachytiť pre svoj *mechanizmus*, nie pre nedostatočnú dôkladnosť. Statický analyzátor číta zdrojový kód, a preto nevidí stav aplikácie počas behu. Vizuálne porovnanie pracuje so statickým obrazom, a preto nevidí animáciu. Slepé miesto sa odstraňuje pridaním brány s odlišným mechanizmom, nikdy sprísňovaním brány, ktorá je voči nemu slepá.
+
+**Rozmanitosť mechanizmov** — princíp návrhu, podľa ktorého pokrytie vzniká vrstvením brán, ktorých mechanizmy zlyhávajú odlišne (statické a dynamické, deterministické a sémantické, strojové a ľudské). To, voči čomu je jedna brána slepá, tak dokáže vnímať iná.
+
+**Dôkladnosť a pokrytie** — dôkladnosť vyjadruje, ako intenzívne jedna brána hľadá chyby v triedach, ktoré dokáže vnímať. Pokrytie vyjadruje, koľko tried dokáže celý reťazec vôbec vnímať. Zvýšením dôkladnosti brány sa nikdy nedosiahne pokrytie triedy, ktorú jej mechanizmus nedokáže vidieť.
+
+**Deterministická a sémantická brána** — deterministická brána (test, typová kontrola, doslovný grep) poskytuje opakovateľné výsledky a jej nález nemožno spochybniť argumentáciou, zachytí však iba to, čo možno vyjadriť mechanickým pravidlom. Sémantická brána (LLM posudzujúci význam) zachytí triedy chýb, ktoré takýmto pravidlom vyjadriť nemožno, je však drahá a funguje iba s určitou pravdepodobnosťou. Obe sú slepé voči opačným veciam, preto sa kombinujú a nález ktorejkoľvek z nich sa považuje za skutočný problém.
+
+**Hĺbková ochrana** — označenie rovnakého princípu vo svete bezpečnosti: niekoľko nezávislých kontrol usporiadaných vo vrstvách, pričom žiadnej sa nedôveruje samostatne a každá počíta s tým, že kontrola pred ňou niekedy zlyhá.

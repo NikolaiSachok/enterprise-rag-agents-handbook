@@ -132,3 +132,17 @@ its section here. The list grows as the course does.
 **Irreducible checkpoint** — one of the few points that can't be delegated to the loop without the loop losing its meaning: setting the done-conditions, owning the critic gate on security or correctness failures, and the decision to land a high-blast-radius change.
 
 **Oversight vs rubber-stamp** — real oversight is a few enforced checkpoints where a human's judgment is the control; "review everything" is not oversight but a rubber stamp — a person waved through more outputs than anyone could actually review.
+
+## Layered gates
+
+**Layered gates** — a verification chain built from several checks in sequence, where each gate exists to cover a defect class the previous one structurally cannot see. Coverage is a property of the whole stack, never of any single gate.
+
+**Structural blind spot** — the class of defect a gate cannot catch because of its *mechanism*, not its thoroughness: a static analyzer reads source and so cannot see a runtime state; a visual diff is static and so cannot see an animation. The blind spot is fixed by adding a differently-mechanised gate, never by tuning the blind one stricter.
+
+**Mechanism diversity** — the design principle that coverage comes from stacking gates whose mechanisms fail differently (static vs dynamic, deterministic vs semantic, machine vs human), so that what one is blind to, another perceives.
+
+**Thoroughness vs coverage** — thoroughness is how hard one gate looks within the classes it can perceive; coverage is how many classes the chain can perceive at all. Making a gate more thorough never buys coverage of a class its mechanism can't see.
+
+**Deterministic vs semantic gate** — a deterministic gate (test, type check, literal grep) is reproducible and cannot be argued out of a hit but only catches what can be phrased mechanically; a semantic gate (an LLM judging meaning) catches unphraseable classes but expensively and probabilistically. They are blind to opposite things, so they are composed, and a hit from either counts.
+
+**Defense in depth** — the security world's name for the same idea: multiple independent controls in layers, none trusted alone, each assuming the one in front of it will sometimes fail.
