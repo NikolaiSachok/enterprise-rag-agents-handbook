@@ -146,3 +146,15 @@ its section here. The list grows as the course does.
 **Deterministic vs semantic gate** — a deterministic gate (test, type check, literal grep) is reproducible and cannot be argued out of a hit but only catches what can be phrased mechanically; a semantic gate (an LLM judging meaning) catches unphraseable classes but expensively and probabilistically. They are blind to opposite things, so they are composed, and a hit from either counts.
 
 **Defense in depth** — the security world's name for the same idea: multiple independent controls in layers, none trusted alone, each assuming the one in front of it will sometimes fail.
+
+## The escape ledger
+
+**Escape ledger** — a record of every defect that reached production despite passing the gate chain, kept as blameless-postmortem discipline pointed at the gates: one row per escape names the defect class, the gate that should have caught it, the blind spot, and the promotion that now covers it.
+
+**Defect-class escape** — an escape recorded as the *class* it belongs to (e.g. "boundary inputs are never exercised"), not as the single bug, because the class is the unit a gate can be built to catch.
+
+**Blind-spot promotion** — turning an escape into a permanent improvement of the chain: a new probe, test, or rule added to the gate that missed it. An escape is closed when the gate is improved, not when the bug is fixed.
+
+**Probe-list bias** — the tendency of a probe or test suite to cover only classes that have burned you before, because probe lists are built from remembered incidents; it leaves classes that have never happened structurally off the chain.
+
+**Broad-probe hunt** — the proactive complement to the ledger: a deliberately coarse probe that over-reports, filtered by judgment, used to surface a defect class that every precise probe is structurally unable to name.

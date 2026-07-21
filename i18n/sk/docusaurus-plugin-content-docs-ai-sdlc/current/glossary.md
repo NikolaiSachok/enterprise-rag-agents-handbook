@@ -167,3 +167,17 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Deterministická a sémantická brána** — deterministická brána (test, typová kontrola, doslovný grep) poskytuje opakovateľné výsledky a jej nález nemožno spochybniť argumentáciou, zachytí však iba to, čo možno vyjadriť mechanickým pravidlom. Sémantická brána (LLM posudzujúci význam) zachytí triedy chýb, ktoré takýmto pravidlom vyjadriť nemožno, je však drahá a funguje iba s určitou pravdepodobnosťou. Obe sú slepé voči opačným veciam, preto sa kombinujú a nález ktorejkoľvek z nich sa považuje za skutočný problém.
 
 **Hĺbková ochrana** — označenie rovnakého princípu vo svete bezpečnosti: niekoľko nezávislých kontrol usporiadaných vo vrstvách, pričom žiadnej sa nedôveruje samostatne a každá počíta s tým, že kontrola pred ňou niekedy zlyhá.
+
+<a id="escape-ledger"></a>
+
+## Register únikov
+
+**Register únikov** — evidencia všetkých chýb, ktoré sa dostali do produkcie napriek tomu, že prešli reťazcom brán. Uplatňuje na brány princípy analýzy bez hľadania vinníka: každý únik má vlastný riadok s triedou chýb, bránou, ktorá ho mala zachytiť, slepým miestom a premenou na kontrolu, ktorá už danú triedu pokrýva.
+
+**Únik triedy chýb** — únik zaznamenaný podľa *triedy*, do ktorej patrí, napríklad „vstupy s hraničnými hodnotami sa nikdy netestujú“, nie ako jedna konkrétna chyba. Trieda je totiž jednotkou, na ktorej zachytenie možno vytvoriť bránu.
+
+**Premena slepého miesta na kontrolu** — premena úniku na trvalé zlepšenie reťazca: nový detektor, test alebo pravidlo pridané do brány, ktorá ho nezachytila. Únik sa uzatvára až po zlepšení brány, nie po oprave konkrétnej chyby.
+
+**Skreslenie zoznamu detektorov** — tendencia detektora alebo testovacej sady pokrývať iba triedy, ktoré už v minulosti spôsobili problém, pretože zoznamy detektorov vznikajú z incidentov, ktoré si pamätáme. Triedy, ktoré sa ešte nikdy nevyskytli, preto zostávajú zo svojej podstaty mimo reťazca.
+
+**Hľadanie hrubým detektorom** — proaktívny doplnok registra: použitie zámerne hrubého detektora, ktorý sa spúšťa príliš často a ktorého nálezy sa následne posudzujú a filtrujú. Jeho cieľom je odhaliť triedu chýb, ktorú žiadny presný detektor zo svojej podstaty nedokáže identifikovať.
