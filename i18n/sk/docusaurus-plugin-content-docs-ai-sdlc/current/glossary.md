@@ -197,3 +197,19 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Potlačenie príznaku** — vypnutie signálu namiesto odstránenia príčiny: test, ktorý prejde aj cez mŕtvy kód, čistý výsledok lint dosiahnutý potlačením upozornenia alebo diff, ktorý skryje príznak z posudzovanej časti.
 
 **Goodhartov zákon** — „keď sa z meradla stane cieľ, prestane byť dobrým meradlom“; proxy-metrika, ktorú optimalizuješ dostatočne tvrdo (počet zlúčených PR či uzavretých ticketov), prestane sledovať hodnotu, ktorú pôvodne zastupovala.
+
+<a id="review-at-volume"></a>
+
+## Kontrola pri veľkom objeme
+
+**Kontrola pri veľkom objeme** — problém, ako zachovať zmysluplnosť ľudskej kontroly, keď agenti generujú výstupy rýchlejšie, než ich ktokoľvek dokáže čítať. Po prekročení určitej hranice prestáva „kontrola všetkého“ plniť funkciu dohľadu a mení sa na formálne odklepnutie.
+
+**Sústrediť pozornosť človeka** — princíp návrhu, podľa ktorého má automatizácia spustiť všetky mechanické brány *pred* zapojením človeka. Obmedzená pozornosť človeka, ktorej kapacitu nemožno zvyšovať, sa tak sústredí iba na výstupy, ktoré už bránami prešli, a iba na prípady, kde je ľudský úsudok skutočným kontrolným mechanizmom.
+
+**Zoznam nedelegovateľného** — výslovný, zapísaný zoznam konkrétnych vlastností, ktoré dokáže vnímať iba človek, napríklad vykresľovanie so skutočnými písmami, prirodzenosť animácií, správanie na skutočnom zariadení či kontrast prvkov na obrázkoch. Zapísanie zoznamu bráni tomu, aby ľudská brána potichu znovu prebrala mechanickú prácu.
+
+**Kalibrácia podľa dosiahnuteľnosti** — určenie váhy nálezu podľa toho, či sa používateľ môže skutočne dostať k zasiahnutému kódu. Nedosiahnuteľná „kritická“ chyba je latentná (skrytá) chyba, nie núdzová situácia. Závažnosť bez dosiahnuteľnosti je iba šum, ktorý učí kontrolóra nedôverovať bráne.
+
+**Skreslenie spôsobené formátom výstupu nástroja** — systematické pripisovanie menšej váhy nálezu, keď je výstupný kanál brány užší než chyba, ktorú odhaľuje. Vizuálne porovnanie napríklad informuje o *vzhľade*, takže „chýbajúci widget“ pôsobí ako kozmetický problém, hoci skutočnou chybou je chýbajúce *správanie*. Platí pravidlo: ak štrukturálna brána hlási, že niečo „chýba“, považuj to za nedostatok funkčnosti, kým sa nepreukáže, že ide iba o kozmetickú chybu.
+
+**Strojovo čitateľná značka „potrebný človek“** — značka, ktorú agent vloží priamo do výstupu pri skutočnom rozhodnutí vyžadujúcom úsudok („tu potrebujem človeka“) a ktorú neskoršia ľudská brána použije ako svoj pracovný zoznam. Namiesto spotrebúvania pozornosti človeka ju nasmeruje na správne miesto.

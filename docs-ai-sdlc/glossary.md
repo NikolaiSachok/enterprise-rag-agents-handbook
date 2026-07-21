@@ -172,3 +172,17 @@ its section here. The list grows as the course does.
 **Symptom suppression** — turning off the signal instead of fixing the cause: a test that passes over dead code, a lint clean bought by suppressing the warning, a diff that hides the symptom from the reviewed surface.
 
 **Goodhart's law** — "when a measure becomes a target, it ceases to be a good measure"; a proxy metric optimized hard enough (merged-PR count, tickets closed) stops tracking the value it stood for.
+
+## Review at volume
+
+**Review at volume** — the problem of keeping human review meaningful once agents generate faster than anyone can read; past a point, "review everything" stops being oversight and becomes a rubber stamp.
+
+**Concentrate human attention** — the design principle that automation's job is to run every mechanical gate *ahead* of the human, so the scarce, non-scaling human attention lands only on what already passed and only where a human's judgment is the actual control.
+
+**Enumerated irreducible** — the explicit, written list of the specific things only a human can perceive (real-font rendering, animation feel, real-device behavior, contrast over imagery). Writing it down is what stops the human gate from silently re-absorbing mechanical work.
+
+**Reachability calibration** — weighting a finding's severity by whether a user can actually reach the affected code: an unreachable "critical" is a latent defect, not an emergency. Severity without reachability is noise that trains the reviewer to distrust the gate.
+
+**Output-modality bias** — the systematic under-weighting of a finding when a gate's output channel is narrower than the defect it detects — e.g. a visual diff reports *appearance*, so a "missing widget" reads as cosmetic when the real defect is missing *behavior*. The rule: treat a structural gate's "missing" as a functional gap until proven cosmetic.
+
+**Machine-readable human-defer** — an inline, machine-readable marker an agent leaves on a genuine judgment call ("I need a human here") that a later human gate consumes as its worklist; it routes human attention instead of consuming it.
