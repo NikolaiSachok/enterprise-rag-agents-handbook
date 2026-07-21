@@ -131,3 +131,13 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Trvalé odovzdanie práce** — prekročenie hranice zaznamenané ako trvalý artefakt — plán, špecifikácia, patch alebo výstup testov — namiesto toho, aby zostalo iba v chate. Takýto záznam pretrvá dlhšie než kontextové okno a možno ho neskôr skontrolovať.
 
 **Vymedzenie rozsahu a odstraňovanie** — disciplína, ktorá bráni tomu, aby sa rozhranie založené na artefaktoch zmenilo na zahltenie artefaktmi: odovzdaj iba to, čo potrebuje nasledujúca etapa, a dokončené veci odstráň namiesto ich ďalšieho prenášania.
+
+<a id="plan-review-implement-critic"></a>
+
+## Plán, kontrola, implementácia, kritik
+
+**Cyklus „plán — kontrola — implementácia — kritik“** — základný cyklus Časti II: skontrolovať plán pred napísaním kódu, implementovať podľa skontrolovaného plánu a potom kriticky posúdiť výsledok pred jeho začlenením. Lacné generovanie prebieha medzi dvoma bránami; odstráň ktorúkoľvek z nich a cyklus sa zmení na nekontrolované generovanie.
+
+**Kontrola plánu pred implementáciou** — kontrola plánu ešte pred implementáciou, ktorá prináša najväčší úžitok, pretože chybu v pláne opravíš jednou vetou, no rovnaká chyba v kóde znamená prepisovanie.
+
+**Brána kritika** — povinná kontrola, cez ktorú práca neprejde bez úspešného splnenia: je to hook, nie odporúčanie. Spravuje ju nezávislá strana, ktorá nemôže upravovať posudzovaný výsledok; ak agent hodnotí vlastný výstup, namiesto vykonania úlohy ho optimalizuje na kontrolu.

@@ -116,3 +116,11 @@ its section here. The list grows as the course does.
 **Durable handoff** — a boundary crossing recorded as a persistent artifact (a plan, spec, patch, or test output) rather than left in a chat, so it outlives the context window and can be reviewed later.
 
 **Scope and evict** — the discipline that keeps the artifact interface from becoming artifact overload: pass only what the next stage needs, and drop what's finished instead of carrying it forward.
+
+## Plan, review, implement, critic
+
+**The loop (plan-review-implement-critic)** — the core cycle of Part II: review the plan before any code, implement against the reviewed plan, then critique the result before it lands. Cheap generation sits between two gates; remove either and it collapses into unchecked generation.
+
+**Plan-first review** — reviewing the plan before implementation, the highest-leverage check because a mistake in a plan costs a sentence to fix and the same mistake in code costs a rewrite.
+
+**Critic gate** — a check the work cannot pass without clearing (a hook, not a suggestion), run by something independent of the work and unable to edit it; an agent grading its own output optimizes the check instead of doing the job.
