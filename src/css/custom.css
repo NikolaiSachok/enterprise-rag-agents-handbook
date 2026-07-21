@@ -88,3 +88,64 @@
     }
   }
 }
+
+/* ------------------------------------------------------------------------- *
+ * P2 — mobile search hint (Ctrl/⌘+K key caps)
+ *
+ * The search plugin (@easyops-cn/docusaurus-search-local) only hides its
+ * physical-keyboard hint and collapses search to an icon at <=576px. But the
+ * Docusaurus navbar collapses to the hamburger at <=996px, so between 577–996px
+ * the navbar is already in mobile mode yet the search still renders full-width
+ * WITH the "ctrl / K" key caps overlapping the truncated placeholder — noise on
+ * a touch device. Extend the plugin's own <=576px treatment up to the navbar
+ * breakpoint so hint visibility tracks "is the navbar in mobile mode". The
+ * Ctrl/⌘+K keyboard shortcut itself still works — only the visual hint is hidden.
+ * !important is required: the plugin's `display:flex` on the hint is an unlayered
+ * class rule of equal specificity and indeterminate source order. */
+@media (max-width: 996px) {
+  [class*="searchHintContainer"] { display: none !important; }
+  .navbar__search-input:not(:focus) { width: 2rem !important; }
+}
+
+/* ------------------------------------------------------------------------- *
+ * P1 — mobile language switch (compact control in the drawer header)
+ *
+ * Rendered by the `Navbar/MobileSidebar/Header` swizzle wrapper, this strip sits
+ * directly under the brand/close row and ABOVE both drawer panels, so it is
+ * always visible — one tap to switch language from any page including a lesson.
+ * It only exists inside the mobile drawer DOM, which desktop never renders, so
+ * no desktop guard is needed. Styled to read as part of the drawer header. */
+.mobileLangSwitch {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+.mobileLangSwitch__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.15rem;
+  color: var(--ifm-navbar-link-color);
+  flex-shrink: 0;
+}
+.mobileLangSwitch__link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--ifm-global-radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ifm-navbar-link-color);
+  text-decoration: none;
+}
+.mobileLangSwitch__link:hover {
+  color: var(--ifm-navbar-link-hover-color);
+  background: var(--ifm-menu-color-background-hover);
+  text-decoration: none;
+}
+.mobileLangSwitch__link--active {
+  color: var(--ifm-menu-color-active);
+  background: var(--ifm-menu-color-background-active);
+}
