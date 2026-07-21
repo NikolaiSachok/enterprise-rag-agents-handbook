@@ -106,3 +106,13 @@ its section here. The list grows as the course does.
 **Over-decomposition** — cutting work so fine that coordination overhead — more briefs, more context re-sent each turn, more artifacts to keep consistent — outweighs the checkability gained; the artifact-overload failure reached by "just split it smaller."
 
 **Orchestrator and ephemeral workers** — a split where a long-lived orchestrator holds the plan, context, and done-conditions while short-lived workers each take one atomic task and return a compressed result; the orchestrator's job is verification, not generation.
+
+## Artifacts as interface
+
+**Artifact as interface** — the rule that stages hand off through written artifacts, not conversation: what crosses a boundary must be a thing someone can inspect, diff, and check against a done-condition.
+
+**Context reset vs compaction** — two ways to carry state across a long task: compaction summarizes the conversation in place (lossy, drifts); reset hands the next step a durable artifact and starts clean. The artifact survives the reset; the transcript isn't meant to.
+
+**Durable handoff** — a boundary crossing recorded as a persistent artifact (a plan, spec, patch, or test output) rather than left in a chat, so it outlives the context window and can be reviewed later.
+
+**Scope and evict** — the discipline that keeps the artifact interface from becoming artifact overload: pass only what the next stage needs, and drop what's finished instead of carrying it forward.

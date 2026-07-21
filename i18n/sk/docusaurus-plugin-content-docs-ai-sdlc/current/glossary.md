@@ -119,3 +119,15 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Príliš jemná dekompozícia** — rozdelenie práce na také malé časti, že režijné náklady na koordináciu — viac zadaní, opakované posielanie kontextu pri každom kroku a viac artefaktov, ktorých súlad treba udržiavať — prevážia získanú overiteľnosť; pokus „jednoducho to rozdeľ ešte viac“ tak vedie k zahlteniu artefaktmi.
 
 **Orchestrátor a dočasní vykonávatelia** — model, v ktorom dlhodobo fungujúci orchestrátor udržiava plán, kontext a podmienky dokončenia, zatiaľ čo dočasní vykonávatelia dostanú vždy jednu atomárnu úlohu a vrátia skrátený výsledok; úlohou orchestrátora je overovať, nie tvoriť.
+
+<a id="artifacts-as-interface"></a>
+
+## Artefakty ako rozhranie
+
+**Artefakt ako rozhranie** — pravidlo, podľa ktorého si etapy odovzdávajú prácu prostredníctvom písomných artefaktov, nie rozhovoru: hranicu musí prekročiť vec, ktorú môže niekto preskúmať, porovnať s predchádzajúcou verziou a skontrolovať voči podmienke dokončenia.
+
+**Reset kontextu a zhutňovanie kontextu** — dva spôsoby prenášania stavu naprieč dlhou úlohou: pri zhutňovaní sa rozhovor sumarizuje priamo v aktuálnom kontexte, čím sa strácajú informácie a postupne posúva význam; pri resete dostane nasledujúci krok trvalý artefakt a začne s čistým kontextom. Artefakt prežije reset kontextu; prepis rozhovoru na to nie je určený.
+
+**Trvalé odovzdanie práce** — prekročenie hranice zaznamenané ako trvalý artefakt — plán, špecifikácia, patch alebo výstup testov — namiesto toho, aby zostalo iba v chate. Takýto záznam pretrvá dlhšie než kontextové okno a možno ho neskôr skontrolovať.
+
+**Vymedzenie rozsahu a odstraňovanie** — disciplína, ktorá bráni tomu, aby sa rozhranie založené na artefaktoch zmenilo na zahltenie artefaktmi: odovzdaj iba to, čo potrebuje nasledujúca etapa, a dokončené veci odstráň namiesto ich ďalšieho prenášania.
