@@ -1003,6 +1003,13 @@ je tučná kotva bez hesla — doplniť heslo, alebo kotvu odtučniť vo vlne fl
 Druhá lekcia vlny 1 (Retrieval index + prehĺbenie „Fúzia, radenie a metriky“), plný redakčný tím + studený
 prechod ×2. Zapisuje sa, aby ďalšie lekcie vlny (Generation a ďalej) dedili už rozhodnuté.
 
+**Rodený hovorca — oprava (2026-07, po publikovaní).** Video-caption „The big picture…“ bol preložený ako
+**„Veľký obraz…“** — kalk (*big = veľký*), ktorý rodený Slovák označil za neprirodzený. Opravené na
+**„Celkový obraz…“** (alternatíva „Globálny pohľad“); zapísané do §1.4 kalkovej tabuľky (`_language.md`).
+Pri tejto príležitosti bola **celá lekcia Retrieval preložená nanovo cez Sol** aktualizovanými skillmi
+(authoring/editorial), keďže pôvodný preklad vznikol pred ich revíziami (incumbent-term deferencia,
+kontrola konotácie, kontrola plotnosti termínu, konzultácia s externými zdrojmi).
+
 **Vyriešených 5 konfliktov, ktoré Ingestion flagol (Fáza 5, „Konflikty s usadenými riadkami“) — rozhodnuté,
 odôvodnené, aplikované na celý korpus vrátane už publikovaných stránok:**
 
