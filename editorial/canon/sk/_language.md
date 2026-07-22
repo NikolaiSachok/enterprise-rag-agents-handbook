@@ -136,6 +136,7 @@ oprava nie je náhrada slova, ale **prepísanie z významu**. Zoznam rastie s ko
 | „the property you want is…“ | „vlastnosť, ktorú chceš, je…“ | „ide o to, aby…“, „potrebná vlastnosť je…“ |
 | „sharp boundary“ | „deliaca čiara je ostrá“ | „ostrá hranica“, „jasné rozhranie“ |
 | „costs tokens“ | „stojí tokeny“ | „zaberá/spotrebuje tokeny“ (§1.3 blocklist) |
+| „the big picture“ | „veľký obraz“ (kalk *big = veľký*) | „celkový obraz“, „globálny pohľad“ (rodený hovorca, Retrieval caption 2026-07) |
 
 **Zakázané vetné šablóny (v2 recenzia — write-filter + grep-zoznam).** Kalkové KOSTRY viet, ktoré prežili
 v2 substitučný prechod; pred publikovaním sa finálny text greppe proti tomuto zoznamu a **žiadny výskyt

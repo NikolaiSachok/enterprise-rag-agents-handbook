@@ -5,7 +5,7 @@ slug: /part-1-rag/retrieval/
 
 # Ako nájsť správny kontext pre dopyt
 
-Po ingestion sú chunky (kúsky dokumentu) už uložené vo vektorovej databáze. Naivná podoba vyhľadávania vyzerá takto: zaembedduj dopyt a vráť K najbližších vektorov podľa kosínusu. To je východisko, nie hotové riešenie. Vrstve Retrieval ide o to, ako z „najbližších vektorov“ spraviť výsledky, ktoré sú naozaj relevantné, správne zoradené a držia sa toho, čo daný používateľ vôbec smie vidieť.
+Po ingestion sú chunky (kúsky dokumentu) už uložené vo vektorovej databáze. Naivná podoba vyhľadávania vyzerá takto: zaembedduj dopyt a vráť K najbližších vektorov podľa kosínusovej podobnosti. To je východisko, nie hotové riešenie. Vrstve Retrieval ide o to, ako z „najbližších vektorov“ spraviť výsledky, ktoré sú naozaj relevantné, správne zoradené a držia sa toho, čo daný používateľ vôbec smie vidieť.
 
 Drž v hlave rámec z prehľadu časti: zlyhanie vyhľadávania (retrieval failure) nastane vtedy, keď chunk, ktorý si potreboval, nie je medzi tým, čo vyhľadávanie vrátilo. Celej vrstve ide v jadre o jedno: aby potrebný chunk vo výsledku chýbal čo najzriedkavejšie.
 
@@ -13,17 +13,17 @@ Drž v hlave rámec z prehľadu časti: zlyhanie vyhľadávania (retrieval failu
 
 <YouTube id="T-D1OfcDW1M" title="What is Retrieval-Augmented Generation (RAG)? — IBM Technology" />
 
-Veľký obraz: ako vyhľadávanie dodáva kontext do generovania. (Video je v angličtine.)
+Celkový obraz: ako vyhľadávanie dodáva kontext do generovania. (Video je v angličtine.)
 
 :::
 
 ## Prečo naivné vektorové top-K nestačí
 
-Na živých dopytoch naivná schéma „K najbližších vektorov“ prehráva hneď z niekoľkých dôvodov naraz.
+Pri reálnych dopytoch naivná schéma „K najbližších vektorov“ naráža na niekoľko problémov súčasne.
 
 Dense retrieval (husté vyhľadávanie) zachytí význam, ale prehliadne presné tokeny — chybové kódy, čísla dielov, mená, skratky. Pri dopyte „chyba X-42“ sa potrebný chunk nemusí vôbec dostať medzi výsledky, kým vyhľadávanie podľa presného slova ho nájde okamžite. K tomu pridaj priepasť medzi slovníkom používateľa a dokumentu — pýta sa inými slovami, než aké sú v dokumente — a úplnú absenciu akejkoľvek predstavy o prístupových právach. Nad naivné vyhľadávanie preto treba postaviť niekoľko vrstiev.
 
-Sú štyri a každej patrí jedna z ďalších sekcií: opraviť samotný dopyt, zaceliť slepé miesta vyhľadávania, opraviť poradie výsledkov a napokon obmedziť rozsah aj prístupové práva.
+Sú štyri: opraviť dopyt pomocou query transformation, vykryť slepé miesta cez hybrid search, opraviť poradie pomocou rerankingu a obmedziť rozsah aj oprávnenia filtrami a ACL.
 
 ## Transformácia dopytu — dopyt oprav ešte pred vyhľadávaním
 
@@ -42,7 +42,7 @@ Najväčší jediný krok vpred oproti naivnému vyhľadávaniu. Pracujú tu dva
 | Čo zachytí | význam, synonymá, parafrázy | presné slová: kódy, mená, čísla dielov, zriedkavé termíny |
 | Kde je slepé | presné tokeny, ktorým model dáva malú váhu | synonymá a význam — počíta sa len doslovná zhoda |
 
-Hybrid search (hybridné vyhľadávanie) spustí oba naraz a ich skóre spojí — vážene, alebo cez Reciprocal Rank Fusion. Každý kryje slepé miesto toho druhého, čím je zodpovedané aj to, prečo jeden vektor nestačí.
+Hybrid search (hybridné vyhľadávanie) spustí oba naraz a ich skóre spojí — vážene, alebo cez Reciprocal Rank Fusion. Každý kryje slepé miesto toho druhého — a máš odpoveď na to, prečo jeden vektor nestačí.
 
 Vezmi dopyt „ako obnoviť heslo“. Husté vyhľadávanie nájde podľa významu dokument „obnovenie prístupu k účtu“; BM25 nájde ten, čo sa slovo za slovom volá „reset hesla“. Spolu vrátia to, čo by každý z nich sám minul.
 
