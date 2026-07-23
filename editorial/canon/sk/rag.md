@@ -66,9 +66,12 @@ redaktor pri každej stránke.
 
 - **Slovenské úvodzovky „…“** (dolné otváracie, horné zatváracie). Nikdy nie «…» (ruské) ani "…" (anglické
   rovné). Vnorená úroveň: ‚…'.
-- **Desatinná čiarka**: 0,5; 0,36; nie „0.5“. Rozsahy pomlčkou (en-dash), bez medzier: 10–20 %.
-- **Nedeliteľná medzera** pred percentom (10–20 %) a medzi číslom a jeho jednotkou (128 GB, 8 GPU, 24 h),
-  aby sa hodnota neodtrhla na koniec riadka.
+- **Desatinná čiarka**: 0,5; 0,36; nie „0.5“. Rozsahy pomlčkou (en-dash), bez medzier: 10–20%.
+- **Percento píš tesne k číslu: 10–20%, 28,7%.** Projektová konvencia, zjednotená naprieč kurzami
+  (2026-07): novšie príručky uprednostňujú tesný zápis a celý korpus (EN, RU aj SK) ho už používa.
+  Predchádzajúce znenie žiadalo nedeliteľnú medzeru pred percentom a odporovalo vlastnému korpusu.
+- **Nedeliteľná medzera** ostáva **medzi číslom a jeho jednotkou** (128 GB, 8 GPU, 24 h), aby sa
+  hodnota neodtrhla na koniec riadka. Pri percente sa neuplatňuje.
 - **Veľké začiatočné písmeno pre termín inak štylizovaný malým**, keď stojí na začiatku vety: „top-K“ v tele
   vety, ale „Top-K je počet fragmentov, ktoré vyhľadávanie vráti.“ na začiatku vety. To isté pre „vLLM“,
   „promptfoo“ — vetu radšej preformuluj, aby sa nezačínala tvarom s povinným malým písmenom.
@@ -600,7 +603,7 @@ Zavedené pri bootstrape glosára; nové stránky ich dedia.
 - **tvrdý strop / mäkký strop** = hard cap / soft cap (rozpočtová politika). „tvrdý strop“ sa drží aj
   v rozpočtových heslách (retrieval / retry / step budget) kvôli páru s „mäkký strop“; nezamieňať za „pevný
   strop“, ktorý pár rozbíja.
-- **Rozsahy: tesná pomlčka bez medzier** (10–20 %), nedeliteľná medzera pred percentom aj pred jednotkou.
+- **Rozsahy: tesná pomlčka bez medzier** (10–20%); **percento tesne k číslu**, nedeliteľná medzera len pred jednotkou.
 
 ### §8 Polotučné (rozpočet zvýraznenia)
 
@@ -1087,8 +1090,8 @@ ACL).** Holé mená bez glosu: **HyDE, BM25, RRF, ColBERT, MaxSim, nDCG, MRR, to
   na skúšobnej dobe.
 
 **Contextual-retrieval čísla dodané (sľub Ingestion splnený).** Prehĺbenie Retrieval nesie čísla, na ktoré
-Ingestion odkazovala: zlyhanie vyhľadávania pri top-20 oproti východiskovým 5,7 % → kontextové embeddingy
-−35 % (5,7 % → 3,7 %), + kontextové BM25 −49 % (→ 2,9 %), + reranking −67 % (→ 1,9 %); náklad ~1,02 USD za
+Ingestion odkazovala: zlyhanie vyhľadávania pri top-20 oproti východiskovým 5,7% → kontextové embeddingy
+−35% (5,7% → 3,7%), + kontextové BM25 −49% (→ 2,9%), + reranking −67% (→ 1,9%); náklad ~1,02 USD za
 milión tokenov dokumentu. Desatinná čiarka + nedeliteľná medzera pred „%“ (zrkadlí Ingestion).
 
 **Pre lekciu Generation (odovzdanie):**
@@ -1849,7 +1852,7 @@ thinking budgete, bez coinovania SK.
   „zlyhanie" (kategória-etapa). Studený prechod + konzistenčný redaktor opravili 3 miesta: index „to zlyhanie
   si už videl" → „tú chybu"; prehĺbenie „pripichnú zlyhanie ku kroku" → „chybu" (ladí s „lokalizuje chybu na
   krok"). H2 „Základná chyba: slučka, ktorá sa nezastaví" drží rámec.
-- **Karta 2:** číslo (skóre, 74 %, pass-rate) = **skóre / číslo**; disciplína/akt = **evaluácia/hodnotenie**;
+- **Karta 2:** číslo (skóre, 74%, pass-rate) = **skóre / číslo**; disciplína/akt = **evaluácia/hodnotenie**;
   hodnotiteľ/funkcia **VRÁTI** skóre (§1.5). „hodnotenie" pre číslo = 0.
 - **Karta 3 (rozšírená):** **prehľadávanie** = prechod stromom/grafom plánov (ToT/GoT/LATS/plan search);
   **vyhľadávanie** = retrieval. Na tejto stránke drží: „prehľadávanie plánov", „prehľadať niekoľko ciest",
@@ -1925,7 +1928,7 @@ SK-vedená „rozpočet <čoho>"; agent chain = reťaz agentov; handoff = odovzd
 faktová brána proti EN-skeletu čistá (FIPA 1996/2002/2005, Smith IEEE Trans. Computers C-29 č. 12 dec. 1980,
 KQML zač. 90. rokov, A2A 9. apr. 2025 / vyše 50 / Apache 2.0, Hearsay-II CMU 1971–1976, Nii AI Magazine roč. 7
 1986, arXiv:2305.14325, MAST arXiv:2503.13657 κ = 0,88 / 14 spôsobov / 3 kategórie, Anthropic 13. jún 2025
-4×/15×/~80 %).
+4×/15×/~80%).
 
 **Nové kept-EN termíny — doplniť do §1.1 ako vedomé výnimky (latinkou, slovenský glos raz pri prvom výskyte):**
 - **contract net protocol** — glos „(protokol kontraktných sietí)"; **KQML**; **MAST** (Multi-Agent System
@@ -2739,7 +2742,7 @@ nesie „vydáva", do glossary-flip backlogu k Self-RAG/HITL/kosínus).
 zvýraznenia (all-caps `worker JE` / `Čo ti NEDÁ`) prevedené na kurzívu (`*je*` / `*nedá*`) — tlačový register,
 nie krik. Em-dash metronóm: index ~2,4/100 slov, prehĺbenie ~2,1/100 slov (v sesterskom pásme). Zákaz
 **„— ," = 0** na oboch. **Straight-quote checkpoint:** prozaická rovná `"` (U+0022) mimo kódu/frontmatteru/
-Mermaid/YouTube = **0** (párovanie „…"). **ř/ě/ů = 0.** nbsp pred „%" a jednotkami (100 %, 30–60 s, 8 GPU).
+Mermaid/YouTube = **0** (párovanie „…"). **ř/ě/ů = 0.** nbsp pred „%" a jednotkami (100%, 30–60 s, 8 GPU).
 
 **Odkazy (PRVÁ lekcia Časti III).** Časť I + II sú SK → plná SK cesta s `.md`: guardrails
 „../../part-1-rag/cross-cutting/guardrails/index.md", observability index/prehĺbenie
@@ -2794,8 +2797,8 @@ intaktné: Azure premenovanie Foundry Ignite nov. 2025; Vertex → Gemini Enterp
 on-demand custom len Nova Lite/Nova 2 Lite/Nova Micro/Nova Pro/Llama 3.3 70B, ≥ 16. 7. 2025, us-east-1/
 us-west-2; AgentCore GA 13. 10. 2025 (8 h okná, microVM, A2A); Foundry Agent Service GA 2025 Build máj,
 1 400+ konektorov; Vertex Agent Engine GA 2024; výstup 3–5× (2–10× naprieč škálou) vstupu; Vertex Priority
-~1,8×, Flex-Batch ~0,5×; Azure bod zvratu ~$10 000–12 000/mes., úspora 30–45 %; batch ~50 %; cache-read ~90 %
-pod vstupom, zápis ~25 % prirážka; Gemini context caching ~10 % vstupu; FinOps Foundation 30–200× rozdiel;
+~1,8×, Flex-Batch ~0,5×; Azure bod zvratu ~$10 000–12 000/mes., úspora 30–45%; batch ~50%; cache-read ~90%
+pod vstupom, zápis ~25% prirážka; Gemini context caching ~10% vstupu; FinOps Foundation 30–200× rozdiel;
 AWS European Sovereign Cloud GA 15. 1. 2026 (Brandenbursko, > 7,8 mld. €); Microsoft Sovereign Cloud ohlásený
 16. 6. 2025 (Bleu/Capgemini+Orange SecNumCloud, Delos/SAP C5 BSI); Google GDC (S3NS/PREMI3NS Thales
 SecNumCloud, nová Thales-DE 20. 5. 2026 GA koniec 2026, staršie T-Systems 2021 — nezlučovať); US CLOUD Act.
@@ -2933,7 +2936,7 @@ nerekreované.
 polotučné len kotvy termínov + úvodné položky definičných zoznamov + zriedkavé maximy. Em-dash metronóm:
 index ~2,3/100 slov, prehĺbenie ~2,1/100 slov (v sesterskom pásme). Zákaz **„— ,“ = 0** na oboch.
 **Straight-quote checkpoint:** prozaická rovná `"` mimo kódu/frontmatteru/Mermaid/YouTube = **0**. **ř/ě/ů =
-0.** NBSP pred „%“, jednotkami a ako tisícový oddeľovač (1 900, 1 400, $1 422, 30–45 %, 24 h, 8 h).
+0.** NBSP pred „%“, jednotkami a ako tisícový oddeľovač (1 900, 1 400, $1 422, 30–45%, 24 h, 8 h).
 
 **Stav:** Wave 3 lekcia 2 (Cloud AI platformy) redakčne uzavretá; SK ostáva **gated** (mimo plain buildu).
 Ďalej: Wave 3 lekcia 3 — Ekosystém nástrojov.
@@ -2949,7 +2952,7 @@ Prezentačná lokalita bez ľudskej poistky — brány niesli plnú váhu.
 **Fakty nehýbané — 0 pohybu proti skeletonu** (fakt-diff čistý na oboch stránkach; oba kódové bloky
 bash+python bajt-identické). Čísla/mená/dátumy intaktné: Langfuse v3 stabilná 9. 12. 2024; dva aplikačné
 procesy + štyri úložiská (Web/Worker + Postgres OLTP / ClickHouse OLAP / Redis-Valkey / S3); autoškálovanie
-za 50 % CPU, ≥ 2 inštancie Web, ~2 CPU + 4 GB RAM strop, každý kontajner v UTC (inak ClickHouse vracia
+za 50% CPU, ≥ 2 inštancie Web, ~2 CPU + 4 GB RAM strop, každý kontajner v UTC (inak ClickHouse vracia
 prázdne výsledky); Phoenix ELv2 source-available (nie OSI), Langfuse jadro MIT; momentka polovice 2026
 (júl 2026), OTel GenAI konvencie stav Development. Žiadny zdrojový (EN/RU) bug nenájdený.
 
@@ -3046,7 +3049,7 @@ glosovaný v domácej sekcii (r. 54); „red-teaming“ glos presunutý na prvý
 **Em-dash metronóm — stíšený zo štartovacích ~3,0/100 slov:** index **~2,37/100**, prehĺbenie **~2,41/100**
 (v sesterskom pásme). Prehustené vsuvky prepísané na zátvorku/dvojbodku/vetu (nie na „— ,“). Zákaz **„— ,“ =
 0**, **straight-quote = 0**, **U+201D (nesprávny záver) = 0**, **ř/ě/ů = 0** na oboch. **NBSP** pred „%“ a
-jednotkami (50 %, 2 CPU, 4 GB) doplnené na prehĺbení. Slovenské „…“ (201E/201C) vyvážené 8/8 a 6/6.
+jednotkami (50%, 2 CPU, 4 GB) doplnené na prehĺbení. Slovenské „…“ (201E/201C) vyvážené 8/8 a 6/6.
 
 **Odkazy (tretia lekcia Časti III — link ledger over, i18n-link-check-safe).** Časť I/II SK → plná cesta s
 `.md`: `../../part-1-rag/cross-cutting/{evaluation,guardrails,observability}/{index,deep-dive}.md`,
@@ -3092,7 +3095,7 @@ pre smer termínu autoritatívny.
 Anthropic životný cyklus Active/Legacy/Deprecated/Retired, ≥ 60 dní pred vyradením; cache-write Anthropic
 1,25×/2×, OpenAI 1,25×, cachovaný vstup ~1/10 základnej ceny; OpenAI RFT na o4-mini + SFT na GPT-4.1 nano;
 Bedrock RFT na open-weight (GPT-OSS, Qwen) cez OpenAI-kompatibilné API (feb. 2026); FinOps Foundation State of
-FinOps 2026 — 98 % vs 31 % pred dvomi rokmi, 30–200× rozdiel; Google SRE 4-týždňové kĺzavé okno + eskalácia na
+FinOps 2026 — 98% vs 31% pred dvomi rokmi, 30–200× rozdiel; Google SRE 4-týždňové kĺzavé okno + eskalácia na
 CTO; Batch API (OpenAI/Anthropic/Vertex) ~½ ceny za ~24 h SLA k pol. 2026. Žiadny zdrojový (EN/RU) bug nenájdený.
 
 **Smer termínu — glosár katalogizuje lemmu, telo vedie podľa headwordu (zrkadlí Fázu 19/20/21).** Rodina LLMOps

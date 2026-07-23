@@ -24,7 +24,7 @@ Presne tá zmena, o ktorej je táto lekcia: ako z jednoduchého vyhľadávania v
 Agentnosť sa nepridáva pre módu. Pevné `retrieve → generate` na celých triedach dopytov naozaj zlyháva.
 
 - **Multi-hop otázky (viackrokové — každý krok nadväzuje na predchádzajúci).** „Kto vedie oddelenie, ktoré vydalo smernicu X?“ Jedno vyhľadanie na to nestačí: najprv nájdi smernicu X, z nej zisti oddelenie a až potom jeho vedúceho. Druhý dopyt sa skladá z výsledku prvého — a ten druhý krok pevná pipeline spraviť fyzicky nevie.
-- **Otázky, na ktoré netreba nič vyhľadávať.** „Prelož predchádzajúcu odpoveď do angličtiny“ alebo „koľko je 15 % z 200“. Statický RAG aj tak vlezie do databázy a primieša nepotrebný kontext. Agent vie usúdiť, že tu nie je čo hľadať.
+- **Otázky, na ktoré netreba nič vyhľadávať.** „Prelož predchádzajúcu odpoveď do angličtiny“ alebo „koľko je 15% z 200“. Statický RAG aj tak vlezie do databázy a primieša nepotrebný kontext. Agent vie usúdiť, že tu nie je čo hľadať.
 - **Rôzne zdroje pre rôzne otázky.** Niektoré patria do znalostnej báze, iné do SQL (dopyt) nad tabuľkou, ďalšie na čerstvý web. Pevná pipeline ide vždy na jedno miesto; agent dopyt nasmeruje tam, kde odpoveď naozaj je.
 - **Zlý prvý výsledok.** Vyhľadávanie vráti nerelevantné chunky (kúsky) — a statická pipeline ich aj tak posunie do generovania a vyrobí slabú odpoveď. Agent sa na to, čo prišlo, pozrie, vidí, že je to mimo, dopyt preformuluje a vyhľadá znova. To je **self-correction** (sebaoprava); a návrat k vyhľadávaniu so spresneným dopytom sa volá **iterative retrieval** (iteratívne vyhľadávanie).
 

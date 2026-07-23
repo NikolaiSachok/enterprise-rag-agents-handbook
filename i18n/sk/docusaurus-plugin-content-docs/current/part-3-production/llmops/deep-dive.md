@@ -10,7 +10,7 @@ sidebar_position: 2
 
 Tri z tém tejto stránky sa prekrývajú s prehĺbeniami, ktoré ich teóriu už rozoberajú — tam ich len prepojíme, nebudeme ich odvodzovať nanovo:
 
-- Mechanika spoľahlivosti podľa SRE — vybrať SLI, nastaviť SLO nad časovým oknom, spočítať rozpočet chýb ako vzdialenosť k dokonalým 100 %, alertovať podľa rýchlosti míňania, trvať na tom, aby aspoň jeden SLI meral kvalitu, a vynucovať mäkký aj tvrdý strop na požiadavku za behu — žije v [prehĺbení o observability](../../part-1-rag/cross-cutting/observability/deep-dive.md) (pozorovateľnosť). Tam patrí aj druhá polovica regresie: *rozpoznať* štatisticky reálny pokles kvality a *priradiť* ho naprieč spanmi trace tej fáze, ktorá ho spôsobila, a potom povýšiť padajúce tracy do golden setu (etalónová sada).
+- Mechanika spoľahlivosti podľa SRE — vybrať SLI, nastaviť SLO nad časovým oknom, spočítať rozpočet chýb ako vzdialenosť k dokonalým 100%, alertovať podľa rýchlosti míňania, trvať na tom, aby aspoň jeden SLI meral kvalitu, a vynucovať mäkký aj tvrdý strop na požiadavku za behu — žije v [prehĺbení o observability](../../part-1-rag/cross-cutting/observability/deep-dive.md) (pozorovateľnosť). Tam patrí aj druhá polovica regresie: *rozpoznať* štatisticky reálny pokles kvality a *priradiť* ho naprieč spanmi trace tej fáze, ktorá ho spôsobila, a potom povýšiť padajúce tracy do golden setu (etalónová sada).
 - Mechanika cien jednotlivých platforiem — úrovne za záväzok využitia, násobky cachovania promptu, tvar dávkovej zľavy, medziregionálny egress — žije v [prehĺbení o cloudových platformách](../cloud-platforms/deep-dive.md).
 
 Čo vlastní táto stránka od začiatku do konca: kedy a ako doladiť model, riadenie výdavkov na úrovni organizácie, pohľad releasovej brány a rollbacku na zachytenú regresiu, rozpočty chýb ako písaný organizačný proces a frontovú infraštruktúru, ktorá nesie dávkové záťaže.
@@ -57,7 +57,7 @@ Prvá prekážka je priradenie nákladov (cost attribution), zvláštne práve p
 
 S priradením v ruke sa navrch kladú dva modely alokácie a FinOps Foundation medzi nimi ťahá pevnú čiaru. **Showback** (zobrazenie nákladov) vykáže každému tímu, funkcii či produktu jeho vlastnú spotrebu, kým náklad ostáva na centrálnom rozpočte — viditeľnosť bez interného účtovania. **Chargeback** (preúčtovanie nákladov) ide ďalej a náklad naozaj fakturuje späť do P&L spotrebúvajúceho tímu alebo produktu — silnejšia zodpovednosť za cenu náročnejšieho aparátu. Na poradí záleží: showback je nespochybniteľný základ, vždy potrebný; k chargebacku sa prepracuješ *až keď je priradenie dôveryhodné* — lebo chargeback nad číslami, ktorým ľudia neveria, plodí spory rýchlejšie, než ženie úspory.
 
-Nič z toho už nie je nepovinné. State of FinOps 2026 od FinOps Foundation uvádza, že AI-výdavky dnes riadi 98 % respondentov oproti 31 % spred dvoch rokov, a granulárne monitorovanie AI-výdavkov — tokeny, LLM-požiadavky, využitie GPU — menuje ako najžiadanejšiu nástrojovú schopnosť roka. (Zistenie tej istej organizácie, že neoptimalizované nasadenie môže stáť 30- až 200-násobne viac než optimalizované, cituje prehĺbenie o cloudových platformách; je to dôvod, prečo tie páky vôbec existujú.)
+Nič z toho už nie je nepovinné. State of FinOps 2026 od FinOps Foundation uvádza, že AI-výdavky dnes riadi 98% respondentov oproti 31% spred dvoch rokov, a granulárne monitorovanie AI-výdavkov — tokeny, LLM-požiadavky, využitie GPU — menuje ako najžiadanejšiu nástrojovú schopnosť roka. (Zistenie tej istej organizácie, že neoptimalizované nasadenie môže stáť 30- až 200-násobne viac než optimalizované, cituje prehĺbenie o cloudových platformách; je to dôvod, prečo tie páky vôbec existujú.)
 
 Ohraničenie robia tri kontroly na úrovni organizácie a všetky tri žijú tam, kadiaľ už každá požiadavka prechádza — na LLM-bráne.
 
@@ -85,13 +85,13 @@ flowchart LR
     EG -->|"pod prahom"| BLK["Zablokované — oprav, skús znova"]
     EG -->|"prejde"| CAN["Canary<br/>(časť živej prevádzky)"]
     CAN --> W{"Držia proxy kvality<br/>+ náklady?"}
-    W -->|áno| PROMO["Auto-povýšenie → 100 %"]
+    W -->|áno| PROMO["Auto-povýšenie → 100%"]
     W -->|nie| RB["Auto-rollback:<br/>vráť prompt / model / index / adaptér"]
 ```
 
 ## Rozpočty chýb ako organizačná zmluva
 
-Mechanika — výber SLI, nastavenie SLO nad oknom, výpočet rozpočtu chýb ako vzdialenosti k 100 %, alerting podľa rýchlosti míňania aj pravidlo, že aspoň jeden SLI musí byť kvalitatívny SLI počítaný online evaluáciou — patrí celá prehĺbeniu o observability. Táto sekcia preberá to, čo z tých čísel robí rozhodnutie, ktorým je organizácia viazaná: error budget policy (politika rozpočtu chýb).
+Mechanika — výber SLI, nastavenie SLO nad oknom, výpočet rozpočtu chýb ako vzdialenosti k 100%, alerting podľa rýchlosti míňania aj pravidlo, že aspoň jeden SLI musí byť kvalitatívny SLI počítaný online evaluáciou — patrí celá prehĺbeniu o observability. Táto sekcia preberá to, čo z tých čísel robí rozhodnutie, ktorým je organizácia viazaná: error budget policy (politika rozpočtu chýb).
 
 Politika rozpočtu chýb je písaná dohoda, podpísaná pred akýmkoľvek incidentom, ktorá hovorí, čo sa stane pri vyčerpaní rozpočtu a kto to spraví. Kanonická verzia od Google SRE znie ako pravidlo s dvomi ramenami. Na úrovni SLO alebo nad ňou idú vydania podľa bežnej releasovej politiky. Len čo sa rozpočet vyčerpá za kĺzavé okno — SRE si v rozpísanom príklade berie štyri týždne — všetky zmeny a vydania sa zmrazia okrem opráv P0 a bezpečnostných záplat, kým sa služba nevráti do rámca svojho SLO. To je zmrazenie vydávania a politika musí menovať majiteľa každej akcie; nezhoda eskaluje na menovaného rozhodovateľa, v príklade SRE na CTO. Bez podpísanej politiky je zmrazenie iba návrh, a návrh nie je kontrola.
 

@@ -82,11 +82,11 @@ Ingestion nechala jedno napätie nevyriešené. Malý chunk sa zaembedduje tesne
 
 **Parent-document retrieval** — tiež nazývaný small-to-big — rieši ju v čase dopytu. Indexuješ a vyhľadávaš nad malými *detskými* chunkami kvôli presnej zhode, ale modelu vrátiš *rodičovský* fragment, ktorý toto dieťa obsahuje: väčšiu sekciu alebo dokument, z ktorého dieťa pochádza. Jednotka vyhľadávania a jednotka kontextu sú zámerne oddelené. Variant s vetným oknom (sentence-window) vyhľadá jedinú vetu a rozšíri ju na okno okolo nej; variant rodič–dieťa (parent-child) vyhľadá detský chunk a vráti jeho rodičovskú sekciu. Tak či onak, zhodu ženie presnosť a model aj tak dostane priestor na uvažovanie.
 
-**Contextual retrieval (kontextové vyhľadávanie)** (Anthropic, september 2024) rieši tú istú chorobu v čase indexácie. Pred embeddovaním pripojí pred každý chunk krátky text vygenerovaný LLM (50–100 tokenov), ktorý chunk zasadí do celého dokumentu: *„Tento chunk pochádza zo správy 10-K spoločnosti ACME za druhý kvartál 2023, zo sekcie o tržbách…“*. Takto doplnený chunk potom zaembedduje *aj* zaindexuje pre BM25, takže samotný embedding teraz nesie kontext dokumentu, ktorý holý chunk zahodil. Náklady na generovanie tohto kontextu ku každému chunku znižuje prompt caching (opakujúca sa časť promptu sa uloží do vyrovnávacej pamäte a neplatí sa znova) — rádovo na 1,02 USD za milión tokenov dokumentu. Ohlásený účinok, meraný ako zlyhanie vyhľadávania pri top-20 oproti východiskovým 5,7 %, sa čisto skladá:
+**Contextual retrieval (kontextové vyhľadávanie)** (Anthropic, september 2024) rieši tú istú chorobu v čase indexácie. Pred embeddovaním pripojí pred každý chunk krátky text vygenerovaný LLM (50–100 tokenov), ktorý chunk zasadí do celého dokumentu: *„Tento chunk pochádza zo správy 10-K spoločnosti ACME za druhý kvartál 2023, zo sekcie o tržbách…“*. Takto doplnený chunk potom zaembedduje *aj* zaindexuje pre BM25, takže samotný embedding teraz nesie kontext dokumentu, ktorý holý chunk zahodil. Náklady na generovanie tohto kontextu ku každému chunku znižuje prompt caching (opakujúca sa časť promptu sa uloží do vyrovnávacej pamäte a neplatí sa znova) — rádovo na 1,02 USD za milión tokenov dokumentu. Ohlásený účinok, meraný ako zlyhanie vyhľadávania pri top-20 oproti východiskovým 5,7%, sa čisto skladá:
 
-- Samotné kontextové embeddingy znížia podiel zlyhaní o 35 % (5,7 % → 3,7 %).
-- Pridanie kontextového BM25 ich zníži o 49 % (→ 2,9 %).
-- Reranking navrch ich zníži o 67 % (→ 1,9 %).
+- Samotné kontextové embeddingy znížia podiel zlyhaní o 35% (5,7% → 3,7%).
+- Pridanie kontextového BM25 ich zníži o 49% (→ 2,9%).
+- Reranking navrch ich zníži o 67% (→ 1,9%).
 
 Ten posledný riadok si prečítaj správne: contextual retrieval nie je náhrada za hybrid search a reranking, je to násobiteľ, ktorý sa s nimi skladá. A postav si tie dve techniky vedľa seba, lebo sú to tie isté lieky na dvoch rôznych miestach — parent-document obohacuje to, čo *vraciaš*, rozhodnuté v čase dopytu; contextual retrieval obohacuje to, čo *indexuješ*, rozhodnuté v čase príjmu. Rovnaká choroba, dve miesta zásahu, a nič ti nebráni nasadiť obe.
 

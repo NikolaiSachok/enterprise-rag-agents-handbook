@@ -97,7 +97,7 @@ A ako vždy, aj tu platí zdržanlivosť. Dvojagentová reťaz sotva má trajekt
 
 ## Ako udržať účet na uzde
 
-Prvá časť odhadla násobič ceny zhruba na N×. Teraz sú na to čísla. V [zázname Anthropicu](https://www.anthropic.com/engineering/multi-agent-research-system) z 13. júna 2025 o ich multiagentovom výskumnom systéme agenti míňajú približne 4× toľko tokenov ako chatová interakcia a multiagentové systémy približne 15×. V ich hodnotení samotný počet tokenov vysvetlil približne 80 % rozptylu výkonu, pričom zvyšok dopĺňal počet volaní nástrojov a voľba modelu.
+Prvá časť odhadla násobič ceny zhruba na N×. Teraz sú na to čísla. V [zázname Anthropicu](https://www.anthropic.com/engineering/multi-agent-research-system) z 13. júna 2025 o ich multiagentovom výskumnom systéme agenti míňajú približne 4× toľko tokenov ako chatová interakcia a multiagentové systémy približne 15×. V ich hodnotení samotný počet tokenov vysvetlil približne 80% rozptylu výkonu, pričom zvyšok dopĺňal počet volaní nástrojov a voľba modelu.
 
 Poučenie, ktoré z toho vyvodzujú, je *brána*, nie zelená: ekonomika multiagentových systémov vychádza len vtedy, keď je úloha dosť cenná na to, aby zaplatila výkon navyše — silné paralelizovanie, kontext, ktorý pretečie jedno okno, mnoho zložitých nástrojov — a poriadne sa nehodia vtedy, keď každý agent potrebuje ten istý kontext alebo keď majú agenti mnoho vzájomných závislostí. To je „~N×“ z prvej časti so zmeranou konštantou.
 
@@ -126,7 +126,7 @@ Ostáva otázka, okolo ktorej stránka krúžila: kedy sa čokoľvek z toho opla
 - Dve koordinačné primitíva, jeden kompromis. Spoločný blackboard dá každému agentovi plný výhľad a ušetrí ti prepojenie každého s každým, ale priťahuje napúchanie kontextu a súbežný zápis; odovzdanie riadenia z bodu do bodu drží izoláciu kontextu, ale môže agenta pripraviť o to, čo potreboval. Väčšina reálnych systémov ide hybridom — orchestrátor drží stav, vykonávatelia dostávajú izolované odovzdania.
 - Roly sú statické alebo vyjednané. Tímy s pevnou rolou, cieľom a sadou nástrojov sú predvídateľné a lacné; dražba cez contract net a multiagentová debata kupujú kvalitu na ťažkých problémoch za cenu agentov × kôl. Predvolene smeruj napevno a vyjednávaj len tam, kde statické smerovanie naozaj nevie rozhodnúť.
 - Známkovanie tímu sa začína prevlečením jedného korelačného ID cez každú správu a zošitím roztrúsených spanov do jedného stromu rodič–dieťa. Potom známkuj na troch úrovniach — výsledok, proces tímu a pripísanie jednotlivému agentovi, teda otázka ktorý-agent-to-pokazil — a pri tej poslednej sa opri o tri kategórie zlyhaní z MAST ako o slovník.
-- Rozpočtuj to. Multiagentové systémy míňajú okolo 15× toľko tokenov ako chat a samotný počet tokenov hnal približne 80 % rozptylu výkonu v systéme Anthropicu — tak drž rozpočet celej úlohy nad čiastkovými rozpočtami agentov, zastropuj rozvetvenie aj hĺbku, odstupňuj modely a mäkké stropy drž oddelene od tvrdých.
+- Rozpočtuj to. Multiagentové systémy míňajú okolo 15× toľko tokenov ako chat a samotný počet tokenov hnal približne 80% rozptylu výkonu v systéme Anthropicu — tak drž rozpočet celej úlohy nad čiastkovými rozpočtami agentov, zastropuj rozvetvenie aj hĺbku, odstupňuj modely a mäkké stropy drž oddelene od tvrdých.
 - Toto všetko pridáš, až keď je tím opodstatnený, nie ako východisko. Jeden silný agent alebo supervízor so statickým smerovaním vyhrá väčšinu úloh za zlomok ceny.
 
 **[Nové pojmy](../../glossary.md#multi-agent)**: FIPA ACL, contract net protocol, blackboard, A2A (Agent2Agent), multi-agent debate, trajectory stitching.
