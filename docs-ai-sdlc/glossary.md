@@ -258,3 +258,69 @@ its section here. The list grows as the course does.
 **Kill switch** — a state change (flag flip, traffic shift, routing revert) that one person can operate in seconds without producing a new artefact. If undoing requires the pipeline, it fails exactly when the pipeline is the problem.
 
 **Fleet pause** — the second position of the kill switch when agents are generating continuously: stopping the *source* as well as the *change*, so a fleet does not rebuild the problem on top of the revert.
+
+## Running agent fleets: isolation and parallelism
+
+**Agent fleet** — several agents working concurrently on one codebase. Its size is governed not by available compute but by how much the verification chain can absorb.
+
+**Shared-state serialiser** — any mutable thing two agents both touch (a working tree, a database, a quota, an appended-to corpus). Whatever is shared decides who waits, so it, not the scheduler, sets the real concurrency.
+
+**Worktree isolation** — giving each agent its own checkout against the same object store, so one branch switch or one stray commit cannot disturb a neighbour. Isolation removes a class of interference that coordination can only manage.
+
+**Accretive artefact** — a file tasks *append* to (rules corpus, glossary, decision log). Two parallel appends do not merge: the second write wins silently, so these stay serial or are merged deliberately.
+
+**Parallel generation / serial integration** — the division that actually holds: generating candidate work concurrently while merging stays single-file, because integration is where conflicting work must be reconciled.
+
+**Serial fraction** — the portion of the pipeline that cannot run concurrently (integration, review, one-way changes). It, not the agent count, sets the ceiling on total throughput.
+
+**Contention** — what additional agents buy once the serial fraction is saturated: queueing, rework, and a longer backlog rather than more finished work.
+
+## Drift control and rule rot
+
+**Rule rot** — the decay of a rule corpus as the code it describes moves on. A stale rule is worse than no rule: a human ignores an obsolete convention, an agent complies with it.
+
+**Staleness / contradiction / bloat** — the three decay shapes. Staleness describes a structure that no longer exists; contradiction makes agent behaviour nondeterministic because two reasonable rules now conflict; bloat dilutes the important constraints and invites silent truncation of the corpus.
+
+**Executable vs prose rule** — a rule expressed as a check fails loudly when reality moves; a rule expressed only in prose decays in silence and keeps being obeyed. Prefer the check; where prose is unavoidable, schedule a human against it.
+
+**Silent decay** — going out of date without any signal, the defining hazard of prose rules and of project memory, which reads as description and therefore is never audited.
+
+**Rule ownership / rule expiry** — the two fields almost never written next to a rule: who is accountable for it, and when it is next checked against the code. Without an owner, corpora only grow, because deleting always feels riskier than keeping.
+
+**Never-fired rule** — a check that has caught nothing for a long time. It is either guarding a class that no longer occurs or is broken and being trusted for its silence; planting a violation tells you which.
+
+**Memory drift** — the same decay in project memory: superseded decisions left standing beside the ones that replaced them, read by the agent as current fact.
+
+## Cost and the economics of agent work
+
+**Cost per accepted change** — the honest unit of agent economics: everything spent reaching a change that survived the gate chain, including retries, abandoned runs, verification calls, and review time. Cost per token is a price list, not a measurement.
+
+**Retry rate** — how many attempts a change takes to land. Under the honest denominator it outweighs sticker price: a cheaper model needing more attempts is usually the more expensive one.
+
+**Context cost** — the recurring price of what the agent re-reads on every attempt (repository, rules corpus, brief). Usually the largest line item in agentic workloads and the one price-list estimates omit entirely.
+
+**Verification cost** — the model calls the semantic gates themselves consume. It scales with output, so a fleet that generates twice as much pays twice as much to check it.
+
+**Per-task attribution** — tagging spend to the task that caused it (naturally, via the per-task identity already used for credentials), which turns "what did this feature cost" from rhetorical into answerable.
+
+**Spend cap** — a hard per-task bound that stops a runaway loop while it is running. Agents fail by repeating, which is precisely what a monthly report can only explain afterwards.
+
+**Unit economics / outcome metric** — unit cost reported *next to* a measure of what shipped. A falling cost per change alongside an unmeasured outcome optimises the denominator, not the business.
+
+## The enterprise tier: audit, provenance, and what's required
+
+**Demonstrable control** — a control someone other than its operator can show, afterwards, to have run. At this distance from the blast radius, a control that cannot be evidenced is indistinguishable from one that never existed.
+
+**Audit trail** — the record of who did what, when, and on whose authority. With agents it must also name the agent, the model, and the brief: "an AI wrote it" is not an actor and cannot be questioned later.
+
+**Non-repudiation** — the property that makes a trail evidence rather than narrative: it is produced by the system as a side effect of the work, not written afterwards by the party being recorded.
+
+**Provenance** — the lineage of an artefact: which source, build, dependencies, and agent produced it. Recorded at generation time, because reconstructing it later is guesswork.
+
+**SBOM (software bill of materials)** — the inventory of what went into an artefact, which turns a newly-disclosed vulnerability into a lookup instead of an investigation.
+
+**Signed attestation** — a cryptographic binding of an artefact to the process that built it, making "this came from that commit through that pipeline" checkable rather than asserted.
+
+**Separation of duties (between agents)** — generation and certification performed by distinct actors under distinct identities, with the record showing which was which. It has two independent justifications: it produces better verification, and it produces *defensible* verification.
+
+**Defensible verification** — verification that survives someone else's later examination. An approval rate no human could sustain fails this test even when the signature is genuine.

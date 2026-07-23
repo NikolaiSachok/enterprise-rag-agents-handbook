@@ -295,3 +295,77 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Núdzový vypínač** — mechanizmus, ktorým jeden človek za pár sekúnd zastaví chybné správanie zmenou stavu, bez nového zostavenia a bez závislosti od pipeline.
 
 **Pozastavenie flotily** — zastavenie agentov, ktoré po vrátení artefaktu zabráni tomu, aby ďalej generovali nad nedôveryhodným základom alebo aby ten istý problém postavili znova.
+
+<a id="running-agent-fleets-isolation-and-parallelism"></a>
+
+## Flotily agentov: izolácia a paralelizmus
+
+**Flotila agentov (agent fleet)** — viacero agentov pracujúcich súbežne nad jednou kódovou základňou. Jej veľkosť neurčuje dostupný výpočtový výkon, ale to, koľko toho vstrebe reťaz overovania.
+
+**Serializátor zdieľaného stavu (shared-state serialiser)** — čokoľvek meniteľné, na čo siahajú dvaja agenti naraz (pracovný strom, databáza, kvóta, dopĺňaný korpus). O tom, kto čaká, rozhoduje zdieľaná vec, takže skutočnú súbežnosť určuje ona, nie plánovač.
+
+**Izolácia pomocou worktree (worktree isolation)** — pridelenie vlastného checkoutu každému agentovi nad tým istým úložiskom objektov, aby jedno prepnutie vetvy ani jeden zatúlaný commit nerozhádzali suseda. Izolácia odstráni triedu rušenia, ktorú koordinácia dokáže iba spravovať.
+
+**Postupne dopĺňaný artefakt (accretive artefact)** — súbor, do ktorého úlohy *dopisujú* (korpus pravidiel, glosár, denník rozhodnutí). Dva paralelné zápisy sa nezlúčia: druhý potichu vyhrá, preto takéto artefakty zostávajú sériové alebo sa zlučujú zámerne.
+
+**Paralelné generovanie / sériová integrácia (parallel generation / serial integration)** — deliaca čiara, ktorá naozaj platí: kandidátsku prácu možno generovať súbežne, zlučovanie však zostáva jednoprúdové, pretože práve pri integrácii treba protichodnú prácu uviesť do súladu.
+
+**Sériová časť (serial fraction)** — podiel pipeline, ktorý nemôže bežať súbežne (integrácia, revízia, jednosmerné zmeny). Strop celkovej priepustnosti určuje ona, nie počet agentov.
+
+**Súperenie o prostriedky (contention)** — to, čo prinesú ďalší agenti, keď je sériová časť už nasýtená: čakanie vo fronte, prerábanie a dlhší zoznam nedokončenej práce namiesto väčšieho množstva hotovej.
+
+<a id="drift-control-and-rule-rot"></a>
+
+## Kontrola driftu a zastarávanie pravidiel
+
+**Zastarávanie pravidiel (rule rot)** — chátranie korpusu pravidiel, kým sa kód, ktorý opisuje, hýbe ďalej. Zastarané pravidlo je horšie než žiadne: človek prekonanú konvenciu obíde, agent ju poslúchne.
+
+**Zastaranosť / rozpor / nafúknutosť (staleness / contradiction / bloat)** — tri tvary chátrania. Zastaranosť opisuje štruktúru, ktorá už neexistuje; rozpor robí správanie agenta nedeterministickým, pretože dve rozumné pravidlá si dnes protirečia; nafúknutosť riedi podstatné obmedzenia a pozýva tiché skrátenie korpusu.
+
+**Vykonateľné verzus textové pravidlo (executable vs prose rule)** — pravidlo zapísané ako kontrola zlyhá nahlas, keď sa realita pohne; pravidlo zapísané iba v próze chátra v tichu a stále sa podľa neho koná. Uprednostni kontrolu; kde sa próze nevyhneš, nasaď na ňu človeka.
+
+**Tiché zastarávanie (silent decay)** — strata aktuálnosti bez akéhokoľvek signálu; charakteristické riziko textových pravidiel a pamäti projektu, ktorá sa číta ako opis, a preto ju nikto nekontroluje.
+
+**Vlastník a platnosť pravidla (rule ownership / rule expiry)** — dve políčka, ktoré pri pravidle takmer nikdy nenájdeš: kto zaň zodpovedá a kedy sa najbližšie preverí voči kódu. Bez vlastníka korpusy iba rastú, pretože mazať sa vždy zdá riskantnejšie než nechať tak.
+
+**Nikdy neaktivované pravidlo (never-fired rule)** — kontrola, ktorá dlho nič nezachytila. Buď stráži triedu chýb, ktorá sa už nevyskytuje, alebo je pokazená a ty dôveruješ jej tichu; zámerne vložené porušenie ti povie, ktorý z prípadov to je.
+
+**Drift pamäti (memory drift)** — to isté chátranie v pamäti projektu: prekonané rozhodnutia zostávajú stáť vedľa tých, ktoré ich nahradili, a agent ich číta ako aktuálny fakt.
+
+<a id="cost-and-the-economics-of-agent-work"></a>
+
+## Náklady a ekonomika práce agentov
+
+**Náklady na prijatú zmenu (cost per accepted change)** — poctivá jednotka ekonomiky agentov: všetko, čo sa minulo na ceste k zmene, ktorá prežila reťaz brán, vrátane opakovaných pokusov, opustených behov, volaní na overovanie a času revízie. Náklady na token sú cenník, nie meranie.
+
+**Miera opakovaných pokusov (retry rate)** — koľko pokusov potrebuje zmena, kým dosadne. Pri poctivom menovateli váži viac než cenníková cena: lacnejší model, ktorý potrebuje viac pokusov, býva ten drahší.
+
+**Náklady na kontext (context cost)** — opakovaná cena za to, čo agent číta pri každom pokuse znova (repozitár, korpus pravidiel, zadanie). Pri práci agentov býva najväčšou položkou účtu a z odhadu podľa cenníka vypadne úplne.
+
+**Náklady na overovanie (verification cost)** — volania modelu, ktoré spotrebujú samotné sémantické brány. Rastú s objemom výstupu, takže flotila, ktorá vygeneruje dvakrát toľko, zaplatí dvakrát toľko aj za kontrolu.
+
+**Priradenie nákladov k úlohe (per-task attribution)** — označovanie výdavkov podľa úlohy, ktorá ich spôsobila (prirodzene cez identitu na úlohu, ktorú už používaš pri prihlasovacích údajoch); otázka „koľko stála táto funkcia“ sa tým z rečníckej stane zodpovedateľnou.
+
+**Limit výdavkov (spend cap)** — pevná horná hranica na úlohu, ktorá zastaví utekajúcu slučku ešte počas behu. Agenti zlyhávajú opakovaním, a práve to vie mesačný report iba dodatočne vysvetliť.
+
+**Jednotková ekonomika / metrika výsledku (unit economics / outcome metric)** — jednotkové náklady vykazované *vedľa* meradla toho, čo sa naozaj dodalo. Klesajúce náklady na zmenu popri nezmeranom výsledku optimalizujú menovateľ, nie firmu.
+
+<a id="the-enterprise-tier-audit-provenance-and-whats-required"></a>
+
+## Enterprise úroveň: audit, pôvod a čo je povinné
+
+**Preukázateľná kontrola (demonstrable control)** — kontrola, o ktorej vie niekto iný než jej vykonávateľ spätne ukázať, že prebehla. V tejto vzdialenosti od blast radius je kontrola, ktorá sa nedá doložiť, nerozoznateľná od kontroly, ktorá nikdy neexistovala.
+
+**Auditný záznam (audit trail)** — záznam o tom, kto čo urobil, kedy a z čieho poverenia. Pri agentoch musí menovať aj agenta, model a zadanie: „napísala to AI“ nie je aktér a nedá sa jej nič opýtať.
+
+**Nepopierateľnosť (non-repudiation)** — vlastnosť, vďaka ktorej je záznam dôkazom, a nie rozprávaním: vytvára ho systém ako vedľajší produkt práce, nepíše ho dodatočne strana, o ktorej vypovedá.
+
+**Pôvod (provenance)** — rodokmeň artefaktu: z ktorého zdroja, buildu, závislostí a agenta vznikol. Zaznamenáva sa pri generovaní, pretože neskoršia rekonštrukcia je hádanie.
+
+**SBOM (software bill of materials)** — súpis toho, čo do artefaktu vstúpilo; mení novo zverejnenú zraniteľnosť z vyšetrovania na vyhľadávanie.
+
+**Podpísané potvrdenie (signed attestation)** — kryptografické zviazanie artefaktu s procesom, ktorý ho postavil; veta „vzniklo z toho commitu cez tú pipeline“ sa tým dá overiť, nielen tvrdiť.
+
+**Oddelenie právomocí (separation of duties, medzi agentmi)** — generovanie a certifikáciu vykonávajú odlišní aktéri pod odlišnými identitami a zo záznamu vidno, kto bol kto. Má dve nezávislé odôvodnenia: prináša lepšie overovanie a prináša *obhájiteľné* overovanie.
+
+**Obhájiteľné overovanie (defensible verification)** — overovanie, ktoré obstojí, keď ho neskôr preskúma niekto iný. Tempo schvaľovania, ktoré by žiadny človek neudržal, v tejto skúške neobstojí ani vtedy, keď je podpis pravý.
