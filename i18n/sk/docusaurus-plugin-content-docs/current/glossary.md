@@ -18,7 +18,7 @@ definíciou nasleduje odkaz (↗ Wikipedia pre klasiku, ↗ arXiv pre postupy zo
 toho, čo napokon uvidí model.
 
 **Chunk overlap (prekryv)** — spoločný úsek textu medzi susednými chunkami. Zachráni fakt, ktorý padol na líniu
-rezu: ten celý prežije aspoň v jednom zo susedov (ak je samotný fakt kratší ako prekryv). Zvyčajne 10–20 %
+rezu: ten celý prežije aspoň v jednom zo susedov (ak je samotný fakt kratší ako prekryv). Zvyčajne 10–20%
 veľkosti chunku.
 
 **Recursive / structural chunking (rekurzívne / štruktúrne delenie)** — delenie po prirodzených hraniciach,
@@ -269,7 +269,7 @@ odpoveď. Reference-free (faithfulness, answer relevance) sa počíta iba z otá
 použiteľná na živej prevádzke; reference-based (context recall, correctness) potrebuje etalónovú odpoveď.
 
 **LLM-judge calibration (kalibrácia sudcu)** — meranie zhody sudcu s ľudskými značkami na odloženej vzorke,
-skôr než mu začneš dôverovať vo veľkom; silní sudcovia dosahujú zhruba ľudskú úroveň zhody (nad 80 %), nie
+skôr než mu začneš dôverovať vo veľkom; silní sudcovia dosahujú zhruba ľudskú úroveň zhody (nad 80%), nie
 úroveň orákula. Prekalibruj pri drifte modelu, korpusu alebo rozdelenia otázok.
 ↗ [arXiv](https://arxiv.org/abs/2306.05685)
 
@@ -364,7 +364,7 @@ prednostne ponechať chyby.
 trace-id. OpenTelemetry Collector Contrib ho dodáva ako procesor `tail_sampling`.
 ↗ [OpenTelemetry](https://opentelemetry.io/docs/concepts/sampling/)
 
-**Priority / hybrid sampling (prioritné vzorkovanie)** — ponechať 100 % trace, ktoré sa nesmú stratiť (chyby,
+**Priority / hybrid sampling (prioritné vzorkovanie)** — ponechať 100% trace, ktoré sa nesmú stratiť (chyby,
 prekročenia latencie, označené zlé odpovede), a rutinné úspešné vzorkovať na nízkej základnej sadzbe; často
 najprv head-sampler, potom tail.
 
@@ -384,7 +384,7 @@ podľa kvality); SLO (cieľ úrovne služby) je cieľová hranica na ňu v rámc
 aspoň jeden SLI mal byť kvalitatívny SLI počítaný online evaluáciou, nie iba dostupnosť.
 ↗ [Google SRE](https://sre.google/sre-book/service-level-objectives/)
 
-**Error budget (rozpočet chýb)** — medzera medzi SLO a dokonalými 100 %: koľko zlyhania si smieš minúť, kým
+**Error budget (rozpočet chýb)** — medzera medzi SLO a dokonalými 100%: koľko zlyhania si smieš minúť, kým
 sa cieľ poruší.
 
 **Burn-rate alerting (alerting podľa rýchlosti míňania)** — paging podľa toho, ako rýchlo sa míňa rozpočet

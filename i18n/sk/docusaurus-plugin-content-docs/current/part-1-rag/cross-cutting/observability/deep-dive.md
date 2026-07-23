@@ -16,7 +16,7 @@ Nie je to opätovné rozvedenie tracu ako základného prvku (to má Časť 1), 
 
 ## Prečo si nenecháš každý trace
 
-Pri produkčnom objeme je uchovávať 100 % tracov (trace — úplný záznam jednej požiadavky) neúnosne drahé — úložisko sa plní tak rýchlo, ako priteká prevádzka, a väčšina záznamov je nezaujímavá. Nechaj si teda reprezentatívnu a zaujímavú podmnožinu a zvyšok zahoď. To je vzorkovanie (sampling); celá otázka znie, ktoré tracy si necháš.
+Pri produkčnom objeme je uchovávať 100% tracov (trace — úplný záznam jednej požiadavky) neúnosne drahé — úložisko sa plní tak rýchlo, ako priteká prevádzka, a väčšina záznamov je nezaujímavá. Nechaj si teda reprezentatívnu a zaujímavú podmnožinu a zvyšok zahoď. To je vzorkovanie (sampling); celá otázka znie, ktoré tracy si necháš.
 
 **Head-based sampling** (vzorkovanie na začiatku tracu) rozhoduje o zachovaní alebo zahodení hneď na začiatku tracu, na koreňovom spane (jeden krok tracu), zvyčajne deterministickým pomerom podľa trace ID — jeden z desiatich si necháš, deväť zahodíš. Lacné, bezstavové, s objemom predvídateľným do posledného bajtu.
 
@@ -26,7 +26,7 @@ Jeho obmedzenie je pre tracy, na ktorých ti záleží, osudné: v čase rozhodo
 
 Cena: collector je teraz stavový — spany jedného tracu drží v pamäti a zoskupuje ich podľa trace ID, takže každý span daného tracu musí doraziť na tú istú inštanciu collectora (load-balancing, teda rozloženie záťaže podľa trace ID), a účet za pamäť a CPU rastie. OpenTelemetry Collector Contrib to dodáva ako procesor `tail_sampling`.
 
-Na čom sa skúsené tímy zhodnú: **priority sampling** (prioritné / hybridné vzorkovanie) — nechať si 100 % tracov, ktoré nesmieš nikdy stratiť (chyby, prekročenia rozpočtu latencie, odpovede, ktoré používateľ alebo guardrails (bezpečnostné mantinely) označili za zlé), a nudné úspechy vzorkovať na nízkej základnej úrovni. Bežné usporiadanie tie dva reťazí: najprv head sampler zoškrtá surový prúd na únosný objem a potom tail sampling nad zvyškom spraví skutočné rozhodnutie o zachovaní podľa výsledku.
+Na čom sa skúsené tímy zhodnú: **priority sampling** (prioritné / hybridné vzorkovanie) — nechať si 100% tracov, ktoré nesmieš nikdy stratiť (chyby, prekročenia rozpočtu latencie, odpovede, ktoré používateľ alebo guardrails (bezpečnostné mantinely) označili za zlé), a nudné úspechy vzorkovať na nízkej základnej úrovni. Bežné usporiadanie tie dva reťazí: najprv head sampler zoškrtá surový prúd na únosný objem a potom tail sampling nad zvyškom spraví skutočné rozhodnutie o zachovaní podľa výsledku.
 
 LLM zvrat v tom, čo je „zaujímavé“: pri obyčajnej službe sú zaujímavé chyby a pomalé odpovede, oboje viditeľné v transportnej vrstve. Pri LLM systéme môže byť odpoveď so stavom 200 OK aj tak halucinácia, jemne nesprávna odpoveď alebo odmietnutie — kvalita je pre stav HTTP neviditeľná.
 
@@ -37,7 +37,7 @@ flowchart TB
   Q["Požiadavka prichádza"] --> H["Head sampler<br/>nechá X % podľa trace ID<br/>(lacné, rozhodnuté na začiatku)"]
   H --> C["Trace dobehol<br/>všetky spany pozbierané"]
   C --> T{"Tail / prioritná kontrola:<br/>chyba? pomalé? nízke skóre evaluácie?<br/>palec dole? blok od guardrails?"}
-  T -->|"áno — zaujímavé"| K["Nechať 100 %"]
+  T -->|"áno — zaujímavé"| K["Nechať 100%"]
   T -->|"nie — bežné"| D["Zahodiť (alebo nechať na nízkej úrovni)"]
   K --> S["Úložisko tracov"]
 ```
@@ -73,9 +73,9 @@ Ten signál kvality ti dovolí čestne použiť spoľahlivostný rámec SRE. Vyb
 
 Stanov SLO (service level objective — cieľ na SLI), teda cieľ na niektoré SLI za dané okno: „p95 latencia pod tri sekundy počas 30 dní“, „faithfulness pass-rate na úrovni 0,95 alebo vyššie“.
 
-**Error budget** (rozpočet chýb — koľko chýb si smieš minúť) je vzdialenosť medzi tým cieľom a dokonalými 100 % — množstvo chýb, ktoré smieš minúť, kým sa cieľ neprekročí.
+**Error budget** (rozpočet chýb — koľko chýb si smieš minúť) je vzdialenosť medzi tým cieľom a dokonalými 100% — množstvo chýb, ktoré smieš minúť, kým sa cieľ neprekročí.
 
-Pre LLM systém pridaj jedno pravidlo navyše: trvaj na tom, aby aspoň jedno SLI bolo SLI kvality, ktoré vypočíta online evaluácia. Služba, ktorá je 100 % dostupná a z 30 % halucinuje, spĺňa SLO na dostupnosť a pritom sklame každého používateľa, čo jej dôveroval; bez cieľa na kvalitu ostáva dashboard zelený presne nad týmto.
+Pre LLM systém pridaj jedno pravidlo navyše: trvaj na tom, aby aspoň jedno SLI bolo SLI kvality, ktoré vypočíta online evaluácia. Služba, ktorá je 100% dostupná a z 30% halucinuje, spĺňa SLO na dostupnosť a pritom sklame každého používateľa, čo jej dôveroval; bez cieľa na kvalitu ostáva dashboard zelený presne nad týmto.
 
 Alerting vychádza z rozpočtu, nie zo surových metrík. Pager nech zazvoní na to, čo používateľ pocíti: na **burn rate** (rýchlosť míňania rozpočtu chýb), na prekročenie p95 latencie, skok nákladu, prepad kvality, prudký nárast blokov od guardrails. Rýchle míňanie rozpočtu zobudí niekoho hneď, pomalý posun iba varuje.
 
@@ -142,7 +142,7 @@ Tvrdý strop je strážca za behu, nie dodatočné hlásenie: funguje rovnako ak
 
 Spôsoby zlyhania sa oplatí povedať priamo, lebo na každom z nich sa už nejaký tím naozaj popálil.
 
-- **Pozorovať LLM aplikáciu môže stáť ako samotná LLM aplikácia.** Nechaj si 100 % tracov s obsahom a účet za observability začne konkurovať účtu za inferenciu, ktorý mal strážiť. Pri veľkom rozsahu robí observability cenovo únosnou práve vzorkovanie; keď ho berieš ako optimalizáciu, ktorá počká, účet ti ujde.
+- **Pozorovať LLM aplikáciu môže stáť ako samotná LLM aplikácia.** Nechaj si 100% tracov s obsahom a účet za observability začne konkurovať účtu za inferenciu, ktorý mal strážiť. Pri veľkom rozsahu robí observability cenovo únosnou práve vzorkovanie; keď ho berieš ako optimalizáciu, ktorá počká, účet ti ujde.
 - **Ani tail sampling nie je zadarmo.** Pri obrovskom rozsahu je jeho stavové odkladanie a load-balancing podľa trace ID samo osebe drahé a prevádzkovo náročné a spraviť to dobre si žiada nemalú investíciu. Získaš tým schopnosť nechať si zaujímavé tracy; nezískaš ju však lacno.
 - **Logovať surové prompty a výstupy bez de-identifikácie je incident v oblasti súladu**, ktorý raz určite príde. Najlepšie odladiteľný log je ten, ktorý sa objaví v správe o úniku — maskuj na vstupe, alebo si to nenechávaj.
 - **Alerting na každú metriku končí v alert fatigue** a alert fatigue končí tým, že skutočná regresia prebehne neprečítaná. Viac alertov neznamená viac bezpečia za bodom, kde ich ešte niekto číta.
@@ -150,7 +150,7 @@ Spôsoby zlyhania sa oplatí povedať priamo, lebo na každom z nich sa už neja
 
 ## Čo si odniesť z lekcie
 
-- Vzorkovanie je pri veľkom rozsahu nevyhnutné a stratégia rozhoduje, čo si necháš: head-based je lacné a bezstavové, ale rozhoduje skôr, než je známy výsledok, takže nevie prednostne držať chyby; tail-based si odloží celý trace a rozhodne podľa výsledku, za cenu stavovej pamäte a load-balancingu (procesor `tail_sampling` v Collector Contrib); priority/hybrid si necháva 100 % tracov, ktoré nesmieš stratiť, a zvyšok vzorkuje.
+- Vzorkovanie je pri veľkom rozsahu nevyhnutné a stratégia rozhoduje, čo si necháš: head-based je lacné a bezstavové, ale rozhoduje skôr, než je známy výsledok, takže nevie prednostne držať chyby; tail-based si odloží celý trace a rozhodne podľa výsledku, za cenu stavovej pamäte a load-balancingu (procesor `tail_sampling` v Collector Contrib); priority/hybrid si necháva 100% tracov, ktoré nesmieš stratiť, a zvyšok vzorkuje.
 - Pri LLM systéme „zaujímavé“ zahŕňa kvalitu, nie len chyby a latenciu — odpoveď so stavom 200 OK môže byť halucinácia — takže rozhodnutie o zachovaní je napojené na skóre evaluácie, palec dole, blok od guardrails alebo odmietnutie.
 - Najlepšie odladiteľné dáta sú tie najcitlivejšie, preto je obsah správ v OTel GenAI konvenciách voliteľný a predvolene vypnutý, kým metadáta ostávajú zapnuté; bráň sa de-identifikáciou pred úložiskom, úrovňami uchovávania, riadením prístupu k UI tracov a tým, čo z expozície uberie už samotné vzorkovanie.
 - Maskovanie je voľba podľa poľa a podľa úrovne: nevratné (hash, redact, replace) maximalizuje súkromie a zabíja odladiteľnosť; vratné (encrypt) necháva oprávnenú cestu späť, ale je to pseudonymizácia, nie anonymizácia, a kľúč sa stáva príťažou.

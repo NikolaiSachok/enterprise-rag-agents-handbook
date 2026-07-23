@@ -24,9 +24,12 @@ and the phase-by-phase decision appendix stay only in `rag.md`.
 
 - **Slovenské úvodzovky „…“** (dolné otváracie, horné zatváracie). Nikdy nie «…» (ruské) ani "…" (anglické
   rovné). Vnorená úroveň: ‚…'.
-- **Desatinná čiarka**: 0,5; 0,36; nie „0.5“. Rozsahy pomlčkou (en-dash), bez medzier: 10–20 %.
-- **Nedeliteľná medzera** pred percentom (10–20 %) a medzi číslom a jeho jednotkou (128 GB, 8 GPU, 24 h),
-  aby sa hodnota neodtrhla na koniec riadka.
+- **Desatinná čiarka**: 0,5; 0,36; nie „0.5“. Rozsahy pomlčkou (en-dash), bez medzier: 10–20%.
+- **Percento píš tesne k číslu: 10–20%, 28,7%.** Projektová konvencia, zjednotená naprieč kurzami
+  (2026-07): novšie príručky uprednostňujú tesný zápis a celý korpus (EN, RU aj SK) ho už používa.
+  Predchádzajúce znenie žiadalo nedeliteľnú medzeru pred percentom a odporovalo vlastnému korpusu.
+- **Nedeliteľná medzera** ostáva **medzi číslom a jeho jednotkou** (128 GB, 8 GPU, 24 h), aby sa
+  hodnota neodtrhla na koniec riadka. Pri percente sa neuplatňuje.
 - **Veľké začiatočné písmeno pre termín inak štylizovaný malým**, keď stojí na začiatku vety: „top-K“ v tele
   vety, ale „Top-K je počet fragmentov, ktoré vyhľadávanie vráti.“ na začiatku vety. To isté pre „vLLM“,
   „promptfoo“ — vetu radšej preformuluj, aby sa nezačínala tvarom s povinným malým písmenom.

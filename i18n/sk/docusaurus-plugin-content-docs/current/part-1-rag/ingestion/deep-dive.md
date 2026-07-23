@@ -21,7 +21,7 @@ Jadro problému: vizuálne rozloženie dokumentu nesie význam, ktorý plochá e
 Typy dokumentov si zoraď podľa stúpajúcej náročnosti — nie je to jeden problém, ale odstupňovaný rad:
 
 - **Natívne textové PDF, DOCX a HTML** — znaky v súbore sú; rieši sa čisto štruktúra a poradie čítania.
-- **Tabuľky** — štruktúru buniek, riadkov a stĺpcov treba zachovať výslovne, nie linearizovať. Sploštiť tabuľku riadok po riadku znamená zničiť stĺpec, ktorý dával každému číslu význam — presne tak, ako veta „V treťom kvartáli vzrástla o 20 %.“ z prvej časti stratila odsek, ku ktorému sa viažu jej slová.
+- **Tabuľky** — štruktúru buniek, riadkov a stĺpcov treba zachovať výslovne, nie linearizovať. Sploštiť tabuľku riadok po riadku znamená zničiť stĺpec, ktorý dával každému číslu význam — presne tak, ako veta „V treťom kvartáli vzrástla o 20%.“ z prvej časti stratila odsek, ku ktorému sa viažu jej slová.
 - **Skenované a čisto obrázkové PDF** — textová vrstva neexistuje. Text najprv treba obnoviť cez **OCR** (optické rozpoznávanie znakov) — z pixelov písma späť na znaky — a až potom ho môže spracovať ďalší krok pipeline.
 - **Zložité rozloženie** — viacstĺpcové strany, formuláre, obrázky popretkávané textom: všetky predchádzajúce problémy naraz.
 
@@ -56,7 +56,7 @@ Na výstup parsovania nadväzuje delenie s ohľadom na štruktúru dokumentu aj 
 
 ## Pokročilý chunking: ako chunku vrátiť stratený kontext
 
-Základný problém chunkingu z prvej časti: chunk zaembeddovaný izolovane stráca kontext okolo seba. Veta „V treťom kvartáli vzrástla o 20 %.“ je nanič, len čo odsek, ktorý hovorí, čo vzrástlo a za ktorý rok, skončí v inom chunku. S touto stratou sa vyrovnávajú dve techniky z roku 2024, každá v inom kroku pipeline — a oplatí sa položiť si ich vedľa seba, lebo tú istú stratu riešia na dvoch rôznych miestach.
+Základný problém chunkingu z prvej časti: chunk zaembeddovaný izolovane stráca kontext okolo seba. Veta „V treťom kvartáli vzrástla o 20%.“ je nanič, len čo odsek, ktorý hovorí, čo vzrástlo a za ktorý rok, skončí v inom chunku. S touto stratou sa vyrovnávajú dve techniky z roku 2024, každá v inom kroku pipeline — a oplatí sa položiť si ich vedľa seba, lebo tú istú stratu riešia na dvoch rôznych miestach.
 
 **Late chunking** (neskoré delenie), technika od Jina AI zo septembra 2024 (arXiv 2409.04701), obracia poradie operácií. Štandardný pipeline najprv delí a každý chunk embedduje samostatne, takže embedding chunku (vektorová reprezentácia textu) vidí len vlastné tokeny — kontext susedov je vo chvíli výpočtu vektora dávno preč. Late chunking najprv preženie cez transformer celý dlhý dokument: self-attention prebehne nad celým textom, takže reprezentácia každého tokenu nesie kontext celého dokumentu. Až potom sa vyznačia hranice chunkov a vektory tokenov v každom chunku sa spriemerujú (mean-pooling) do embeddingu chunku. Vektor stále zodpovedá presne jednému chunku, vznikol však z reprezentácií tokenov, ktoré už „videli“ celý dokument. Zámená a spojenia s ukazovacím zámenom — „ona“, „tá firma“, „ten kvartál“ — tak majú svoj význam doplnený priamo vo vektore.
 

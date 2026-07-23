@@ -24,7 +24,7 @@ A uzavri okruh späť k III. časti: chyba, ktorá sa dostane do produkcie, *je*
 
 Ak sa zlá zmena aj tak stane, užitočná otázka znie, koľko používateľov na ňu narazí ako prvých. Postupné nasadzovanie — canary, potom zvyšovanie podielu, potom všetci — mení jednorazovú udalosť na riadenú. Väčšinu úžitku nesú dve zásady.
 
-**Oddeľ nasadenie od sprístupnenia.** Dostať kód von a zapnúť správanie majú byť dva rôzne úkony, a presne to ti kúpi **feature flag (prepínač funkcie)**. Kód ide von vypnutý; správanie sa zapne pre 1 %, potom pre 10 %, potom pre všetkých. Keď je niečo zle, meníš okruh používateľov, nie nasadenie.
+**Oddeľ nasadenie od sprístupnenia.** Dostať kód von a zapnúť správanie majú byť dva rôzne úkony, a presne to ti kúpi **feature flag (prepínač funkcie)**. Kód ide von vypnutý; správanie sa zapne pre 1%, potom pre 10%, potom pre všetkých. Keď je niečo zle, meníš okruh používateľov, nie nasadenie.
 
 **Vrátenie zmeny musí spúšťať automat, nie človek.** Zvyšovanie podielu, ktoré postupuje podľa harmonogramu a cúva až vtedy, keď si to niekto všimne, je pomalá brána prezlečená za rýchlu. Naviaž ho na signály vyššie: prekročenie miery chýb alebo latencie ho zastaví a obráti bez čakania na niečí úsudok. Ľudský úsudok je tá vzácna vec, ktorú ti III. časť kázala [míňať zámerne](../part-3-verification/review-at-volume.md); všimnúť si pohyb metriky nie je miesto, kde ho minúť.
 

@@ -22,7 +22,7 @@ Chrbtica po poriadku: minúť výpočtový výkon pri inferencii na zachytenie v
 
 Intuícia: naozaj ťažký problém pripúšťa viac platných ciest, ktoré sa zbiehajú k tej istej správnej odpovedi, kým nesprávne odpovede sa rozutekajú — zhoda je teda dôkaz a ojedinelý odlišný hlas väčšina prehlasuje.
 
-Na benchmarkoch samotného článku sú zisky oproti hladnému CoT veľké: GSM8K +17,9 %, SVAMP +11,0 %, AQuA +12,2 %, StrategyQA +6,4 %, ARC-challenge +3,9 %. Ber ich však také, aké sú — benchmarky uvažovania typu chain-of-thought, nie RAG — lebo pre RAG je použiteľnosť užšia, než napovedajú čísla z titulku.
+Na benchmarkoch samotného článku sú zisky oproti hladnému CoT veľké: GSM8K +17,9%, SVAMP +11,0%, AQuA +12,2%, StrategyQA +6,4%, ARC-challenge +3,9%. Ber ich však také, aké sú — benchmarky uvažovania typu chain-of-thought, nie RAG — lebo pre RAG je použiteľnosť užšia, než napovedajú čísla z titulku.
 
 V systéme RAG sadne self-consistency na odpoveď s diskrétnou, vytiahnuteľnou hodnotou, o ktorej sa naozaj dá hlasovať: číslo, meno, kategória, áno/nie opreté o nájdený kontext. Spustíš N opretých generovaní a vezmeš väčšinovú odpoveď; jediné odchýlené generovanie hlasovanie prehrá. To je celý test použiteľnosti.
 
@@ -72,7 +72,7 @@ Vynútené **citácie** (citations) majú dva tvary a skladajú sa so všetkým 
 
 Prvý je **zabudovať citáciu priamo do schémy**. Objekt odpovede nesie pole `claims`, kde každé tvrdenie nesie svoje `source_id`, takže z citácie sa stane povinné, typované pole, ktorému parser môže veriť — namiesto reťazca, o ktorom dúfaš, že ho model napísal. Vezie sa na tých istých metadátach, ktoré si pripojil pri chunkingu (Časť 1 a vrstva [Ingestion](../ingestion/)) — identifikátor zdroja tam bol vždy. Schéma len robí jeho prenášanie povinným.
 
-Druhý sú **citácie natívne od poskytovateľa**. Anthropic **Citations API** (23. januára 2025) vezme zdrojové dokumenty, ktoré podáš, a vráti štruktúrované objekty citácií so znakovými posunmi do zdrojového textu — presné vety alebo úryvky, o ktoré sa tvrdenie opiera, zaručené na úrovni API namiesto vyprosené promptom. Anthropic uviedol až o 15 % vyššiu úplnosť (recall) oproti vlastnej promptovej schéme citovania.
+Druhý sú **citácie natívne od poskytovateľa**. Anthropic **Citations API** (23. januára 2025) vezme zdrojové dokumenty, ktoré podáš, a vráti štruktúrované objekty citácií so znakovými posunmi do zdrojového textu — presné vety alebo úryvky, o ktoré sa tvrdenie opiera, zaručené na úrovni API namiesto vyprosené promptom. Anthropic uviedol až o 15% vyššiu úplnosť (recall) oproti vlastnej promptovej schéme citovania.
 
 Jedno obmedzenie treba zvážiť už pri návrhu, nie ho odsúvať pod čiaru: v API Anthropicu sa Citations API a Structured Outputs navzájom vylučujú — oboje naraz nevynútiš, takže pre dané volanie volíš medzi citáciami zaručenými cez API a schémou zaručenou cez API.
 

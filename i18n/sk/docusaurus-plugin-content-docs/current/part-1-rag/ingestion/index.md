@@ -41,7 +41,7 @@ Všetko podstatné z tejto sekcie sa zmestí do jednej tabuľky:
 
 Klasická ukážka primalého chunku: chunk stratí kontext, na ktorý sa jeho slová odvolávajú. Predstav si, že sa samostatným chunkom stane táto veta z výročnej správy:
 
-> „V treťom kvartáli vzrástla o 20 %.“
+> „V treťom kvartáli vzrástla o 20%.“
 
 Ako samostatný chunk je tá veta nanič. Čo vzrástlo? Tretí kvartál ktorého roka? Embedding takejto vety sa zmysluplne nepriblíži k žiadnemu dopytu — a aj keby ju vyhľadávanie predsa len vrátilo, model z nej nič nevyčíta. Kontext — že „vzrástla“ tržba divízie X za rok 2025 — ostal vo vedľajšom odseku. A ten sa do chunku nedostal.
 
@@ -50,7 +50,7 @@ Presne preto zlyháva prístup „strihaj každých N znakov“ — a presne pre
 ### Stratégie delenia: od najjednoduchšej po najdômyselnejšiu
 
 1. **Delenie na pevnú veľkosť (fixed-size)** — strihaj každých N tokenov alebo znakov. Jednoduché, rýchle, reprodukovateľné. Nevýhoda: strihá naslepo — uprostred vety, uprostred tabuľky. Je to základ, z ktorého vychádza všetko ostatné.
-2. **Chunk overlap (prekryv)** — susedné chunky sa čiastočne prekrývajú: delenie beží ako posuvné okno (sliding window). Fakt, ktorý padne presne na hranicu medzi dvoma chunkami, prežije celý aspoň v jednom z nich — ak je kratší než prekryv. Lacná záchrana faktov rozstrihnutých napoly; cenou je zduplikovaný text. Nasadzuje sa takmer vždy, v kombinácii s ktoroukoľvek stratégiou; prekryv býva zvyčajne 10–20 % veľkosti chunku.
+2. **Chunk overlap (prekryv)** — susedné chunky sa čiastočne prekrývajú: delenie beží ako posuvné okno (sliding window). Fakt, ktorý padne presne na hranicu medzi dvoma chunkami, prežije celý aspoň v jednom z nich — ak je kratší než prekryv. Lacná záchrana faktov rozstrihnutých napoly; cenou je zduplikovaný text. Nasadzuje sa takmer vždy, v kombinácii s ktoroukoľvek stratégiou; prekryv býva zvyčajne 10–20% veľkosti chunku.
 3. **Rekurzívne / štruktúrne delenie (recursive / structural chunking)** — namiesto slepého strihu rež na prirodzených hraniciach, hierarchicky: najprv po sekciách, potom — keď je kus stále priveľký — po odsekoch, potom po vetách. Hranice chunkov sa tak kryjú s hranicami myšlienok. V odvetví je to predvolená voľba: kompromis „jednoduché a takmer vždy slušné“.
 4. **Sémantické delenie (semantic chunking)** — prechádzaj vety a sleduj ich embeddingy: kým sú susedné vety významovo blízko, patria do jedného chunku; prudký pokles podobnosti signalizuje zmenu témy — hranicu. Každý chunk potom drží pokope jednu tému. Nevýhoda: je to drahšie (vety musíš embeddovať už pri delení) a nie vždy sa to oplatí.
 5. **Delenie s ohľadom na štruktúru dokumentu (document-structure-aware)** — rešpektuj značkovanie zdroja: nadpisy, tabuľky, bloky kódu. Tabuľku nestrihaj riadok po riadku, kód netrhaj uprostred funkcie a k chunku pripoj cestu po sekciách (heading path) ako metadáta: „Kapitola 3 › Sekcia 2 › Podmienky výplat“. Pri podnikových dokumentoch — smernice, zmluvy, tabuľky — je práve toto často rozhodujúci faktor kvality.

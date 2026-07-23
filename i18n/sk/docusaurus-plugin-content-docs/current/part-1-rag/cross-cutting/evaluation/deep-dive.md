@@ -122,7 +122,7 @@ Voľba teda vyplýva z otázky. Po pairwise siahni, keď sa pýtaš „prekonala
 
 Kalibrácia je krok, ktorý sudcovej škále dodá platnosť. Skôr než jeho číslam uveríš na tisícoch príkladov, zmeriaš jeho zhodu s ľudskými značkami na vzorke — ako často sa sudca a človek zhodnú na tom istom verdikte.
 
-Číslo, ktoré sa oplatí nosiť v hlave, určuje čestný strop: silní sudcovia (v experimentoch článku GPT-4) dosahujú nad 80 % zhody s ľudskými preferenciami — zhruba toľko, koľko je zhoda medzi dvoma nezávislými ľuďmi. Čítaj to správne: sudca je tu asi taký konzistentný ako človek, nič viac. Získaš tým škálu — ten istý úsudok na ľudskej úrovni, nasadený na objem, aký by žiadny ľudský tím nezvládol.
+Číslo, ktoré sa oplatí nosiť v hlave, určuje čestný strop: silní sudcovia (v experimentoch článku GPT-4) dosahujú nad 80% zhody s ľudskými preferenciami — zhruba toľko, koľko je zhoda medzi dvoma nezávislými ľuďmi. Čítaj to správne: sudca je tu asi taký konzistentný ako človek, nič viac. Získaš tým škálu — ten istý úsudok na ľudskej úrovni, nasadený na objem, aký by žiadny ľudský tím nezvládol.
 
 Postup z toho vyplýva priamo: odlož si časť ľuďmi označkovaných príkladov, na nej zmeraj zhodu sudcu s človekom a pri pairwise aj konzistentnosť pri prehodení poradia. Ak zhoda prekročí tvoju latku, sudcu nasadíš na objem, aký by nijaký ľudský tím neoznačkoval. Ak neprejde, oprav hodnotiace kritériá, prepni protokol alebo vymeň model sudcu — a než mu uveríš, zmeraj to znova. Kalibruješ voči golden setu — poslednému dieliku, o ktorý sa všetko ostatné potichu opieralo.
 
@@ -159,7 +159,7 @@ Preto ten nesúlad zmeriaš, cez **inter-annotator agreement** (IAA), zhodu medz
   *κ = (p_o − p_e) / (1 − p_e)*, kde p_o je pozorovaná zhoda a p_e zhoda očakávaná náhodou.
 - **Fleissova kappa** (Fleiss' kappa) rozširuje tú istú myšlienku na viac než dvoch anotátorov.
 
-Prečo si oprava o náhodu zaslúži miesto: na binárnej značke správne/nesprávne sa dvaja anotátori zhodnú zhruba v polovici prípadov už len hodom mincou, takže „zhodli sme sa v 80 % prípadov“ môže byť slabý výsledok, keď odčítaš tých približne 50 %, ktoré by ti aj tak nadelila náhoda.
+Prečo si oprava o náhodu zaslúži miesto: na binárnej značke správne/nesprávne sa dvaja anotátori zhodnú zhruba v polovici prípadov už len hodom mincou, takže „zhodli sme sa v 80% prípadov“ môže byť slabý výsledok, keď odčítaš tých približne 50%, ktoré by ti aj tak nadelila náhoda.
 
 Nízka kappa ukazuje na hodnotiace kritériá: pokyny na značkovanie sú natoľko nejednoznačné, že ich dvaja pozorní ľudia čítajú rôzne. Náprava je pokyny zostriť a označkovať znova — brať nesúlad ako signál, ktorým je, nie prehlasovať toho, kto sa odchýlil. Je to tá istá disciplína hodnotiacich kritérií, akú si žiadal sudca v predošlej sekcii, a symetria je presná: nejednoznačné kritériá otrávia ľudské značky aj LLM-sudcu jedným a tým istým spôsobom.
 
@@ -182,7 +182,7 @@ Povedané raz a priamo, celý ten reťazec je toto: ľudia vymedzia pravdu na ma
 - Tri zo štyroch metrík sú samy LLM-pipeline, takže metrika je sudca a dedí jeho omylnosť — a to je celý dôvod, prečo kalibrácia nie je nadštandard.
 - Metriky bez etalónu ťa dovedú len po istú hranicu: faithfulness potvrdí „podložené“, answer relevance potvrdí „k veci“, správnosť nepotvrdí ani jedna. Na tú treba referenciu alebo človeka.
 - Zaujatosti sudcu sú systematické, takže viac príkladov ich nevymyje: position bias (spusti obe poradia a žiadaj zhodu), verbosity bias aj self-preference si každá pýta protokol alebo kalibračnú nápravu.
-- Pairwise zoradí dva systémy spoľahlivejšie, ale stojí O(n²) a je najviac vystavené position biasu; pointwise ti dá absolútny prah do CI; tak či onak kalibruješ voči ľuďom a sudca triedy GPT-4 sa zastaví zhruba na ľudskej úrovni zhody — nad 80 %, nie na úrovni orákula.
+- Pairwise zoradí dva systémy spoľahlivejšie, ale stojí O(n²) a je najviac vystavené position biasu; pointwise ti dá absolútny prah do CI; tak či onak kalibruješ voči ľuďom a sudca triedy GPT-4 sa zastaví zhruba na ľudskej úrovni zhody — nad 80%, nie na úrovni orákula.
 - Golden set je meradlo, na ktorom všetko stojí: meraj zhodu medzi anotátormi kappou opravenou o náhodu, míňaj vzácny ľudský rozpočet cez aktívne vzorkovanie a prekalibruj, keď sa posunie model, korpus alebo otázky.
 
 **[Nové pojmy](../../../glossary.md#evaluation)**: context precision, context recall, faithfulness, answer relevance, reference-free vs reference-based, LLM-judge calibration, position bias, verbosity bias, self-preference / self-enhancement bias, pointwise vs pairwise, inter-annotator agreement (Cohen's kappa, Fleiss' kappa), active sampling / active learning.
