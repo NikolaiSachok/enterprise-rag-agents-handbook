@@ -186,3 +186,75 @@ its section here. The list grows as the course does.
 **Output-modality bias** — the systematic under-weighting of a finding when a gate's output channel is narrower than the defect it detects — e.g. a visual diff reports *appearance*, so a "missing widget" reads as cosmetic when the real defect is missing *behavior*. The rule: treat a structural gate's "missing" as a functional gap until proven cosmetic.
 
 **Machine-readable human-defer** — an inline, machine-readable marker an agent leaves on a genuine judgment call ("I need a human here") that a later human gate consumes as its worklist; it routes human attention instead of consuming it.
+
+## Secrets
+
+**Secrets invariant** — the rule that a secret's *value* reaches neither the repository nor the agent's context. Agents widen the second surface — they read the whole tree, transmit it to a model provider, log it, and can reproduce it — so "don't commit secrets" is now the smaller half of the rule.
+
+**Config/code separation** — the twelve-factor principle that configuration (including secrets) lives outside the code and is supplied by the environment, so the code carries only *names*, never values.
+
+**Reference-not-embed** — holding a secret as a reference the code resolves at runtime (a variable name) rather than a literal baked into a file; you cannot leak, commit, or paste into a prompt a value you were never holding.
+
+**Runtime injection** — supplying the secret's value into the running process at start-up (from a gitignored env file, a CI secret store, or a vault) rather than storing it anywhere the agent or the repo can see.
+
+**Secret scanning** — a deterministic pattern-and-entropy gate (e.g. gitleaks or native provider scanning) that catches a literal credential before it enters history; blind to unusually-shaped secrets, so it composes with review.
+
+**Push protection** — secret scanning enforced server-side by the remote, not only in a local pre-commit hook; the pre-commit hook is advisory and an agent (`--no-verify`, or simply unwired) skips it.
+
+**Rotation-not-deletion** — the remediation rule that a leaked secret is revoked and reissued at its source, never merely deleted from a file, because git history is permanent and the exposed value must be assumed captured.
+
+**Short-lived credential** — a dynamically generated, per-workload secret that expires faster than an exfiltrated copy stays useful; the blast-radius rule in credential form — the closer a secret sits to real damage, the shorter its life.
+
+## Least privilege and sandboxing
+
+**Least privilege** — sizing a grant to the task in front of the agent rather than to everything the agent might ever need: the specific resource, read-only unless writing is the task, expiring soon, under an identity that can be revoked alone.
+
+**Sandboxing** — the boundary the agent runs inside, enforced by the platform rather than by the agent's cooperation. Least privilege limits what it *may* touch; the sandbox limits what it *can* touch when something nobody anticipated happens.
+
+**Instruction vs permission** — an instruction is a request to a probabilistic system; a permission is a property of the system. Repeated explicit instructions do not constitute a control — only the absence of the capability does.
+
+**Grant sizing** — the four dials that make a grant least-privilege: *scope* (which resources), *mode* (read / write / destructive as separate grants), *lifetime* (short enough to survive a leak), and *identity* (one credential per task, revocable in isolation).
+
+**Prompt injection** — untrusted content the agent reads (an issue, a page, a README) acting on it as instruction. It cannot be filtered reliably, so the design goal is that a *successful* injection is survivable rather than prevented.
+
+**Confused deputy** — a component with legitimate authority tricked by an untrusted party into exercising it on their behalf. An agent holding broad permissions while reading untrusted text is the canonical modern instance.
+
+**Egress allowlist** — restricting the agent's outbound network to the few hosts its task needs, so exfiltration to an arbitrary destination is impossible regardless of what the agent is persuaded to attempt.
+
+**Workload identity** — issuing short-lived credentials to a workload per task rather than storing static tokens, so compromise is attributable, time-boxed, and revocable without breaking everything else.
+
+## Environments, migrations, and real data
+
+**Realistic-not-real data** — the rule that an agent works against a dataset shaped like production but containing no real people, because a production copy both multiplies the obligations attached to personal data and feeds real records into the agent's uncontrolled context.
+
+**Data masking vs anonymisation** — masking replaces identifying fields; anonymisation means re-identification is infeasible. Masking does not automatically achieve it — joining against another source, or a generator memorising its training rows, can undo it. A masked set is lower risk, not no risk.
+
+**Referential integrity (of a test corpus)** — the property that a masked or synthetic dataset's keys still line up across tables. Without it, tests pass for reasons unrelated to the code under test.
+
+**Distribution tail** — the ugly cases a corpus must keep to be worth testing against: empty strings, apostrophes in names, oversized fields, rows predating a schema change. Happy-path-only fixtures produce green tests that mean nothing.
+
+**Expand–migrate–contract (parallel change)** — the schema-change pattern that stays reversible under fast generation: add the new shape (additive, backward-compatible), backfill and switch reads/writes one step at a time, and only later remove the old shape as its own deliberate change.
+
+**Destructive-statement gate** — a deterministic check that fails any migration containing a destructive operation unless it carries an explicit marker; it replaces "someone will spot the `DROP` in review", which does not scale with generation speed.
+
+**Rehearsed restore** — actually restoring a backup into a throwaway environment and confirming the data is there and coherent. Until that has been done, a backup is an untested assertion, exactly as an unfired gate is quiet rather than working.
+
+**Point-in-time recovery** — the ability to restore state as of a chosen moment rather than only the last snapshot, which is what makes "undo the last hour" a capability instead of a hope.
+
+## Observability, rollout, and the kill switch
+
+**Production as terminal gate** — treating live operation as the last gate in the verification chain, because some defect classes exist only under real traffic, real data distributions, and real devices, where no pre-merge gate can perceive them.
+
+**Telemetry signal set** — the small set of sensors worth watching per change: error rate on the new path, high-percentile (not mean) latency, saturation of the scarce resource, and one business signal.
+
+**Business signal** — the product-level metric that moves when a change is technically healthy but functionally useless (checkouts started, messages sent). The signal teams most often omit and the one that catches the defect no technical metric can see.
+
+**Deploy/release separation** — shipping code and enabling behaviour as two distinct acts, usually via a feature flag, so the audience for a change becomes a dial that can be turned without another deploy.
+
+**Staged rollout (canary · ramp)** — exposing a change to a small population first and widening it in steps, converting a binary release event into a bounded one.
+
+**Automated revert** — binding the rollout ramp to thresholds so a breach stops and reverses it without waiting for a human to notice; noticing a metric move is not a good use of scarce human attention.
+
+**Kill switch** — a state change (flag flip, traffic shift, routing revert) that one person can operate in seconds without producing a new artefact. If undoing requires the pipeline, it fails exactly when the pipeline is the problem.
+
+**Fleet pause** — the second position of the kill switch when agents are generating continuously: stopping the *source* as well as the *change*, so a fleet does not rebuild the problem on top of the revert.

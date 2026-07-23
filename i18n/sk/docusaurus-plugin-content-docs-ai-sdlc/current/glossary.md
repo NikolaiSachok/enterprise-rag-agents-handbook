@@ -213,3 +213,85 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 **Skreslenie spôsobené formátom výstupu nástroja** — systematické pripisovanie menšej váhy nálezu, keď je výstupný kanál brány užší než chyba, ktorú odhaľuje. Vizuálne porovnanie napríklad informuje o *vzhľade*, takže „chýbajúci widget“ pôsobí ako kozmetický problém, hoci skutočnou chybou je chýbajúce *správanie*. Platí pravidlo: ak štrukturálna brána hlási, že niečo „chýba“, považuj to za nedostatok funkčnosti, kým sa nepreukáže, že ide iba o kozmetickú chybu.
 
 **Strojovo čitateľná značka „potrebný človek“** — značka, ktorú agent vloží priamo do výstupu pri skutočnom rozhodnutí vyžadujúcom úsudok („tu potrebujem človeka“) a ktorú neskoršia ľudská brána použije ako svoj pracovný zoznam. Namiesto spotrebúvania pozornosti človeka ju nasmeruje na správne miesto.
+
+<a id="secrets"></a>
+
+## Secrets
+
+**Invariant secretov (secrets invariant)** — pravidlo, podľa ktorého sa hodnota secretu nedostane ani do repozitára, ani do kontextu agenta.
+
+**Oddelenie konfigurácie od kódu (config/code separation)** — usporiadanie, pri ktorom kód nesie iba názvy konfiguračných položiek, zatiaľ čo ich hodnoty zostávajú mimo zdrojových súborov.
+
+**Odkaz namiesto vloženej hodnoty (reference-not-embed)** — postup, pri ktorom kód pracuje iba s názvom alebo odkazom na secret a jeho doslovnú hodnotu neobsahuje nikdy.
+
+**Vkladanie za behu (runtime injection)** — sprístupnenie secretu procesu až pri jeho štarte, cez premenné prostredia, brokera alebo trezor.
+
+**Skenovanie secretov (secret scanning)** — automatická kontrola súborov a commitov, ktorá podľa vzorov a entropie hľadá omylom vložené kľúče, tokeny a ďalšie prihlasovacie údaje.
+
+**Push protection** — kontrola na strane servera, ktorá zablokuje push s rozpoznaným secretom ešte pred jeho zápisom do vzdialeného repozitára.
+
+**Rotácia namiesto mazania (rotation-not-deletion)** — pravidlo nápravy úniku: pôvodné prihlasovacie údaje treba zneplatniť a vydať nové, pretože zmazanie zo súboru ich z histórie neodstráni.
+
+**Krátkodobé prihlasovacie údaje (short-lived credential)** — kľúč, token alebo iné prihlasovacie údaje, ktoré po krátkom čase automaticky stratia platnosť, a tým obmedzia použiteľnosť uniknutej kópie.
+
+<a id="least-privilege-and-sandboxing"></a>
+
+## Najnižšie oprávnenia a sandbox
+
+**Princíp najnižších oprávnení (least privilege)** — zásada, podľa ktorej agent dostane prístup iba ku konkrétnym prostriedkom a operáciám, ktoré jeho aktuálna úloha potrebuje.
+
+**Sandboxing (izolované spúšťanie)** — vynútené oddelenie procesu od zvyšku systému hranicami súborového systému, siete a prostredia, ktoré agent nedokáže sám prekročiť.
+
+**Pokyn verzus oprávnenie (instruction vs permission)** — rozdiel medzi požiadavkou v prirodzenom jazyku, ktorú agent dodržať nemusí, a technicky vynúteným právom, ktoré určuje, čo mu systém vôbec dovolí vykonať.
+
+**Vymeranie oprávnenia (grant sizing: scope · mode · lifetime · identity)** — prispôsobenie udelených práv úlohe na štyroch parametroch: dostupné prostriedky, povolený režim operácií, čas platnosti a samostatná identita.
+
+**Prompt injection (podstrčený pokyn)** — útok, pri ktorom nedôveryhodný obsah nesie text zostavený tak, aby ho model prečítal ako pokyn a konal podľa neho.
+
+**Confused deputy (zneužitý sprostredkovateľ)** — komponent s legitímnymi právomocami, ktorý nedôveryhodná strana oklame, aby ich použil za ňu.
+
+**Allowlist odchádzajúcej komunikácie (egress allowlist)** — zoznam jediných sieťových cieľov, ku ktorým smie proces nadviazať odchádzajúce spojenie.
+
+**Workload identity (identita workloadu)** — identita pridelená konkrétnej úlohe alebo procesu, na základe ktorej platforma vydáva krátkodobé a úzko vymedzené prihlasovacie údaje.
+
+<a id="environments-migrations-and-real-data"></a>
+
+## Prostredia, migrácie a reálne dáta
+
+**Vierohodné, nie reálne dáta (realistic-not-real data)** — dátová množina, ktorá zachováva štruktúru, väzby a rozdelenie produkčných dát bez toho, aby obsahovala skutočné údaje zákazníkov alebo iné citlivé záznamy.
+
+**Maskovanie dát verzus anonymizácia (data masking vs anonymisation)** — maskovanie nahradí alebo zakryje identifikátory a riziko zníži, samo osebe však anonymitu nezaručí; prepojením s ďalšími zdrojmi sa identita osoby môže dať určiť aj naďalej.
+
+**Referenčná integrita (referential integrity)** — vlastnosť dátovej množiny, pri ktorej väzby medzi súvisiacimi záznamami zostávajú platné, napríklad každý cudzí kľúč odkazuje na existujúci riadok.
+
+**Chvost rozdelenia (distribution tail)** — zriedkavé, hraničné a nepohodlné hodnoty v dátach: nezvyčajne dlhé reťazce, prázdne polia či záznamy vytvorené podľa staršej schémy.
+
+**Rozšíriť–migrovať–zúžiť (expand–migrate–contract, parallel change)** — postup bezpečnej zmeny schémy: najprv pridáš spätne kompatibilnú štruktúru, potom na ňu presunieš dáta aj prevádzku a starú odstrániš až nakoniec.
+
+**Brána na deštruktívne príkazy (destructive-statement gate)** — deterministická kontrola, ktorá zastaví migráciu obsahujúcu príkaz schopný odstrániť alebo nenávratne zmeniť dáta, pokiaľ zmena nenesie výslovné povolenie.
+
+**Nacvičená obnova (rehearsed restore)** — obnova zálohy vykonaná v skúšobnom prostredí spolu s kontrolou, že obnovené dáta sú prítomné, úplné a konzistentné.
+
+**Obnova k bodu v čase (point-in-time recovery)** — schopnosť obnoviť databázu do zvoleného okamihu pred chybnou zmenou, poškodením dát alebo incidentom.
+
+<a id="observability-rollout-and-the-kill-switch"></a>
+
+## Pozorovateľnosť, nasadzovanie a núdzový vypínač
+
+**Produkcia ako koncová brána** — produkcia je posledný kontrolný bod overovacej reťaze. Zachytáva triedy chýb, ktoré vznikajú až pod skutočnou prevádzkou, skutočnými dátami, zariadeniami a súbežnosťou.
+
+**Sada telemetrických signálov** — malá skupina prevádzkových údajov, podľa ktorých sa dá posúdiť správanie zmeny: miera chýb, latencia vo vysokom percentile, saturácia a aspoň jeden obchodný signál.
+
+**Obchodný signál (business signal)** — údaj o správaní používateľov alebo o fungovaní produktu, ktorý odhalí funkčne pokazenú zmenu aj vtedy, keď technické metriky vyzerajú zdravo.
+
+**Oddelenie nasadenia od sprístupnenia** — postup, pri ktorom sa kód dostane do produkcie nezávisle od toho, kedy sa nové správanie zapne používateľom.
+
+**Feature flag (prepínač funkcie)** — prepínateľná konfigurácia, ktorá správanie zapne alebo vypne bez nového zostavenia či nasadenia kódu.
+
+**Postupné nasadzovanie (canary · zvyšovanie podielu)** — sprístupňovanie zmeny najprv malej skupine a potom čoraz väčšiemu podielu používateľov, kým sa jej bezpečnosť nepotvrdí alebo sa proces nezastaví.
+
+**Automatické vrátenie zmeny** — automatické zastavenie a obrátenie sprístupňovania po prekročení stanovenej hranice, napríklad miery chýb alebo latencie.
+
+**Núdzový vypínač** — mechanizmus, ktorým jeden človek za pár sekúnd zastaví chybné správanie zmenou stavu, bez nového zostavenia a bez závislosti od pipeline.
+
+**Pozastavenie flotily** — zastavenie agentov, ktoré po vrátení artefaktu zabráni tomu, aby ďalej generovali nad nedôveryhodným základom alebo aby ten istý problém postavili znova.
