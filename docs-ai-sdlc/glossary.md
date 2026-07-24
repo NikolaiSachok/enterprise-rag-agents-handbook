@@ -239,6 +239,26 @@ its section here. The list grows as the course does.
 
 **Workload identity** — issuing short-lived credentials to a workload per task rather than storing static tokens, so compromise is attributable, time-boxed, and revocable without breaking everything else.
 
+**Process/namespace isolation** — running the agent with its own view of the system (filesystem, process table, network), usually a container. The outer wall of the sandbox. *(deep dive)*
+
+**Container as isolation vs security boundary** — a container isolates an ordinary process cleanly but shares the host kernel, so it is not by itself a hard boundary against a kernel-level exploit. That is why it is the first confinement layer, never the only one. *(deep dive)*
+
+**Syscall filtering (seccomp)** — restricting which kernel calls the process may make, so even arbitrary code execution inside the box cannot reach a forbidden operation. Its worth depends on being default-deny. *(deep dive)*
+
+**Default-deny** — allowing the small set an action needs and refusing the rest, rather than blocklisting known-bad and hoping the list is complete. The closed-world stance, applied to syscalls and egress alike. *(deep dive)*
+
+**Filesystem confinement** — a read-only root, one writable scratch directory, and no mount that reaches host secrets, other projects, or the runtime socket. A credential the box cannot read cannot be exfiltrated. *(deep dive)*
+
+**Egress proxy / exfiltration boundary** — the outbound network allowlist enforced by a proxy the agent routes through, not by asking it to behave. The last layer: it turns "the agent read something it shouldn't" into a non-event, because the data has nowhere to go. *(deep dive)*
+
+**Threat model per boundary** — stating, for each confinement layer, what a successful injection at the layer above buys the attacker and what stops it here. It exposes the cheap mistake of one strong wall with nothing behind it. *(deep dive)*
+
+**Container escape (mounted runtime socket)** — bind-mounting the container runtime's control socket into the box, which lets anything inside start a new unconfined container — a full escape, and a standard misconfiguration. *(deep dive)*
+
+**Sandbox drift** — a seccomp profile or egress allowlist widened one exception at a time until it confines nothing; rule rot applied to policy, and it needs an owner and review the same way a rule corpus does. *(deep dive)*
+
+**Confinement-as-code** — defining the box's boundaries as versioned, reproducibly-built configuration, so "the agent runs confined" is a property of the system rather than a fact about one hand-configured machine. *(deep dive)*
+
 ## Environments, migrations, and real data
 
 **Realistic-not-real data** — the rule that an agent works against a dataset shaped like production but containing no real people, because a production copy both multiplies the obligations attached to personal data and feeds real records into the agent's uncontrolled context.

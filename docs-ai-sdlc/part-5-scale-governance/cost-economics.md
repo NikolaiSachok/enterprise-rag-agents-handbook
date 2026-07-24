@@ -62,7 +62,7 @@ as much as an engineering one: the binding constraint is priced in salary, not i
 
 Attribution comes first, because an unattributable bill cannot be managed — only worried about. The mechanism
 is already in place from Part IV: if credentials are issued
-[per task and per workload](../part-4-platform/least-privilege-sandboxing.md), spend can be attributed the same
+[per task and per workload](../part-4-platform/least-privilege-sandboxing/index.md), spend can be attributed the same
 way. Tag by task, not by team, and the question "what did this feature cost" becomes answerable instead of
 rhetorical.
 

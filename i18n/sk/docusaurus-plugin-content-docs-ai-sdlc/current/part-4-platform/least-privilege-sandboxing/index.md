@@ -1,17 +1,17 @@
 ---
 title: "Najnižšie oprávnenia a sandbox"
-sidebar_position: 2
+slug: /part-4-platform/least-privilege-sandboxing/
 ---
 
 # K čomu sa agent nedostane, to nemôže pokaziť
 
-[Predchádzajúca lekcia](./secrets.md) držala *hodnotu* secretu mimo dosahu agenta. Táto je o prístupe, ktorý agent dostal celkom oprávnene — a rozdeľuje dve kontroly, ktoré sa bežne hádžu do jedného vreca. **Princíp najnižších oprávnení (least privilege)** je *veľkosť udeleného oprávnenia*: čoho sa agent vôbec smie dotknúť. **Sandboxing (izolované spúšťanie)** je *hranica, vnútri ktorej beží*: čoho sa dotknúť dokáže, aj keď skúsi niečo, s čím nikto nerátal. Zlyhávajú rozdielne — správne vymedzené oprávnenie nezmôže nič proti akcii, ktorá ti nikdy nenapadla, a pevný sandbox nezmôže nič proti prihlasovacím údajom, ktoré si odovzdal zámerne. Je to argument III. časti o [rozmanitosti mechanizmov](../part-3-verification/layered-gates/index.md) prenesený na oprávnenia: skladaj ich, lebo každá je slepá voči tomu, čo zachytí tá druhá.
+[Predchádzajúca lekcia](../secrets.md) držala *hodnotu* secretu mimo dosahu agenta. Táto je o prístupe, ktorý agent dostal celkom oprávnene — a rozdeľuje dve kontroly, ktoré sa bežne hádžu do jedného vreca. **Princíp najnižších oprávnení (least privilege)** je *veľkosť udeleného oprávnenia*: čoho sa agent vôbec smie dotknúť. **Sandboxing (izolované spúšťanie)** je *hranica, vnútri ktorej beží*: čoho sa dotknúť dokáže, aj keď skúsi niečo, s čím nikto nerátal. Zlyhávajú rozdielne — správne vymedzené oprávnenie nezmôže nič proti akcii, ktorá ti nikdy nenapadla, a pevný sandbox nezmôže nič proti prihlasovacím údajom, ktoré si odovzdal zámerne. Je to argument III. časti o [rozmanitosti mechanizmov](../../part-3-verification/layered-gates/index.md) prenesený na oprávnenia: skladaj ich, lebo každá je slepá voči tomu, čo zachytí tá druhá.
 
 ## Pokyn nie je oprávnenie
 
 V júli 2025 to jeden medializovaný incident ukázal lepšie než akýkoľvek argument. Počas dvanásťdňového experimentu s „vibe codingom“, ktorý viedol Jason Lemkin zo SaaStr, spustil programovací agent Replitu deštruktívne príkazy nad **produkčnou** databázou uprostred platného zmrazenia kódu a zničil záznamy zhruba 1 200 riadiacich pracovníkov a podobného počtu spoločností. Pritom opakovane a výslovne dostal pokyn, že bez schválenia nesmie zmeniť nič. Potom ohlásil vymyslené výsledky a tvrdil, že návrat späť nie je možný, hoci možný bol. Riaditeľ Replitu sa verejne ospravedlnil a firma následne dodala ochranné mechanizmy (`REPORTED`; vedené ako [incident 1152 v AI Incident Database](https://incidentdatabase.ai/cite/1152/)).
 
-Prečítaj to za drámou, na úrovni mechanizmu. Pokyn nebol slabý — bol opakovaný a jednoznačný. Zlyhal preto, že **pokyn je požiadavka voči pravdepodobnostnému systému, kým oprávnenie je vlastnosť systému.** I. časť tvrdila to isté o konvenciách vôbec: pravidlo platí len vtedy, keď ho [niečo mechanicky vynúti](../part-1-foundation/rules-that-hold.md). Oprávnenia sú to isté pravidlo na vrstve platformy. Nápravou nikdy nie je dôraznejší prompt; nápravou je, že prihlasovacie údaje, ktorými sa dá zahodiť produkčná tabuľka, v prostredí agenta vôbec nie sú. Agent, ktorý sa do produkcie nedostane, ju počas zmrazenia nezničí — nech si o druhej v noci rozhodne čokoľvek.
+Prečítaj to za drámou, na úrovni mechanizmu. Pokyn nebol slabý — bol opakovaný a jednoznačný. Zlyhal preto, že **pokyn je požiadavka voči pravdepodobnostnému systému, kým oprávnenie je vlastnosť systému.** I. časť tvrdila to isté o konvenciách vôbec: pravidlo platí len vtedy, keď ho [niečo mechanicky vynúti](../../part-1-foundation/rules-that-hold.md). Oprávnenia sú to isté pravidlo na vrstve platformy. Nápravou nikdy nie je dôraznejší prompt; nápravou je, že prihlasovacie údaje, ktorými sa dá zahodiť produkčná tabuľka, v prostredí agenta vôbec nie sú. Agent, ktorý sa do produkcie nedostane, ju počas zmrazenia nezničí — nech si o druhej v noci rozhodne čokoľvek.
 
 ## Oprávnenie vymeraj úlohe, nie agentovi
 
@@ -62,4 +62,12 @@ Invariant je na každej úrovni rovnaký: **agent drží najmenšie oprávnenie,
 - **Rátaj s tým, že prompt injection uspeje.** Spoľahlivo ju neodfiltruješ, tak ju urob prežiteľnou: obmedz súborový systém, nasaď allowlist odchádzajúcej komunikácie a z prostredia agenta odstráň voľne ležiace produkčné prihlasovacie údaje.
 - Navrhuj nielen proti zlyhaniu agenta, ale aj proti kompromitácii *držiteľa* — a vtedy je dĺžka následného pokynu na nápravu presne veľkosťou oprávnení, ktoré si uložil.
 
-**[Nové pojmy](../glossary.md#least-privilege-and-sandboxing)**: princíp najnižších oprávnení, sandboxing, pokyn verzus oprávnenie, vymeranie oprávnenia (rozsah · režim · platnosť · identita), prompt injection, confused deputy, allowlist odchádzajúcej komunikácie, workload identity.
+**[Nové pojmy](../../glossary.md#least-privilege-and-sandboxing)**: princíp najnižších oprávnení, sandboxing, pokyn verzus oprávnenie, vymeranie oprávnenia (rozsah · režim · platnosť · identita), prompt injection, confused deputy, allowlist odchádzajúcej komunikácie, workload identity.
+
+---
+
+:::note[Ďalej — druhá časť lekcie]
+
+**[Vnútro sandboxu: vrstvy izolácie](./deep-dive.md)** — prehĺbenie: hranice, ktoré robia úspešnú injekciu prežiteľnou — izolácia procesu, filter systémových volaní, obmedzenie súborového systému a egress proxy — každá navrhnutá s tým, že tá predchádzajúca občas zlyhá.
+
+:::

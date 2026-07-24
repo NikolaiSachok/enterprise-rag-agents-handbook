@@ -5,7 +5,7 @@ sidebar_position: 3
 
 # Agent dostane kópiu a každá zmena cestu späť
 
-[Lekcia 1](./secrets.md) držala hodnotu secretu mimo dosahu agenta a [Lekcia 2](./least-privilege-sandboxing.md) vymerala oprávnenie a postavila okolo neho sandbox. Táto lekcia je o tom, *na čo* to oprávnenie mieri: na dáta a na schému. Dve polovice, a každá zlyháva opačným smerom. Agent má pracovať s dátami, ktoré sú vierohodné, ale nie skutočné — a každá štrukturálna zmena, ktorú urobí, musí mať cestu späť, ktorú si už naozaj prešiel.
+[Lekcia 1](./secrets.md) držala hodnotu secretu mimo dosahu agenta a [Lekcia 2](./least-privilege-sandboxing/index.md) vymerala oprávnenie a postavila okolo neho sandbox. Táto lekcia je o tom, *na čo* to oprávnenie mieri: na dáta a na schému. Dve polovice, a každá zlyháva opačným smerom. Agent má pracovať s dátami, ktoré sú vierohodné, ale nie skutočné — a každá štrukturálna zmena, ktorú urobí, musí mať cestu späť, ktorú si už naozaj prešiel.
 
 ## Vierohodné dáta, nie reálne dáta
 

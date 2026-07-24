@@ -6,7 +6,7 @@ sidebar_position: 3
 # The agent gets a copy, and every change gets a way back
 
 [Lesson 1](./secrets.md) kept a secret's value out of the agent's hands and
-[Lesson 2](./least-privilege-sandboxing.md) sized the grant and built the box around it. This lesson is about
+[Lesson 2](./least-privilege-sandboxing/index.md) sized the grant and built the box around it. This lesson is about
 what the grant points *at*: the data and the schema. Two halves, and they fail in opposite directions. The
 agent should be working against data that is realistic but not real — and every structural change it makes
 should have a way back that you have actually exercised.

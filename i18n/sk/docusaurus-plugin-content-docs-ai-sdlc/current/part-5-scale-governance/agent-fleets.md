@@ -35,7 +35,7 @@ adresár nad tým istým úložiskom objektov, takže v `git status` vidí každ
 
 Cena je skutočná, no malá a stále rovnaká: chvíľa prípravy a kúsok disku na agenta. Získaš to, že celá trieda
 vzájomného rušenia prestane existovať namiesto toho, aby sa riadila. Je to ten istý kompromis, aký urobila
-IV. časť pri [sandboxe](../part-4-platform/least-privilege-sandboxing.md) — hranica vynútená platformou je
+IV. časť pri [sandboxe](../part-4-platform/least-privilege-sandboxing/index.md) — hranica vynútená platformou je
 spoľahlivejšia než spolupráca založená na dôvere — a ten istý dôvod, prečo náprava patrí do mechanizmu, nie
 do pokynu, aby si agenti dávali pozor.
 

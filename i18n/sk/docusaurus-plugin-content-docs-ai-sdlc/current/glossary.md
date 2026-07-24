@@ -270,6 +270,26 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 
 **Workload identity (identita workloadu)** — identita pridelená konkrétnej úlohe alebo procesu, na základe ktorej platforma vydáva krátkodobé a úzko vymedzené prihlasovacie údaje.
 
+**Izolácia procesu a namespace (process/namespace isolation)** — oddelenie pohľadu procesu na pripojené súborové systémy, ostatné procesy a sieťový stack od hostiteľa a ďalších workloadov. *(deep dive)*
+
+**Container ako hranica izolácie verzus bezpečnostná hranica** — container spoľahlivo oddeľuje bežné procesy, no zdieľa kernel hostiteľa, a preto sám neposkytuje pevnú ochranu pred zneužitím chyby na úrovni kernelu. *(deep dive)*
+
+**Filtrovanie syscallov (systémových volaní, seccomp)** — obmedzenie množiny operácií, ktoré smie proces požadovať od kernelu; na Linuxe sa naň bežne používa seccomp. *(deep dive)*
+
+**Default-deny (predvolene zakázať)** — politika, ktorá povoľuje iba výslovne potrebné operácie a všetky ostatné odmieta. *(deep dive)*
+
+**Obmedzenie súborového systému (filesystem confinement)** — usporiadanie mountov a prístupových režimov tak, aby proces mohol zapisovať iba do pracovného priestoru úlohy a nemal cestu k secretom, iným projektom ani riadiacim rozhraniam hostiteľa. *(deep dive)*
+
+**Egress proxy / hranica exfiltrácie** — proxy vynucujúce allowlist odchádzajúcej komunikácie; bráni agentovi odoslať získané dáta na nepovolený cieľ. *(deep dive)*
+
+**Model hrozieb pre každú hranicu (threat model per boundary)** — rozbor, ktorý pri každej vrstve určuje, čo útočník získa prekonaním predchádzajúcej vrstvy a aký mechanizmus ho zastaví na tejto hranici. *(deep dive)*
+
+**Únik z containera cez pripojený socket container runtime (container escape)** — prekonanie izolácie, pri ktorom proces použije bind-mount riadiaceho socketu na spustenie nového containera bez pôvodných obmedzení. *(deep dive)*
+
+**Drift sandboxu (sandbox drift)** — postupné oslabovanie politiky sandboxu výnimkami a rozširovaním oprávnení, až kým prestane účinne obmedzovať úlohu. *(deep dive)*
+
+**Obmedzenia ako kód (confinement-as-code)** — verzionovaný a reprodukovateľný zápis konfigurácie sandboxu, z ktorého sa pri každom zostavení vytvoria rovnaké hranice izolácie. *(deep dive)*
+
 <a id="environments-migrations-and-real-data"></a>
 
 ## Prostredia, migrácie a reálne dáta

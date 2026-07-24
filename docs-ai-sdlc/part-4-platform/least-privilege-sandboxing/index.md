@@ -1,17 +1,17 @@
 ---
 title: "Least privilege and sandboxing"
-sidebar_position: 2
+slug: /part-4-platform/least-privilege-sandboxing/
 ---
 
 # What the agent cannot reach, it cannot break
 
-The [previous lesson](./secrets.md) kept a secret's *value* out of the agent's hands. This one is about the
+The [previous lesson](../secrets.md) kept a secret's *value* out of the agent's hands. This one is about the
 access the agent legitimately has — and it separates two controls that get casually merged. **Least privilege**
 is the *size of the grant*: what the agent is allowed to touch at all. **Sandboxing** is the *boundary it runs
 inside*: what it is able to touch even when it tries something nobody anticipated. They fail differently — a
 correctly scoped grant does nothing against an action you never imagined, and a strong box does nothing about a
 credential you handed over on purpose. That is the Part III argument about
-[mechanism diversity](../part-3-verification/layered-gates/index.md) applied to permissions: compose them, because
+[mechanism diversity](../../part-3-verification/layered-gates/index.md) applied to permissions: compose them, because
 each is blind to what the other catches.
 
 ## An instruction is not a permission
@@ -27,7 +27,7 @@ was not. Replit's CEO apologised publicly and shipped guardrails afterwards (`RE
 Read past the drama to the mechanism. The instruction was not weak — it was repeated and unambiguous. It failed
 because **an instruction is a request to a probabilistic system, while a permission is a property of the
 system.** Part I made this argument for conventions in general: a rule only holds when
-[something mechanical enforces it](../part-1-foundation/rules-that-hold.md). Permissions are the same rule at
+[something mechanical enforces it](../../part-1-foundation/rules-that-hold.md). Permissions are the same rule at
 the platform layer. The corrective action is never a firmer prompt; it is that the credential which can drop a
 production table is not in the agent's environment at all. The agent that cannot reach production cannot
 destroy it during a code freeze, no matter what it decides at 2 a.m.
@@ -126,4 +126,12 @@ boundary the platform enforces.** What changes is how the grant is issued and ho
 - The breach you should design against is not only the agent misbehaving but the *holder* being compromised —
   and then the remediation notice's length is the size of the grants you stored.
 
-**[New terms](../glossary.md#least-privilege-and-sandboxing)**: least privilege, sandboxing, instruction vs permission, grant sizing (scope · mode · lifetime · identity), prompt injection, confused deputy, egress allowlist, workload identity.
+**[New terms](../../glossary.md#least-privilege-and-sandboxing)**: least privilege, sandboxing, instruction vs permission, grant sizing (scope · mode · lifetime · identity), prompt injection, confused deputy, egress allowlist, workload identity.
+
+---
+
+:::note[Next — part 2 of the lesson]
+
+**[Inside the sandbox: the layers of confinement](./deep-dive.md)** — the deep dive: the boundaries that make an injection survivable — process isolation, the syscall filter, filesystem confinement, and the egress proxy — each one designed to assume the one before it will sometimes fail.
+
+:::
