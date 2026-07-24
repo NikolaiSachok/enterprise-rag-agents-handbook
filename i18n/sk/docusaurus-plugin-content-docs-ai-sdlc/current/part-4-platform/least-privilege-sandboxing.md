@@ -5,7 +5,7 @@ sidebar_position: 2
 
 # K čomu sa agent nedostane, to nemôže pokaziť
 
-[Predchádzajúca lekcia](./secrets.md) držala *hodnotu* secretu mimo dosahu agenta. Táto je o prístupe, ktorý agent dostal celkom oprávnene — a rozdeľuje dve kontroly, ktoré sa bežne hádžu do jedného vreca. **Princíp najnižších oprávnení (least privilege)** je *veľkosť udeleného oprávnenia*: čoho sa agent vôbec smie dotknúť. **Sandboxing (izolované spúšťanie)** je *hranica, vnútri ktorej beží*: čoho sa dotknúť dokáže, aj keď skúsi niečo, s čím nikto nerátal. Zlyhávajú rozdielne — správne vymedzené oprávnenie nezmôže nič proti akcii, ktorá ti nikdy nenapadla, a pevný sandbox nezmôže nič proti prihlasovacím údajom, ktoré si odovzdal zámerne. Je to argument III. časti o [rozmanitosti mechanizmov](../part-3-verification/layered-gates.md) prenesený na oprávnenia: skladaj ich, lebo každá je slepá voči tomu, čo zachytí tá druhá.
+[Predchádzajúca lekcia](./secrets.md) držala *hodnotu* secretu mimo dosahu agenta. Táto je o prístupe, ktorý agent dostal celkom oprávnene — a rozdeľuje dve kontroly, ktoré sa bežne hádžu do jedného vreca. **Princíp najnižších oprávnení (least privilege)** je *veľkosť udeleného oprávnenia*: čoho sa agent vôbec smie dotknúť. **Sandboxing (izolované spúšťanie)** je *hranica, vnútri ktorej beží*: čoho sa dotknúť dokáže, aj keď skúsi niečo, s čím nikto nerátal. Zlyhávajú rozdielne — správne vymedzené oprávnenie nezmôže nič proti akcii, ktorá ti nikdy nenapadla, a pevný sandbox nezmôže nič proti prihlasovacím údajom, ktoré si odovzdal zámerne. Je to argument III. časti o [rozmanitosti mechanizmov](../part-3-verification/layered-gates/index.md) prenesený na oprávnenia: skladaj ich, lebo každá je slepá voči tomu, čo zachytí tá druhá.
 
 ## Pokyn nie je oprávnenie
 

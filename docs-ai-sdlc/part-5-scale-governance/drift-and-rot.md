@@ -61,7 +61,7 @@ Two mechanisms make maintenance real rather than aspirational.
 
 - **Date-stamp every rule** and review the oldest first. Age is a weak signal but it is free, and it beats the
   alternative, which is reviewing nothing.
-- **Treat a rule that never fires as suspect.** This is Part III's [mutation-testing argument](../part-3-verification/layered-gates.md)
+- **Treat a rule that never fires as suspect.** This is Part III's [mutation-testing argument](../part-3-verification/layered-gates/index.md)
   applied to the corpus: a check that has not caught anything in a year is either guarding a class that no
   longer occurs, or it is broken and you have been trusting silence. Both are worth knowing, and you find out
   the same way — plant a violation and see whether the rule fires.

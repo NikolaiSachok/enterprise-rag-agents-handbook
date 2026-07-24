@@ -5,7 +5,7 @@ sidebar_position: 2
 
 # An escape is data about the gate, not just about the bug
 
-[Lesson 1](./layered-gates.md) built a chain of gates whose mechanisms are blind to different things. This
+[Lesson 1](./layered-gates/index.md) built a chain of gates whose mechanisms are blind to different things. This
 lesson is about the defects that get through it anyway — because they will. No chain is complete; every one of
 them has a seam its mechanisms don't cover, and the honest question is not whether something will escape but
 what you *do* with the one that does. The move is small and almost nobody makes it: when a defect reaches
@@ -23,7 +23,7 @@ discipline pointed at your *gates* instead of your incident response, and its un
 - **Which gate should have caught it** — name the specific gate in the chain that owns this class. If no gate
   owns it, that is the finding: the class is off the whole chain.
 - **Why it didn't** — the blind spot, in one sentence. Almost always this is the *mechanism* speaking, exactly
-  as [Lesson 1](./layered-gates.md) described: the gate that should have caught it is structurally unable to,
+  as [Lesson 1](./layered-gates/index.md) described: the gate that should have caught it is structurally unable to,
   or it had no probe for the class at all.
 - **The promotion** — the new probe, test, or rule that now covers the class, and the gate it was added to. An
   escape you merely fix teaches nothing; an escape you *promote* changes the chain.
@@ -35,7 +35,7 @@ get through.
 ## What escapes actually look like
 
 Here is the shape from a verification chain I ran in production — a six-gate automated chain in front of a human
-eyeball, the same one [Lesson 1](./layered-gates.md) drew. Over its life, roughly **seven distinct defect
+eyeball, the same one [Lesson 1](./layered-gates/index.md) drew. Over its life, roughly **seven distinct defect
 classes reached the human or a user despite passing every automated gate.** Each one, recorded, named a real
 blind spot:
 

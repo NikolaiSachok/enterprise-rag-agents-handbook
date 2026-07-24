@@ -13,7 +13,7 @@ it stops. Skip any one and the loop is a pipeline with optimistic wording.
 
 ## Some defect classes exist only in production
 
-Part III built a [chain of gates](../part-3-verification/layered-gates.md) that runs before anything lands. It
+Part III built a [chain of gates](../part-3-verification/layered-gates/index.md) that runs before anything lands. It
 cannot be complete, and not because it was built carelessly: a class of defects only exists under real traffic,
 real data distributions, real devices, and real concurrency. No pre-merge gate perceives them, for exactly the
 mechanism reason that lesson gave. So production is not "after verification" — production is the **terminal

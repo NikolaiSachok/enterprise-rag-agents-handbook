@@ -63,7 +63,7 @@ makes dangerous — the repo and the agent's context.
 ## When it leaks anyway: scan, block, rotate
 
 Prevention is not a plan, so the platform composes the same two-mechanism layering Part III used for
-[gate design](../part-3-verification/layered-gates.md). A **deterministic** secret scanner — a pattern-and-entropy
+[gate design](../part-3-verification/layered-gates/index.md). A **deterministic** secret scanner — a pattern-and-entropy
 grep like gitleaks or a provider's native scanning — is the cheap gate that catches the literal key before it
 enters history. It is blind to the credential expressed in an unusual shape, exactly as a grep is blind to a
 paraphrase, so it composes with review; but for the common case, a fast literal gate is precisely right.

@@ -168,6 +168,22 @@ Každý pojem, ktorý lekcie zavádzajú, je tu vymedzený raz. Každá lekcia s
 
 **Hĺbková ochrana** — označenie rovnakého princípu vo svete bezpečnosti: niekoľko nezávislých kontrol usporiadaných vo vrstvách, pričom žiadnej sa nedôveruje samostatne a každá počíta s tým, že kontrola pred ňou niekedy zlyhá.
 
+**Mutačné testovanie (mutation testing)** — metóda, pri ktorej do kódu zámerne vkladáš malé chyby a spustením brán overuješ, či ich dokážu odhaliť.
+
+**Mutant** — verzia programu s jednou zámerne vloženou chybou. Ak brána zlyhá, mutant je *zabitý*; ak bránou prejde, mutant *prežil* a preukazuje jej slepé miesto.
+
+**Mutation score** — podiel zabitých mutantov zo všetkých vytvorených mutantov. Meria detekčnú silu testovacej sady alebo inej brány, nie iba to, koľko kódu vykonala.
+
+**Mutačný operátor (mutation operator)** — pravidlo, ktoré vytvára určitý druh mutanta, napríklad odstránením príkazu, zmenou hranice alebo zámenou návratovej hodnoty.
+
+**Ekvivalentný mutant (equivalent mutant)** — mutant, ktorého kód sa od originálu líši, ale správa sa rovnako. Žiadny test ho nemôže zabiť, pretože mutácia nevytvorila pozorovateľnú chybu.
+
+**Pokrytie a detekcia (coverage vs detection)** — rozdiel medzi vykonaním kódu počas testov a skutočným odhalením zmeny jeho správania. Vysoké pokrytie samo osebe nezaručuje vysokú detekčnú silu.
+
+**Poradie podľa nákladov na znehodnotenie práce (cost-to-invalidate ordering)** — spôsob zoradenia brán, pri ktorom najprv spúšťaš kontroly, ktorých následné opravy by najvýraznejšie znehodnotili prácu vykonanú v ďalších fázach.
+
+**Poradie podľa nákladov na jeden beh (cost-per-run ordering)** — spôsob zoradenia brán od najlacnejšej po najdrahšiu, aby drahé kontroly skúmali iba výsledky, ktoré už prešli všetkými lacnejšími kontrolami.
+
 <a id="escape-ledger"></a>
 
 ## Register únikov

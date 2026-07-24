@@ -62,7 +62,7 @@ mazať sa zdá riskantnejšie než nechať tak, takže korpusy vedia iba rásť.
 - **Každé pravidlo označ dátumom** a preveruj najstaršie ako prvé. Vek je slabý signál, ale máš ho zadarmo a
   je lepší než alternatíva, čiže nepreverovať nič.
 - **Pravidlo, ktoré sa nikdy neaktivovalo, ber ako podozrivé.** Je to
-  [argument o mutačnom testovaní](../part-3-verification/layered-gates.md) z III. časti aplikovaný na korpus:
+  [argument o mutačnom testovaní](../part-3-verification/layered-gates/index.md) z III. časti aplikovaný na korpus:
   kontrola, ktorá za rok nič nezachytila, buď stráži triedu chýb, ktorá sa už nevyskytuje, alebo je pokazená a
   ty si celý čas dôveroval jej tichu. Vedieť sa oplatí oboje a zistíš to rovnako — zámerne vlož porušenie a
   pozri sa, či sa pravidlo ozve.

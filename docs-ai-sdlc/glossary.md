@@ -147,6 +147,22 @@ its section here. The list grows as the course does.
 
 **Defense in depth** — the security world's name for the same idea: multiple independent controls in layers, none trusted alone, each assuming the one in front of it will sometimes fail.
 
+**Mutation testing** — measuring a gate's detection power by injecting a deliberate defect and checking whether the gate catches it. It measures what coverage cannot: whether behavior is *checked*, not merely executed. *(deep dive)*
+
+**Mutant (killed / survived)** — a single injected defect. A killed mutant was caught by the gate; a surviving mutant is a demonstrated blind spot — a concrete defect the gate let through.
+
+**Mutation score** — killed mutants over total, the honest replacement for coverage: not how much code the gate touched, but how much of it the gate can actually defend.
+
+**Mutation operator** — the rule that generates a mutant (statement deletion, boundary flip `<`→`<=`, return-value or constant change). The set of operators is itself a probe list, so mutation testing inherits probe-list bias — it tests only the defect classes an operator encodes.
+
+**Equivalent mutant** — a mutation that changes the code without changing its behavior, so no test can kill it. It lowers the score through no fault of the suite, and deciding whether a survivor is equivalent is undecidable in general — a per-survivor human judgment.
+
+**Coverage vs detection** — coverage answers "did this line run"; detection answers "would a defect here be caught". A suite can execute every line and assert nothing: 100% coverage, zero detection.
+
+**Cost-to-invalidate ordering** — running the pass whose fixes most disturb later passes first, so the more expensive downstream judgments land on a surface that has stopped moving. It is why behavior is checked before appearance.
+
+**Cost-per-run ordering** — running the cheapest gate first so the expensive gate only examines what already survived everything cheaper. For the gate chain it points the same direction as cost-to-invalidate, which is why the chain has a single order.
+
 ## The escape ledger
 
 **Escape ledger** — a record of every defect that reached production despite passing the gate chain, kept as blameless-postmortem discipline pointed at the gates: one row per escape names the defect class, the gate that should have caught it, the blind spot, and the promotion that now covers it.

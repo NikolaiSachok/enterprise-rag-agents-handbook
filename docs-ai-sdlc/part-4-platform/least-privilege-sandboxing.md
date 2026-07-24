@@ -11,7 +11,7 @@ is the *size of the grant*: what the agent is allowed to touch at all. **Sandbox
 inside*: what it is able to touch even when it tries something nobody anticipated. They fail differently — a
 correctly scoped grant does nothing against an action you never imagined, and a strong box does nothing about a
 credential you handed over on purpose. That is the Part III argument about
-[mechanism diversity](../part-3-verification/layered-gates.md) applied to permissions: compose them, because
+[mechanism diversity](../part-3-verification/layered-gates/index.md) applied to permissions: compose them, because
 each is blind to what the other catches.
 
 ## An instruction is not a permission

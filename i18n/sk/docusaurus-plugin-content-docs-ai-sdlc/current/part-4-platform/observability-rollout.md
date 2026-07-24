@@ -9,7 +9,7 @@ Kurz sa začal [slučkou, nie pipeline](../intro.md) — a slučku z nej robí p
 
 ## Niektoré triedy chýb existujú iba v produkcii
 
-III. časť postavila [reťaz brán](../part-3-verification/layered-gates.md), ktorou musí zmena prejsť skôr, než niekam dopadne. Úplná byť nemôže, a nie preto, že by vznikla nedbalo: celá trieda chýb existuje iba pod skutočnou prevádzkou, skutočným rozdelením dát, na skutočných zariadeniach a pri skutočnej súbežnosti. Žiadna brána pred zlúčením ich nevníma, presne z toho mechanizmového dôvodu, ktorý tamtá lekcia pomenovala. Produkcia teda nie je „to po overení“ — produkcia je **koncová brána reťaze** a telemetria je jej mechanizmus. Nasadenie, ktoré nevieš pozorovať, je brána bez snímača.
+III. časť postavila [reťaz brán](../part-3-verification/layered-gates/index.md), ktorou musí zmena prejsť skôr, než niekam dopadne. Úplná byť nemôže, a nie preto, že by vznikla nedbalo: celá trieda chýb existuje iba pod skutočnou prevádzkou, skutočným rozdelením dát, na skutočných zariadeniach a pri skutočnej súbežnosti. Žiadna brána pred zlúčením ich nevníma, presne z toho mechanizmového dôvodu, ktorý tamtá lekcia pomenovala. Produkcia teda nie je „to po overení“ — produkcia je **koncová brána reťaze** a telemetria je jej mechanizmus. Nasadenie, ktoré nevieš pozorovať, je brána bez snímača.
 
 Minimálna užitočná sada snímačov je malá a oplatí sa ju vymenovať, lebo tímy často merajú všetko a nesledujú nič:
 

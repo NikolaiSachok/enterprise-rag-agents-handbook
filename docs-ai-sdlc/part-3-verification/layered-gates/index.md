@@ -1,12 +1,12 @@
 ---
 title: "Layered gates and mechanism diversity"
-sidebar_position: 1
+slug: /part-3-verification/layered-gates/
 ---
 
 # Every gate is blind to something
 
-Part I argued that [verification, not generation, is the bottleneck](../part-1-foundation/verification-bottleneck.md).
-Part II built the loop that spends generation cheaply and puts a [critic gate before anything lands](../part-2-loop/plan-review-implement-critic.md).
+Part I argued that [verification, not generation, is the bottleneck](../../part-1-foundation/verification-bottleneck.md).
+Part II built the loop that spends generation cheaply and puts a [critic gate before anything lands](../../part-2-loop/plan-review-implement-critic.md).
 This lesson is about the gate itself — and the uncomfortable fact that any single one of them is a single point
 of failure. Not because it was built carelessly, but because its blind spot is a property of its **mechanism**,
 not of its thoroughness. You cannot tune a static analyzer into seeing a stuck runtime state; you cannot make a
@@ -126,4 +126,12 @@ diversity, and every gate's blind spot must be named.** What changes is who name
 - Compose a deterministic gate with a semantic one and treat a hit from either as real. Silence from a gate that
   is blind to the class is not a pass.
 
-**[New terms](../glossary.md#layered-gates)**: layered gates, structural blind spot, mechanism diversity, thoroughness vs coverage, deterministic vs semantic gate, defense in depth.
+**[New terms](../../glossary.md#layered-gates)**: layered gates, structural blind spot, mechanism diversity, thoroughness vs coverage, deterministic vs semantic gate, defense in depth.
+
+---
+
+:::note[Next — part 2 of the lesson]
+
+**[Mutation testing and the order of the chain](./deep-dive.md)** — the deep dive: how to *measure* a gate's detection power instead of trusting its silence, why mutation score is the honest metric, and the arithmetic of ordering a chain so the cheapest-to-invalidate pass runs first.
+
+:::

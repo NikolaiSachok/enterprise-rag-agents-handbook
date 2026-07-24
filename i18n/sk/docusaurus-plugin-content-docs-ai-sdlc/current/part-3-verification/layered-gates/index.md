@@ -1,6 +1,6 @@
 ---
 title: "Vrstvené brány a rozmanitosť mechanizmov"
-sidebar_position: 1
+slug: /part-3-verification/layered-gates/
 ---
 
 # Každá brána je voči niečomu slepá
@@ -62,4 +62,12 @@ Základné pravidlo platí pri každej veľkosti: **jedna brána je jediným bod
 - Zelená brána vypovedá v prvom rade o samotnej bráne, až potom o kóde. Ak si ju nikdy nevidel zlyhať pri chybe, ktorú si zámerne vložil, vieš iba to, že mlčí — nie že funguje.
 - Spoj deterministickú bránu so sémantickou a každý nález ktorejkoľvek z nich považuj za skutočný problém. Ak brána, ktorá je voči danej triede slepá, mlčí, neznamená to, že kontrola prešla.
 
-**[Nové pojmy](../glossary.md#layered-gates)**: vrstvené brány, štrukturálne slepé miesto, rozmanitosť mechanizmov, dôkladnosť a pokrytie, deterministická a sémantická brána, hĺbková ochrana.
+**[Nové pojmy](../../glossary.md#layered-gates)**: vrstvené brány, štrukturálne slepé miesto, rozmanitosť mechanizmov, dôkladnosť a pokrytie, deterministická a sémantická brána, hĺbková ochrana.
+
+---
+
+:::note[Ďalej — druhá časť lekcie]
+
+**[Mutačné testovanie a poradie reťaze](./deep-dive.md)** — prehĺbenie: ako *odmerať* detekčnú silu brány namiesto dôvery v jej ticho, prečo je mutation score čestná metrika, a aritmetika poradia prechodov, pri ktorej ide prvý ten, ktorý je najlacnejšie znehodnotiť.
+
+:::
