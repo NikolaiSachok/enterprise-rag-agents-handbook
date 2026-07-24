@@ -1,0 +1,8 @@
+{
+  "label": "Najnižšie oprávnenia a sandbox",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "part-4-platform/least-privilege-sandboxing/index"
+  }
+}

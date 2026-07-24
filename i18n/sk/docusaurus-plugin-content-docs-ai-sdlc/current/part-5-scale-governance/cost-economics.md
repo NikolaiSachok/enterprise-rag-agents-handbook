@@ -61,7 +61,7 @@ rovnako ako inžinierske: rozhodujúce obmedzenie je ocenené v mzdách, nie v t
 
 Prvé je priradenie, lebo účet, ktorý nevieš nikomu pripísať, sa nedá riadiť — dá sa nad ním len znepokojovať.
 Mechanizmus už máš zo IV. časti: ak sa prihlasovacie údaje vydávajú
-[na úlohu a na workload](../part-4-platform/least-privilege-sandboxing.md), rovnako sa dajú priradiť aj
+[na úlohu a na workload](../part-4-platform/least-privilege-sandboxing/index.md), rovnako sa dajú priradiť aj
 výdavky. Označuj podľa úlohy, nie podľa tímu, a otázka „koľko stála táto funkcia“ prestane byť rečnícka.
 
 Potom to ohranič. Rozpočet na úlohu, ktorý zastaví utekajúcu slučku, je viac než mesačný report, ktorý ju

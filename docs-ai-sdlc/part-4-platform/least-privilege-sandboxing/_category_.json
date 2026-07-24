@@ -1,0 +1,8 @@
+{
+  "label": "Least privilege and sandboxing",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "part-4-platform/least-privilege-sandboxing/index"
+  }
+}

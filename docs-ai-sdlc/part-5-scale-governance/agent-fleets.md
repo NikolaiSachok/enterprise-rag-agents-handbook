@@ -36,7 +36,7 @@ switch can disturb a neighbour.
 
 The cost is real but small and constant: a moment of setup and some disk per agent. The benefit is that an
 entire class of interference stops existing rather than being managed. This is the same trade Part IV made
-with [the sandbox](../part-4-platform/least-privilege-sandboxing.md) — a boundary the platform enforces beats
+with [the sandbox](../part-4-platform/least-privilege-sandboxing/index.md) — a boundary the platform enforces beats
 cooperation you have to trust — and the same reason the fix belongs in the mechanism rather than in an
 instruction telling agents to be careful.
 
